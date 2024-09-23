@@ -71,4 +71,61 @@ extension View {
         //                    .blur(radius: 12)
         //            }
     }
+    
+    func makeCardLayer(width: CGFloat = UIScreen.main.bounds.width / 1.10,
+                       color: Color = .appMainBackground,
+                       radius: CGFloat = 14,
+                       shadowRadius: CGFloat = 8) -> some View {
+        self
+            .frame(maxWidth: width)
+            .background(color)
+            .cornerRadius(radius)
+            .shadow(radius: shadowRadius)
+    }
+    
+    func appBorderOverlay(radius: CGFloat = 20,
+                          lineWidth: CGFloat = 2,
+                          borderColor: Color = .appBackground,
+                          backgroundColor: Color = .appCardBlue, padding: CGFloat = 4) -> some View {
+        self
+            .overlay(
+                RoundedRectangle(cornerRadius: radius).stroke(borderColor, lineWidth: lineWidth)
+            )
+            .padding(padding)
+            .background(backgroundColor)
+            .clipShape(.rect(cornerRadius: radius))
+    }
+}
+
+
+@available(iOS 13.0, *)
+public extension View {
+    
+    @available(iOS 14.0, *)
+    func appFontRegular(size: CGFloat = 14, color: Color = .white) -> some View {
+        self
+            .font(.custom(FONT_REGULAR, fixedSize: size))
+            .foregroundColor(color)
+    }
+    
+    @available(iOS 14.0, *)
+    func appFontMedium(size: CGFloat = 14, color: Color = .white) -> some View {
+        self
+            .font(.custom(FONT_MEDIUM, fixedSize: size))
+            .foregroundColor(color)
+    }
+    
+    @available(iOS 14.0, *)
+    func appFontBold(size: CGFloat = 14, color: Color = .white) -> some View {
+        self
+            .font(.custom(FONT_BOLD, fixedSize: size))
+            .foregroundColor(color)
+    }
+    
+    @available(iOS 14.0, *)
+    func appFontBlack(size: CGFloat = 14, color: Color = .white) -> some View {
+        self
+            .font(.custom(FONT_BLACK, fixedSize: size))
+            .foregroundColor(color)
+    }
 }
