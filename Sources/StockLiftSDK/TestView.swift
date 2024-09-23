@@ -10,7 +10,9 @@ import SwiftUI
 @available(iOS 13.0.0, *)
 struct TestView: View {
     var body: some View {
-        Text("Hello, World from the package!")
+        VStack {
+            Text("Hello, World from the package!")
+        }
     }
 }
 
