@@ -8,12 +8,12 @@
 
 import SwiftUI
 
-//TODO: configure User Service
 @available(iOS 13.0, *)
 final class PlaidViewModel: BaseViewModel {
     
     /// Get Plaid Link Token
     static func getPlaidLinkToken() {
+        //TODO: configure User Service
 //        let defaults = UserDefaults.standard
 //        UserService.shared.fetchLinkToken { result in
 //            switch result {

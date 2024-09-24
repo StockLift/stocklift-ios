@@ -8,6 +8,7 @@
 import SwiftUI
 import MapKit
 
+//TODO: - setup network layer
 @available(iOS 13.0, *)
 final class PortfolioViewModel: BaseViewModel {
     
@@ -50,7 +51,6 @@ final class PortfolioViewModel: BaseViewModel {
         super.init()
         getMarketStatus()
         initView()
-//        Self.logger.info("-----:::: INIT for Portfolio View -------------->")
     }
     
     //MARK: Init
@@ -61,11 +61,10 @@ final class PortfolioViewModel: BaseViewModel {
     }
     
     static public func missingCostBasisMessage(_ date: String) -> String {
-        return "remove this string"
-//        let date: Date = date.toDate() ?? Date()
-//        let formattedDate = date.getFormattedDate(format: "MMM d, yyyy HH:mm")
-//        let message = "Returns for investments without cost basis are calculated from the date asset was detected on \(formattedDate)"
-//        return message
+        let date: Date = date.toDate() ?? Date()
+        let formattedDate = date.getFormattedDate(format: "MMM d, yyyy HH:mm")
+        let message = "Returns for investments without cost basis are calculated from the date asset was detected on \(formattedDate)"
+        return message
     }
 
     /// GET PORTFOLIO

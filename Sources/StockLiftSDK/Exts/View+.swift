@@ -101,31 +101,55 @@ extension View {
 @available(iOS 13.0, *)
 public extension View {
     
-    @available(iOS 14.0, *)
     func appFontRegular(size: CGFloat = 14, color: Color = .white) -> some View {
-        self
-            .font(.custom(FONT_REGULAR, fixedSize: size))
-            .foregroundColor(color)
+        if #available(iOS 14.0, *) {
+            self
+                .font(.custom(FontNames.FONT_REGULAR, fixedSize: size))
+                .foregroundColor(color)
+        } else {
+            // Fallback on earlier versions
+            self
+                .font(.system(size: size, weight: .regular, design: .default))
+                .foregroundColor(color)
+        }
     }
     
-    @available(iOS 14.0, *)
     func appFontMedium(size: CGFloat = 14, color: Color = .white) -> some View {
-        self
-            .font(.custom(FONT_MEDIUM, fixedSize: size))
-            .foregroundColor(color)
+        if #available(iOS 14.0, *) {
+            self
+                .font(.custom(FontNames.FONT_MEDIUM, fixedSize: size))
+                .foregroundColor(color)
+        } else {
+            // Fallback on earlier versions
+            self
+                .font(.system(size: size, weight: .medium, design: .default))
+                .foregroundColor(color)
+        }
     }
     
-    @available(iOS 14.0, *)
     func appFontBold(size: CGFloat = 14, color: Color = .white) -> some View {
-        self
-            .font(.custom(FONT_BOLD, fixedSize: size))
-            .foregroundColor(color)
+        if #available(iOS 14.0, *) {
+            self
+                .font(.custom(FontNames.FONT_BOLD, fixedSize: size))
+                .foregroundColor(color)
+        } else {
+            // Fallback on earlier versions
+            self
+                .font(.system(size: size, weight: .bold, design: .default))
+                .foregroundColor(color)
+        }
     }
     
-    @available(iOS 14.0, *)
     func appFontBlack(size: CGFloat = 14, color: Color = .white) -> some View {
-        self
-            .font(.custom(FONT_BLACK, fixedSize: size))
-            .foregroundColor(color)
+        if #available(iOS 14.0, *) {
+            self
+                .font(.custom(FontNames.FONT_BLACK, fixedSize: size))
+                .foregroundColor(color)
+        } else {
+            // Fallback on earlier versions
+            self
+                .font(.system(size: size, weight: .black, design: .default))
+                .foregroundColor(color)
+        }
     }
 }

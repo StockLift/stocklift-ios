@@ -10,6 +10,7 @@ import SwiftUI
 @available(iOS 13.0, *)
 extension Color {
     
+    // APP COLORS
     static let appBlue: Color = Color("app-blue")
     static let appRed: Color = Color("app-red")
     static let appLightGray: Color = Color("app-light-gray")
@@ -26,13 +27,8 @@ extension Color {
     static let appSectorCards: Color = Color("sector-cards")
     static let appCardBlue: Color = Color("app-card-blue")
     
-    
-    // PIE CHART
-//    static let chartDarkBlue: Color = Color("chart-dark-blue")
-//    static let chartLightkBlue: Color = Color("chart-light-blue")
-//    static let chartTeal: Color = Color("chart-teal")
-//    static let chartGold: Color = Color("chart-gold")
-    
+
+    // CHART COLORS
     static let chartOne: Color = Color("chart-1")
     static let chartTwo: Color = Color("chart-2")
     static let chartThree: Color = Color("chart-3")

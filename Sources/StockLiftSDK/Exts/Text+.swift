@@ -13,44 +13,52 @@ public extension Text {
     func appFontRegular(size: CGFloat = 14, color: Color = .white) -> some View {
         if #available(iOS 14.0, *) {
             self
-                .font(.custom(FONT_REGULAR, fixedSize: size))
+                .font(.custom(FontNames.FONT_REGULAR, fixedSize: size))
                 .foregroundColor(color)
         } else {
             // Fallback on earlier versions
             self
+                .font(.system(size: size, weight: .regular, design: .default))
+                .foregroundColor(color)
         }
     }
     
     func appFontMedium(size: CGFloat = 14, color: Color = .white) -> some View {
         if #available(iOS 14.0, *) {
             self
-                .font(.custom(FONT_MEDIUM, fixedSize: size))
+                .font(.custom(FontNames.FONT_MEDIUM, fixedSize: size))
                 .foregroundColor(color)
         } else {
             // Fallback on earlier versions
             self
+                .font(.system(size: size, weight: .medium, design: .default))
+                .foregroundColor(color)
         }
     }
     
     func appFontBold(size: CGFloat = 14, color: Color = .white) -> some View {
         if #available(iOS 14.0, *) {
             self
-                .font(.custom(FONT_BOLD, fixedSize: size))
+                .font(.custom(FontNames.FONT_BOLD, fixedSize: size))
                 .foregroundColor(color)
         } else {
             // Fallback on earlier versions
             self
+                .font(.system(size: size, weight: .bold, design: .default))
+                .foregroundColor(color)
         }
     }
     
     func appFontBlack(size: CGFloat = 14, color: Color = .white) -> some View {
         if #available(iOS 14.0, *) {
             self
-                .font(.custom(FONT_BLACK, fixedSize: size))
+                .font(.custom(FontNames.FONT_BLACK, fixedSize: size))
                 .foregroundColor(color)
         } else {
             // Fallback on earlier versions
             self
+                .font(.system(size: size, weight: .black, design: .default))
+                .foregroundColor(color)
         }
     }
 }

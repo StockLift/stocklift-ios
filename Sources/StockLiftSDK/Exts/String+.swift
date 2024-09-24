@@ -25,4 +25,14 @@ extension String {
         return formatter.date(from: self)
     }
     
+    // Yahoo Dates
+    // 2022-08-11T21:00:54Z
+    func toDate(format: String = "yyyy-MM-dd'T'HH:mm:ss.SSSZ") -> Date? {
+        let formatter = DateFormatter()
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        formatter.locale = Locale.current
+        formatter.dateFormat = format
+        return formatter.date(from: self)
+    }
+    
 }

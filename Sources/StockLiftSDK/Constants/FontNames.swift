@@ -8,7 +8,10 @@
 import Foundation
 
 /// Fonts
-public let FONT_REGULAR = "Roboto-Regular"
-public let FONT_MEDIUM = "Roboto-Medium"
-public let FONT_BOLD = "Roboto-Bold"
-public let FONT_BLACK = "Roboto-Black"
+enum FontNames {
+    static let FONT_REGULAR = "Roboto-Regular"
+    static let FONT_MEDIUM = "Roboto-Medium"
+    static let FONT_BOLD = "Roboto-Bold"
+    static let FONT_BLACK = "Roboto-Black"
+}
+

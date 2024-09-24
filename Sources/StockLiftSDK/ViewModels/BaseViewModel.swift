@@ -17,6 +17,7 @@ open class BaseViewModel: ObservableObject {
     
     /// ERROR ALERT HANDLER
     public func handleAlert(err: SLError, codeSheet: String, complete: @escaping () -> Void) {
+        //TODO: - setup
 //        DispatchQueue.main.async {
 //            switch err {
 //            case .logOut:

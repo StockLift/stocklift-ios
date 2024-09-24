@@ -23,16 +23,4 @@ public enum SLError: String, Error {
     case duplicateAccount = "Oops it looks like you have already linked one of these accounts, try again with a new account."
     case countryNotSupported = "Apologies, but at this time we do not support this country. We are working to get there though!"
     case canNotClaim = "You can not claim this."
-    
-//    func errHandler(_ type: SLError, slType: SlackMessageType, codeSheet: String?, message: String?, data: String?, firstName: String?, lastName: String?, email: String?) -> SLError {
-//        UserService.shared.slackMessage(type: slType, codeSheet: codeSheet, message: message, data: data, firstname: firstName, lastname: lastName, email: email) { result in
-//            switch result {
-//            case .success(let success):
-//                print(success)
-//            case .failure(let failure):
-//                print(failure)
-//            }
-//        }
-//        return type
-//    }
 }
