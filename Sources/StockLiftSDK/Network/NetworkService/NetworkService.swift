@@ -12,30 +12,31 @@ import os
 
 //TODO: - finish setup
 @available(iOS 13.0, *)
-public final class NetworkService {
+public final class NetworkService: StockLiftSDK {
     
-    private init() { }
+    private override init() {
+        super.init()
+    }
+    
     //TODO: - investigate what this issue is - it does not show in the main app package
     @MainActor public static let shared = NetworkService()
-//    static let oneSignalAppId = OneSignalHelper.appId
-    private let defaults = UserDefaults.standard
-    
-    public static let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
-    public static let buildVersion = Bundle.main.infoDictionary?["CFBundleVersion"] as? String
-    
-//    var deviceId: String {
+//    @MainActor var deviceId: String {
 //        UIDevice.current.identifierForVendor?.uuidString ?? "NO_DEVICE_ID"
 //    }
+    
+    private let defaults = UserDefaults.standard
+    public static let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+    public static let buildVersion = Bundle.main.infoDictionary?["CFBundleVersion"] as? String
     
     /// HEADERS
     var baseHeaders: [String : String] {
         return [
             "Accept": "application/json",
             "Content-Type": "application/json",
-            "Authorization": "Bearer \(defaults.string(forKey: UserKeys.jwToken) ?? "NO_ACCESS_TOKEN")",
-            "uid": "\(defaults.string(forKey: UserKeys.userUuid) ?? "NO_UID")",
+            "Authorization": "Bearer \(Self.accessToken!)",
+//            "id": "\(defaults.string(forKey: UserKeys.userUuid) ?? "NO_UID")",
 //            "Device-ID": "\(deviceId)",
-            "App-Version": "\(NetworkService.appVersion?.replacingOccurrences(of: ".", with: "") ?? "version_null")"
+//            "App-Version": "\(NetworkService.appVersion?.replacingOccurrences(of: ".", with: "") ?? "version_null")"
         ]
     }
     

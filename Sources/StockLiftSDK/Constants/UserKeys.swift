@@ -13,11 +13,9 @@ public enum UserKeys: Identifiable, CaseIterable {
     public var id: String { "\(self)" }
     
 //    public static let appStoreId = "itms-apps://itunes.apple.com/app/1553250387"
-//    
-    public static let jwToken = "co.sdk.stocklift_jsonwebtoken"
 //    public static let jwTokenDate = "co.stocklift_jsonwebtoken_date"
 //    public static let linkToken = "co.stocklift_linkToken"
-    public static let userUuid = "co.sdk.stocklift_useruid"
+//    public static let userUuid = "co.sdk.stocklift_useruid"
 //    public static let uiImage = "co.stocklift_ui_image"
     public static let userObj = "co.sdk.stocklift_stock_lift_user"
 //    public static let indexStatus = "co.stocklift_index_status"
