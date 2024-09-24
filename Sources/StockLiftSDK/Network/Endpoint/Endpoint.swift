@@ -8,6 +8,7 @@
 
 import Foundation
 
+//TODO: - finish setup
 fileprivate enum AppEnv {
     case prod, dev
     
