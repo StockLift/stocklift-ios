@@ -44,7 +44,7 @@ public extension NetworkService {
     }
     
     /// GROWTH Chart
-    @MainActor func getGrowthChart(userUuid: String, with session: URLSession = .shared, complete: @escaping @Sendable (Result<(), SLError>) -> Void) {
+    @MainActor func getGrowthChart(userUuid: String, with session: URLSession = .shared, complete: @escaping @Sendable (Result<GrowthChartResponse, SLError>) -> Void) {
         session.request(.getPortfolio, method: .get, body: nil) { data, response, error in
             if let _ = error {
                 complete(.failure(.unableToComplete))
@@ -56,22 +56,20 @@ public extension NetworkService {
                 return
             }
             
-            guard let _ = data else {
+            guard let data = data else {
                 complete(.failure(.invalidData))
                 return
             }
-            
-            complete(.success(()))
-            
-//            do {
-//                let decoder = JSONDecoder()
-//                let res = try decoder.decode(PortfolioResponse.self, from: data)
-//                complete(.success(res))
-//                return
-//            } catch {
+    
+            do {
+                let decoder = JSONDecoder()
+                let res = try decoder.decode(GrowthChartResponse.self, from: data)
+                complete(.success(res))
+                return
+            } catch {
 //                Self.logger.error("\(error)")
-//                complete(.failure(.invalidData))
-//            }
+                complete(.failure(.invalidData))
+            }
         }
     }
     
