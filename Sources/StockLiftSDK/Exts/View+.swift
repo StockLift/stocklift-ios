@@ -95,6 +95,26 @@ extension View {
             .background(backgroundColor)
             .clipShape(.rect(cornerRadius: radius))
     }
+    
+    /// SCROLL VIEW Shading
+    func setScrollBorderShading() -> some View {
+        self
+            .mask(
+                VStack(spacing: 0) {
+                    LinearGradient(gradient: Gradient(colors: [Color.black.opacity(0), Color.black]),
+                                   startPoint: .top,
+                                   endPoint: .bottom
+                    )
+                    .frame(height: 14)
+                    Rectangle().fill(Color.black)
+                    LinearGradient(gradient: Gradient(colors: [Color.black, Color.black.opacity(0)]),
+                                   startPoint: .top,
+                                   endPoint: .bottom
+                    )
+                    .frame(height: 20)
+                }
+            )
+    }
 }
 
 
@@ -151,5 +171,15 @@ public extension View {
                 .font(.system(size: size, weight: .black, design: .default))
                 .foregroundColor(color)
         }
+    }
+    
+    func headerFont(_ color: Color = .appBlue) -> some View {
+        self
+            .appFontMedium(size: 10, color: color)
+    }
+    
+    func bodyFont(_ color: Color = .white) -> some View {
+        self
+            .appFontRegular(size: 10, color: color)
     }
 }

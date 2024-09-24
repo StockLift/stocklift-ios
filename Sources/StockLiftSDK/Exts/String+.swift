@@ -35,4 +35,13 @@ extension String {
         return formatter.date(from: self)
     }
     
+    // Twelve Data time series for Charts
+    var getDateFromTimeSeries: Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.timeZone = TimeZone(abbreviation: "EST") ?? TimeZone.current
+        dateFormatter.locale = Locale.current
+        return dateFormatter.date(from: self) ?? Date()
+    }
+    
 }

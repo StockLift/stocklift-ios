@@ -16,4 +16,13 @@ extension Date {
         dateformat.dateFormat = format
         return dateformat.string(from: self)
     }
+    
+    // Send Date to server
+    var iso8601: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale.current
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        return dateFormatter.string(from: self)
+    }
 }

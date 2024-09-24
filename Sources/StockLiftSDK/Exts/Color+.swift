@@ -8,7 +8,7 @@
 import SwiftUI
 
 @available(iOS 13.0, *)
-extension Color {
+public extension Color {
     
     // APP COLORS
     static let appBlue: Color = Color("app-blue")
