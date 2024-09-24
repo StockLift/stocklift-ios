@@ -11,12 +11,12 @@ import StockLiftSDK
 struct ContentView: View {
     var body: some View {
         VStack {
-            TestView()
+            GrowthChartCard()
         }
         .padding()
     }
 }
 
-//#Preview {
-//    ContentView()
-//}
+#Preview {
+    ContentView()
+}

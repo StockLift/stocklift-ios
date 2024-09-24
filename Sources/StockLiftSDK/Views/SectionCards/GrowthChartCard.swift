@@ -8,27 +8,27 @@
 
 import SwiftUI
 
-@available(iOS 13.0, *)
-struct GrowthChartCard: View {
-    @ObservedObject var portfolioVM: PortfolioViewModel
-    @Binding var showAddAsset: Bool
-    @State private var selected = ""
+@available(iOS 14.0, *)
+public struct GrowthChartCard: View {
+    @StateObject private var growthChartVM = GrowthChartViewModel()
     
-    var body: some View {
+    public init() { }
+    
+    public var body: some View {
         VStack {
             Text("Portfolio Growth Projections")
                 .appFontRegular()
                 .padding(.top)
             
-            if portfolioVM.hasAccountConnected {
+            if growthChartVM.hasAccountConnected {
                 Spacer()
-                LineChart(chartdata: portfolioVM.growthChartEntries, dateType: .all)
+                LineChart(chartdata: growthChartVM.growthChartEntries, dateType: .all)
                     .frame(height: 250)
                     .padding(.horizontal)
                     .padding(.bottom, 28)
                     .padding(.top)
             } else {
-                LinkAccountView(portfolioVM: portfolioVM, plaidError: plaidError)
+                LinkAccountView(plaidError: plaidError)
                     .padding()
                     .padding(.bottom)
                     .padding(.bottom)
@@ -39,7 +39,7 @@ struct GrowthChartCard: View {
     }
     
     private func plaidError() {
-        portfolioVM.handleAlert(err: .duplicateAccount, codeSheet: "Onboard Porfolio") { }
+        growthChartVM.handleAlert(err: .duplicateAccount, codeSheet: "Onboard Porfolio") { }
     }
 }
 

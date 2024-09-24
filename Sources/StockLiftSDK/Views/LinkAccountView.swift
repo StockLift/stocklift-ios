@@ -11,7 +11,7 @@ import SwiftUI
 
 @available(iOS 13.0, *)
 struct LinkAccountView: View {
-    @ObservedObject var portfolioVM: PortfolioViewModel
+//    @ObservedObject var portfolioVM: PortfolioViewModel
     let plaidError: () -> Void
     
     var body: some View {

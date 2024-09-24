@@ -12,8 +12,6 @@ import Charts
 @available(iOS 15.0, *)
 struct SectorChartCard: View {
     @ObservedObject var portfolioVM: PortfolioViewModel
-    @State private var nullDate = ""
-    @State private var nullCostBasis = true
     
     private var screenWidth: Double {
         let screen = UIScreen.main.bounds.width
@@ -77,7 +75,7 @@ struct SectorChartCard: View {
                 /// SECTOR ** SCROLL View
                 SectorScrollView
             } else {
-                LinkAccountView(portfolioVM: portfolioVM, plaidError: plaidError)
+                LinkAccountView(plaidError: plaidError)
                     .padding()
             }
 
