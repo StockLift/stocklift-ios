@@ -13,14 +13,13 @@ public struct GrowthChartCard: View {
     @StateObject private var growthChartVM = GrowthChartViewModel()
     
     public init() { }
-    
     public var body: some View {
         VStack {
             Text("Portfolio Growth Projections")
                 .appFontRegular()
                 .padding(.top)
             
-            if growthChartVM.hasAccountConnected {
+            if !growthChartVM.growthChartEntries.isEmpty {
                 Spacer()
                 LineChart(chartdata: growthChartVM.growthChartEntries, dateType: .all)
                     .frame(height: 250)

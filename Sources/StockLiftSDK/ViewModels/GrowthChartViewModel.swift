@@ -10,7 +10,6 @@ import SwiftUI
 @available(iOS 13.0, *)
 final class GrowthChartViewModel: BaseViewModel {
     
-    @Published var hasAccountConnected: Bool = false
     @Published var growthChartEntries: [ChartData] = []
     
     override init() {
@@ -31,7 +30,6 @@ final class GrowthChartViewModel: BaseViewModel {
             let data = try await NetworkService.shared.getGrowthChart(userUuid: uuid)
             DispatchQueue.main.async {
                 self.growthChartEntries = PortfolioChartUtils.setGrowthChart(data)
-                self.hasAccountConnected = self.growthChartEntries.isEmpty ? false : true
             }
         } catch {
             print(error)
