@@ -15,12 +15,17 @@ final class GrowthChartViewModel: BaseViewModel {
     
     override init() {
         super.init()
+        getChartData()
+    }
+    
+    func getChartData() {
         Task {
             await getGrowthChartData()
         }
     }
     
-    func getGrowthChartData() async {
+    private func getGrowthChartData() async {
+        //TODO: set uuid
         let uuid = "2jTIUY4T4TNZ71spCqwBsk9Zxpv2"
         do {
             let data = try await NetworkService.shared.getGrowthChart(userUuid: uuid)
