@@ -11,7 +11,7 @@ import UIKit
 
 @available(iOS 13.0, *)
 public extension URLSession {
-//    typealias Handler = (Data?, URLResponse?, Error?) -> Void
+    typealias Handler = (Data?, URLResponse?, Error?) -> Void
     
 //    @discardableResult
 //    func request(_ endpoint: Endpoint, method: UserService.Methods, the handler: @escaping Handler) -> URLSessionDataTask {
@@ -48,7 +48,7 @@ public extension URLSession {
 //    }
     
     @discardableResult
-    func request(_ endpoint: Endpoint, method: NetworkService.Methods, body: Data?, the handler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
+    func request(_ endpoint: Endpoint, method: NetworkService.Methods, body: Data?, the handler: @escaping Handler) -> URLSessionDataTask {
         var request = URLRequest(url: endpoint.url)
         request.allHTTPHeaderFields = NetworkService.shared.baseHeaders
         request.httpMethod = method.rawValue

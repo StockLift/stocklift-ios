@@ -9,40 +9,6 @@ import Foundation
 
 @available(iOS 13.0, *)
 public extension NetworkService {
-    //MARK: ***************************************************************** SECTOR CHART **************************************************
-    /// SECTOR Chart
-    @MainActor func getSectorChart(userUuid: String, with session: URLSession = .shared, complete: @escaping @Sendable (Result<(), SLError>) -> Void) {
-        session.request(.getPortfolio, method: .get, body: nil) { data, response, error in
-            if let _ = error {
-                complete(.failure(.unableToComplete))
-                return
-            }
-            
-            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-                complete(.failure(.invalidResponse))
-                return
-            }
-            
-            guard let _ = data else {
-                complete(.failure(.invalidData))
-                return
-            }
-            
-            complete(.success(()))
-            
-//            do {
-//                let decoder = JSONDecoder()
-//                let res = try decoder.decode(PortfolioResponse.self, from: data)
-//                complete(.success(res))
-//                return
-//            } catch {
-//                Self.logger.error("\(error)")
-//                complete(.failure(.invalidData))
-//            }
-        }
-    }
-    
-    
     //MARK: ***************************************************************** GROWTH CHART **************************************************
     /// GROWTH CHART - async/await
     func getGrowthChart(userUuid: String) async throws -> [GrowthTimeline] {
@@ -75,7 +41,7 @@ public extension NetworkService {
                 complete(.failure(.invalidData))
                 return
             }
-    
+            
             do {
                 let decoder = JSONDecoder()
                 let res = try decoder.decode(GrowthChartResponse.self, from: data)
@@ -85,6 +51,39 @@ public extension NetworkService {
                 print(error)
                 complete(.failure(.invalidData))
             }
+        }
+    }
+    
+    //MARK: ***************************************************************** SECTOR CHART **************************************************
+    /// SECTOR Chart
+    @MainActor func getSectorChart(userUuid: String, with session: URLSession = .shared, complete: @escaping @Sendable (Result<(), SLError>) -> Void) {
+        session.request(.getPortfolio, method: .get, body: nil) { data, response, error in
+            if let _ = error {
+                complete(.failure(.unableToComplete))
+                return
+            }
+            
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                complete(.failure(.invalidResponse))
+                return
+            }
+            
+            guard let _ = data else {
+                complete(.failure(.invalidData))
+                return
+            }
+            
+            complete(.success(()))
+            
+            //            do {
+            //                let decoder = JSONDecoder()
+            //                let res = try decoder.decode(PortfolioResponse.self, from: data)
+            //                complete(.success(res))
+            //                return
+            //            } catch {
+            //                Self.logger.error("\(error)")
+            //                complete(.failure(.invalidData))
+            //            }
         }
     }
     
@@ -109,15 +108,15 @@ public extension NetworkService {
             
             complete(.success(()))
             
-//            do {
-//                let decoder = JSONDecoder()
-//                let res = try decoder.decode(PortfolioResponse.self, from: data)
-//                complete(.success(res))
-//                return
-//            } catch {
-//                Self.logger.error("\(error)")
-//                complete(.failure(.invalidData))
-//            }
+            //            do {
+            //                let decoder = JSONDecoder()
+            //                let res = try decoder.decode(PortfolioResponse.self, from: data)
+            //                complete(.success(res))
+            //                return
+            //            } catch {
+            //                Self.logger.error("\(error)")
+            //                complete(.failure(.invalidData))
+            //            }
         }
     }
 }

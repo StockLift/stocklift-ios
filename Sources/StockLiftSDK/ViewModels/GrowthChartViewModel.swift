@@ -26,6 +26,7 @@ final class GrowthChartViewModel: BaseViewModel {
             let data = try await NetworkService.shared.getGrowthChart(userUuid: uuid)
             DispatchQueue.main.async {
                 self.growthChartEntries = PortfolioChartUtils.setGrowthChart(data)
+                self.hasAccountConnected = self.growthChartEntries.isEmpty ? false : true
             }
         } catch {
             print(error)
