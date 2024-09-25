@@ -47,8 +47,8 @@ public extension URLSession {
 //        return task
 //    }
     
-    @MainActor @discardableResult
-    func request(_ endpoint: Endpoint, method: NetworkService.Methods, body: Data?, the handler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
+    @discardableResult
+    func request(_ endpoint: Endpoint, method: NetworkService.Methods, body: Data?, the handler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
         var request = URLRequest(url: endpoint.url)
         request.allHTTPHeaderFields = NetworkService.shared.baseHeaders
         request.httpMethod = method.rawValue

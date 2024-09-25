@@ -9,8 +9,7 @@ import Foundation
 
 @available(iOS 13.0, *)
 public extension NetworkService {
-    // CHARTS
-    
+    //MARK: ***************************************************************** SECTOR CHART **************************************************
     /// SECTOR Chart
     @MainActor func getSectorChart(userUuid: String, with session: URLSession = .shared, complete: @escaping @Sendable (Result<(), SLError>) -> Void) {
         session.request(.getPortfolio, method: .get, body: nil) { data, response, error in
@@ -43,8 +42,24 @@ public extension NetworkService {
         }
     }
     
+    
+    //MARK: ***************************************************************** GROWTH CHART **************************************************
+    /// GROWTH CHART - async/await
+    func getGrowthChart(userUuid: String) async throws -> [GrowthTimeline] {
+        return try await withCheckedThrowingContinuation { continuation in
+            getGrowthChart(userUuid: userUuid, with: .shared) { result in
+                switch result {
+                case .success(let res):
+                    continuation.resume(returning: res.data)
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
+    }
+    
     /// GROWTH Chart
-    @MainActor func getGrowthChart(userUuid: String, with session: URLSession = .shared, complete: @escaping @Sendable (Result<GrowthChartResponse, SLError>) -> Void) {
+    func getGrowthChart(userUuid: String, with session: URLSession = .shared, complete: @escaping (Result<GrowthChartResponse, SLError>) -> Void) {
         session.request(.getPortfolio, method: .get, body: nil) { data, response, error in
             if let _ = error {
                 complete(.failure(.unableToComplete))
@@ -67,12 +82,13 @@ public extension NetworkService {
                 complete(.success(res))
                 return
             } catch {
-//                Self.logger.error("\(error)")
+                print(error)
                 complete(.failure(.invalidData))
             }
         }
     }
     
+    //MARK: ***************************************************************** PERFORMANCE CHART **************************************************
     /// PERFORMANCE Chart
     @MainActor func getPerformanceChart(userUuid: String, with session: URLSession = .shared, complete: @escaping @Sendable (Result<(), SLError>) -> Void) {
         session.request(.getPortfolio, method: .get, body: nil) { data, response, error in

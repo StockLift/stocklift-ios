@@ -18,15 +18,14 @@ public final class NetworkService: StockLiftSDK {
         super.init()
     }
     
-    //TODO: - investigate what this issue is - it does not show in the main app package
-    @MainActor public static let shared = NetworkService()
-//    @MainActor var deviceId: String {
-//        UIDevice.current.identifierForVendor?.uuidString ?? "NO_DEVICE_ID"
-//    }
+    public static let shared = NetworkService()
     
     private let defaults = UserDefaults.standard
     public static let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
     public static let buildVersion = Bundle.main.infoDictionary?["CFBundleVersion"] as? String
+    var deviceId: String {
+        UIDevice.current.identifierForVendor?.uuidString ?? "NO_DEVICE_ID"
+    }
     
     /// HEADERS
     var baseHeaders: [String : String] {
@@ -35,8 +34,7 @@ public final class NetworkService: StockLiftSDK {
             "Content-Type": "application/json",
             "Authorization": "Bearer \(Self.accessToken!)",
 //            "id": "\(defaults.string(forKey: UserKeys.userUuid) ?? "NO_UID")",
-//            "Device-ID": "\(deviceId)",
-//            "App-Version": "\(NetworkService.appVersion?.replacingOccurrences(of: ".", with: "") ?? "version_null")"
+            "Device-ID": "\(deviceId)",
         ]
     }
     
