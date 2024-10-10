@@ -12,13 +12,16 @@ import SwiftUI
 public struct GrowthChartCard: View {
     
     @StateObject private var growthChartVM = GrowthChartViewModel()
-    var linkAccountForegroundColor: Color = .white
-    var linkAccountBackgroundColor: Color = .yellow
+    let linkAccountForegroundColor: Color
+    let linkAccountBackgroundColor: Color
+    let chartHeader: String
     
-    public init() { }
-    public init(linkAccountForegroundColor: Color, linkAccountBackgroundColor: Color) {
+    public init(linkAccountForegroundColor: Color = .white,
+                linkAccountBackgroundColor: Color = .yellow,
+                chartHeader: String = "Portfolio Growth Projections") {
         self.linkAccountForegroundColor = linkAccountForegroundColor
         self.linkAccountBackgroundColor = linkAccountBackgroundColor
+        self.chartHeader = chartHeader
     }
     
     public var body: some View {
@@ -34,7 +37,7 @@ public struct GrowthChartCard: View {
                 .padding(.bottom)
                 
             } else {
-                Text("Portfolio Growth Projections")
+                Text(chartHeader)
                     .appFontRegular()
                     .padding(.top)
                 Spacer()

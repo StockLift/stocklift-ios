@@ -13,23 +13,16 @@ final class PlaidViewModel: BaseViewModel {
     
     /// Get Plaid Link Token
     static func getPlaidLinkToken() {
-        //TODO: configure User Service
-//        let defaults = UserDefaults.standard
-//        UserService.shared.fetchLinkToken { result in
-//            switch result {
-//            case .success(let res):
-//                let accounts = res.accounts
-//                defaults.set(res.linkToken, forKey: UserKeys.linkToken)
-//                do {
-//                    try defaults.setObject(accounts, forKey: UserKeys.plaidAccounts)
-//                } catch {
-//                    print(error.localizedDescription)
-//                }
-//                
-//            case .failure(let err):
-//                print("[[ !!ERROR!! Getting plaid link token ]] \(err)")
-//            }
-//        }
+        NetworkService.shared.getPlaidLinkToken { result in
+            switch result {
+            case .success(let res):
+                DispatchQueue.main.sync {
+                    UserDefaults.standard.set(res.linkToken, forKey: UserKeys.linkToken)
+                }
+            case .failure(let err):
+                print(err)
+            }
+        }
     }
 }
 
