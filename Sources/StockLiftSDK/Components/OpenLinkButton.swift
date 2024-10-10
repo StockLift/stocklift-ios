@@ -55,7 +55,7 @@ struct OpenLinkButton<Content: View>: View {
         return []
     }
 
-    /// 1st - request to PLAID for Public Token
+    /// 1st - User Links account and gets plaid access token
     private func createLinkTokenConfiguration() -> LinkTokenConfiguration {
         var configuration = LinkTokenConfiguration(
             token: self.token,
@@ -139,11 +139,27 @@ private struct PlaidLinkFlow: View {
 
 
 extension OpenLinkButton {
-    /// 2nd - request through server to Plaid for Access Token
+    /// 2nd - Exchange plaid token for public access token
     func exchangeToken(token: String, name: String, id: String, accounts: [PlaidAccount], plaidError: PlaidError?) {
-        PlaidViewModel.exchangeToken(token: token, name: name, id: id, accounts: accounts)
+        /// - SLClient
+        let client: SLClient = .init(
+            uuid: "123",
+            name: "First Last",
+            email: "email@example.com"
+        )
+        /// - Plaid Linked Account
+        let linkAccount: PlaidLinkAccount = .init(
+            token: token,
+            name: name,
+            id: id,
+            accounts: accounts
+        )
+        PlaidViewModel.exchangeToken(
+            client: client,
+            linkAccount: linkAccount
+        )
         
-//        UserService.shared.exchangeToken(publicToken: token, name: institutionName, id: instutionId, accounts: accounts) { result in
+        //        UserService.shared.exchangeToken(publicToken: token, name: institutionName, id: instutionId, accounts: accounts) { result in
 //            switch result {
 //            case .success(_):
 //                DispatchQueue.main.async {

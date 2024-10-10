@@ -8,6 +8,8 @@
 
 import SwiftUI
 
+
+
 @available(iOS 13.0, *)
 final class PlaidViewModel: BaseViewModel {
 
@@ -28,8 +30,12 @@ final class PlaidViewModel: BaseViewModel {
     }
     
     /// 2nd - request through server to Plaid for Access Token
-    static func exchangeToken(token: String, name: String, id: String, accounts: [PlaidAccount]) {
-        let request = PlaidExchangeRequest(publicToken: token, institutionName: name, institutionId: id, accounts: accounts)
+    static func exchangeToken(client: SLClient, linkAccount: PlaidLinkAccount) {
+        let request = PlaidExchangeRequest(publicToken: linkAccount.token,
+                                           institutionName: linkAccount.name,
+                                           institutionId: linkAccount.id,
+                                           accounts: linkAccount.accounts,
+                                           client: client)
         NetworkService.shared.exchangePlaidToken(request: request) { result in
             switch result {
             case .success(let success):
@@ -38,28 +44,6 @@ final class PlaidViewModel: BaseViewModel {
                 print(failure)
             }
         }
-        
-        
-        
-        
-        
-//        UserService.shared.exchangeToken(publicToken: token, name: institutionName, id: instutionId, accounts: accounts) { result in
-//            switch result {
-//            case .success(_):
-//                DispatchQueue.main.async {
-//                    if let error = plaidError {
-//                        self.removeOldToken(err: error)
-//                    } else {
-//                        getPortfolio()
-//                    }
-//                }
-//            case .failure(let error):
-//                print("⛔️ ERROR: Getting Access Token ⛔️\n\(error.localizedDescription)")
-//                FBAuth.sendSlackMessage(codeSheet: "Exchange Token Plaid",
-//                                      message: "\(error.rawValue)",
-//                                      data: "UUID: \(userUuid ?? "")")
-//            }
-//        }
     }
 }
 
