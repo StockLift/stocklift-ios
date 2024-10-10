@@ -15,9 +15,12 @@ public class StockLiftSDK {
     static public var accessToken: String? = nil
     static public var userUuid: String? = nil
     
+    
     public init() {
         guard let token = Self.accessToken, !token.isEmpty else {
-            fatalError("You must set your API Key in the StockLiftSDK.accessToken variable. https://sdk-stocklift.co/docs/")
+            fatalError("""
+\n\n*** StockLift SDK ERROR ***\nYou must set your API Key in the StockLiftSDK.accessToken variable.\n\nhttps://sdk-stocklift.co/docs/\n\n
+""")
         }
     }
 }
