@@ -21,13 +21,13 @@ public struct GrowthChartCard: View {
             
             if !growthChartVM.growthChartEntries.isEmpty {
                 Spacer()
-                LineChart(chartdata: growthChartVM.growthChartEntries, dateType: .all)
+                LineChart(chartData: growthChartVM.growthChartEntries, dateType: .all)
                     .frame(height: 250)
                     .padding(.horizontal)
                     .padding(.bottom, 28)
                     .padding(.top)
             } else {
-                LinkAccountView(plaidError: plaidError)
+                LinkAccountView(plaidError: plaidError, getPortfolio: getPortfolio)
                     .padding()
                     .padding(.bottom)
                     .padding(.bottom)
@@ -39,6 +39,10 @@ public struct GrowthChartCard: View {
     
     private func plaidError() {
         growthChartVM.handleAlert(err: .duplicateAccount, codeSheet: "Onboard Porfolio") { }
+    }
+    
+    private func getPortfolio() {
+        //TODO: config get portfolio
     }
 }
 

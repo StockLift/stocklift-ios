@@ -12,6 +12,7 @@ import SwiftUI
 @available(iOS 13.0, *)
 struct LinkAccountView: View {
     let plaidError: () -> Void
+    let getPortfolio: () -> Void
     
     var body: some View {
         if #available(iOS 16.0, *) {
@@ -23,7 +24,7 @@ struct LinkAccountView: View {
                         .kerning(1.5)
                 }
                 .padding()
-                .appBorderOverlay(borderColor: .appYellow)
+                .appBorderOverlay(borderColor: .yellow)
                 
                 //TODO: - config Plaid
                 OpenLinkButton(getPortfolio: getPortfolio, errorHandler: plaidError, plaidAccountError: .constant(nil)) {
@@ -32,7 +33,7 @@ struct LinkAccountView: View {
                         .scaledToFit()
                         .frame(width: 44, height: 44)
                         .background(Color.white)
-                        .foregroundColor(Color.appYellow)
+                        .foregroundColor(Color.yellow)
                         .clipShape(Circle())
                 }
             }
@@ -43,9 +44,5 @@ struct LinkAccountView: View {
             Text("Update your phone please")
                 .appFontBold()
         }
-    }
-    
-    private func getPortfolio() {
-        //TODO: config get portfolio
     }
 }

@@ -34,7 +34,7 @@ struct EditCostBasisView: View {
 //                .padding(.vertical)
             
             Text("Please wait 24hrs for all data to update")
-                .appFontRegular(size: 10, color: .appGray)
+                .appFontRegular(size: 10, color: .gray)
                 .padding(.vertical, 8)
             
 //            SLButton("Submit")

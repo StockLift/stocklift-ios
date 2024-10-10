@@ -58,7 +58,7 @@ struct AssetDetailCell: View {
                                 .appFontRegular(size: assetVM.isCash ? 14 : 12)
                                 .shadow(radius: 2)
                                 .frame(width: 40, height: 40)
-                                .background(Color.appBlue)
+                                .background(Color.blue)
                                 .clipShape(Circle())
                                 .padding(.trailing, 8)
                         } else {
@@ -66,7 +66,7 @@ struct AssetDetailCell: View {
                                 .appFontRegular(size: assetVM.isCash ? 10 : 12)
                                 .shadow(radius: 2)
                                 .frame(width: 40, height: 40)
-                                .background(Color.appBlue)
+                                .background(Color.blue)
                                 .clipShape(Circle())
                                 .padding(.trailing, 8)
                         }

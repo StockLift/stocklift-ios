@@ -12,16 +12,16 @@ import Charts
 @available(iOS 13.0, *)
 public struct LineChart: View {
     @State var selectedElement: ChartData?
-    let chartdata: [ChartData]
+    let chartData: [ChartData]
     let dateType: DateType
     var component: Calendar.Component? = nil
     
     public init(selectedElement: ChartData? = nil,
-                chartdata: [ChartData],
+                chartData: [ChartData],
                 dateType: DateType,
                 component: Calendar.Component? = nil) {
         self.selectedElement = selectedElement
-        self.chartdata = chartdata
+        self.chartData = chartData
         self.dateType = dateType
         self.component = component
     }
@@ -49,17 +49,17 @@ public struct LineChart: View {
     public var body: some View {
         if #available(iOS 16.0, *) {
             NavigationStack {
-                Chart(chartdata) { data in
+                Chart(chartData) { data in
                     LineMark(x: .value("Date", data.date),
                              y: .value("Value", data.value)
                     )
-                    .foregroundStyle(Gradient(colors: [Color.appBlue, Color.blue]))
+                    .foregroundStyle(Gradient(colors: [Color.blue, Color.blue]))
                     .interpolationMethod(.catmullRom)
                     
                     AreaMark(x: .value("Date", data.date),
                              y: .value("Value", data.value)
                     )
-                    .foregroundStyle(Gradient(colors: [Color.appBlue, Color.blue]).opacity(0.25))
+                    .foregroundStyle(Gradient(colors: [Color.blue, Color.blue]).opacity(0.25))
                     .interpolationMethod(.catmullRom)
                     
                 }
@@ -173,9 +173,9 @@ public struct LineChart: View {
             // Find the closest date element.
             var minDistance: TimeInterval = .infinity
             var index: Int? = nil
-            for dataIndex in chartdata.indices {
+            for dataIndex in chartData.indices {
                 let dateIndex: Date = encodeDate(date)
-                let dateDataIndex: Date = encodeDate(chartdata[dataIndex].date)
+                let dateDataIndex: Date = encodeDate(chartData[dataIndex].date)
                 
                 let nthDataDistance = dateDataIndex.distance(to: dateIndex)
                 if abs(nthDataDistance) < minDistance {
@@ -184,7 +184,7 @@ public struct LineChart: View {
                 }
             }
             if let index {
-                return chartdata[index]
+                return chartData[index]
             }
         }
         return nil

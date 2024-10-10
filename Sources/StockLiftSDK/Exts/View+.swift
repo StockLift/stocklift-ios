@@ -73,7 +73,7 @@ extension View {
     }
     
     func makeCardLayer(width: CGFloat = UIScreen.main.bounds.width / 1.10,
-                       color: Color = .appMainBackground,
+                       color: Color = .gray,
                        radius: CGFloat = 14,
                        shadowRadius: CGFloat = 8) -> some View {
         self
@@ -85,8 +85,8 @@ extension View {
     
     func appBorderOverlay(radius: CGFloat = 20,
                           lineWidth: CGFloat = 2,
-                          borderColor: Color = .appBackground,
-                          backgroundColor: Color = .appCardBlue, padding: CGFloat = 4) -> some View {
+                          borderColor: Color = .gray,
+                          backgroundColor: Color = .blue, padding: CGFloat = 4) -> some View {
         self
             .overlay(
                 RoundedRectangle(cornerRadius: radius).stroke(borderColor, lineWidth: lineWidth)
@@ -173,7 +173,7 @@ public extension View {
         }
     }
     
-    func headerFont(_ color: Color = .appBlue) -> some View {
+    func headerFont(_ color: Color = .blue) -> some View {
         self
             .appFontMedium(size: 10, color: color)
     }
