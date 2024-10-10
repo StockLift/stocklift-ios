@@ -13,9 +13,9 @@ struct ContentView: View {
     var body: some View {
         VStack {
             Divider()
-            GrowthChartCard()
+            GrowthProjectionsChart()
             Divider()
-            GrowthChartCard(linkAccountForegroundColor: .red, linkAccountBackgroundColor: .blue)
+            GrowthProjectionsChart(linkAccountForegroundColor: .red, linkAccountBackgroundColor: .blue)
             Divider()
         }
         .padding()
