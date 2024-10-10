@@ -13,11 +13,11 @@ public enum APIPath {
         public static let portfolio = "sdk/v1/portfolio"
         
         // CHARTS
-        public static let sectorChart = "sdk/v1/chart/sector"
-        public static let growthChart = "sdk/v1/chart/growth"
-        public static let performanceChart = "sdk/v1/chart/performance"
+        public static let sectorChart = "v1/chart/sector"
+        public static let growthChart = "v1/chart/growth"
+        public static let performanceChart = "v1/chart/performance"
         
         // PLAID
-        public static let plaidLinkToken = "sdk/v1/plaid/link-token"
+        public static let plaidLinkToken = "v1/plaid/token"
     }
 }

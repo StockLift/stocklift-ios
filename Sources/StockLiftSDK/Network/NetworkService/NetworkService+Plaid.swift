@@ -9,7 +9,7 @@ import Foundation
 
 @available(iOS 13.0, *)
 public extension NetworkService {
-    // GET LINK TOKEN
+    /// GET LINK TOKEN
     func getPlaidLinkToken(_ session: URLSession = .shared, complete: @escaping (Result<PlaidTokenResponse, SLError>) -> Void) {
         session.request(.plaidLinkToken, method: .get, body: nil) { data, response, error in
             if let _ = error {
@@ -36,6 +36,39 @@ public extension NetworkService {
                 print(error)
                 complete(.failure(.invalidData))
             }
+        }
+    }
+    
+    /// EXCHANGE TOKEN
+    func exchangePlaidToken(request: PlaidExchangeRequest, _ session: URLSession = .shared, complete: @escaping (Result<(), SLError>) -> Void) {
+        print(request)
+        session.request(.plaidLinkToken, method: .post, body: request.encode()) { data, response, error in
+            if let _ = error {
+                complete(.failure(.unableToComplete))
+                return
+            }
+            
+            guard let response = response as? HTTPURLResponse, response.statusCode == 201 else {
+                complete(.failure(.invalidResponse))
+                return
+            }
+            
+            guard let _ = data else {
+                complete(.failure(.invalidData))
+                return
+            }
+            
+            complete(.success(()))
+            
+//            do {
+//                let decoder = JSONDecoder()
+//                let res = try decoder.decode(PlaidTokenResponse.self, from: data)
+//                complete(.success(res))
+//                return
+//            } catch {
+//                print(error)
+//                complete(.failure(.invalidData))
+//            }
         }
     }
 }

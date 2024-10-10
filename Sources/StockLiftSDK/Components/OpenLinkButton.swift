@@ -19,7 +19,7 @@ struct OpenLinkButton<Content: View>: View {
     
     private let defaults = UserDefaults.standard
     private var token: String {
-        defaults.string(forKey: UserKeys.linkToken) ?? ""
+        defaults.string(forKey: UserKeys.linkToken) ?? "error_could_not_get_link_token"
     }
     private var userUuid: String? {
         defaults.string(forKey: UserKeys.userUuid)
@@ -62,30 +62,36 @@ struct OpenLinkButton<Content: View>: View {
             onSuccess: { success in
                 let name = success.metadata.institution.name
                 let id = success.metadata.institution.id
-                let accounts: [PlaidAccount] = success.metadata.accounts.map { PlaidAccount(id: "\($0.mask ?? "0000")_\(name)", name: $0.name, mask: $0.mask) }
-                let alreadyConnectedAccounts = self.userAccounts()
-                var duplicateError = false
-                alreadyConnectedAccounts?.forEach { account in
-                    let match = accounts.contains { "\($0.mask ?? "0000")_\(name)" == account.id }
-                    if match == true && plaidAccountError == nil {
-                        // ERROR can not connect same account twice
-                        duplicateError = true
-                        showLink = false
-                        errorHandler()
-                    }
+                let accounts: [PlaidAccount] = success.metadata.accounts.map {
+                    PlaidAccount(id: "\($0.mask ?? "0000")_\(name)", name: $0.name, mask: $0.mask)
                 }
-                if duplicateError == true {
-                    // ERROR can not connect same account twice
-                    showLink = false
-                    errorHandler()
-                } else {
-                    self.exchangeToken(token: success.publicToken,
-                                       institutionName: name, instutionId: id,
+                
+                
+//                let alreadyConnectedAccounts = self.userAccounts()
+//                var duplicateError = false
+//                alreadyConnectedAccounts?.forEach { account in
+//                    let match = accounts.contains { "\($0.mask ?? "0000")_\(name)" == account.id }
+//                    if match == true && plaidAccountError == nil {
+//                        // ERROR can not connect same account twice
+//                        duplicateError = true
+//                        showLink = false
+//                        errorHandler()
+//                    }
+//                }
+//                if duplicateError == true {
+//                    // ERROR can not connect same account twice
+//                    showLink = false
+//                    errorHandler()
+//                } else {
+//                print(success)
+                self.exchangeToken(token: success.publicToken,
+                                       name: name,
+                                       id: id,
                                        accounts: accounts,
                                        plaidError: plaidAccountError)
 //                    FBAnalytics.shared.logEvent(name: .connectedPlaid)
                     showLink = false
-                }
+//                }
             }
         )
 
@@ -134,7 +140,9 @@ private struct PlaidLinkFlow: View {
 
 extension OpenLinkButton {
     /// 2nd - request through server to Plaid for Access Token
-    func exchangeToken(token: String, institutionName: String, instutionId: String, accounts: [PlaidAccount], plaidError: PlaidError?) {
+    func exchangeToken(token: String, name: String, id: String, accounts: [PlaidAccount], plaidError: PlaidError?) {
+        PlaidViewModel.exchangeToken(token: token, name: name, id: id, accounts: accounts)
+        
 //        UserService.shared.exchangeToken(publicToken: token, name: institutionName, id: instutionId, accounts: accounts) { result in
 //            switch result {
 //            case .success(_):

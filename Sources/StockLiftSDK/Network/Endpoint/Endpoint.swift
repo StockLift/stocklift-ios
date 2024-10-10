@@ -55,7 +55,7 @@ extension Endpoint {
     
         }
         
-        components.path = "/" + path
+        components.path = "/sdk/" + path
         components.queryItems = queryItems
         guard let url = components.url else {
             preconditionFailure("🌎 Invalid URL Components: \(components)")

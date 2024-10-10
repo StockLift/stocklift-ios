@@ -20,11 +20,4 @@ public struct PlaidExchangeRequest: BaseRequest {
         self.institutionId = institutionId
         self.accounts = accounts
     }
-    
-    private enum CodingKeys: String, CodingKey {
-        case publicToken = "public_token"
-        case institutionName = "institution_name"
-        case institutionId = "institution_id"
-        case accounts
-    }
 }
