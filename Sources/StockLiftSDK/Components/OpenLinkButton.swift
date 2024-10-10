@@ -142,11 +142,7 @@ extension OpenLinkButton {
     /// 2nd - Exchange plaid token for public access token
     func exchangeToken(token: String, name: String, id: String, accounts: [PlaidAccount], plaidError: PlaidError?) {
         /// - SLClient
-        let client: SLClient = .init(
-            uuid: "123",
-            name: "First Last",
-            email: "email@example.com"
-        )
+        guard let client = StockLiftSDK.client else { fatalError("Remember to set the client details before connecting accounts.") }
         /// - Plaid Linked Account
         let linkAccount: PlaidLinkAccount = .init(
             token: token,
