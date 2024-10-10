@@ -49,7 +49,7 @@ public struct GrowthChartCard: View {
     }
     
     private func plaidError() {
-        growthChartVM.handleAlert(err: .duplicateAccount, codeSheet: "Onboard Portfolio") { }
+        //TODO: -  handle error
     }
     
     private func getPortfolio() {

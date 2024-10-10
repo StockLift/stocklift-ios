@@ -16,5 +16,8 @@ public enum APIPath {
         public static let sectorChart = "sdk/v1/chart/sector"
         public static let growthChart = "sdk/v1/chart/growth"
         public static let performanceChart = "sdk/v1/chart/performance"
+        
+        // PLAID
+        public static let plaidLinkToken = "sdk/v1/plaid/link-token"
     }
 }

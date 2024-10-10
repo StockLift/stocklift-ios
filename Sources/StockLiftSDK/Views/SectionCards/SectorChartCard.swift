@@ -147,7 +147,7 @@ struct SectorChartCard: View {
     }
     
     private func plaidError() {
-        portfolioVM.handleAlert(err: .duplicateAccount, codeSheet: "Onboard Porfolio") { }
+        //TODO: -  handle error
     }
     
     private func getPortfolio() {

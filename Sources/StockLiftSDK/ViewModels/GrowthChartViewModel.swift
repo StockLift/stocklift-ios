@@ -14,7 +14,7 @@ final class GrowthChartViewModel: BaseViewModel {
     
     override init() {
         super.init()
-        getChartData()
+//        getChartData()
     }
     
     func getChartData() {
