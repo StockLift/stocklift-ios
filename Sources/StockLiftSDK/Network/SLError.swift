@@ -26,7 +26,7 @@ public enum SLError: String, Error {
     
     static func errorMessage(_ message: String) -> String {
         return """
-    \n\n*** StockLift SDK ERROR ***\n\(message)\n\nhttps://sdk-stocklift.co/docs/\n\n
+    \n\n*** ⛔️  StockLift SDK ERROR  ⛔️ ***\n\n\(message)\n\n⛔️ https://sdk-stocklift.co/docs/ ⛔️\n\n
     """
     }
 }
