@@ -9,6 +9,7 @@ import SwiftUI
 import StockLiftSDK
 
 struct ContentView: View {
+
     var body: some View {
         VStack {
             GrowthChartCard()
@@ -17,6 +18,7 @@ struct ContentView: View {
     }
 }
 
-#Preview {
-    ContentView()
-}
+//#Preview {
+//    ContentView()
+//        .preferredColorScheme(.dark)
+//}

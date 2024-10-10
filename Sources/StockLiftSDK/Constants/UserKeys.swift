@@ -9,7 +9,7 @@
 import Foundation
 
 //TODO: - finish setup
-public enum UserKeys: Identifiable, CaseIterable {
+enum UserKeys: Identifiable, CaseIterable {
     public var id: String { "\(self)" }
     
 //    public static let appStoreId = "itms-apps://itunes.apple.com/app/1553250387"

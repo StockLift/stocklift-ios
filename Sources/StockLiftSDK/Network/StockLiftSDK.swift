@@ -9,19 +9,14 @@ import Foundation
 
 public class StockLiftSDK {
     /**
-         **********   Set your API Token here ************
+     --- Set your API Access Token here ---
+     https://sdk-stocklift.co/docs/
      */
-    static let accessToken: String? = "YOUR_ACCESS_TOKEN"
+    static public var accessToken: String? = nil
     
     public init() {
-        guard StockLiftSDK.accessToken != nil else {
-            let error = NSError(domain: "StockLiftSDK", code: 1, userInfo: nil)
-           fatalError(error.localizedDescription)
-        }
-        
-        guard let token = StockLiftSDK.accessToken, !token.isEmpty else {
-            let error = NSError(domain: "StockLiftSDK", code: 2, userInfo: nil)
-            fatalError(error.localizedDescription)
+        guard let token = Self.accessToken, !token.isEmpty else {
+            fatalError("You must set your API Key in the StockLiftSDK.accessToken variable. https://sdk-stocklift.co/docs/")
         }
     }
 }
