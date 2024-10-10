@@ -12,7 +12,11 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
+            Divider()
             GrowthChartCard()
+            Divider()
+            GrowthChartCard(linkAccountForegroundColor: .red, linkAccountBackgroundColor: .blue)
+            Divider()
         }
         .padding()
     }

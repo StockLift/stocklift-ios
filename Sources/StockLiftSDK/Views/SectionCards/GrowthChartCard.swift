@@ -11,30 +11,38 @@ import SwiftUI
 @available(iOS 14.0, *)
 public struct GrowthChartCard: View {
     @StateObject private var growthChartVM = GrowthChartViewModel()
-    
+    var linkAccountForegroundColor: Color = .white
+    var linkAccountBackgroundColor: Color = .yellow
     public init() { }
+    public init(linkAccountForegroundColor: Color, linkAccountBackgroundColor: Color) {
+        self.linkAccountForegroundColor = linkAccountForegroundColor
+        self.linkAccountBackgroundColor = linkAccountBackgroundColor
+    }
     public var body: some View {
         VStack {
-            Text("Portfolio Growth Projections")
-                .appFontRegular()
-                .padding(.top)
-            
-            if !growthChartVM.growthChartEntries.isEmpty {
+            if growthChartVM.growthChartEntries.isEmpty {
+                LinkAccountView(plaidError: plaidError,
+                                getPortfolio: getPortfolio,
+                                foregroundColor: linkAccountForegroundColor,
+                                backgroundColor: linkAccountBackgroundColor)
+                .padding()
+                .padding(.bottom)
+                .padding(.bottom)
+                
+            } else {
+                Text("Portfolio Growth Projections")
+                    .appFontRegular()
+                    .padding(.top)
                 Spacer()
                 LineChart(chartData: growthChartVM.growthChartEntries, dateType: .all)
                     .frame(height: 250)
                     .padding(.horizontal)
                     .padding(.bottom, 28)
                     .padding(.top)
-            } else {
-                LinkAccountView(plaidError: plaidError, getPortfolio: getPortfolio)
-                    .padding()
-                    .padding(.bottom)
-                    .padding(.bottom)
             }
-            Spacer()
+            //            Spacer()
         }
-        .makeCardLayer()
+        //        .makeCardLayer()
     }
     
     private func plaidError() {

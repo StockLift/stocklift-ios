@@ -13,8 +13,11 @@ import SwiftUI
 struct LinkAccountView: View {
     let plaidError: () -> Void
     let getPortfolio: () -> Void
+    var foregroundColor: Color = .white
+    var backgroundColor: Color = .yellow
     
     var body: some View {
+        // ALLOWS Font Kerning
         if #available(iOS 16.0, *) {
             VStack(alignment: .center, spacing: 24) {
                 VStack(spacing: 16) {
@@ -26,14 +29,14 @@ struct LinkAccountView: View {
                 .padding()
                 .appBorderOverlay(borderColor: .yellow)
                 
-                //TODO: - config Plaid
+                // Plaid Link flow
                 OpenLinkButton(getPortfolio: getPortfolio, errorHandler: plaidError, plaidAccountError: .constant(nil)) {
                     Image(systemName: ImageKeys.plusCircleFill)
                         .resizable()
                         .scaledToFit()
                         .frame(width: 44, height: 44)
-                        .background(Color.white)
-                        .foregroundColor(Color.yellow)
+                        .background(foregroundColor)
+                        .foregroundColor(backgroundColor)
                         .clipShape(Circle())
                 }
             }
@@ -41,8 +44,28 @@ struct LinkAccountView: View {
             .padding()
             
         } else {
-            Text("Update your phone please")
-                .appFontBold()
+            VStack(alignment: .center, spacing: 24) {
+                VStack(spacing: 16) {
+                    Text("Add a brokerage account to get a free detailed breakdown of your investments")
+                        .multilineTextAlignment(.center)
+                        .appFontMedium()
+                }
+                .padding()
+                .appBorderOverlay(borderColor: .yellow)
+                
+                // Plaid Link flow
+                OpenLinkButton(getPortfolio: getPortfolio, errorHandler: plaidError, plaidAccountError: .constant(nil)) {
+                    Image(systemName: ImageKeys.plusCircleFill)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 44, height: 44)
+                        .background(foregroundColor)
+                        .foregroundColor(backgroundColor)
+                        .clipShape(Circle())
+                }
+            }
+            .onAppear { PlaidViewModel.getPlaidLinkToken() }
+            .padding()
         }
     }
 }
