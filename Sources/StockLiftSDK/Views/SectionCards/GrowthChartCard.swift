@@ -2,7 +2,7 @@
 //  eGrowthChartCard.swift
 //  Stocklift
 //
-//  Created by Christopher Hicks on 8/21/23.
+//  Created by Christopher Hicks on 7/21/24.
 //  Copyright © 2023 StockLift Inc. All rights reserved.
 //
 
@@ -10,17 +10,21 @@ import SwiftUI
 
 @available(iOS 14.0, *)
 public struct GrowthChartCard: View {
+    
     @StateObject private var growthChartVM = GrowthChartViewModel()
     var linkAccountForegroundColor: Color = .white
     var linkAccountBackgroundColor: Color = .yellow
+    
     public init() { }
     public init(linkAccountForegroundColor: Color, linkAccountBackgroundColor: Color) {
         self.linkAccountForegroundColor = linkAccountForegroundColor
         self.linkAccountBackgroundColor = linkAccountBackgroundColor
     }
+    
     public var body: some View {
         VStack {
             if growthChartVM.growthChartEntries.isEmpty {
+                // Link Plaid flow
                 LinkAccountView(plaidError: plaidError,
                                 getPortfolio: getPortfolio,
                                 foregroundColor: linkAccountForegroundColor,
@@ -40,23 +44,15 @@ public struct GrowthChartCard: View {
                     .padding(.bottom, 28)
                     .padding(.top)
             }
-            //            Spacer()
         }
         //        .makeCardLayer()
     }
     
     private func plaidError() {
-        growthChartVM.handleAlert(err: .duplicateAccount, codeSheet: "Onboard Porfolio") { }
+        growthChartVM.handleAlert(err: .duplicateAccount, codeSheet: "Onboard Portfolio") { }
     }
     
     private func getPortfolio() {
         //TODO: config get portfolio
     }
 }
-
-
-//struct eGrowthChartCard_Previews: PreviewProvider {
-//    static var previews: some View {
-//        eGrowthChartCard()
-//    }
-//}
