@@ -10,7 +10,6 @@ import SwiftUI
 
 @available(iOS 14.0, *)
 public struct GrowthProjectionsChart: View {
-    
     @StateObject private var growthChartVM = GrowthChartViewModel()
     
     let chartHeader: String

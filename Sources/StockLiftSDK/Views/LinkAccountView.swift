@@ -19,38 +19,41 @@ struct LinkAccountView: View {
     
     @State private var isLoading: PlaidLoadState = .loading
     
+    private var HeaderView: some View {
+        if #available(iOS 16.0, *) {
+            // ALLOWS Font Kerning
+            return Text(linkAccountHeader)
+                .multilineTextAlignment(.center)
+                .appFontMedium()
+                .kerning(1.5)
+        } else {
+            return Text(linkAccountHeader)
+                .multilineTextAlignment(.center)
+                .appFontMedium()
+        }
+    }
+    
     var body: some View {
         Group {
             switch isLoading {
             case .loading:
                 ProgressView()
             case .loaded:
-                VStack(alignment: .center, spacing: 24) {
-                    VStack(spacing: 16) {
-                        if #available(iOS 16.0, *) {
-                            // ALLOWS Font Kerning
-                            Text(linkAccountHeader)
-                                .multilineTextAlignment(.center)
-                                .appFontMedium()
-                                .kerning(1.5)
-                        } else {
-                            Text(linkAccountHeader)
-                                .multilineTextAlignment(.center)
-                                .appFontMedium()
+                // Plaid Link flow
+                OpenLinkButton(getPortfolio: getPortfolio, errorHandler: plaidError, plaidAccountError: .constant(nil)) {
+                    VStack(alignment: .center, spacing: 24) {
+                        VStack(spacing: 16) {
+                            HeaderView
+                            Image(systemName: ImageKeys.plusCircleFill)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 44, height: 44)
+                                .background(foregroundColor)
+                                .foregroundColor(backgroundColor)
+                                .clipShape(Circle())
                         }
-                    }
-                    .padding()
-                    .appBorderOverlay(borderColor: .yellow)
-                    
-                    // Plaid Link flow
-                    OpenLinkButton(getPortfolio: getPortfolio, errorHandler: plaidError, plaidAccountError: .constant(nil)) {
-                        Image(systemName: ImageKeys.plusCircleFill)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 44, height: 44)
-                            .background(foregroundColor)
-                            .foregroundColor(backgroundColor)
-                            .clipShape(Circle())
+                        .padding()
+                        .appBorderOverlay(borderColor: .yellow)
                     }
                 }
                 //                .padding()
