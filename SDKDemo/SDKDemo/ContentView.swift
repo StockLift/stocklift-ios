@@ -8,21 +8,43 @@
 import SwiftUI
 import StockLiftSDK
 
-struct ContentView: View {
-
-    var body: some View {
-        VStack {
-            Divider()
-            GrowthProjectionsChart()
-            Divider()
-            GrowthProjectionsChart(linkAccountForegroundColor: .red, linkAccountBackgroundColor: .blue)
-            Divider()
-        }
-        .padding()
+final class ViewModel: ObservableObject {
+    init() {
+        let client = SLClient(uuid: "test-123", name: "John Doe", email: "test@test.com")
+        StockLiftSDK.client = client
     }
 }
 
-//#Preview {
-//    ContentView()
-//        .preferredColorScheme(.dark)
-//}
+struct ContentView: View {
+    
+    @StateObject private var viewModel = ViewModel()
+    
+    let data = (1...10)
+    
+    let columns = [
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
+    
+    var body: some View {
+        ScrollView {
+            LazyVGrid(columns: columns, spacing: 20) {
+                ForEach(data, id: \.self) { _ in
+                    GrowthProjectionsChart(
+                        HelperClass.randomTitle(),
+                        height: 200,
+                        linkAccountForegroundColor: HelperClass.randomColor(),
+                        linkAccountBackgroundColor:  HelperClass.randomColor(),
+                        linkAccountHeader: HelperClass.randomConnectAccountTitle()
+                    )
+                }
+            }
+            .padding(4)
+        }
+    }
+}
+
+
+
+
+

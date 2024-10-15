@@ -29,7 +29,7 @@ public struct GrowthProjectionsChart: View {
         _ chartHeader: String = "Portfolio Growth Projections",
         height: CGFloat = 250,
         linkAccountForegroundColor: Color = .white,
-        linkAccountBackgroundColor: Color = .yellow,
+        linkAccountBackgroundColor: Color = .black,
         linkAccountHeader: String = "Add a brokerage account to get a free detailed breakdown of your investments"
     ) {
         self.chartHeader = chartHeader

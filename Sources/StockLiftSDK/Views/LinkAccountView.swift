@@ -15,6 +15,9 @@ struct LinkAccountView: View {
     let getPortfolio: () -> Void
     var foregroundColor: Color = .white
     var backgroundColor: Color = .yellow
+    var borderColor: Color = .gray
+    var borderBackgroundColor: Color = .black
+    var connectSize: CGFloat = 38
     var linkAccountHeader: String = "Add a brokerage account to get a free detailed breakdown of your investments"
     
     @State private var isLoading: PlaidLoadState = .loading
@@ -47,13 +50,13 @@ struct LinkAccountView: View {
                             Image(systemName: ImageKeys.plusCircleFill)
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: 44, height: 44)
+                                .frame(width: connectSize, height: connectSize)
                                 .background(foregroundColor)
                                 .foregroundColor(backgroundColor)
                                 .clipShape(Circle())
                         }
                         .padding()
-                        .appBorderOverlay(borderColor: .yellow)
+                        .appBorderOverlay(borderColor: borderColor, backgroundColor: borderBackgroundColor)
                     }
                 }
                 //                .padding()
