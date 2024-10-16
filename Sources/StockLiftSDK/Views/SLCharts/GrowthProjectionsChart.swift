@@ -11,6 +11,7 @@ import SwiftUI
 @available(iOS 14.0, *)
 public struct GrowthProjectionsChart: View {
     @StateObject private var growthChartVM = GrowthChartViewModel()
+    @StateObject private var portfolioVM = PortfolioViewModel()
     
     let chartHeader: String
     let height: CGFloat
@@ -41,7 +42,22 @@ public struct GrowthProjectionsChart: View {
     
     public var body: some View {
         VStack {
-            if growthChartVM.growthChartEntries.isEmpty {
+            if let chartData = portfolioVM.growthChartEntries {
+                // --- HAS ACCOUNT CONNECTED Chart View
+                Text(chartHeader)
+                    .appFontRegular()
+//                    .padding(.top)
+                Spacer()
+                LineChart(chartData: chartData, dateType: .all)
+                    .frame(height: height)
+//                    .padding(.horizontal)
+//                    .padding(.bottom, 28)
+//                    .padding(.top)
+                
+
+                
+            } else {
+                // --- NO ACCOUNT DATA view
                 // Link Plaid flow
                 LinkAccountView(plaidError: plaidError,
                                 getPortfolio: getPortfolio,
@@ -51,17 +67,7 @@ public struct GrowthProjectionsChart: View {
                 )
                 .padding()
                 .padding(.bottom)
-                
-            } else {
-                Text(chartHeader)
-                    .appFontRegular()
-//                    .padding(.top)
-                Spacer()
-                LineChart(chartData: growthChartVM.growthChartEntries, dateType: .all)
-                    .frame(height: height)
-//                    .padding(.horizontal)
-//                    .padding(.bottom, 28)
-//                    .padding(.top)
+
             }
         }
         //        .makeCardLayer()
