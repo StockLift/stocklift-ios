@@ -6,9 +6,8 @@
 //
 
 import SwiftUI
-import MapKit
+//import MapKit
 
-//TODO: - setup network layer
 @available(iOS 13.0, *)
 final class PortfolioViewModel: BaseViewModel {
     
@@ -36,8 +35,8 @@ final class PortfolioViewModel: BaseViewModel {
     @Published var growthChartEntries: [ChartData]? = nil
     @Published var geoAssets: [GeoAssetsData]? = nil
 //    @Published var assetCoordinates: [AssetCoordinates]? = nil
-//    @Published var sp500ChartEntries: [ChartData] = []
-//    @Published var portfolioChartEntries: [ChartData] = []
+//    @Published var sp500ChartEntries: [ChartData]? = nil
+//    @Published var portfolioChartEntries: [ChartData]? = nil
     
     /// PLAID
 //    @Published var linkedAccounts: [LinkedAccount] = []
@@ -63,7 +62,7 @@ final class PortfolioViewModel: BaseViewModel {
         return message
     }
 
-    /// GET PORTFOLIO
+    //MARK: - GET PORTFOLIO
     private func getPortfolio() {
         guard let client = StockLiftSDK.client else {
             fatalError(SLError.errorMessage("Remember to set the client details before connecting accounts."))
@@ -84,7 +83,7 @@ final class PortfolioViewModel: BaseViewModel {
         }
     }
     
-    // BENCHMARK CHART DATA - SP vs User Portfolio
+    //MARK: - BENCHMARK CHART DATA - SP vs User Portfolio
     private func getPortfolioChart() {
 //        UserService.shared.getPortfolioChartData { [weak self] result in
 //            guard let self = self else { return }
@@ -100,7 +99,7 @@ final class PortfolioViewModel: BaseViewModel {
     }
     
     
-    // ASSET LOCATION COORDINATES
+    //MARK: - ASSET LOCATION COORDINATES
     private func getAssetMapData() {
 //        UserService.shared.getAssetCoordinates { result in
 //            switch result {
@@ -121,7 +120,7 @@ final class PortfolioViewModel: BaseViewModel {
     }
     
     
-    // TODO: refactor - duplicate method in OpenLinkButton view
+    //TODO: - Refactor duplicate method in OpenLinkButton view
     public func removeOldToken(err: PlaidError, complete: @escaping (Bool) -> Void) {
 //        UserService.shared.removePlaidAccountWithError(id: err.instId) { [weak self] result in
 //            guard let self = self else { return }
@@ -140,10 +139,11 @@ final class PortfolioViewModel: BaseViewModel {
     }
 }
 
+//MARK: - Handler Extensions
 @available(iOS 13.0, *)
 extension PortfolioViewModel {
     
-    //MARK: - SET MAIN Portfolio Response
+    // SET MAIN Portfolio Response
     private func handleChartData(_ res: PortfolioResponse) {
         let hasAccount = res.hasAccount
 //        if let error = res.plaidError {
@@ -167,7 +167,7 @@ extension PortfolioViewModel {
         }
     }
     
-    //MARK: - SET CHART DATA - Sector & Growth Charts
+    // SET CHART DATA - Sector & Growth Charts
     private func setPortfolioData(_ portfolio: Portfolio) {
         userEquityAccounts = portfolio.totalHoldings
 //        netWorth = portfolio.currentNetWorth ?? 0
@@ -188,7 +188,7 @@ extension PortfolioViewModel {
         isLoading = false
     }
     
-    //MARK: - SET CHART DATA - Benchmark Chart
+    // SET CHART DATA - Benchmark Chart
     private func setChartData(_ res: PortfolioChartResponse) {
 //        self.portfolioChartEntries = PortfolioChartUtils.setCharts(entryData: res.portfolioTimeSeries)
 //        self.sp500ChartEntries = PortfolioChartUtils.setCharts(entryData: res.spTimeSeries)
