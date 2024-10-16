@@ -8,7 +8,19 @@
 import Foundation
 
 public extension Endpoint {
-    // MARK: - CHARTS
+    // MARK: - PLAID
+    /// - LINK TOKEN
+    static var plaidLinkToken: Endpoint {
+        Endpoint(path: APIPath.v1.plaidLinkToken)
+    }
+    
+    // MARK: - PORTFOLIO
+    /// - GET PORTFOLIO
+    static var getPortfolio: Self {
+        Endpoint(path: APIPath.v1.portfolio)
+    }
+    
+    // MARK: - CHARTS (coming soon)
     /// Sector
     static var getSectorChart: Self {
         Endpoint(path: APIPath.v1.sectorChart)
@@ -21,17 +33,5 @@ public extension Endpoint {
     static var getPerformanceChart: Self {
         Endpoint(path: APIPath.v1.performanceChart)
     }
-    
-    // MARK: - PORTFOLIO
-    /// - GET PORTFOLIO
-    static var getPortfolio: Self {
-        Endpoint(path: APIPath.v1.portfolio)
-    }
-    
-    
-    // MARK: - PLAID
-    /// - LINK TOKEN
-    static var plaidLinkToken: Endpoint {
-        Endpoint(path: APIPath.v1.plaidLinkToken)
-    }
+
 }
