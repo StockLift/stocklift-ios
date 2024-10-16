@@ -29,6 +29,11 @@ struct HelperClass {
         return titles.randomElement()!
     }
     
+    // Method will return a random Int between 150 - 350
+    static func randomHeight() -> CGFloat {
+        return CGFloat.random(in: 150...350)
+    }
+    
 }
 
 

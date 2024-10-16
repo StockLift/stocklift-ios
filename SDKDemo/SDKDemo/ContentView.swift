@@ -24,8 +24,6 @@ struct ContentView: View {
       ]
     
     var body: some View {
-//        GrowthProjectionsChart()
-        
         NavigationStack {
             List(views, id: \.self) { view in
                 NavigationLink {
@@ -41,32 +39,31 @@ struct ContentView: View {
                     }
                 }
             }
-            .navigationTitle("Select a Chart")
+            .navigationTitle("Select a Chart Type")
         }
-
     }
 }
 
 
 
 struct DemoGrowthProjectionsChart: View {
-    
     let data = (1...5)
     let columns = [
-        GridItem(.flexible()),
+//        GridItem(.flexible()),
         GridItem(.flexible())
     ]
-    
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 20) {
                 ForEach(data, id: \.self) { _ in
                     GrowthProjectionsChart(
                         HelperClass.randomTitle(),
-                        height: 200,
+                        height: HelperClass.randomHeight(),
                         linkAccountForegroundColor: HelperClass.randomColor(),
                         linkAccountBackgroundColor:  HelperClass.randomColor(),
-                        linkAccountHeader: HelperClass.randomConnectAccountTitle()
+                        linkAccountHeader: HelperClass.randomConnectAccountTitle(),
+                        chartForegroundColor: HelperClass.randomColor(),
+                        chartForegroundBorderColor: HelperClass.randomColor()
                     )
                 }
             }
@@ -74,4 +71,6 @@ struct DemoGrowthProjectionsChart: View {
         }
     }
 }
+
+
 
