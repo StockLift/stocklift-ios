@@ -15,29 +15,48 @@ final class ViewModel: ObservableObject {
     }
 }
 
+enum ChartTypes: String, CaseIterable {
+    case projections = "Projections Chart"
+    case sector = "Sector Chart"
+}
+
 struct ContentView: View {
     @StateObject private var viewModel = ViewModel()
     
-    let views = [
-          "Projections Chart",
-          "Sector Chart",
-      ]
+    let views = ChartTypes.allCases
     
     var body: some View {
         NavigationStack {
             List(views, id: \.self) { view in
-                NavigationLink {
-                    DemoGrowthProjectionsChart()
-                } label: {
-                    VStack {
-                        Text(view)
-                            .font(.headline)
-                            .padding(.bottom, 6)
-                        GrowthProjectionsChart()
-                            .padding(2)
-                            .border(Color.black)
-                    }
+               switch view {
+               case .projections:
+                   NavigationLink {
+                       DemoGrowthProjectionsChart()
+                   } label: {
+                       VStack {
+                           Text(view.rawValue)
+                               .font(.headline)
+                               .padding(.bottom, 6)
+                           GrowthProjectionsChart()
+                               .padding(2)
+                               .border(Color.black)
+                       }
+                   }
+               case .sector:
+                   NavigationLink {
+                       Text(view.rawValue)
+                   } label: {
+                       VStack {
+                           Text(view.rawValue)
+                               .font(.headline)
+                               .padding(.bottom, 6)
+//                           GrowthProjectionsChart()
+//                               .padding(2)
+//                               .border(Color.black)
+                       }
+                   }
                 }
+               
             }
             .navigationTitle("Select a Chart Type")
         }
