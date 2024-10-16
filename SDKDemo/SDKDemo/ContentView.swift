@@ -8,22 +8,35 @@
 import SwiftUI
 import StockLiftSDK
 
-final class ViewModel: ObservableObject {
+final private class ViewModel: ObservableObject {
     init() {
-        let client = SLClient(uuid: "test-123", name: "John Doe", email: "test@test.com")
-        StockLiftSDK.client = client
+        let clientHasAccount = SLClient(uuid: "test-123", name: "John Doe", email: "test@test.com")
+        StockLiftSDK.client = clientHasAccount
+        
+        let clientDoesNotHaveAccount = SLClient(uuid: "test-456", name: "John Doe", email: "test@test.com")
+        StockLiftSDK.client = clientDoesNotHaveAccount
     }
 }
 
-enum ChartTypes: String, CaseIterable {
+private enum ChartType: String, CaseIterable {
     case projections = "Projections Chart"
     case sector = "Sector Chart"
+}
+
+@ViewBuilder
+private func HeaderView(_ view: ChartType) -> some View {
+    VStack {
+        Text(view.rawValue)
+            .font(.headline)
+            .padding(.bottom, 12)
+        Divider()
+    }
 }
 
 struct ContentView: View {
     @StateObject private var viewModel = ViewModel()
     
-    let views = ChartTypes.allCases
+    private let views = ChartType.allCases
     
     var body: some View {
         NavigationStack {
@@ -34,12 +47,9 @@ struct ContentView: View {
                        DemoGrowthProjectionsChart()
                    } label: {
                        VStack {
-                           Text(view.rawValue)
-                               .font(.headline)
-                               .padding(.bottom, 6)
+                           HeaderView(view)
+                           // DEMO DEFAULT CHART
                            GrowthProjectionsChart()
-                               .padding(2)
-                               .border(Color.black)
                        }
                    }
                case .sector:
@@ -47,12 +57,8 @@ struct ContentView: View {
                        Text(view.rawValue)
                    } label: {
                        VStack {
-                           Text(view.rawValue)
-                               .font(.headline)
-                               .padding(.bottom, 6)
-//                           GrowthProjectionsChart()
-//                               .padding(2)
-//                               .border(Color.black)
+                           HeaderView(view)
+                           // DEMO DEFAULT CHART
                        }
                    }
                 }

@@ -52,20 +52,15 @@ public struct GrowthProjectionsChart: View {
                 // --- HAS ACCOUNT CONNECTED Chart View
                 Text(chartHeader)
                     .appFontRegular()
-//                    .padding(.top)
-                Spacer()
+                    .padding(.bottom)
+
                 LineChart(chartData: chartData,
                           foregroundColor: chartForegroundColor,
                           foregroundBorderColor: chartForegroundBorderColor,
                           dateType: .all)
                     .frame(height: height)
-//                    .padding(.horizontal)
-//                    .padding(.bottom, 28)
-//                    .padding(.top)
                 
-
-                
-            } else {
+            } else if portfolioVM.isLoading == false  {
                 // --- NO ACCOUNT DATA view
                 // Link Plaid flow
                 LinkAccountView(plaidError: plaidError,
@@ -75,8 +70,6 @@ public struct GrowthProjectionsChart: View {
                                 linkAccountHeader: linkAccountHeader
                 )
                 .padding()
-                .padding(.bottom)
-
             }
         }
         //        .makeCardLayer()
