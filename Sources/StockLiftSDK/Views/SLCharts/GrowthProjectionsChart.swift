@@ -28,6 +28,8 @@ public struct GrowthProjectionsChart: View {
     ///   - linkAccountForegroundColor: foreground color for link account view
     ///   - linkAccountBackgroundColor: background color for link account view
     ///   - linkAccountHeader: header title for link account view
+    ///   - chartForegroundColor: chards area range color
+    ///   - chartForegroundBorderColor: charts area range border color
     public init(
         _ chartHeader: String = "Portfolio Growth Projections",
         height: CGFloat = 250,

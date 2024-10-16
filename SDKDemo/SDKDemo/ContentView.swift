@@ -13,8 +13,8 @@ final private class ViewModel: ObservableObject {
         let clientHasAccount = SLClient(uuid: "test-123", name: "John Doe", email: "test@test.com")
         StockLiftSDK.client = clientHasAccount
         
-        let clientDoesNotHaveAccount = SLClient(uuid: "test-456", name: "John Doe", email: "test@test.com")
-        StockLiftSDK.client = clientDoesNotHaveAccount
+//        let clientDoesNotHaveAccount = SLClient(uuid: "test-456", name: "John Doe", email: "test@test.com")
+//        StockLiftSDK.client = clientDoesNotHaveAccount
     }
 }
 
