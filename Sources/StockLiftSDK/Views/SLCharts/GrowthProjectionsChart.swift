@@ -18,6 +18,8 @@ public struct GrowthProjectionsChart: View {
     let linkAccountForegroundColor: Color
     let linkAccountBackgroundColor: Color
     let linkAccountHeader: String
+    let chartForegroundColor: Color
+    let chartForegroundBorderColor: Color
     
     /// Growth Chart Projections for users portfolio
     /// - Parameters:
@@ -31,13 +33,17 @@ public struct GrowthProjectionsChart: View {
         height: CGFloat = 250,
         linkAccountForegroundColor: Color = .white,
         linkAccountBackgroundColor: Color = .black,
-        linkAccountHeader: String = "Add a brokerage account to get a free detailed breakdown of your investments"
+        linkAccountHeader: String = "Add a brokerage account to get a free detailed breakdown of your investments",
+        chartForegroundColor: Color = .black,
+        chartForegroundBorderColor: Color = .white
     ) {
         self.chartHeader = chartHeader
         self.height = height
         self.linkAccountForegroundColor = linkAccountForegroundColor
         self.linkAccountBackgroundColor = linkAccountBackgroundColor
         self.linkAccountHeader = linkAccountHeader
+        self.chartForegroundColor = chartForegroundColor
+        self.chartForegroundBorderColor = chartForegroundBorderColor    
     }
     
     public var body: some View {
@@ -48,7 +54,10 @@ public struct GrowthProjectionsChart: View {
                     .appFontRegular()
 //                    .padding(.top)
                 Spacer()
-                LineChart(chartData: chartData, dateType: .all)
+                LineChart(chartData: chartData,
+                          foregroundColor: chartForegroundColor,
+                          foregroundBorderColor: chartForegroundBorderColor,
+                          dateType: .all)
                     .frame(height: height)
 //                    .padding(.horizontal)
 //                    .padding(.bottom, 28)

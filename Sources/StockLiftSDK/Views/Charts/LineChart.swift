@@ -11,19 +11,28 @@ import Charts
 
 @available(iOS 13.0, *)
 public struct LineChart: View {
-    @State var selectedElement: ChartData?
     let chartData: [ChartData]
+    let foregroundColor: Color
+    let foregroundBorderColor: Color
     let dateType: DateType
     var component: Calendar.Component? = nil
     
-    public init(selectedElement: ChartData? = nil,
-                chartData: [ChartData],
-                dateType: DateType,
-                component: Calendar.Component? = nil) {
-        self.selectedElement = selectedElement
+    @State private var selectedElement: ChartData?
+    
+    public init(
+        chartData: [ChartData],
+        foregroundColor: Color,
+        foregroundBorderColor: Color,
+        dateType: DateType,
+        component: Calendar.Component? = nil
+        //        selectedElement: ChartData? = nil,
+    ) {
         self.chartData = chartData
+        self.foregroundColor = foregroundColor
+        self.foregroundBorderColor = foregroundBorderColor
         self.dateType = dateType
         self.component = component
+        //        self.selectedElement = selectedElement
     }
     
     @available(iOS 16.0, *)
@@ -31,17 +40,17 @@ public struct LineChart: View {
         var dateFormatStyle: Date.FormatStyle = .dateTime.year()
         switch dateType {
         case .week:
-             dateFormatStyle = .dateTime.day().weekday(.abbreviated)
+            dateFormatStyle = .dateTime.day().weekday(.abbreviated)
         case .month:
             dateFormatStyle = .dateTime.month(.abbreviated).day()
         case .year:
             dateFormatStyle = .dateTime.month(.abbreviated)
         case .fiveYear:
-             break
+            break
         case .tenYear:
-             break
+            break
         case .all:
-             break
+            break
         }
         return dateFormatStyle
     }
@@ -53,13 +62,13 @@ public struct LineChart: View {
                     LineMark(x: .value("Date", data.date),
                              y: .value("Value", data.value)
                     )
-                    .foregroundStyle(Gradient(colors: [Color.blue, Color.blue]))
+                    .foregroundStyle(Gradient(colors: [foregroundBorderColor]))
                     .interpolationMethod(.catmullRom)
                     
                     AreaMark(x: .value("Date", data.date),
                              y: .value("Value", data.value)
                     )
-                    .foregroundStyle(Gradient(colors: [Color.blue, Color.blue]).opacity(0.25))
+                    .foregroundStyle(Gradient(colors: [foregroundColor]).opacity(0.25))
                     .interpolationMethod(.catmullRom)
                     
                 }
@@ -190,6 +199,6 @@ public struct LineChart: View {
         return nil
     }
     
-
+    
 }
 
