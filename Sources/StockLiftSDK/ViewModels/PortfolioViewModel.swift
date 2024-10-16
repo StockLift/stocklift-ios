@@ -40,9 +40,9 @@ final class PortfolioViewModel: BaseViewModel {
 //    @Published var portfolioChartEntries: [ChartData] = []
     
     /// PLAID
-    @Published var linkedAccounts: [LinkedAccount] = []
-    var institutionName: String?
-    var instutionId: String?
+//    @Published var linkedAccounts: [LinkedAccount] = []
+//    var institutionName: String?
+//    var instutionId: String?
     
     override init() {
         super.init()
@@ -52,8 +52,8 @@ final class PortfolioViewModel: BaseViewModel {
     //MARK: Init
     fileprivate func initView() {
         getPortfolio()
-//        getPortfolioChart()
-//        getAssetMapData()
+        getPortfolioChart()
+        getAssetMapData()
     }
     
     static public func missingCostBasisMessage(_ date: String) -> String {
