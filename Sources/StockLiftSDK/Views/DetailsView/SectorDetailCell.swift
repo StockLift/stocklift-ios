@@ -77,7 +77,7 @@ struct SectorDetailCell: View {
                             Image(systemName: "dollarsign.circle")
                                 .resizable()
                                 .scaledToFit()
-                                .background(Color.appBlue)
+                                .background(Color.blue)
                                 .frame(width: 20, height: 20)
                                 .clipShape(Circle())
                         }
@@ -90,7 +90,7 @@ struct SectorDetailCell: View {
                             
                             if sectorName != "Cash" {
                                 Text("\(self.setSymbol(percentInvestChange))%")
-                                    .appFontBlack(size: 12, color: investGainLose ? Color.appBlue : Color.appRed)
+                                    .appFontBlack(size: 12, color: investGainLose ? Color.blue : Color.red)
                             }
                         }
                     }
@@ -112,7 +112,7 @@ struct SectorDetailCell: View {
                             Image(systemName: "dollarsign.circle")
                                 .resizable()
                                 .scaledToFit()
-                                .background(Color.appBlue)
+                                .background(Color.blue)
                                 .frame(width: 20, height: 20)
                                 .clipShape(Circle())
                         }
@@ -128,7 +128,7 @@ struct SectorDetailCell: View {
                             
                             if sectorName != "Cash" {
                                 Text("\(setSymbol(dollarChange.clean, insert: "$"))")
-                                    .appFontBlack(size: 12, color: sectorVM.dollarChangeGainLose ? Color.appBlue : Color.appRed)
+                                    .appFontBlack(size: 12, color: sectorVM.dollarChangeGainLose ? Color.blue : Color.red)
                             }
                         }
 
@@ -182,7 +182,7 @@ struct SectorDetailCell: View {
             
         }
         .padding()
-        .background(Color.appSectorCards)
+        .background(Color.gray.opacity(0.7))
         .overlay(RoundedRectangle(cornerRadius: 20).strokeBorder(Color.white.opacity(0.6), lineWidth: 1))
         .clipShape(RoundedRectangle(cornerRadius: 20))
         .onTapGesture {

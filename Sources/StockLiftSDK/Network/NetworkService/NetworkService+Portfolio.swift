@@ -11,8 +11,8 @@ import Foundation
 public extension NetworkService {
     
     // GET PORTFOLIO Data
-    @MainActor func getPortfolio(userUuid: String, with session: URLSession = .shared, complete: @escaping @Sendable (Result<(), SLError>) -> Void) {
-        session.request(.getPortfolio, method: .get, body: nil) { data, response, error in
+   func getPortfolio(clientId: String, with session: URLSession = .shared, complete: @escaping (Result<PortfolioResponse, SLError>) -> Void) {
+        session.request(.getPortfolio(clientId), method: .get, body: nil) { data, response, error in
             if let _ = error {
                 complete(.failure(.unableToComplete))
                 return
@@ -23,22 +23,20 @@ public extension NetworkService {
                 return
             }
             
-            guard let _ = data else {
+            guard let data = data else {
                 complete(.failure(.invalidData))
                 return
             }
             
-            complete(.success(()))
-            
-//            do {
-//                let decoder = JSONDecoder()
-//                let res = try decoder.decode(PortfolioResponse.self, from: data)
-//                complete(.success(res))
-//                return
-//            } catch {
-//                Self.logger.error("\(error)")
-//                complete(.failure(.invalidData))
-//            }
+            do {
+                let decoder = JSONDecoder()
+                let res = try decoder.decode(PortfolioResponse.self, from: data)
+                complete(.success(res))
+                return
+            } catch {
+                print(error)
+                complete(.failure(.invalidData))
+            }
         }
     }
 }

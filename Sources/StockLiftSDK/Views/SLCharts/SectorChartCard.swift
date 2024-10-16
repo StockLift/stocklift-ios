@@ -75,7 +75,7 @@ struct SectorChartCard: View {
                 /// SECTOR ** SCROLL View
                 SectorScrollView
             } else {
-                LinkAccountView(plaidError: plaidError)
+                LinkAccountView(plaidError: plaidError, getPortfolio: getPortfolio)
                     .padding()
             }
 
@@ -114,7 +114,7 @@ struct SectorChartCard: View {
         } label: {
             if showDetailsButton {
                 Text("View Details")
-                    .appFontMedium(color: .appYellow)
+                    .appFontMedium(color: .yellow)
             } else {
                 EmptyView()
             }
@@ -142,12 +142,16 @@ struct SectorChartCard: View {
         .padding(.vertical, 8)
         .frame(maxWidth: .infinity)
         .frame(height: 44)
-        .background(Color.appItemBackground)
+        .background(Color.gray)
         .cornerRadius(22)
     }
     
     private func plaidError() {
-        portfolioVM.handleAlert(err: .duplicateAccount, codeSheet: "Onboard Porfolio") { }
+        //TODO: -  handle error
+    }
+    
+    private func getPortfolio() {
+        //TODO: config get portfolio
     }
     
 }

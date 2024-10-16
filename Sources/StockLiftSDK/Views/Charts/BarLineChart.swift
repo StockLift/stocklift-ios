@@ -44,14 +44,14 @@ struct BarLineChart: View {
                         LineMark(x: .value("Date", data.date),
                                  y: .value("Value", data.value)
                         )
-                        .foregroundStyle(Gradient(colors: [Color.appYellow, Color.yellow]))
+                        .foregroundStyle(Gradient(colors: [Color.yellow, Color.yellow]))
                         .interpolationMethod(.catmullRom)
                     }
                     ForEach(sp500ChartData) { data in
                         BarMark(x: .value("Date", data.date),
                                 y: .value("Value", data.value)
                         )
-                        .foregroundStyle(Gradient(colors: [Color.appBlue, Color.blue]))
+                        .foregroundStyle(Gradient(colors: [Color.blue, Color.blue]))
                         .opacity(0.6)
                     }
                 }
@@ -125,7 +125,7 @@ struct BarLineChart: View {
                           // Data info box
                           VStack {
                               HStack(alignment: .center) {
-                                  Circle().fill(Color.appYellow).frame(width: 8, height: 8)
+                                  Circle().fill(Color.yellow).frame(width: 8, height: 8)
                                   Text("\(encodeDate(selectedElement.0?.date ?? ""), format: .dateTime.year().month().day())")
                                       .font(.caption)
                                       .foregroundStyle(.secondary)
@@ -138,7 +138,7 @@ struct BarLineChart: View {
                               .padding(.bottom, 4)
                               
                               HStack(alignment: .center) {
-                                  Circle().fill(Color.appBlue).frame(width: 8, height: 8)
+                                  Circle().fill(Color.blue).frame(width: 8, height: 8)
                                   Text("\(encodeDate(selectedElement.1?.date ?? ""), format: .dateTime.year().month().day())")
                                       .font(.caption)
                                       .foregroundStyle(.secondary)

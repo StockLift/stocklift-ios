@@ -23,7 +23,7 @@ struct DetailsView: View {
     
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
-            Color.appBackground.edgesIgnoringSafeArea(.all)
+            Color.gray.edgesIgnoringSafeArea(.all)
             PortfolioDetails(sectorDetailsVM: sectorDetailsVM, 
                              date: $date, 
                              hasCostBasis: $missingData,

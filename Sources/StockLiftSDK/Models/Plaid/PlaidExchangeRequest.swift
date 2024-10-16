@@ -13,18 +13,13 @@ public struct PlaidExchangeRequest: BaseRequest {
     public let institutionName: String
     public let institutionId: String
     public let accounts: [PlaidAccount]
+    public let client: SLClient
     
-    public init(publicToken: String, institutionName: String, institutionId: String, accounts: [PlaidAccount]) {
+    public init(publicToken: String, institutionName: String, institutionId: String, accounts: [PlaidAccount], client: SLClient) {
         self.publicToken = publicToken
         self.institutionName = institutionName
         self.institutionId = institutionId
         self.accounts = accounts
-    }
-    
-    private enum CodingKeys: String, CodingKey {
-        case publicToken = "public_token"
-        case institutionName = "institution_name"
-        case institutionId = "institution_id"
-        case accounts
+        self.client = client
     }
 }

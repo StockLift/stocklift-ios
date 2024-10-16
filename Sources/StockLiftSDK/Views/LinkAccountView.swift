@@ -12,40 +12,69 @@ import SwiftUI
 @available(iOS 13.0, *)
 struct LinkAccountView: View {
     let plaidError: () -> Void
+    let getPortfolio: () -> Void
+    var foregroundColor: Color = .white
+    var backgroundColor: Color = .yellow
+    var borderColor: Color = .gray
+    var borderBackgroundColor: Color = .black
+    var connectSize: CGFloat = 38
+    var linkAccountHeader: String = "Add a brokerage account to get a free detailed breakdown of your investments"
     
-    var body: some View {
+    @State private var isLoading: PlaidLoadState = .loading
+    
+    private var HeaderView: some View {
         if #available(iOS 16.0, *) {
-            VStack(alignment: .center, spacing: 24) {
-                VStack(spacing: 16) {
-                    Text("Add a brokerage account to get a free detailed breakdown of your investments")
-                        .multilineTextAlignment(.center)
-                        .appFontMedium()
-                        .kerning(1.5)
-                }
-                .padding()
-                .appBorderOverlay(borderColor: .appYellow)
-                
-                //TODO: - config Plaid
-                OpenLinkButton(getPortfolio: getPortfolio, errorHandler: plaidError, plaidAccountError: .constant(nil)) {
-                    Image(systemName: ImageKeys.plusCircleFill)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 44, height: 44)
-                        .background(Color.white)
-                        .foregroundColor(Color.appYellow)
-                        .clipShape(Circle())
-                }
-            }
-            .onAppear { PlaidViewModel.getPlaidLinkToken() }
-            .padding()
-            
+            // ALLOWS Font Kerning
+            return Text(linkAccountHeader)
+                .multilineTextAlignment(.center)
+                .appFontMedium()
+                .kerning(1.5)
         } else {
-            Text("Update your phone please")
-                .appFontBold()
+            return Text(linkAccountHeader)
+                .multilineTextAlignment(.center)
+                .appFontMedium()
         }
     }
     
-    private func getPortfolio() {
-        //TODO: config get portfolio
+    var body: some View {
+        Group {
+            switch isLoading {
+            case .loading:
+                ProgressView()
+            case .loaded:
+                // Plaid Link flow
+                OpenLinkButton(getPortfolio: getPortfolio, errorHandler: plaidError, plaidAccountError: .constant(nil)) {
+                    VStack(alignment: .center, spacing: 24) {
+                        VStack(spacing: 16) {
+                            HeaderView
+                            Image(systemName: ImageKeys.plusCircleFill)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: connectSize, height: connectSize)
+                                .background(foregroundColor)
+                                .foregroundColor(backgroundColor)
+                                .clipShape(Circle())
+                        }
+                        .padding()
+                        .appBorderOverlay(borderColor: borderColor, backgroundColor: borderBackgroundColor)
+                    }
+                }
+                //                .padding()
+            case .failed:
+                EmptyView()
+                    .onAppear {
+                        print("Error in getting Plaid Link Token. Did you configure your access token?")
+                    }
+            }
+        }
+        .onAppear { handPlaid() }
+    }
+    
+    private func handPlaid () {
+        PlaidViewModel.getPlaidLinkToken {  isLoading in
+            DispatchQueue.main.async {
+                self.isLoading = isLoading
+            }
+        }
     }
 }

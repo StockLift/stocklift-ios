@@ -23,4 +23,10 @@ public enum SLError: String, Error {
     case duplicateAccount = "Oops it looks like you have already linked one of these accounts, try again with a new account."
     case countryNotSupported = "Apologies, but at this time we do not support this country. We are working to get there though!"
     case canNotClaim = "You can not claim this."
+    
+    static func errorMessage(_ message: String) -> String {
+        return """
+    \n\n*** ⛔️  StockLift SDK ERROR  ⛔️ ***\n\n\(message)\n\n⛔️ https://sdk-stocklift.co/docs/ ⛔️\n\n
+    """
+    }
 }

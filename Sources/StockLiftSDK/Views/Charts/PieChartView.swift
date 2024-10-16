@@ -54,7 +54,7 @@ struct PieChartView: View {
                     .overlay(alignment: .center) {
                         Circle()
                             .trim(from: 0, to: 0.5)
-                            .fill(Color.appItemBackground)
+                            .fill(Color.gray.opacity(0.4))
                             .frame(width: geometry.size.width / offset)
                             .rotationEffect(.degrees(-90))
                             .offset(x: -geometry.size.width / 4)
@@ -63,7 +63,7 @@ struct PieChartView: View {
                                 /// PORTFOLIO
                                 Circle()
                                     .trim(from: 0, to: 0.5)
-                                    .fill(Color.appMainBackground)
+                                    .fill(Color.gray.opacity(0.4))
                                     .frame(width: (geometry.size.width / 2) / offset)
                                     .rotationEffect(.degrees(-90))
                                     .offset(x: -geometry.size.width / 4)

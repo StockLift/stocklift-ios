@@ -16,7 +16,7 @@ public enum EquityType: String, Codable {
     case cryptocurrency = "cryptocurrency"
     case bonds = "bonds"
     case bond = "bond"
-    case derivative = "derivative"
+    case derivative = "derivatives" //TODO: debug if this needs an 's' or not. The plaid sandbox seems to need an s but in prod i believe it does not
     
     public var title: String {
         switch self {

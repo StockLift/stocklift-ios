@@ -15,21 +15,17 @@ struct OpenLinkButton<Content: View>: View {
     @Binding var plaidAccountError: PlaidError?
     @ViewBuilder var content: Content
     
-    @State private var showLink = false
-    
-    private let defaults = UserDefaults.standard
     private var token: String {
-        defaults.string(forKey: UserKeys.linkToken) ?? ""
-    }
-    private var userUuid: String? {
-        defaults.string(forKey: UserKeys.userUuid)
+        UserDefaults.standard.string(forKey: UserKeys.linkToken) ?? "error_could_not_get_link_token"
     }
 
+    @State private var showLink = false
 
     var body: some View {
         Button(action: {
             showLink = true
         }) {
+            /// - VIEW CONTENT
            content
         }
         .sheet(isPresented: $showLink,
@@ -43,49 +39,23 @@ struct OpenLinkButton<Content: View>: View {
             }
         )
     }
-    
-    private func userAccounts() -> [PlaidAccount]? {
-        do {
-            let accounts = try self.defaults.getObject(forKey: UserKeys.plaidAccounts, castTo: [PlaidAccount].self)
-            return accounts
-        } catch {
-            print(error.localizedDescription)
-        }
-        
-        return []
-    }
 
-    /// 1st - request to PLAID for Public Token
+    /// 1st - User Links account and gets plaid access token
     private func createLinkTokenConfiguration() -> LinkTokenConfiguration {
         var configuration = LinkTokenConfiguration(
             token: self.token,
             onSuccess: { success in
                 let name = success.metadata.institution.name
                 let id = success.metadata.institution.id
-                let accounts: [PlaidAccount] = success.metadata.accounts.map { PlaidAccount(id: "\($0.mask ?? "0000")_\(name)", name: $0.name, mask: $0.mask) }
-                let alreadyConnectedAccounts = self.userAccounts()
-                var duplicateError = false
-                alreadyConnectedAccounts?.forEach { account in
-                    let match = accounts.contains { "\($0.mask ?? "0000")_\(name)" == account.id }
-                    if match == true && plaidAccountError == nil {
-                        // ERROR can not connect same account twice
-                        duplicateError = true
-                        showLink = false
-                        errorHandler()
-                    }
+                let accounts: [PlaidAccount] = success.metadata.accounts.map {
+                    PlaidAccount(id: "\($0.mask ?? "0000")_\(name)", name: $0.name, mask: $0.mask)
                 }
-                if duplicateError == true {
-                    // ERROR can not connect same account twice
-                    showLink = false
-                    errorHandler()
-                } else {
-                    self.exchangeToken(token: success.publicToken,
-                                       institutionName: name, instutionId: id,
-                                       accounts: accounts,
-                                       plaidError: plaidAccountError)
-//                    FBAnalytics.shared.logEvent(name: .connectedPlaid)
-                    showLink = false
-                }
+                
+                self.exchangeToken(token: success.publicToken,
+                                   name: name,
+                                   id: id,
+                                   accounts: accounts,
+                                   plaidError: plaidAccountError)
             }
         )
 
@@ -110,12 +80,10 @@ struct OpenLinkButton<Content: View>: View {
 private struct PlaidLinkFlow: View {
     @Binding var showLink: Bool
     private let linkTokenConfiguration: LinkTokenConfiguration
-
     init(linkTokenConfiguration: LinkTokenConfiguration, showLink: Binding<Bool>) {
         self.linkTokenConfiguration = linkTokenConfiguration
         self._showLink = showLink
     }
-
     var body: some View {
         let linkController = LinkController(
             configuration: .linkToken(linkTokenConfiguration)
@@ -123,7 +91,6 @@ private struct PlaidLinkFlow: View {
             print("⛔️ Link Creation Error: \(createError)")
             self.showLink = false
         }
-
         return linkController
             .onOpenURL { url in
                 linkController.linkHandler?.continue(from: url)
@@ -133,25 +100,32 @@ private struct PlaidLinkFlow: View {
 
 
 extension OpenLinkButton {
-    /// 2nd - request through server to Plaid for Access Token
-    func exchangeToken(token: String, institutionName: String, instutionId: String, accounts: [PlaidAccount], plaidError: PlaidError?) {
-//        UserService.shared.exchangeToken(publicToken: token, name: institutionName, id: instutionId, accounts: accounts) { result in
-//            switch result {
-//            case .success(_):
-//                DispatchQueue.main.async {
-//                    if let error = plaidError {
-//                        self.removeOldToken(err: error)
-//                    } else {
-//                        getPortfolio()
-//                    }
-//                }
-//            case .failure(let error):
-//                print("⛔️ ERROR: Getting Access Token ⛔️\n\(error.localizedDescription)")
-//                FBAuth.sendSlackMessage(codeSheet: "Exchange Token Plaid",
-//                                      message: "\(error.rawValue)",
-//                                      data: "UUID: \(userUuid ?? "")")
-//            }
-//        }
+    /// 2nd - Exchange plaid token for public access token
+    func exchangeToken(token: String, name: String, id: String, accounts: [PlaidAccount], plaidError: PlaidError?) {
+        /// - SLClient
+        guard let client = StockLiftSDK.client else { fatalError(SLError.errorMessage("Remember to set the client details before connecting accounts.")) }
+        /// - Plaid Linked Account
+        let linkAccount: PlaidLinkAccount = .init(
+            token: token,
+            name: name,
+            id: id,
+            accounts: accounts
+        )
+        /// Plaid Exchange Token Request
+        PlaidViewModel.exchangeToken(
+            client: client,
+            linkAccount: linkAccount
+        ) {
+            /// - Hide Show Link View (Main View)
+            showLink = false
+            // GET PORTFOLIO
+            //                DispatchQueue.main.async {
+            //                    if let error = plaidError {
+            //                        self.removeOldToken(err: error)
+            //                    } else {
+            //                        getPortfolio()
+            //                    }
+        }
     }
     
     private func removeOldToken(err: PlaidError) {

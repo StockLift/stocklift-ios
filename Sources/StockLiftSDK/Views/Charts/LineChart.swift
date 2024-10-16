@@ -11,19 +11,28 @@ import Charts
 
 @available(iOS 13.0, *)
 public struct LineChart: View {
-    @State var selectedElement: ChartData?
-    let chartdata: [ChartData]
+    let chartData: [ChartData]
+    let foregroundColor: Color
+    let foregroundBorderColor: Color
     let dateType: DateType
     var component: Calendar.Component? = nil
     
-    public init(selectedElement: ChartData? = nil,
-                chartdata: [ChartData],
-                dateType: DateType,
-                component: Calendar.Component? = nil) {
-        self.selectedElement = selectedElement
-        self.chartdata = chartdata
+    @State private var selectedElement: ChartData?
+    
+    public init(
+        chartData: [ChartData],
+        foregroundColor: Color,
+        foregroundBorderColor: Color,
+        dateType: DateType,
+        component: Calendar.Component? = nil
+        //        selectedElement: ChartData? = nil,
+    ) {
+        self.chartData = chartData
+        self.foregroundColor = foregroundColor
+        self.foregroundBorderColor = foregroundBorderColor
         self.dateType = dateType
         self.component = component
+        //        self.selectedElement = selectedElement
     }
     
     @available(iOS 16.0, *)
@@ -31,17 +40,17 @@ public struct LineChart: View {
         var dateFormatStyle: Date.FormatStyle = .dateTime.year()
         switch dateType {
         case .week:
-             dateFormatStyle = .dateTime.day().weekday(.abbreviated)
+            dateFormatStyle = .dateTime.day().weekday(.abbreviated)
         case .month:
             dateFormatStyle = .dateTime.month(.abbreviated).day()
         case .year:
             dateFormatStyle = .dateTime.month(.abbreviated)
         case .fiveYear:
-             break
+            break
         case .tenYear:
-             break
+            break
         case .all:
-             break
+            break
         }
         return dateFormatStyle
     }
@@ -49,17 +58,17 @@ public struct LineChart: View {
     public var body: some View {
         if #available(iOS 16.0, *) {
             NavigationStack {
-                Chart(chartdata) { data in
+                Chart(chartData) { data in
                     LineMark(x: .value("Date", data.date),
                              y: .value("Value", data.value)
                     )
-                    .foregroundStyle(Gradient(colors: [Color.appBlue, Color.blue]))
+                    .foregroundStyle(Gradient(colors: [foregroundBorderColor]))
                     .interpolationMethod(.catmullRom)
                     
                     AreaMark(x: .value("Date", data.date),
                              y: .value("Value", data.value)
                     )
-                    .foregroundStyle(Gradient(colors: [Color.appBlue, Color.blue]).opacity(0.25))
+                    .foregroundStyle(Gradient(colors: [foregroundColor]).opacity(0.25))
                     .interpolationMethod(.catmullRom)
                     
                 }
@@ -173,9 +182,9 @@ public struct LineChart: View {
             // Find the closest date element.
             var minDistance: TimeInterval = .infinity
             var index: Int? = nil
-            for dataIndex in chartdata.indices {
+            for dataIndex in chartData.indices {
                 let dateIndex: Date = encodeDate(date)
-                let dateDataIndex: Date = encodeDate(chartdata[dataIndex].date)
+                let dateDataIndex: Date = encodeDate(chartData[dataIndex].date)
                 
                 let nthDataDistance = dateDataIndex.distance(to: dateIndex)
                 if abs(nthDataDistance) < minDistance {
@@ -184,12 +193,12 @@ public struct LineChart: View {
                 }
             }
             if let index {
-                return chartdata[index]
+                return chartData[index]
             }
         }
         return nil
     }
     
-
+    
 }
 

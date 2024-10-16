@@ -32,15 +32,15 @@ struct PopUpDetailView: View {
                     Text("Cost Basis")
                         .headerFont()
                     Text("\(asset.costBasis ?? 0)")
-                        .bodyFont(.appYellow)
+                        .bodyFont(.yellow)
                 }
                 .overlay(alignment: .trailing) {
                     if counter < 2 && !hasCostBasis {
                         Text("Click to update")
                             .padding(.horizontal, 8)
-                            .background(Color.appTernaryBackground)
+                            .background(Color.gray.opacity(0.2))
                             .clipShape(.rect(cornerRadius: 10))
-                            .headerFont(.appYellow)
+                            .headerFont(.yellow)
                     }
                 }
                 .onTapGesture {
