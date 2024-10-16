@@ -46,12 +46,15 @@ extension Endpoint {
             components.port = nil
             
         case .dev:
-//            components.scheme = "https"
-//            components.host = "sdk-dev-79b2be5acd71.herokuapp.com"
-//            components.port = nil
-            components.scheme = "http"
-            components.host = "0.0.0.0"
-            components.port = 8443
+            
+            components.scheme = "https"
+            components.host = "sdk-dev-79b2be5acd71.herokuapp.com"
+            components.port = nil
+            
+            
+//            components.scheme = "http"
+//            components.host = "0.0.0.0"
+//            components.port = 8443
     
         }
         
