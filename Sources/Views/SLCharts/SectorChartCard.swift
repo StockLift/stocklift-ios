@@ -10,8 +10,8 @@ import SwiftUI
 import Charts
 
 @available(iOS 15.0, *)
-struct SectorChartCard: View {
-    @ObservedObject var portfolioVM: PortfolioViewModel
+public struct SectorChartCard: View {
+    @StateObject private var portfolioVM = PortfolioViewModel()
     
     private var screenWidth: Double {
         let screen = UIScreen.main.bounds.width
@@ -35,11 +35,12 @@ struct SectorChartCard: View {
         return portfolioVM.hasAccountConnected
     }
     
+    public init() {}
     
     //  Body
-    var body: some View {
-        VStack {
-            TitleView
+    public var body: some View {
+//        VStack {
+//            TitleView
             
             VStack {
                 PortfolioOrLinkAccount
@@ -48,9 +49,9 @@ struct SectorChartCard: View {
                     Spacer()
                 }
             }
-            Spacer()
-        }
-        .makeCardLayer()
+//            Spacer()
+//        }
+//        .makeCardLayer()
     }
     
     // Subviews
@@ -64,16 +65,19 @@ struct SectorChartCard: View {
     
     private var PortfolioOrLinkAccount: some View {
         HStack {
-            if let entries = portfolioVM.sectorEntries, portfolioVM.hasAccountConnected {
+            if let entries = portfolioVM.sectorEntries {
                 /// PIE CHART ** SP 500 Sector
                 PieChartView(values: PortfolioChartUtils.entriesForDiversification(entries, colors: PIE_CHART_COLORS).map { $0.value },
                              colors: PortfolioChartUtils.entriesForDiversification(entries, colors: PIE_CHART_COLORS).map { $0.color })
                 .frame(width: screenWidth)
                 .frame(width: screenWidth / 2)
-                .padding(.leading, 4)
-                Spacer()
+                .onAppear() {
+                    print(entries)
+                }
+//                .padding(.leading, 4)
+//                Spacer()
                 /// SECTOR ** SCROLL View
-                SectorScrollView
+//                SectorScrollView
             } else {
                 LinkAccountView(plaidError: plaidError, getPortfolio: getPortfolio)
                     .padding()
