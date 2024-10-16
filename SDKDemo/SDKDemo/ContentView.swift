@@ -16,11 +16,42 @@ final class ViewModel: ObservableObject {
 }
 
 struct ContentView: View {
-    
     @StateObject private var viewModel = ViewModel()
     
-    let data = (1...10)
+    let views = [
+          "Projections Chart",
+          "Sector Chart",
+      ]
     
+    var body: some View {
+//        GrowthProjectionsChart()
+        
+        NavigationStack {
+            List(views, id: \.self) { view in
+                NavigationLink {
+                    DemoGrowthProjectionsChart()
+                } label: {
+                    VStack {
+                        Text(view)
+                            .font(.headline)
+                            .padding(.bottom, 6)
+                        GrowthProjectionsChart()
+                            .padding(2)
+                            .border(Color.black)
+                    }
+                }
+            }
+            .navigationTitle("Select a Chart")
+        }
+
+    }
+}
+
+
+
+struct DemoGrowthProjectionsChart: View {
+    
+    let data = (1...5)
     let columns = [
         GridItem(.flexible()),
         GridItem(.flexible())
@@ -43,8 +74,4 @@ struct ContentView: View {
         }
     }
 }
-
-
-
-
 
