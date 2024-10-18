@@ -44,7 +44,7 @@ struct ContentView: View {
                             } label: {
                                 HeaderView(view) {
                                     // DEMO DEFAULT CHART
-                                    SLProjectionsChart()
+                                    SLProjectionsChart(fontColor: .black)
                                 }
                             }
                             
@@ -72,7 +72,6 @@ struct ContentView: View {
             Text(view.rawValue)
                 .font(.headline)
                 .padding(.bottom, 12)
-//                .underline(color: .gray)
             content()
             Divider().overlay(Color.white)
         }
@@ -85,7 +84,6 @@ struct ContentView: View {
 fileprivate struct DemoGrowthProjectionsChart: View {
     let data = (1...5)
     let columns = [
-        //        GridItem(.flexible()),
         GridItem(.flexible())
     ]
     var body: some View {
@@ -105,6 +103,7 @@ fileprivate struct DemoGrowthProjectionsChart: View {
                 }
             }
         }
+        .preferredColorScheme(.dark)
     }
 }
 

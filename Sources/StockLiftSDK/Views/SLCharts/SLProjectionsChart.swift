@@ -20,6 +20,8 @@ public struct SLProjectionsChart: View {
     let linkAccountHeader: String
     let chartForegroundColor: Color
     let chartForegroundBorderColor: Color
+    let font: Font
+    let fontColor: Color
     
     /// Growth Chart Projections for users portfolio
     /// - Parameters:
@@ -30,6 +32,8 @@ public struct SLProjectionsChart: View {
     ///   - linkAccountHeader: header title for link account view
     ///   - chartForegroundColor: chards area range color
     ///   - chartForegroundBorderColor: charts area range border color
+    ///   - font: chart font style (system styles)
+    ///   - fontColor: color of the chart font
     public init(
         _ chartHeader: String = "Portfolio Growth Projections",
         height: CGFloat = 250,
@@ -37,7 +41,9 @@ public struct SLProjectionsChart: View {
         linkAccountBackgroundColor: Color = .black,
         linkAccountHeader: String = "Add a brokerage account to get a free detailed breakdown of your investments",
         chartForegroundColor: Color = .black,
-        chartForegroundBorderColor: Color = .white
+        chartForegroundBorderColor: Color = .white,
+        font: Font = .caption,
+        fontColor: Color = .primary
     ) {
         self.chartHeader = chartHeader
         self.height = height
@@ -45,7 +51,9 @@ public struct SLProjectionsChart: View {
         self.linkAccountBackgroundColor = linkAccountBackgroundColor
         self.linkAccountHeader = linkAccountHeader
         self.chartForegroundColor = chartForegroundColor
-        self.chartForegroundBorderColor = chartForegroundBorderColor    
+        self.chartForegroundBorderColor = chartForegroundBorderColor
+        self.font = font
+        self.fontColor = fontColor
     }
     
     public var body: some View {
@@ -56,11 +64,14 @@ public struct SLProjectionsChart: View {
                     .appFontRegular()
                     .padding(.bottom)
 
-                LineChart(chartData: chartData,
-                          foregroundColor: chartForegroundColor,
-                          foregroundBorderColor: chartForegroundBorderColor,
-                          dateType: .all)
-                    .frame(height: height)
+                LineChart(
+                    chartData: chartData,
+                    foregroundColor: chartForegroundColor,
+                    foregroundBorderColor: chartForegroundBorderColor,
+                    font: font,
+                    fontColor: fontColor
+                )
+                .frame(height: height)
                 
             } else if portfolioVM.isLoading == false  {
                 // --- NO ACCOUNT DATA view
