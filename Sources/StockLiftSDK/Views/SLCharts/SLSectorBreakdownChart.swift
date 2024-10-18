@@ -9,7 +9,7 @@
 import SwiftUI
 import Charts
 
-@available(iOS 15.0, *)
+@available(iOS 14.0, *)
 public struct SLSectorBreakdownChart: View {
     @StateObject private var portfolioVM = PortfolioViewModel()
     
@@ -42,8 +42,8 @@ public struct SLSectorBreakdownChart: View {
         linkAccountBackgroundColor: Color = .black,
         linkAccountBorderColor: Color = .white,
         linkAccountConnectSize: CGFloat = 38,
-        linkAccountFont: Font = .body,
-        linkAccountFontColor: Color = .black,
+        linkAccountFont: Font = .caption,
+        linkAccountFontColor: Color = .white,
         font: Font = .caption,
         fontColor: Color = .primary,
         headerFont: Font = .subheadline,
@@ -71,7 +71,7 @@ public struct SLSectorBreakdownChart: View {
                     /// Chart Header
                     Text(chartHeader)
                         .font(headerFont)
-                        .foregroundStyle(headerFontColor)
+                        .foregroundColor(headerFontColor)
                         .padding(.bottom, 8)
                     
                     HStack {

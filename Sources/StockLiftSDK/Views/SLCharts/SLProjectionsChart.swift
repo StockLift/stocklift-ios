@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-@available(iOS 15.0, *)
+@available(iOS 14.0, *)
 public struct SLProjectionsChart: View {
     @StateObject private var portfolioVM = PortfolioViewModel()
     //    @StateObject private var growthChartVM = GrowthChartViewModel()
@@ -54,7 +54,7 @@ public struct SLProjectionsChart: View {
         linkAccountBorderColor: Color = .white,
         linkAccountConnectSize: CGFloat = 38,
         linkAccountFont: Font = .caption,
-        linkAccountFontColor: Color = .black,
+        linkAccountFontColor: Color = .white,
         chartForegroundColor: Color = .black,
         chartForegroundBorderColor: Color = .white,
         font: Font = .caption,
@@ -86,7 +86,7 @@ public struct SLProjectionsChart: View {
                 /// Chart Header
                 Text(chartHeader)
                     .font(headerFont)
-                    .foregroundStyle(headerFontColor)
+                    .foregroundColor(headerFontColor)
                     .padding(.bottom, 8)
 
                 LineChart(

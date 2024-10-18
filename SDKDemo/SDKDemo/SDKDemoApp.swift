@@ -29,9 +29,13 @@ struct SDKDemoApp: App {
     @State private var isDarkMode: Bool = false
     var body: some Scene {
         WindowGroup {
-            //            SLSectorBreakdownChart()
             ContentView(isDarkMode: $isDarkMode)
                 .preferredColorScheme(isDarkMode ? .dark : .light)
+            
+//            SLCharts()
+            
+            
+            //            SLSectorBreakdownChart()
         }
     }
 }

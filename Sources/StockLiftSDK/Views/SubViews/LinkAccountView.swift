@@ -9,7 +9,7 @@
 import SwiftUI
 
 
-@available(iOS 15.0, *)
+@available(iOS 14.0, *)
 struct LinkAccountView: View {
     var linkAccountHeader: String = "Add a brokerage account to get a free detailed breakdown of your investments"
     let plaidError: () -> Void
@@ -35,7 +35,7 @@ struct LinkAccountView: View {
             return Text(linkAccountHeader)
                 .multilineTextAlignment(.center)
                 .font(font)
-                .foregroundStyle(fontColor)
+                .foregroundColor(fontColor)
         }
     }
     

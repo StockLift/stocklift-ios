@@ -48,3 +48,22 @@ extension CGFloat {
         return CGFloat(arc4random()) / CGFloat(UInt32.max)
     }
 }
+
+
+struct TemplateDemoView<T:View>: View {
+    @ViewBuilder let content: T
+    let data = (1...5)
+    let columns = [
+        GridItem(.flexible())
+    ]
+    var body: some View {
+        ScrollView {
+            LazyVGrid(columns: columns, spacing: 12) {
+                ForEach(data, id: \.self) { _ in
+                    content
+                    .padding(CGFloat(Int.random(in: 4...25)))
+                }
+            }
+        }
+    }
+}

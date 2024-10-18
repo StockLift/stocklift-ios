@@ -22,8 +22,9 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             Toggle(toggleTitle, isOn: $isDarkMode)
-                .padding(.horizontal, 32)
+                .padding(.horizontal)
                 .tint(.gray)
+            SLCharts()
             ScrollView {
                 VStack {
                     ForEach(views) { view in
@@ -74,58 +75,41 @@ struct ContentView: View {
 
 //MARK: Growth Projections Chart Demo
 fileprivate struct DemoGrowthProjectionsChart: View {
-    let data = (1...5)
-    let columns = [
-        GridItem(.flexible())
-    ]
     var body: some View {
-        ScrollView {
-            LazyVGrid(columns: columns, spacing: 20) {
-                ForEach(data, id: \.self) { _ in
-                    SLProjectionsChart(
-                        HelperClass.randomTitle(),
-                        height: HelperClass.randomHeight(),
-                        linkAccountHeader: HelperClass.randomConnectAccountTitle(),
-                        linkAccountForegroundColor: HelperClass.randomColor(),
-                        linkAccountBackgroundColor:  HelperClass.randomColor(),
-                        chartForegroundColor: HelperClass.randomColor(),
-                        chartForegroundBorderColor: HelperClass.randomColor(),
-                        font: HelperClass.randomSmFont(),
-                        fontColor: HelperClass.randomColor(),
-                        headerFont: HelperClass.randomLgFont(),
-                        headerFontColor: HelperClass.randomColor()
-                    )
-                    .padding(CGFloat(Int.random(in: 4...25)))
-                }
-            }
+        TemplateDemoView {
+            SLProjectionsChart(
+                HelperClass.randomTitle(),
+                height: HelperClass.randomHeight(),
+                linkAccountHeader: HelperClass.randomConnectAccountTitle(),
+                linkAccountForegroundColor: HelperClass.randomColor(),
+                linkAccountBackgroundColor:  HelperClass.randomColor(),
+                chartForegroundColor: HelperClass.randomColor(),
+                chartForegroundBorderColor: HelperClass.randomColor(),
+                font: HelperClass.randomSmFont(),
+                fontColor: HelperClass.randomColor(),
+                headerFont: HelperClass.randomLgFont(),
+                headerFontColor: HelperClass.randomColor()
+            )
+            .padding(CGFloat(Int.random(in: 4...25)))
         }
     }
 }
 
 //MARK: Sector Breakdown Chart Demo
 fileprivate struct DemoSectorBreakdownChart: View {
-    let data = (1...5)
-    let columns = [
-        GridItem(.flexible())
-    ]
     var body: some View {
-        ScrollView {
-            LazyVGrid(columns: columns, spacing: 20) {
-                ForEach(data, id: \.self) { _ in
-                    SLSectorBreakdownChart(
-                        HelperClass.randomTitle(),
-                        linkAccountHeader: HelperClass.randomConnectAccountTitle(),
-                        linkAccountForegroundColor: HelperClass.randomColor(),
-                        linkAccountBackgroundColor: HelperClass.randomColor(),
-                        linkAccountBorderColor: HelperClass.randomColor(),
-                        font: HelperClass.randomSmFont(),
-                        fontColor: HelperClass.randomColor(),
-                        headerFont: HelperClass.randomLgFont(),
-                        headerFontColor: HelperClass.randomColor()
-                    )
-                    .padding(CGFloat(Int.random(in: 4...25)))
-                }
-            }
+        TemplateDemoView {
+            SLSectorBreakdownChart(
+                HelperClass.randomTitle(),
+                linkAccountHeader: HelperClass.randomConnectAccountTitle(),
+                linkAccountForegroundColor: HelperClass.randomColor(),
+                linkAccountBackgroundColor: HelperClass.randomColor(),
+                linkAccountBorderColor: HelperClass.randomColor(),
+                font: HelperClass.randomSmFont(),
+                fontColor: HelperClass.randomColor(),
+                headerFont: HelperClass.randomLgFont(),
+                headerFontColor: HelperClass.randomColor()
+            )
         }
     }
 }
