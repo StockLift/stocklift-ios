@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-@available(iOS 14.0, *)
+@available(iOS 15.0, *)
 public struct SLProjectionsChart: View {
 //    @StateObject private var growthChartVM = GrowthChartViewModel()
     @StateObject private var portfolioVM = PortfolioViewModel()
@@ -22,6 +22,8 @@ public struct SLProjectionsChart: View {
     let chartForegroundBorderColor: Color
     let font: Font
     let fontColor: Color
+    let headerFont: Font
+    let headerFontColor: Color
     
     /// Growth Chart Projections for users portfolio
     /// - Parameters:
@@ -43,7 +45,9 @@ public struct SLProjectionsChart: View {
         chartForegroundColor: Color = .black,
         chartForegroundBorderColor: Color = .white,
         font: Font = .caption,
-        fontColor: Color = .primary
+        fontColor: Color = .primary,
+        headerFont: Font = .subheadline,
+        headerFontColor: Color = .primary
     ) {
         self.chartHeader = chartHeader
         self.height = height
@@ -54,6 +58,8 @@ public struct SLProjectionsChart: View {
         self.chartForegroundBorderColor = chartForegroundBorderColor
         self.font = font
         self.fontColor = fontColor
+        self.headerFont = headerFont
+        self.headerFontColor = headerFontColor
     }
     
     public var body: some View {
@@ -61,8 +67,9 @@ public struct SLProjectionsChart: View {
             if let chartData = portfolioVM.growthChartEntries {
                 // --- HAS ACCOUNT CONNECTED Chart View
                 Text(chartHeader)
-                    .appFontRegular()
-                    .padding(.bottom)
+                    .font(headerFont)
+                    .foregroundStyle(headerFontColor)
+                    .padding(.bottom, 8)
 
                 LineChart(
                     chartData: chartData,
@@ -83,6 +90,8 @@ public struct SLProjectionsChart: View {
                                 linkAccountHeader: linkAccountHeader
                 )
                 .padding()
+            } else {
+                ProgressView()
             }
         }
         //        .makeCardLayer()

@@ -51,11 +51,11 @@ struct ContentView: View {
                             // MARK: - Sector Chart
                         case .sector:
                             NavigationLink {
-                                SectorChartCard()
+                                SLSectorBreakdownChart()
                             } label: {
                                 HeaderView(view) {
                                     // DEMO DEFAULT CHART
-                                    SectorChartCard()
+                                    SLSectorBreakdownChart()
                                 }
                             }
                         }

@@ -10,7 +10,7 @@ import SwiftUI
 import Charts
 
 @available(iOS 15.0, *)
-public struct SectorChartCard: View {
+public struct SLSectorBreakdownChart: View {
     @StateObject private var portfolioVM = PortfolioViewModel()
     
     private var screenWidth: Double {
@@ -35,54 +35,56 @@ public struct SectorChartCard: View {
         return portfolioVM.hasAccountConnected
     }
     
-    public init() {}
+    let chartHeader: String
+    let font: Font
+    let fontColor: Color
+    let headerFont: Font
+    let headerFontColor: Color
+    
+    public init(
+        _ chartHeader: String = "Diversification by Sector",
+        font: Font = .caption,
+        fontColor: Color = .primary,
+        headerFont: Font = .subheadline,
+        headerFontColor: Color = .primary
+    ) {
+        self.chartHeader = chartHeader
+        self.font = font
+        self.fontColor = fontColor
+        self.headerFont = headerFont
+        self.headerFontColor = headerFontColor
+    }
     
     //  Body
     public var body: some View {
-//        VStack {
-//            TitleView
-            
-            VStack {
-                PortfolioOrLinkAccount
-                ViewDetailsButton
-                if  !portfolioVM.hasAccountConnected {
-                    Spacer()
-                }
-            }
-//            Spacer()
-//        }
-//        .makeCardLayer()
-    }
-    
-    // Subviews
-    private var TitleView: some View {
-        VStack(spacing: 4) {
-            Text("Diversification by Sector")
-                .appFontRegular()
-        }
-        .padding(.top)
-    }
-    
-    private var PortfolioOrLinkAccount: some View {
-        HStack {
+        Group {
             if let entries = portfolioVM.sectorEntries {
-                /// PIE CHART ** SP 500 Sector
-                PieChartView(values: PortfolioChartUtils.entriesForDiversification(entries, colors: PIE_CHART_COLORS).map { $0.value },
-                             colors: PortfolioChartUtils.entriesForDiversification(entries, colors: PIE_CHART_COLORS).map { $0.color })
-                .frame(width: screenWidth)
-                .frame(width: screenWidth / 2)
-                .onAppear() {
-                    print(entries)
+                VStack {
+                    Text(chartHeader)
+                        .font(headerFont)
+                        .foregroundStyle(headerFontColor)
+                        .padding(.bottom, 8)
+                    HStack {
+                        /// PIE CHART ** SP 500 Sector
+                        PieChartView(values: PortfolioChartUtils.entriesForDiversification(entries, colors: PIE_CHART_COLORS).map { $0.value },
+                                     colors: PortfolioChartUtils.entriesForDiversification(entries, colors: PIE_CHART_COLORS).map { $0.color })
+                        .frame(width: screenWidth)
+                        .frame(width: screenWidth / 2)
+                        .onAppear() {
+                            print(entries)
+                        }
+                        .padding(.leading, 4)
+                        //                Spacer()
+                        /// SECTOR ** SCROLL View
+                        SectorScrollView
+                    }
                 }
-                .padding(.leading, 4)
-//                Spacer()
-                /// SECTOR ** SCROLL View
-                SectorScrollView
-            } else {
+            } else if portfolioVM.isLoading == false  {
                 LinkAccountView(plaidError: plaidError, getPortfolio: getPortfolio)
                     .padding()
+            } else {
+                ProgressView()
             }
-
         }
     }
     
@@ -109,22 +111,22 @@ public struct SectorChartCard: View {
     }
     
     /// VIEW DETAILS ** Button
-    private var ViewDetailsButton: some View {
-        NavigationLink {
-            DetailsView(sectorDetailsVM: DetailsViewModel(sectDict: sectorDetails),
-                        date: dateConnected,
-                        missingData: hasCostBasis,
-                        selectedSector: .none)
-        } label: {
-            if showDetailsButton {
-                Text("View Details")
-                    .appFontMedium(color: .yellow)
-            } else {
-                EmptyView()
-            }
-        }
-        .padding(.bottom, 28)
-    }
+//    private var ViewDetailsButton: some View {
+//        NavigationLink {
+//            DetailsView(sectorDetailsVM: DetailsViewModel(sectDict: sectorDetails),
+//                        date: dateConnected,
+//                        missingData: hasCostBasis,
+//                        selectedSector: .none)
+//        } label: {
+//            if showDetailsButton {
+//                Text("View Details")
+//                    .appFontMedium(color: .yellow)
+//            } else {
+//                EmptyView()
+//            }
+//        }
+//        .padding(.bottom, 28)
+//    }
     
     private func SectorScrollViewCell(_ entry: PieChartData) -> some View {
         HStack {
