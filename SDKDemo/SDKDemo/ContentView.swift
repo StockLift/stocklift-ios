@@ -30,40 +30,47 @@ struct ContentView: View {
     
     private let views = ChartType.allCases
     
+    private var testing: Bool = true
+    
     var body: some View {
-        NavigationStack {
-            ScrollView {
-                VStack {
-                    ForEach(views) { view in
-                        switch view {
-                            
-                            // MARK: - Projections Chart
-                        case .projections:
-                            NavigationLink {
-                                DemoGrowthProjectionsChart()
-                            } label: {
-                                HeaderView(view) {
-                                    // DEMO DEFAULT CHART
-                                    SLProjectionsChart(fontColor: .black)
+        if testing {
+            SLSectorBreakdownChart()
+//            SLProjectionsChart(fontColor: .black)
+        } else {
+            NavigationStack {
+                ScrollView {
+                    VStack {
+                        ForEach(views) { view in
+                            switch view {
+                                
+                                // MARK: - Projections Chart
+                            case .projections:
+                                NavigationLink {
+                                    DemoGrowthProjectionsChart()
+                                } label: {
+                                    HeaderView(view) {
+                                        // DEMO DEFAULT CHART
+                                        SLProjectionsChart(fontColor: .black)
+                                    }
                                 }
-                            }
-                            
-                            // MARK: - Sector Chart
-                        case .sector:
-                            NavigationLink {
-                                SLSectorBreakdownChart()
-                            } label: {
-                                HeaderView(view) {
-                                    // DEMO DEFAULT CHART
+                                
+                                // MARK: - Sector Chart
+                            case .sector:
+                                NavigationLink {
                                     SLSectorBreakdownChart()
+                                } label: {
+                                    HeaderView(view) {
+                                        // DEMO DEFAULT CHART
+                                        SLSectorBreakdownChart()
+                                    }
                                 }
                             }
                         }
                     }
+                    .padding(.horizontal, 8)
                 }
-                .padding(.horizontal, 8)
+                .navigationTitle("Select a Chart Type")
             }
-            .navigationTitle("Select a Chart Type")
         }
     }
     

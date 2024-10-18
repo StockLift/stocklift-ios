@@ -36,6 +36,8 @@ public struct SLProjectionsChart: View {
     ///   - chartForegroundBorderColor: charts area range border color
     ///   - font: chart font style (system styles)
     ///   - fontColor: color of the chart font
+    ///   - headerFont: chart header font
+    ///   - headerFontColor: chart header font color
     public init(
         _ chartHeader: String = "Portfolio Growth Projections",
         height: CGFloat = 250,

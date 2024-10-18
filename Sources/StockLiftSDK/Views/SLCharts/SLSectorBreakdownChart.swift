@@ -75,8 +75,25 @@ public struct SLSectorBreakdownChart: View {
                         }
                         .padding(.leading, 4)
                         //                Spacer()
+                        
                         /// SECTOR ** SCROLL View
-                        SectorScrollView
+                        ScrollView(.vertical, showsIndicators: false) {
+                            if let entries = portfolioVM.sectorEntries {
+                                ForEach(PortfolioChartUtils.entriesForDiversification(entries, colors: PIE_CHART_COLORS)) { entry in
+                                    NavigationLink {
+                                        DetailsView(sectorDetailsVM: DetailsViewModel(sectDict: sectorDetails),
+                                                    date: dateConnected,
+                                                    missingData: hasCostBasis,
+                                                    selectedSector: SelectedSector(rawValue: entry.label) ?? .none)
+                                    } label: {
+                                        SectorScrollViewCell(entry)
+                                    }
+                                }
+                            }
+                        }
+                        .setScrollBorderShading()
+                        .padding(.vertical)
+                        .padding(.horizontal, 14)
                     }
                 }
             } else if portfolioVM.isLoading == false  {
@@ -87,46 +104,6 @@ public struct SLSectorBreakdownChart: View {
             }
         }
     }
-    
-    
-    /// SECTOR SCROLL View
-    private var SectorScrollView: some View {
-        ScrollView(.vertical, showsIndicators: false) {
-            if let entries = portfolioVM.sectorEntries {
-                ForEach(PortfolioChartUtils.entriesForDiversification(entries, colors: PIE_CHART_COLORS)) { entry in
-                    NavigationLink {
-                        DetailsView(sectorDetailsVM: DetailsViewModel(sectDict: sectorDetails),
-                                    date: dateConnected,
-                                    missingData: hasCostBasis,
-                                    selectedSector: SelectedSector(rawValue: entry.label) ?? .none)
-                    } label: {
-                        SectorScrollViewCell(entry)
-                    }
-                }
-            }
-        }
-        .setScrollBorderShading()
-        .padding(.vertical)
-        .padding(.horizontal, 14)
-    }
-    
-    /// VIEW DETAILS ** Button
-//    private var ViewDetailsButton: some View {
-//        NavigationLink {
-//            DetailsView(sectorDetailsVM: DetailsViewModel(sectDict: sectorDetails),
-//                        date: dateConnected,
-//                        missingData: hasCostBasis,
-//                        selectedSector: .none)
-//        } label: {
-//            if showDetailsButton {
-//                Text("View Details")
-//                    .appFontMedium(color: .yellow)
-//            } else {
-//                EmptyView()
-//            }
-//        }
-//        .padding(.bottom, 28)
-//    }
     
     private func SectorScrollViewCell(_ entry: PieChartData) -> some View {
         HStack {
@@ -143,7 +120,7 @@ public struct SLSectorBreakdownChart: View {
             
             Spacer()
         }
-        .fixedSize(horizontal: false, vertical: true)
+        //        .fixedSize(horizontal: false, vertical: true)
         .padding(.horizontal)
         .padding(.vertical, 8)
         .frame(maxWidth: .infinity)
@@ -162,8 +139,3 @@ public struct SLSectorBreakdownChart: View {
     
 }
 
-//struct SectorChartCard_Previews: PreviewProvider {
-//    static var previews: some View {
-//        eSectorChartCard()
-//    }
-//}
