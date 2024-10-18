@@ -9,8 +9,9 @@
 import SwiftUI
 
 
-@available(iOS 13.0, *)
+@available(iOS 15.0, *)
 struct LinkAccountView: View {
+    var linkAccountHeader: String = "Add a brokerage account to get a free detailed breakdown of your investments"
     let plaidError: () -> Void
     let getPortfolio: () -> Void
     var foregroundColor: Color = .white
@@ -18,7 +19,8 @@ struct LinkAccountView: View {
     var borderColor: Color = .gray
     var borderBackgroundColor: Color = .black
     var connectSize: CGFloat = 38
-    var linkAccountHeader: String = "Add a brokerage account to get a free detailed breakdown of your investments"
+    var font: Font = .body
+    var fontColor: Color = .black
     
     @State private var isLoading: PlaidLoadState = .loading
     
@@ -27,12 +29,14 @@ struct LinkAccountView: View {
             // ALLOWS Font Kerning
             return Text(linkAccountHeader)
                 .multilineTextAlignment(.center)
-                .appFontMedium()
+                .font(font)
+                .foregroundStyle(fontColor)
                 .kerning(1.4)
         } else {
             return Text(linkAccountHeader)
                 .multilineTextAlignment(.center)
-                .appFontMedium()
+                .font(font)
+                .foregroundStyle(fontColor)
         }
     }
     

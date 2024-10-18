@@ -15,9 +15,11 @@ public struct SLProjectionsChart: View {
     
     let chartHeader: String
     let height: CGFloat
+    let linkAccountHeader: String
     let linkAccountForegroundColor: Color
     let linkAccountBackgroundColor: Color
-    let linkAccountHeader: String
+    let linkAccountBorderColor: Color
+    let linkAccountBorderBackgroundColor: Color
     let chartForegroundColor: Color
     let chartForegroundBorderColor: Color
     let font: Font
@@ -41,9 +43,11 @@ public struct SLProjectionsChart: View {
     public init(
         _ chartHeader: String = "Portfolio Growth Projections",
         height: CGFloat = 250,
+        linkAccountHeader: String = "Add a brokerage account to get a free detailed breakdown of your investments",
         linkAccountForegroundColor: Color = .white,
         linkAccountBackgroundColor: Color = .black,
-        linkAccountHeader: String = "Add a brokerage account to get a free detailed breakdown of your investments",
+        linkAccountBorderColor: Color = .white,
+        linkAccountBorderBackgroundColor: Color = .black,
         chartForegroundColor: Color = .black,
         chartForegroundBorderColor: Color = .white,
         font: Font = .caption,
@@ -53,9 +57,11 @@ public struct SLProjectionsChart: View {
     ) {
         self.chartHeader = chartHeader
         self.height = height
+        self.linkAccountHeader = linkAccountHeader
         self.linkAccountForegroundColor = linkAccountForegroundColor
         self.linkAccountBackgroundColor = linkAccountBackgroundColor
-        self.linkAccountHeader = linkAccountHeader
+        self.linkAccountBorderColor = linkAccountBorderColor
+        self.linkAccountBorderBackgroundColor = linkAccountBorderBackgroundColor
         self.chartForegroundColor = chartForegroundColor
         self.chartForegroundBorderColor = chartForegroundBorderColor
         self.font = font
@@ -68,6 +74,7 @@ public struct SLProjectionsChart: View {
         VStack {
             if let chartData = portfolioVM.growthChartEntries {
                 // --- HAS ACCOUNT CONNECTED Chart View
+                /// Chart Header
                 Text(chartHeader)
                     .font(headerFont)
                     .foregroundStyle(headerFontColor)
@@ -85,13 +92,16 @@ public struct SLProjectionsChart: View {
             } else if portfolioVM.isLoading == false  {
                 // --- NO ACCOUNT DATA view
                 // Link Plaid flow
-                LinkAccountView(plaidError: plaidError,
-                                getPortfolio: getPortfolio,
-                                foregroundColor: linkAccountForegroundColor,
-                                backgroundColor: linkAccountBackgroundColor,
-                                linkAccountHeader: linkAccountHeader
+                LinkAccountView(
+                    linkAccountHeader: linkAccountHeader,
+                    plaidError: plaidError,
+                    getPortfolio: getPortfolio,
+                    foregroundColor: linkAccountForegroundColor,
+                    backgroundColor: linkAccountBackgroundColor,
+                    borderColor: linkAccountBorderColor,
+                    borderBackgroundColor: linkAccountBorderBackgroundColor
                 )
-                .padding()
+//                .padding()
             } else {
                 ProgressView()
             }

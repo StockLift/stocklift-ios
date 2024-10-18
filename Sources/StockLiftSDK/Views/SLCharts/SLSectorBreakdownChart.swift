@@ -36,6 +36,11 @@ public struct SLSectorBreakdownChart: View {
     }
     
     let chartHeader: String
+    let linkAccountHeader: String
+    let linkAccountForegroundColor: Color
+    let linkAccountBackgroundColor: Color
+    let linkAccountBorderColor: Color
+    let linkAccountBorderBackgroundColor: Color
     let font: Font
     let fontColor: Color
     let headerFont: Font
@@ -43,12 +48,22 @@ public struct SLSectorBreakdownChart: View {
     
     public init(
         _ chartHeader: String = "Diversification by Sector",
+        linkAccountHeader: String = "Add a brokerage account to get a free detailed breakdown of your investments",
+        linkAccountForegroundColor: Color = .white,
+        linkAccountBackgroundColor: Color = .black,
+        linkAccountBorderColor: Color = .white,
+        linkAccountBorderBackgroundColor: Color = .black,
         font: Font = .caption,
         fontColor: Color = .primary,
         headerFont: Font = .subheadline,
         headerFontColor: Color = .primary
     ) {
         self.chartHeader = chartHeader
+        self.linkAccountHeader = linkAccountHeader
+        self.linkAccountForegroundColor = linkAccountForegroundColor
+        self.linkAccountBackgroundColor = linkAccountBackgroundColor
+        self.linkAccountBorderColor = linkAccountBorderColor
+        self.linkAccountBorderBackgroundColor = linkAccountBorderBackgroundColor
         self.font = font
         self.fontColor = fontColor
         self.headerFont = headerFont
@@ -60,10 +75,12 @@ public struct SLSectorBreakdownChart: View {
         Group {
             if let entries = portfolioVM.sectorEntries {
                 VStack {
+                    /// Chart Header
                     Text(chartHeader)
                         .font(headerFont)
                         .foregroundStyle(headerFontColor)
                         .padding(.bottom, 8)
+                    
                     HStack {
                         /// PIE CHART ** SP 500 Sector
                         PieChartView(values: PortfolioChartUtils.entriesForDiversification(entries, colors: PIE_CHART_COLORS).map { $0.value },
@@ -94,8 +111,17 @@ public struct SLSectorBreakdownChart: View {
                     }
                 }
             } else if portfolioVM.isLoading == false  {
-                LinkAccountView(plaidError: plaidError, getPortfolio: getPortfolio)
-                    .padding()
+                // --- NO ACCOUNT DATA view
+                // Link Plaid flow
+                LinkAccountView(
+                    linkAccountHeader: linkAccountHeader,
+                    plaidError: plaidError,
+                    getPortfolio: getPortfolio,
+                    foregroundColor: linkAccountForegroundColor,
+                    backgroundColor: linkAccountBackgroundColor,
+                    borderColor: linkAccountBorderColor,
+                    borderBackgroundColor: linkAccountBorderBackgroundColor
+                )
             } else {
                 ProgressView()
             }

@@ -10,13 +10,18 @@ import SwiftUI
 struct HelperClass {
     
     static func randomColor() -> Color {
-        let color = UIColor(
-            red:   .random(),
-            green: .random(),
-            blue:  .random(),
-            alpha: 1.0
-        )
-        return Color(color)
+        let colors: [Color] = [.blue, .red, .yellow, .green, .blue, .purple, .pink, .orange, .gray, .green,]
+        return colors[.random(in: 0..<colors.count)]
+    }
+    
+    static func randomLgFont() -> Font {
+        let fonts: [Font] = [.body, .headline, .largeTitle, .title, .title2, .title3]
+        return fonts[.random(in: 0..<fonts.count)]
+    }
+    
+    static func randomSmFont() -> Font {
+        let fonts: [Font] = [.callout, .caption, .caption2, .footnote, .subheadline]
+        return fonts[.random(in: 0..<fonts.count)]
     }
     
     static func randomTitle() -> String {

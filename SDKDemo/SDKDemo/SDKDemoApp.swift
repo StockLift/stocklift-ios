@@ -25,8 +25,8 @@ struct SDKDemoApp: App {
     
     var body: some Scene {
         WindowGroup {
-            SLSectorBreakdownChart()
-//            ContentView()
+//            SLSectorBreakdownChart()
+            ContentView()
         }
         //                .preferredColorScheme(.dark)
     }

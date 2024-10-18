@@ -38,7 +38,7 @@ struct ContentView: View {
                             // MARK: - Sector Chart
                         case .sector:
                             NavigationLink {
-                                SLSectorBreakdownChart()
+                                DemoSectorBreakdownChart()
                             } label: {
                                 HeaderView(view) {
                                     // DEMO DEFAULT CHART
@@ -68,7 +68,7 @@ struct ContentView: View {
 }
 
 
-
+//MARK: Growth Projections Chart Demo
 fileprivate struct DemoGrowthProjectionsChart: View {
     let data = (1...5)
     let columns = [
@@ -81,11 +81,45 @@ fileprivate struct DemoGrowthProjectionsChart: View {
                     SLProjectionsChart(
                         HelperClass.randomTitle(),
                         height: HelperClass.randomHeight(),
+                        linkAccountHeader: HelperClass.randomConnectAccountTitle(),
                         linkAccountForegroundColor: HelperClass.randomColor(),
                         linkAccountBackgroundColor:  HelperClass.randomColor(),
-                        linkAccountHeader: HelperClass.randomConnectAccountTitle(),
                         chartForegroundColor: HelperClass.randomColor(),
-                        chartForegroundBorderColor: HelperClass.randomColor()
+                        chartForegroundBorderColor: HelperClass.randomColor(),
+                        font: HelperClass.randomSmFont(),
+                        fontColor: HelperClass.randomColor(),
+                        headerFont: HelperClass.randomLgFont(),
+                        headerFontColor: HelperClass.randomColor()
+                    )
+                    .padding(CGFloat(Int.random(in: 4...25)))
+                }
+            }
+        }
+        .preferredColorScheme(.dark)
+    }
+}
+
+//MARK: Sector Breakdown Chart Demo
+fileprivate struct DemoSectorBreakdownChart: View {
+    let data = (1...5)
+    let columns = [
+        GridItem(.flexible())
+    ]
+    var body: some View {
+        ScrollView {
+            LazyVGrid(columns: columns, spacing: 20) {
+                ForEach(data, id: \.self) { _ in
+                    SLSectorBreakdownChart(
+                        HelperClass.randomTitle(),
+                        linkAccountHeader: HelperClass.randomConnectAccountTitle(),
+                        linkAccountForegroundColor: HelperClass.randomColor(),
+                        linkAccountBackgroundColor: HelperClass.randomColor(),
+                        linkAccountBorderColor: HelperClass.randomColor(),
+                        linkAccountBorderBackgroundColor: HelperClass.randomColor(),
+                        font: HelperClass.randomSmFont(),
+                        fontColor: HelperClass.randomColor(),
+                        headerFont: HelperClass.randomLgFont(),
+                        headerFontColor: HelperClass.randomColor()
                     )
                     .padding(CGFloat(Int.random(in: 4...25)))
                 }
