@@ -74,7 +74,7 @@ public struct SectorChartCard: View {
                 .onAppear() {
                     print(entries)
                 }
-//                .padding(.leading, 4)
+                .padding(.leading, 4)
 //                Spacer()
                 /// SECTOR ** SCROLL View
                 SectorScrollView

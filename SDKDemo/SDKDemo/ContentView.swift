@@ -33,34 +33,37 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                ForEach(views) { view in
-                    switch view {
-                        
-                        // MARK: - Projections Chart
-                    case .projections:
-                        NavigationLink {
-                            DemoGrowthProjectionsChart()
-                        } label: {
-                            HeaderView(view) {
-                                // DEMO DEFAULT CHART
-                                SLProjectionsChart()
+                VStack {
+                    ForEach(views) { view in
+                        switch view {
+                            
+                            // MARK: - Projections Chart
+                        case .projections:
+                            NavigationLink {
+                                DemoGrowthProjectionsChart()
+                            } label: {
+                                HeaderView(view) {
+                                    // DEMO DEFAULT CHART
+                                    SLProjectionsChart()
+                                }
                             }
-                        }
-                        
-                        // MARK: - Sector Chart
-                    case .sector:
-                        NavigationLink {
-                            SectorChartCard()
-                        } label: {
-                            HeaderView(view) {
-                                // DEMO DEFAULT CHART
+                            
+                            // MARK: - Sector Chart
+                        case .sector:
+                            NavigationLink {
                                 SectorChartCard()
+                            } label: {
+                                HeaderView(view) {
+                                    // DEMO DEFAULT CHART
+                                    SectorChartCard()
+                                }
                             }
                         }
                     }
                 }
-                .navigationTitle("Select a Chart Type")
+                .padding(.horizontal, 8)
             }
+            .navigationTitle("Select a Chart Type")
         }
     }
     
@@ -69,9 +72,11 @@ struct ContentView: View {
             Text(view.rawValue)
                 .font(.headline)
                 .padding(.bottom, 12)
-            Divider()
+//                .underline(color: .gray)
             content()
+            Divider().overlay(Color.white)
         }
+        .padding(.bottom, 12)
     }
 }
 
@@ -96,9 +101,9 @@ fileprivate struct DemoGrowthProjectionsChart: View {
                         chartForegroundColor: HelperClass.randomColor(),
                         chartForegroundBorderColor: HelperClass.randomColor()
                     )
+                    .padding(CGFloat(Int.random(in: 4...25)))
                 }
             }
-            .padding(4)
         }
     }
 }
