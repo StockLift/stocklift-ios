@@ -10,16 +10,21 @@ import SwiftUI
 
 @available(iOS 15.0, *)
 public struct SLProjectionsChart: View {
-//    @StateObject private var growthChartVM = GrowthChartViewModel()
     @StateObject private var portfolioVM = PortfolioViewModel()
+    //    @StateObject private var growthChartVM = GrowthChartViewModel()
     
+    // Header
     let chartHeader: String
     let height: CGFloat
+    // Link Account
     let linkAccountHeader: String
     let linkAccountForegroundColor: Color
     let linkAccountBackgroundColor: Color
     let linkAccountBorderColor: Color
-    let linkAccountBorderBackgroundColor: Color
+    let linkAccountConnectSize: CGFloat
+    let linkAccountFont: Font
+    let linkAccountFontColor: Color
+    // Chart
     let chartForegroundColor: Color
     let chartForegroundBorderColor: Color
     let font: Font
@@ -47,7 +52,9 @@ public struct SLProjectionsChart: View {
         linkAccountForegroundColor: Color = .white,
         linkAccountBackgroundColor: Color = .black,
         linkAccountBorderColor: Color = .white,
-        linkAccountBorderBackgroundColor: Color = .black,
+        linkAccountConnectSize: CGFloat = 38,
+        linkAccountFont: Font = .caption,
+        linkAccountFontColor: Color = .black,
         chartForegroundColor: Color = .black,
         chartForegroundBorderColor: Color = .white,
         font: Font = .caption,
@@ -61,7 +68,9 @@ public struct SLProjectionsChart: View {
         self.linkAccountForegroundColor = linkAccountForegroundColor
         self.linkAccountBackgroundColor = linkAccountBackgroundColor
         self.linkAccountBorderColor = linkAccountBorderColor
-        self.linkAccountBorderBackgroundColor = linkAccountBorderBackgroundColor
+        self.linkAccountConnectSize = linkAccountConnectSize
+        self.linkAccountFont = linkAccountFont
+        self.linkAccountFontColor = linkAccountFontColor    
         self.chartForegroundColor = chartForegroundColor
         self.chartForegroundBorderColor = chartForegroundBorderColor
         self.font = font
@@ -99,7 +108,9 @@ public struct SLProjectionsChart: View {
                     foregroundColor: linkAccountForegroundColor,
                     backgroundColor: linkAccountBackgroundColor,
                     borderColor: linkAccountBorderColor,
-                    borderBackgroundColor: linkAccountBorderBackgroundColor
+                    connectSize: linkAccountConnectSize,
+                    font: linkAccountFont,
+                    fontColor: linkAccountFontColor
                 )
 //                .padding()
             } else {

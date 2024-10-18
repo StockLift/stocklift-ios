@@ -19,28 +19,17 @@ public struct SLSectorBreakdownChart: View {
         return value
     }
     
-    private var dateConnected: Binding<String> {
-        $portfolioVM.dateConnected
-    }
-    
-    private var hasCostBasis: Binding<Bool> {
-        $portfolioVM.hasCostBasis
-    }
-    
-    private var sectorDetails: [[SectorTotals : [UserEquity]]] {
-        portfolioVM.sectorDetails
-    }
-    
-    private var showDetailsButton: Bool {
-        return portfolioVM.hasAccountConnected
-    }
-    
+    // Header
     let chartHeader: String
+    // Link Account
     let linkAccountHeader: String
     let linkAccountForegroundColor: Color
     let linkAccountBackgroundColor: Color
     let linkAccountBorderColor: Color
-    let linkAccountBorderBackgroundColor: Color
+    let linkAccountConnectSize: CGFloat
+    let linkAccountFont: Font
+    let linkAccountFontColor: Color
+    // Chart
     let font: Font
     let fontColor: Color
     let headerFont: Font
@@ -52,7 +41,9 @@ public struct SLSectorBreakdownChart: View {
         linkAccountForegroundColor: Color = .white,
         linkAccountBackgroundColor: Color = .black,
         linkAccountBorderColor: Color = .white,
-        linkAccountBorderBackgroundColor: Color = .black,
+        linkAccountConnectSize: CGFloat = 38,
+        linkAccountFont: Font = .body,
+        linkAccountFontColor: Color = .black,
         font: Font = .caption,
         fontColor: Color = .primary,
         headerFont: Font = .subheadline,
@@ -63,7 +54,9 @@ public struct SLSectorBreakdownChart: View {
         self.linkAccountForegroundColor = linkAccountForegroundColor
         self.linkAccountBackgroundColor = linkAccountBackgroundColor
         self.linkAccountBorderColor = linkAccountBorderColor
-        self.linkAccountBorderBackgroundColor = linkAccountBorderBackgroundColor
+        self.linkAccountConnectSize = linkAccountConnectSize
+        self.linkAccountFont = linkAccountFont
+        self.linkAccountFontColor = linkAccountFontColor
         self.font = font
         self.fontColor = fontColor
         self.headerFont = headerFont
@@ -88,20 +81,12 @@ public struct SLSectorBreakdownChart: View {
                         .frame(width: screenWidth)
                         .frame(width: screenWidth / 2)
                         .padding(.leading, 4)
-                        //                Spacer()
                         
                         /// SECTOR ** SCROLL View
                         ScrollView(.vertical, showsIndicators: false) {
                             if let entries = portfolioVM.sectorEntries {
                                 ForEach(PortfolioChartUtils.entriesForDiversification(entries, colors: PIE_CHART_COLORS)) { entry in
-                                    NavigationLink {
-                                        DetailsView(sectorDetailsVM: DetailsViewModel(sectDict: sectorDetails),
-                                                    date: dateConnected,
-                                                    missingData: hasCostBasis,
-                                                    selectedSector: SelectedSector(rawValue: entry.label) ?? .none)
-                                    } label: {
-                                        SectorScrollViewCell(entry)
-                                    }
+                                    SectorScrollViewCell(entry)
                                 }
                             }
                         }
@@ -120,7 +105,9 @@ public struct SLSectorBreakdownChart: View {
                     foregroundColor: linkAccountForegroundColor,
                     backgroundColor: linkAccountBackgroundColor,
                     borderColor: linkAccountBorderColor,
-                    borderBackgroundColor: linkAccountBorderBackgroundColor
+                    connectSize: linkAccountConnectSize,
+                    font: linkAccountFont,
+                    fontColor: linkAccountFontColor
                 )
             } else {
                 ProgressView()

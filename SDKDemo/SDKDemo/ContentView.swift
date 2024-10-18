@@ -31,7 +31,7 @@ struct ContentView: View {
                             } label: {
                                 HeaderView(view) {
                                     // DEMO DEFAULT CHART
-                                    SLProjectionsChart(fontColor: .black)
+                                    SLProjectionsChart(linkAccountFontColor: .white, fontColor: .black)
                                 }
                             }
                             
@@ -42,7 +42,7 @@ struct ContentView: View {
                             } label: {
                                 HeaderView(view) {
                                     // DEMO DEFAULT CHART
-                                    SLSectorBreakdownChart()
+                                    SLSectorBreakdownChart(linkAccountBackgroundColor: .purple, linkAccountFontColor: .white, fontColor: .black)
                                 }
                             }
                         }
@@ -115,7 +115,6 @@ fileprivate struct DemoSectorBreakdownChart: View {
                         linkAccountForegroundColor: HelperClass.randomColor(),
                         linkAccountBackgroundColor: HelperClass.randomColor(),
                         linkAccountBorderColor: HelperClass.randomColor(),
-                        linkAccountBorderBackgroundColor: HelperClass.randomColor(),
                         font: HelperClass.randomSmFont(),
                         fontColor: HelperClass.randomColor(),
                         headerFont: HelperClass.randomLgFont(),
