@@ -77,7 +77,7 @@ public struct SectorChartCard: View {
 //                .padding(.leading, 4)
 //                Spacer()
                 /// SECTOR ** SCROLL View
-//                SectorScrollView
+                SectorScrollView
             } else {
                 LinkAccountView(plaidError: plaidError, getPortfolio: getPortfolio)
                     .padding()

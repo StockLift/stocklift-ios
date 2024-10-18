@@ -9,7 +9,7 @@
 import SwiftUI
 
 @available(iOS 14.0, *)
-public struct GrowthProjectionsChart: View {
+public struct SLProjectionsChart: View {
 //    @StateObject private var growthChartVM = GrowthChartViewModel()
     @StateObject private var portfolioVM = PortfolioViewModel()
     

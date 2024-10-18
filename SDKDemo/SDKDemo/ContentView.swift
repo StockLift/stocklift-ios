@@ -43,7 +43,7 @@ struct ContentView: View {
                         } label: {
                             HeaderView(view) {
                                 // DEMO DEFAULT CHART
-                                GrowthProjectionsChart()
+                                SLProjectionsChart()
                             }
                         }
                         
@@ -87,7 +87,7 @@ fileprivate struct DemoGrowthProjectionsChart: View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 20) {
                 ForEach(data, id: \.self) { _ in
-                    GrowthProjectionsChart(
+                    SLProjectionsChart(
                         HelperClass.randomTitle(),
                         height: HelperClass.randomHeight(),
                         linkAccountForegroundColor: HelperClass.randomColor(),
