@@ -9,6 +9,7 @@ import SwiftUI
 import StockLiftSDK
 
 struct ContentView: View {
+    @Binding var isDarkMode: Bool
     private enum ChartType: String, CaseIterable, Identifiable {
         public var id: Self { self }
         case projections = "Projections Chart"
@@ -16,9 +17,13 @@ struct ContentView: View {
     }
     
     private let views = ChartType.allCases
+    private var toggleTitle: String { isDarkMode ? "Light Mode" : "Dark Mode" }
     
     var body: some View {
         NavigationStack {
+            Toggle(toggleTitle, isOn: $isDarkMode)
+                .padding(.horizontal, 32)
+                .tint(.gray)
             ScrollView {
                 VStack {
                     ForEach(views) { view in
@@ -52,7 +57,6 @@ struct ContentView: View {
             }
             .navigationTitle("Select a Chart Type")
         }
-        
     }
     
     private func HeaderView<T:View>(_ view: ChartType, @ViewBuilder content: () -> T) -> some View {
@@ -95,7 +99,6 @@ fileprivate struct DemoGrowthProjectionsChart: View {
                 }
             }
         }
-        .preferredColorScheme(.dark)
     }
 }
 
@@ -124,7 +127,6 @@ fileprivate struct DemoSectorBreakdownChart: View {
                 }
             }
         }
-        .preferredColorScheme(.dark)
     }
 }
 

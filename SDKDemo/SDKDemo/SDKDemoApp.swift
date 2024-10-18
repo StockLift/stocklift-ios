@@ -8,6 +8,8 @@
 import SwiftUI
 import StockLiftSDK
 
+
+/// VIEW MODEL
 fileprivate class ContentViewModel: ObservableObject {
     init() {
         let clientHasAccount = SLClient(uuid: "test-123", name: "John Doe", email: "test@test.com")
@@ -18,16 +20,18 @@ fileprivate class ContentViewModel: ObservableObject {
     }
 }
 
+
+
 @main
 struct SDKDemoApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @StateObject private var viewModel = ContentViewModel()
-    
+    @State private var isDarkMode: Bool = false
     var body: some Scene {
         WindowGroup {
-//            SLSectorBreakdownChart()
-            ContentView()
+            //            SLSectorBreakdownChart()
+            ContentView(isDarkMode: $isDarkMode)
+                .preferredColorScheme(isDarkMode ? .dark : .light)
         }
-        //                .preferredColorScheme(.dark)
     }
 }
