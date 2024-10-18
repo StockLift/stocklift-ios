@@ -8,20 +8,7 @@
 import SwiftUI
 import StockLiftSDK
 
-
-fileprivate class ContentViewModel: ObservableObject {
-    init() {
-        let clientHasAccount = SLClient(uuid: "test-123", name: "John Doe", email: "test@test.com")
-        StockLiftSDK.client = clientHasAccount
-        
-        //        let clientDoesNotHaveAccount = SLClient(uuid: "test-456", name: "John Doe", email: "test@test.com")
-        //        StockLiftSDK.client = clientDoesNotHaveAccount
-    }
-}
-
 struct ContentView: View {
-    @StateObject private var viewModel = ContentViewModel()
-    
     private enum ChartType: String, CaseIterable, Identifiable {
         public var id: Self { self }
         case projections = "Projections Chart"
@@ -30,48 +17,42 @@ struct ContentView: View {
     
     private let views = ChartType.allCases
     
-    private var testing: Bool = true
-    
     var body: some View {
-        if testing {
-            SLSectorBreakdownChart()
-//            SLProjectionsChart(fontColor: .black)
-        } else {
-            NavigationStack {
-                ScrollView {
-                    VStack {
-                        ForEach(views) { view in
-                            switch view {
-                                
-                                // MARK: - Projections Chart
-                            case .projections:
-                                NavigationLink {
-                                    DemoGrowthProjectionsChart()
-                                } label: {
-                                    HeaderView(view) {
-                                        // DEMO DEFAULT CHART
-                                        SLProjectionsChart(fontColor: .black)
-                                    }
+        NavigationStack {
+            ScrollView {
+                VStack {
+                    ForEach(views) { view in
+                        switch view {
+                            
+                            // MARK: - Projections Chart
+                        case .projections:
+                            NavigationLink {
+                                DemoGrowthProjectionsChart()
+                            } label: {
+                                HeaderView(view) {
+                                    // DEMO DEFAULT CHART
+                                    SLProjectionsChart(fontColor: .black)
                                 }
-                                
-                                // MARK: - Sector Chart
-                            case .sector:
-                                NavigationLink {
+                            }
+                            
+                            // MARK: - Sector Chart
+                        case .sector:
+                            NavigationLink {
+                                SLSectorBreakdownChart()
+                            } label: {
+                                HeaderView(view) {
+                                    // DEMO DEFAULT CHART
                                     SLSectorBreakdownChart()
-                                } label: {
-                                    HeaderView(view) {
-                                        // DEMO DEFAULT CHART
-                                        SLSectorBreakdownChart()
-                                    }
                                 }
                             }
                         }
                     }
-                    .padding(.horizontal, 8)
                 }
-                .navigationTitle("Select a Chart Type")
+                .padding(.horizontal, 8)
             }
+            .navigationTitle("Select a Chart Type")
         }
+        
     }
     
     private func HeaderView<T:View>(_ view: ChartType, @ViewBuilder content: () -> T) -> some View {

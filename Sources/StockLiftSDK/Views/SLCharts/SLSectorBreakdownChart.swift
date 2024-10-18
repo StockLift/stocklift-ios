@@ -70,9 +70,6 @@ public struct SLSectorBreakdownChart: View {
                                      colors: PortfolioChartUtils.entriesForDiversification(entries, colors: PIE_CHART_COLORS).map { $0.color })
                         .frame(width: screenWidth)
                         .frame(width: screenWidth / 2)
-                        .onAppear() {
-                            print(entries)
-                        }
                         .padding(.leading, 4)
                         //                Spacer()
                         
