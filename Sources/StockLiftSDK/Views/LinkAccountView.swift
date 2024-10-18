@@ -28,7 +28,7 @@ struct LinkAccountView: View {
             return Text(linkAccountHeader)
                 .multilineTextAlignment(.center)
                 .appFontMedium()
-                .kerning(1.5)
+                .kerning(1.4)
         } else {
             return Text(linkAccountHeader)
                 .multilineTextAlignment(.center)
@@ -59,7 +59,6 @@ struct LinkAccountView: View {
                         .appBorderOverlay(borderColor: borderColor, backgroundColor: borderBackgroundColor)
                     }
                 }
-                //                .padding()
             case .failed:
                 EmptyView()
                     .onAppear {

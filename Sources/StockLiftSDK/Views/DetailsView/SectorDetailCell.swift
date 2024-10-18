@@ -69,7 +69,7 @@ struct SectorDetailCell: View {
                     HStack(alignment: .center, spacing: 10) {
                         
                         if sectorName != "Cash" {
-                            Image(investGainLose ? "upArrow" : "downArrow")
+                            Image(investGainLose ? "upArrow" : "downArrow", bundle: .module)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 20, height: 20)
@@ -104,7 +104,7 @@ struct SectorDetailCell: View {
                 VStack(alignment: .center, spacing: 0) {
                     HStack(alignment: .center, spacing: 10) {
                         if sectorName != "Cash" {
-                            Image(sectorVM.dollarChangeGainLose ? "upArrow" : "downArrow")
+                            Image(sectorVM.dollarChangeGainLose ? "upArrow" : "downArrow", bundle: .module)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 20, height: 20)

@@ -14,8 +14,11 @@ public struct LineChart: View {
     let chartData: [ChartData]
     let foregroundColor: Color
     let foregroundBorderColor: Color
-    let dateType: DateType
-    var component: Calendar.Component? = nil
+    let font: Font
+    let fontColor: Color
+    
+    var dateType: DateType
+    var component: Calendar.Component?
     
     @State private var selectedElement: ChartData?
     
@@ -23,13 +26,17 @@ public struct LineChart: View {
         chartData: [ChartData],
         foregroundColor: Color,
         foregroundBorderColor: Color,
-        dateType: DateType,
+        font: Font,
+        fontColor: Color,
+        dateType: DateType = .all,
         component: Calendar.Component? = nil
         //        selectedElement: ChartData? = nil,
     ) {
         self.chartData = chartData
         self.foregroundColor = foregroundColor
         self.foregroundBorderColor = foregroundBorderColor
+        self.font = font
+        self.fontColor = fontColor
         self.dateType = dateType
         self.component = component
         //        self.selectedElement = selectedElement
@@ -78,7 +85,8 @@ public struct LineChart: View {
                             if let stringValue = value.as(String.self) {
                                 let dateValue = self.encodeDate(stringValue)
                                 Text("\(dateValue, format: setFormat)")
-                                    .appFontRegular(size: 10, color: .gray)
+                                    .font(font)
+                                    .foregroundStyle(fontColor)
                             }
                         }
                     }
@@ -88,7 +96,8 @@ public struct LineChart: View {
                         AxisValueLabel() {
                             if let intValue = value.as(Int.self) {
                                 Text("$\(intValue)")
-                                    .appFontRegular(size: 10)
+                                    .font(font)
+                                    .foregroundStyle(fontColor)
                             }
                         }
                     }

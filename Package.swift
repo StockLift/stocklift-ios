@@ -1,4 +1,4 @@
-// swift-tools-version: 5.8
+// swift-tools-version:5.3
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -6,8 +6,8 @@ import PackageDescription
 let package = Package(
     name: "StockLiftSDK",
     platforms: [
-      // Only add support for iOS 15 and up.
-      .iOS(.v15)
+      // Only add support for iOS 14 and up.
+      .iOS(.v14)
     ],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
@@ -33,7 +33,7 @@ let package = Package(
             ],
             path: "Sources",
             resources: [
-                .process("Resources/Colors.xcassets")
+                .process("Resources")
             ]),
         
         .testTarget(

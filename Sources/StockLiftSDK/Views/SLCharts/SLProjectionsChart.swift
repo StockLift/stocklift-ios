@@ -8,9 +8,9 @@
 
 import SwiftUI
 
-@available(iOS 14.0, *)
-public struct GrowthProjectionsChart: View {
-    @StateObject private var growthChartVM = GrowthChartViewModel()
+@available(iOS 15.0, *)
+public struct SLProjectionsChart: View {
+//    @StateObject private var growthChartVM = GrowthChartViewModel()
     @StateObject private var portfolioVM = PortfolioViewModel()
     
     let chartHeader: String
@@ -20,6 +20,10 @@ public struct GrowthProjectionsChart: View {
     let linkAccountHeader: String
     let chartForegroundColor: Color
     let chartForegroundBorderColor: Color
+    let font: Font
+    let fontColor: Color
+    let headerFont: Font
+    let headerFontColor: Color
     
     /// Growth Chart Projections for users portfolio
     /// - Parameters:
@@ -30,6 +34,10 @@ public struct GrowthProjectionsChart: View {
     ///   - linkAccountHeader: header title for link account view
     ///   - chartForegroundColor: chards area range color
     ///   - chartForegroundBorderColor: charts area range border color
+    ///   - font: chart font style (system styles)
+    ///   - fontColor: color of the chart font
+    ///   - headerFont: chart header font
+    ///   - headerFontColor: chart header font color
     public init(
         _ chartHeader: String = "Portfolio Growth Projections",
         height: CGFloat = 250,
@@ -37,7 +45,11 @@ public struct GrowthProjectionsChart: View {
         linkAccountBackgroundColor: Color = .black,
         linkAccountHeader: String = "Add a brokerage account to get a free detailed breakdown of your investments",
         chartForegroundColor: Color = .black,
-        chartForegroundBorderColor: Color = .white
+        chartForegroundBorderColor: Color = .white,
+        font: Font = .caption,
+        fontColor: Color = .primary,
+        headerFont: Font = .subheadline,
+        headerFontColor: Color = .primary
     ) {
         self.chartHeader = chartHeader
         self.height = height
@@ -45,7 +57,11 @@ public struct GrowthProjectionsChart: View {
         self.linkAccountBackgroundColor = linkAccountBackgroundColor
         self.linkAccountHeader = linkAccountHeader
         self.chartForegroundColor = chartForegroundColor
-        self.chartForegroundBorderColor = chartForegroundBorderColor    
+        self.chartForegroundBorderColor = chartForegroundBorderColor
+        self.font = font
+        self.fontColor = fontColor
+        self.headerFont = headerFont
+        self.headerFontColor = headerFontColor
     }
     
     public var body: some View {
@@ -53,14 +69,18 @@ public struct GrowthProjectionsChart: View {
             if let chartData = portfolioVM.growthChartEntries {
                 // --- HAS ACCOUNT CONNECTED Chart View
                 Text(chartHeader)
-                    .appFontRegular()
-                    .padding(.bottom)
+                    .font(headerFont)
+                    .foregroundStyle(headerFontColor)
+                    .padding(.bottom, 8)
 
-                LineChart(chartData: chartData,
-                          foregroundColor: chartForegroundColor,
-                          foregroundBorderColor: chartForegroundBorderColor,
-                          dateType: .all)
-                    .frame(height: height)
+                LineChart(
+                    chartData: chartData,
+                    foregroundColor: chartForegroundColor,
+                    foregroundBorderColor: chartForegroundBorderColor,
+                    font: font,
+                    fontColor: fontColor
+                )
+                .frame(height: height)
                 
             } else if portfolioVM.isLoading == false  {
                 // --- NO ACCOUNT DATA view
@@ -72,6 +92,8 @@ public struct GrowthProjectionsChart: View {
                                 linkAccountHeader: linkAccountHeader
                 )
                 .padding()
+            } else {
+                ProgressView()
             }
         }
         //        .makeCardLayer()
