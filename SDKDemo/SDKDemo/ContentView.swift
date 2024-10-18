@@ -32,32 +32,35 @@ struct ContentView: View {
     
     var body: some View {
         NavigationStack {
-            List(views) { view in
-                switch view {
-                case .projections:
-                    // MARK: - Projections Chart
-                    NavigationLink {
-                        DemoGrowthProjectionsChart()
-                    } label: {
-                        HeaderView(view) {
-                            // DEMO DEFAULT CHART
-                            GrowthProjectionsChart()
+            ScrollView {
+                ForEach(views) { view in
+                    switch view {
+                        
+                        // MARK: - Projections Chart
+                    case .projections:
+                        NavigationLink {
+                            DemoGrowthProjectionsChart()
+                        } label: {
+                            HeaderView(view) {
+                                // DEMO DEFAULT CHART
+                                GrowthProjectionsChart()
+                            }
                         }
                         
-                    }
-                case .sector:
-                    // MARK: - Sector Chart
-                    NavigationLink {
-                        SectorChartCard()
-                    } label: {
-                        HeaderView(view) {
-                            // DEMO DEFAULT CHART
+                        // MARK: - Sector Chart
+                    case .sector:
+                        NavigationLink {
                             SectorChartCard()
+                        } label: {
+                            HeaderView(view) {
+                                // DEMO DEFAULT CHART
+                                SectorChartCard()
+                            }
                         }
                     }
                 }
+                .navigationTitle("Select a Chart Type")
             }
-            .navigationTitle("Select a Chart Type")
         }
     }
     
