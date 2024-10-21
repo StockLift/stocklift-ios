@@ -14,6 +14,7 @@ public enum SLChartType {
     case all
 }
 
+@available(iOS 15.0, *)
 public struct SLCharts: View {
     /// CHART Type to show
     let chartType: SLChartType
@@ -152,7 +153,11 @@ public struct SLCharts: View {
                 .tag(3)
             }
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-            .makeCardLayer(color: cardBackgroundColor)
+//            .makeCardLayer(color: cardBackgroundColor)
+            .frame(maxWidth: UIScreen.main.bounds.width / 1.05)
+            .background(.gray.opacity(0.3))
+            .cornerRadius(14)
+            .shadow(radius: 8)
         }
     }
 }

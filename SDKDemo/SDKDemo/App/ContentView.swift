@@ -153,6 +153,7 @@ fileprivate struct DemoSectorBreakdownChart: View {
                 headerFont: HelperClass.randomLgFont(),
                 headerFontColor: HelperClass.randomColor()
             )
+            .frame(height: UIScreen.main.bounds.width)
         }
     }
 }
