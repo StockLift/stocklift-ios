@@ -46,12 +46,12 @@ struct ContentView: View {
             case .login:
                 DemoLoginView(login: login)
             case .charts:
+                Toggle(toggleTitle, isOn: $isDarkMode)
+                    .padding(.horizontal)
+                    .tint(.gray)
+                SLCharts(.all)
+                    .border(.black)
                 NavigationStack {
-                    Toggle(toggleTitle, isOn: $isDarkMode)
-                        .padding(.horizontal)
-                        .tint(.gray)
-                    SLCharts(.all)
-                        .border(.black)
                     ScrollView {
                         VStack {
                             ForEach(views) { view in
@@ -63,7 +63,7 @@ struct ContentView: View {
                                     } label: {
                                         HeaderView(view) {
                                             // DEMO DEFAULT CHART
-                                            SLProjectionsChart(linkAccountFontColor: .white, fontColor: .black)
+//                                            SLProjectionsChart()
                                         }
                                     }
                                     // MARK: - Sector Chart
@@ -73,7 +73,7 @@ struct ContentView: View {
                                     } label: {
                                         HeaderView(view) {
                                             // DEMO DEFAULT CHART
-                                            SLSectorBreakdownChart(linkAccountBackgroundColor: .purple, linkAccountFontColor: .white, fontColor: .black)
+//                                            SLSectorBreakdownChart(linkAccountBackgroundColor: .purple, linkAccountFontColor: .white, fontColor: .black)
                                         }
                                     }
                                 }
