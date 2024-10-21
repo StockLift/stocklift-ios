@@ -17,7 +17,7 @@ public enum SLChartType {
 @available(iOS 15.0, *)
 public struct SLCharts: View {
     /// CHART Type to show
-    let chartType: SLChartType
+    var chartType: SLChartType
     // Header
     var projectionsChartHeader: String
     var benchmarkChartHeader: String
@@ -40,6 +40,8 @@ public struct SLCharts: View {
     var headerFontColor: Color
     // Card Background
     var cardBackgroundColor: Color
+    var cardCornerRadius: CGFloat
+    var cardShadow: Bool
     
     public init(
         _ chartViewType: SLChartType = .all,
@@ -60,7 +62,9 @@ public struct SLCharts: View {
         fontColor: Color = .primary,
         headerFont: Font = .subheadline,
         headerFontColor: Color = .primary,
-        cardBackgroundColor: Color = .gray.opacity(0.3)
+        cardBackgroundColor: Color = .gray.opacity(0.3),
+        cardCornerRadius: CGFloat = 14,
+        cardShadow: Bool = true
     ) {
         self.chartType = chartViewType
         self.projectionsChartHeader = projectionsChartHeader
@@ -81,6 +85,8 @@ public struct SLCharts: View {
         self.headerFont = headerFont
         self.headerFontColor = headerFontColor
         self.cardBackgroundColor = cardBackgroundColor
+        self.cardCornerRadius = cardCornerRadius
+        self.cardShadow = cardShadow
     }
     
     public var body: some View {
@@ -101,6 +107,7 @@ public struct SLCharts: View {
             )
             .padding(8)
         case .benchmark:
+            //TODO: -----
             Text("Benchmark Coming Soon!")
                 .padding(8)
         case .sector:
@@ -135,6 +142,7 @@ public struct SLCharts: View {
                 .padding(8)
                 
                 // Benchmark
+                //TODO: -----
                 Text("Benchmark Coming Soon!").tag(2)
                     .padding(8)
                 
@@ -155,9 +163,9 @@ public struct SLCharts: View {
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
 //            .makeCardLayer(color: cardBackgroundColor)
             .frame(maxWidth: UIScreen.main.bounds.width / 1.05)
-            .background(.gray.opacity(0.3))
-            .cornerRadius(14)
-            .shadow(radius: 8)
+            .background(cardBackgroundColor.opacity(0.3))
+            .cornerRadius(cardCornerRadius)
+            .shadow(radius: cardShadow ? 8 : 0)
         }
     }
 }
