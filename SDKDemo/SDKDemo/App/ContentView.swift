@@ -50,7 +50,7 @@ struct ContentView: View {
                     .padding(.horizontal)
                     .tint(.gray)
                 SLCharts(.all)
-                    .border(.black)
+//                    .border(.black)
                 NavigationStack {
                     ScrollView {
                         VStack {

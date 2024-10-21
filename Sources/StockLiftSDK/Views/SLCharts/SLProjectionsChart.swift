@@ -112,12 +112,10 @@ public struct SLProjectionsChart: View {
                     font: linkAccountFont,
                     fontColor: linkAccountFontColor
                 )
-//                .padding()
             } else {
                 ProgressView()
             }
         }
-        //        .makeCardLayer()
     }
     
     private func plaidError() {
