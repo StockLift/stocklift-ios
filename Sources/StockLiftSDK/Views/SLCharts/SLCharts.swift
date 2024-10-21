@@ -98,10 +98,10 @@ public struct SLCharts: View {
                 headerFont: headerFont,
                 headerFontColor: headerFontColor
             )
-            .padding(4)
+            .padding(8)
         case .benchmark:
             Text("Benchmark Coming Soon!")
-                .padding(4)
+                .padding(8)
         case .sector:
             SLSectorBreakdownChart(
                 sectorChartHeader,
@@ -131,11 +131,11 @@ public struct SLCharts: View {
                     headerFontColor: headerFontColor
                 )
                 .tag(1)
-                .padding(4)
+                .padding(8)
                 
                 // Benchmark
                 Text("Benchmark Coming Soon!").tag(2)
-                    .padding(4)
+                    .padding(8)
                 
                 // Sector Breakdown
                 SLSectorBreakdownChart(
