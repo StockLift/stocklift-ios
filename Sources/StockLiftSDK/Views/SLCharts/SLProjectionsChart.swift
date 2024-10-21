@@ -87,7 +87,7 @@ public struct SLProjectionsChart: View {
                 Text(chartHeader)
                     .font(headerFont)
                     .foregroundColor(headerFontColor)
-                    .padding(.bottom, 8)
+//                    .padding(.bottom, 8)
 
                 LineChart(
                     chartData: chartData,

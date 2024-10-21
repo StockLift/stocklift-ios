@@ -64,7 +64,6 @@ public struct LineChart: View {
     
     public var body: some View {
         if #available(iOS 16.0, *) {
-            NavigationStack {
                 Chart(chartData) { data in
                     LineMark(x: .value("Date", data.date),
                              y: .value("Value", data.value)
@@ -172,11 +171,6 @@ public struct LineChart: View {
                         }
                     }
                 }
-            }
-        } else {
-            Text("Please update your phone")
-                .foregroundColor(.white)
-                .font(.title)
         }
     }
     
