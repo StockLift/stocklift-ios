@@ -161,11 +161,10 @@ public struct SLCharts: View {
                 .tag(3)
             }
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-//            .makeCardLayer(color: cardBackgroundColor)
             .frame(maxWidth: UIScreen.main.bounds.width / 1.05)
+            .shadow(radius: cardShadow ? 8 : 0)
             .background(cardBackgroundColor.opacity(0.3))
             .cornerRadius(cardCornerRadius)
-            .shadow(radius: cardShadow ? 8 : 0)
         }
     }
 }
