@@ -50,7 +50,7 @@ struct ContentView: View {
                     Toggle(toggleTitle, isOn: $isDarkMode)
                         .padding(.horizontal)
                         .tint(.gray)
-                    SLCharts()
+                    SLCharts(.all)
                         .border(.black)
                     ScrollView {
                         VStack {
