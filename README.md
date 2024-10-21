@@ -57,3 +57,52 @@ struct ContentView: View {
 }
 
 ```
+
+# SLSectorBreakdownChart
+
+## Overview
+
+`SLSectorBreakdownChart` is a SwiftUI view that displays a breakdown of a user's portfolio by sector. It includes customizable properties for the chart's appearance and a link account section.
+
+## Initialization
+
+To initialize `SLSectorBreakdownChart`, you can provide the following parameters:
+
+- `chartHeader`: A `String` representing the header for the chart.
+- `linkAccountHeader`: A `String` representing the header title for the link account view.
+- `linkAccountForegroundColor`: A `Color` for the foreground of the link account view.
+- `linkAccountBackgroundColor`: A `Color` for the background of the link account view.
+- `linkAccountBorderColor`: A `Color` for the border of the link account view.
+- `linkAccountConnectSize`: A `CGFloat` for the size of the link account connect button.
+- `linkAccountFont`: A `Font` for the link account text.
+- `linkAccountFontColor`: A `Color` for the link account text color.
+- `font`: A `Font` for the chart text.
+- `fontColor`: A `Color` for the chart text color.
+- `headerFont`: A `Font` for the header text.
+- `headerFontColor`: A `Color` for the header text color.
+
+## Example Usage
+
+```swift
+import SwiftUI
+
+@available(iOS 14.0, *)
+struct ContentView: View {
+    var body: some View {
+        SLSectorBreakdownChart(
+            "Diversification by Sector", // Chart Header
+            linkAccountHeader: "Add a brokerage account to get a free detailed breakdown of your investments",
+            linkAccountForegroundColor: .white,
+            linkAccountBackgroundColor: .black,
+            linkAccountBorderColor: .white,
+            linkAccountConnectSize: 38,
+            linkAccountFont: .caption,
+            linkAccountFontColor: .white,
+            font: .caption,
+            fontColor: .primary,
+            headerFont: .subheadline,
+            headerFontColor: .primary
+        )
+    }
+}
+```
