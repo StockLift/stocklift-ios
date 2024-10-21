@@ -8,30 +8,10 @@
 import SwiftUI
 import StockLiftSDK
 
-struct DemoLoginView: View {
-    let login: (String) -> Void
-    @State private var userUuid: String = ""
-    var body: some View {
-        TextField("User uuid", text: $userUuid)
-            .keyboardType(.default)
-            .autocapitalization(.none)
-            .padding()
-        Divider()
-        Text("Submit")
-            .padding(.horizontal)
-            .padding(.vertical, 8)
-            .foregroundStyle(Color.white)
-            .background(Color.purple)
-            .cornerRadius(10)
-            .onTapGesture {
-                login(userUuid)
-            }
-        Spacer()
-    }
-}
 
 struct ContentView: View {
     @Binding var isDarkMode: Bool
+    
     private let views = ChartType.allCases
     @State private var viewState: ViewState = .charts
     private var toggleTitle: String { isDarkMode ? "Light Mode" : "Dark Mode" }
