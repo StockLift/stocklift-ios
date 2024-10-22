@@ -141,7 +141,7 @@ public struct SLCharts: View {
     //MARK: - SECTOR BREAKDOWN CHART
     @ViewBuilder
     private var SectorChartReference: some View {
-        SLSectorBreakdownChart(
+        SectorBreakdownChart(
             viewModel,
             chartHeader: sectorChartHeader,
             //                    height: height,
@@ -162,7 +162,7 @@ public struct SLCharts: View {
     //MARK: - PROJECTIONS CHART
     @ViewBuilder
     private var ProjectionsChartReference: some View {
-        SLProjectionsChart(
+        ProjectionsChart(
             viewModel,
             chartHeader: projectionsChartHeader,
             linkAccountHeader: linkAccountHeader,

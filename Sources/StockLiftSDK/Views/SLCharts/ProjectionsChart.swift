@@ -9,7 +9,7 @@
 import SwiftUI
 
 @available(iOS 16.0, *)
-struct SLProjectionsChart: View {
+struct ProjectionsChart: View {
     @ObservedObject private var portfolioVM: PortfolioViewModel
     
     // Link Account
