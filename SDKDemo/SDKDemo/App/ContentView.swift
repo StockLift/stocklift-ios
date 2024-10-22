@@ -228,7 +228,7 @@ fileprivate struct DemoBenchmarkChart: View {
 //MARK: Net Worth Chart Demo
 fileprivate struct DemoNetWorthChart: View {
     var body: some View {
-        Text("Will not be available until v2, focusing on the All Charts configuration first.")
+        Text("Coming Soon")
             .font(.footnote)
     }
 }

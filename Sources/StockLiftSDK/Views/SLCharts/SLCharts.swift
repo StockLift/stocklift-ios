@@ -94,83 +94,26 @@ public struct SLCharts: View {
     public var body: some View {
         switch chartType {
         case .projections:
-            SLProjectionsChart(
-                viewModel,
-                chartHeader: projectionsChartHeader,
-                height: height,
-                linkAccountHeader: linkAccountHeader,
-                linkAccountForegroundColor: linkAccountForegroundColor,
-                linkAccountBackgroundColor:  linkAccountBackgroundColor,
-                linkAccountFont: linkAccountFont,
-                linkAccountFontColor: linkAccountFontColor,
-                chartForegroundColor: chartForegroundColor,
-                chartForegroundBorderColor: chartForegroundBorderColor,
-                font: font,
-                fontColor: fontColor,
-                headerFont: headerFont,
-                headerFontColor: headerFontColor
-            )
+            //MARK: - Projections Chart
+            ProjectionsChart
             .padding(8)
         case .benchmark:
-            //TODO: -----
+            //MARK: - Benchmark
             Text("Benchmark Coming Soon!")
                 .padding(8)
         case .sector:
-            SLSectorBreakdownChart(
-                viewModel,
-                chartHeader: sectorChartHeader,
-                //                    height: height,
-                linkAccountHeader: linkAccountHeader,
-                linkAccountForegroundColor: linkAccountForegroundColor,
-                linkAccountBackgroundColor:  linkAccountBackgroundColor,
-                linkAccountFont: linkAccountFont,
-                linkAccountFontColor: linkAccountFontColor,
-                font: font,
-                fontColor: fontColor,
-                headerFont: headerFont,
-                headerFontColor: headerFontColor
-            )
+            //MARK: - Sector Breakdown
+            SectorChart
         case .all:
             TabView {
-                // Sector Breakdown
-                SLSectorBreakdownChart(
-                    viewModel,
-                    chartHeader: sectorChartHeader,
-                    //                    height: height,
-                    linkAccountHeader: linkAccountHeader,
-                    linkAccountForegroundColor: linkAccountForegroundColor,
-                    linkAccountBackgroundColor:  linkAccountBackgroundColor,
-                    linkAccountFont: linkAccountFont,
-                    linkAccountFontColor: linkAccountFontColor,
-                    font: font,
-                    fontColor: fontColor,
-                    headerFont: headerFont,
-                    headerFontColor: headerFontColor
-                )
+                //MARK: - Sector Breakdown
+                SectorChart
                 .tag(0)
-                
-                // Projections Chart
-                SLProjectionsChart(
-                    viewModel,
-                    chartHeader: projectionsChartHeader,
-                    height: height,
-                    linkAccountHeader: linkAccountHeader,
-                    linkAccountForegroundColor: linkAccountForegroundColor,
-                    linkAccountBackgroundColor:  linkAccountBackgroundColor,
-                    linkAccountFont: linkAccountFont,
-                    linkAccountFontColor: linkAccountFontColor,
-                    chartForegroundColor: chartForegroundColor,
-                    chartForegroundBorderColor: chartForegroundBorderColor,
-                    font: font,
-                    fontColor: fontColor,
-                    headerFont: headerFont,
-                    headerFontColor: headerFontColor
-                )
+                //MARK: - Projections Chart
+                ProjectionsChart
                 .tag(1)
                 .padding(8)
-                
-                // Benchmark
-                //TODO: -----
+                //MARK: - Benchmark
                 Text("Benchmark Coming Soon!").tag(2)
                     .padding(8)
                 
@@ -181,5 +124,45 @@ public struct SLCharts: View {
             .background(cardBackgroundColor.opacity(0.3))
             .cornerRadius(cardCornerRadius)
         }
+    }
+    
+    //MARK: - SECTOR BREAKDOWN CHART
+    @ViewBuilder
+    private var SectorChart: some View {
+        SLSectorBreakdownChart(
+            viewModel,
+            chartHeader: sectorChartHeader,
+            //                    height: height,
+            linkAccountHeader: linkAccountHeader,
+            linkAccountForegroundColor: linkAccountForegroundColor,
+            linkAccountBackgroundColor:  linkAccountBackgroundColor,
+            linkAccountFont: linkAccountFont,
+            linkAccountFontColor: linkAccountFontColor,
+            font: font,
+            fontColor: fontColor,
+            headerFont: headerFont,
+            headerFontColor: headerFontColor
+        )
+    }
+    
+    //MARK: - PROJECTIONS CHART
+    @ViewBuilder
+    private var ProjectionsChart: some View {
+        SLProjectionsChart(
+            viewModel,
+            chartHeader: projectionsChartHeader,
+            height: height,
+            linkAccountHeader: linkAccountHeader,
+            linkAccountForegroundColor: linkAccountForegroundColor,
+            linkAccountBackgroundColor:  linkAccountBackgroundColor,
+            linkAccountFont: linkAccountFont,
+            linkAccountFontColor: linkAccountFontColor,
+            chartForegroundColor: chartForegroundColor,
+            chartForegroundBorderColor: chartForegroundBorderColor,
+            font: font,
+            fontColor: fontColor,
+            headerFont: headerFont,
+            headerFontColor: headerFontColor
+        )
     }
 }
