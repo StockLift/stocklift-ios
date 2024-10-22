@@ -153,22 +153,57 @@ struct ContentView: View {
 //MARK: ALL Charts Demo
 fileprivate struct DemoAllChartsView: View {
     var body: some View {
-        SLCharts(.all,
-                 projectionsChartHeader: HelperClass.randomTitle(),
-                 benchmarkChartHeader: HelperClass.randomTitle(),
-                 sectorChartHeader: HelperClass.randomTitle(),
-                 linkAccountHeader: HelperClass.randomConnectAccountTitle(),
-                 linkAccountForegroundColor: HelperClass.randomColor(),
-                 linkAccountBackgroundColor: HelperClass.randomColor(),
-                 linkAccountBorderColor: HelperClass.randomColor(),
-                 linkAccountFontColor: HelperClass.randomColor(),
-                 chartForegroundColor: HelperClass.randomColor(),
-                 chartForegroundBorderColor: HelperClass.randomColor(),
-                 fontColor: HelperClass.randomColor(),
-                 headerFontColor: HelperClass.randomColor(),
-                 sectorDetailFontColor: HelperClass.randomColor(),
-                 cardBackgroundColor: HelperClass.randomColor()
-        )
+        ScrollView {
+            VStack {
+                SLCharts(.all,
+                         projectionsChartHeader: HelperClass.randomTitle(),
+                         benchmarkChartHeader: HelperClass.randomTitle(),
+                         sectorChartHeader: HelperClass.randomTitle(),
+                         linkAccountHeader: HelperClass.randomConnectAccountTitle(),
+                         linkAccountForegroundColor: HelperClass.randomColor(),
+                         linkAccountBackgroundColor: HelperClass.randomColor(),
+                         linkAccountBorderColor: HelperClass.randomColor(),
+                         linkAccountFontColor: HelperClass.randomColor(),
+                         chartForegroundColor: HelperClass.randomColor(),
+                         chartForegroundBorderColor: HelperClass.randomColor(),
+                         fontColor: HelperClass.randomColor(),
+                         headerFontColor: HelperClass.randomColor(),
+                         sectorDetailFontColor: HelperClass.randomColor(),
+                         cardBackgroundColor: HelperClass.randomColor()
+                )
+                .frame(height: 350)
+                .padding()
+                
+                Spacer()
+                Rectangle().fill(Color.gray).frame(height: 100)
+                    .overlay {
+                        Text("This is a demo of the All Charts configuration.")
+                    }
+                SLCharts(.all,
+                         projectionsChartHeader: HelperClass.randomTitle(),
+                         benchmarkChartHeader: HelperClass.randomTitle(),
+                         sectorChartHeader: HelperClass.randomTitle(),
+                         linkAccountHeader: HelperClass.randomConnectAccountTitle(),
+                         linkAccountForegroundColor: HelperClass.randomColor(),
+                         linkAccountBackgroundColor: HelperClass.randomColor(),
+                         linkAccountBorderColor: HelperClass.randomColor(),
+                         linkAccountFontColor: HelperClass.randomColor(),
+                         chartForegroundColor: HelperClass.randomColor(),
+                         chartForegroundBorderColor: HelperClass.randomColor(),
+                         fontColor: HelperClass.randomColor(),
+                         headerFontColor: HelperClass.randomColor(),
+                         sectorDetailFontColor: HelperClass.randomColor(),
+                         cardBackgroundColor: HelperClass.randomColor()
+                )
+                .frame(height: 420)
+                Spacer()
+                Rectangle().fill(Color.gray).frame(height: 60)
+                    .overlay {
+                        Text("This is a demo of the All Charts configuration.")
+                    }
+            }
+        }
+        .navigationBarTitle("All Charts Demo")
     }
 }
 
