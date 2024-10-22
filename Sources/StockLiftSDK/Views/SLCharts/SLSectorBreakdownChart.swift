@@ -9,9 +9,9 @@
 import SwiftUI
 import Charts
 
-@available(iOS 14.0, *)
-public struct SLSectorBreakdownChart: View {
-    @StateObject private var portfolioVM = PortfolioViewModel()
+@available(iOS 15.0, *)
+struct SLSectorBreakdownChart: View {
+    @ObservedObject private var portfolioVM: PortfolioViewModel
     
     private var screenWidth: Double {
         let screen = UIScreen.main.bounds.width
@@ -35,20 +35,22 @@ public struct SLSectorBreakdownChart: View {
     let headerFont: Font
     let headerFontColor: Color
     
-    public init(
-        _ chartHeader: String = "Diversification by Sector",
+    init(
+        _ viewModel: PortfolioViewModel,
+        chartHeader: String = "Diversification by Sector",
         linkAccountHeader: String = "Add a brokerage account to get a free detailed breakdown of your investments",
         linkAccountForegroundColor: Color = .white,
         linkAccountBackgroundColor: Color = .black,
         linkAccountBorderColor: Color = .white,
         linkAccountConnectSize: CGFloat = 38,
-        linkAccountFont: Font = .caption,
+        linkAccountFont: Font = .caption2,
         linkAccountFontColor: Color = .white,
         font: Font = .caption,
         fontColor: Color = .primary,
         headerFont: Font = .subheadline,
         headerFontColor: Color = .primary
     ) {
+        self.portfolioVM = viewModel
         self.chartHeader = chartHeader
         self.linkAccountHeader = linkAccountHeader
         self.linkAccountForegroundColor = linkAccountForegroundColor
@@ -64,7 +66,7 @@ public struct SLSectorBreakdownChart: View {
     }
     
     //  Body
-    public var body: some View {
+    var body: some View {
         Group {
             if let entries = portfolioVM.sectorEntries {
                 VStack {
@@ -72,12 +74,15 @@ public struct SLSectorBreakdownChart: View {
                     Text(chartHeader)
                         .font(headerFont)
                         .foregroundColor(headerFontColor)
-                        .padding(.bottom, 8)
+                        .padding(.top, 12)
+                    
                     
                     HStack {
                         /// PIE CHART ** SP 500 Sector
-                        PieChartView(values: PortfolioChartUtils.entriesForDiversification(entries, colors: PIE_CHART_COLORS).map { $0.value },
-                                     colors: PortfolioChartUtils.entriesForDiversification(entries, colors: PIE_CHART_COLORS).map { $0.color })
+                        PieChartView(
+                            values: PortfolioChartUtils.entriesForDiversification(entries, colors: PIE_CHART_COLORS).map { $0.value },
+                            colors: PortfolioChartUtils.entriesForDiversification(entries, colors: PIE_CHART_COLORS).map { $0.color }
+                        )
                         .frame(width: screenWidth)
                         .frame(width: screenWidth / 2)
                         .padding(.leading, 4)
@@ -91,7 +96,7 @@ public struct SLSectorBreakdownChart: View {
                             }
                         }
                         .setScrollBorderShading()
-                        .padding(.vertical)
+                        .padding(.vertical, 18)
                         .padding(.horizontal, 14)
                     }
                 }
@@ -120,22 +125,17 @@ public struct SLSectorBreakdownChart: View {
             Circle()
                 .foregroundColor(entry.color)
                 .frame(width: 8, height: 8)
-            
             Text(PortfolioChartUtils.amount(entry.value))
-                .appFontMedium(size: 16)
-            
+                .font(linkAccountFont)
             Text(entry.label)
-                .appFontRegular(size: 11)
+                .font(linkAccountFont)
                 .multilineTextAlignment(.leading)
-            
             Spacer()
         }
-        //        .fixedSize(horizontal: false, vertical: true)
         .padding(.horizontal)
         .padding(.vertical, 8)
         .frame(maxWidth: .infinity)
-        .frame(height: 44)
-        .background(Color.gray)
+        .background(Color(UIColor.label).opacity(0.4))
         .cornerRadius(22)
     }
     

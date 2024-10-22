@@ -120,20 +120,20 @@ struct ContentView: View {
 fileprivate struct DemoGrowthProjectionsChart: View {
     var body: some View {
         TemplateDemoView {
-            SLProjectionsChart(
-                HelperClass.randomTitle(),
-                height: HelperClass.randomHeight(),
-                linkAccountHeader: HelperClass.randomConnectAccountTitle(),
-                linkAccountForegroundColor: HelperClass.randomColor(),
-                linkAccountBackgroundColor:  HelperClass.randomColor(),
-                chartForegroundColor: HelperClass.randomColor(),
-                chartForegroundBorderColor: HelperClass.randomColor(),
-                font: HelperClass.randomSmFont(),
-                fontColor: HelperClass.randomColor(),
-                headerFont: HelperClass.randomLgFont(),
-                headerFontColor: HelperClass.randomColor()
-            )
-            .padding(CGFloat(Int.random(in: 4...25)))
+//            SLProjectionsChart(
+//                chartHeader: HelperClass.randomTitle(),
+//                height: HelperClass.randomHeight(),
+//                linkAccountHeader: HelperClass.randomConnectAccountTitle(),
+//                linkAccountForegroundColor: HelperClass.randomColor(),
+//                linkAccountBackgroundColor:  HelperClass.randomColor(),
+//                chartForegroundColor: HelperClass.randomColor(),
+//                chartForegroundBorderColor: HelperClass.randomColor(),
+//                font: HelperClass.randomSmFont(),
+//                fontColor: HelperClass.randomColor(),
+//                headerFont: HelperClass.randomLgFont(),
+//                headerFontColor: HelperClass.randomColor()
+//            )
+//            .padding(CGFloat(Int.random(in: 4...25)))
         }
     }
 }
@@ -142,18 +142,18 @@ fileprivate struct DemoGrowthProjectionsChart: View {
 fileprivate struct DemoSectorBreakdownChart: View {
     var body: some View {
         TemplateDemoView {
-            SLSectorBreakdownChart(
-                HelperClass.randomTitle(),
-                linkAccountHeader: HelperClass.randomConnectAccountTitle(),
-                linkAccountForegroundColor: HelperClass.randomColor(),
-                linkAccountBackgroundColor: HelperClass.randomColor(),
-                linkAccountBorderColor: HelperClass.randomColor(),
-                font: HelperClass.randomSmFont(),
-                fontColor: HelperClass.randomColor(),
-                headerFont: HelperClass.randomLgFont(),
-                headerFontColor: HelperClass.randomColor()
-            )
-            .frame(height: UIScreen.main.bounds.width)
+//            SLSectorBreakdownChart(
+//                chartHeader: HelperClass.randomTitle(),
+//                linkAccountHeader: HelperClass.randomConnectAccountTitle(),
+//                linkAccountForegroundColor: HelperClass.randomColor(),
+//                linkAccountBackgroundColor: HelperClass.randomColor(),
+//                linkAccountBorderColor: HelperClass.randomColor(),
+//                font: HelperClass.randomSmFont(),
+//                fontColor: HelperClass.randomColor(),
+//                headerFont: HelperClass.randomLgFont(),
+//                headerFontColor: HelperClass.randomColor()
+//            )
+//            .frame(height: UIScreen.main.bounds.width)
         }
     }
 }

@@ -43,6 +43,8 @@ public struct SLCharts: View {
     var cardCornerRadius: CGFloat
     var cardShadow: Bool
     
+    @StateObject private var viewModel = PortfolioViewModel()
+    
     public init(
         _ chartViewType: SLChartType = .all,
         projectionsChartHeader: String = "Portfolio Growth Projections",
@@ -53,7 +55,7 @@ public struct SLCharts: View {
         linkAccountBackgroundColor: Color = .black,
         linkAccountBorderColor: Color = .white,
         linkAccountConnectSize: CGFloat = 38,
-        linkAccountFont: Font = .caption,
+        linkAccountFont: Font = .caption2,
         linkAccountFontColor: Color = .white,
         height: CGFloat = 250,
         chartForegroundColor: Color = .black,
@@ -93,11 +95,14 @@ public struct SLCharts: View {
         switch chartType {
         case .projections:
             SLProjectionsChart(
-                projectionsChartHeader,
+                viewModel,
+                chartHeader: projectionsChartHeader,
                 height: height,
                 linkAccountHeader: linkAccountHeader,
                 linkAccountForegroundColor: linkAccountForegroundColor,
                 linkAccountBackgroundColor:  linkAccountBackgroundColor,
+                linkAccountFont: linkAccountFont,
+                linkAccountFontColor: linkAccountFontColor,
                 chartForegroundColor: chartForegroundColor,
                 chartForegroundBorderColor: chartForegroundBorderColor,
                 font: font,
@@ -112,11 +117,14 @@ public struct SLCharts: View {
                 .padding(8)
         case .sector:
             SLSectorBreakdownChart(
-                sectorChartHeader,
+                viewModel,
+                chartHeader: sectorChartHeader,
                 //                    height: height,
                 linkAccountHeader: linkAccountHeader,
                 linkAccountForegroundColor: linkAccountForegroundColor,
                 linkAccountBackgroundColor:  linkAccountBackgroundColor,
+                linkAccountFont: linkAccountFont,
+                linkAccountFontColor: linkAccountFontColor,
                 font: font,
                 fontColor: fontColor,
                 headerFont: headerFont,
@@ -124,13 +132,33 @@ public struct SLCharts: View {
             )
         case .all:
             TabView {
+                // Sector Breakdown
+                SLSectorBreakdownChart(
+                    viewModel,
+                    chartHeader: sectorChartHeader,
+                    //                    height: height,
+                    linkAccountHeader: linkAccountHeader,
+                    linkAccountForegroundColor: linkAccountForegroundColor,
+                    linkAccountBackgroundColor:  linkAccountBackgroundColor,
+                    linkAccountFont: linkAccountFont,
+                    linkAccountFontColor: linkAccountFontColor,
+                    font: font,
+                    fontColor: fontColor,
+                    headerFont: headerFont,
+                    headerFontColor: headerFontColor
+                )
+                .tag(0)
+                
                 // Projections Chart
                 SLProjectionsChart(
-                    projectionsChartHeader,
+                    viewModel,
+                    chartHeader: projectionsChartHeader,
                     height: height,
                     linkAccountHeader: linkAccountHeader,
                     linkAccountForegroundColor: linkAccountForegroundColor,
                     linkAccountBackgroundColor:  linkAccountBackgroundColor,
+                    linkAccountFont: linkAccountFont,
+                    linkAccountFontColor: linkAccountFontColor,
                     chartForegroundColor: chartForegroundColor,
                     chartForegroundBorderColor: chartForegroundBorderColor,
                     font: font,
@@ -146,19 +174,6 @@ public struct SLCharts: View {
                 Text("Benchmark Coming Soon!").tag(2)
                     .padding(8)
                 
-                // Sector Breakdown
-                SLSectorBreakdownChart(
-                    sectorChartHeader,
-                    //                    height: height,
-                    linkAccountHeader: linkAccountHeader,
-                    linkAccountForegroundColor: linkAccountForegroundColor,
-                    linkAccountBackgroundColor:  linkAccountBackgroundColor,
-                    font: font,
-                    fontColor: fontColor,
-                    headerFont: headerFont,
-                    headerFontColor: headerFontColor
-                )
-                .tag(3)
             }
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
             .frame(maxWidth: UIScreen.main.bounds.width / 1.05)

@@ -9,10 +9,8 @@
 import SwiftUI
 
 @available(iOS 14.0, *)
-public struct SLProjectionsChart: View {
-    @StateObject private var portfolioVM = PortfolioViewModel()
-    //    @StateObject private var growthChartVM = GrowthChartViewModel()
-    
+struct SLProjectionsChart: View {
+    @ObservedObject private var portfolioVM: PortfolioViewModel
     // Header
     let chartHeader: String
     let height: CGFloat
@@ -45,15 +43,16 @@ public struct SLProjectionsChart: View {
     ///   - fontColor: color of the chart font
     ///   - headerFont: chart header font
     ///   - headerFontColor: chart header font color
-    public init(
-        _ chartHeader: String = "Portfolio Growth Projections",
+     init(
+        _ viewModel: PortfolioViewModel,
+        chartHeader: String = "Portfolio Growth Projections",
         height: CGFloat = 250,
         linkAccountHeader: String = "Add a brokerage account to get a free detailed breakdown of your investments",
         linkAccountForegroundColor: Color = .white,
         linkAccountBackgroundColor: Color = .black,
         linkAccountBorderColor: Color = .white,
         linkAccountConnectSize: CGFloat = 38,
-        linkAccountFont: Font = .caption,
+        linkAccountFont: Font = .caption2,
         linkAccountFontColor: Color = .white,
         chartForegroundColor: Color = .black,
         chartForegroundBorderColor: Color = .white,
@@ -62,6 +61,7 @@ public struct SLProjectionsChart: View {
         headerFont: Font = .subheadline,
         headerFontColor: Color = .primary
     ) {
+        self.portfolioVM = viewModel
         self.chartHeader = chartHeader
         self.height = height
         self.linkAccountHeader = linkAccountHeader
@@ -79,7 +79,7 @@ public struct SLProjectionsChart: View {
         self.headerFontColor = headerFontColor
     }
     
-    public var body: some View {
+     var body: some View {
         VStack {
             if let chartData = portfolioVM.growthChartEntries {
                 // --- HAS ACCOUNT CONNECTED Chart View
@@ -87,7 +87,9 @@ public struct SLProjectionsChart: View {
                 Text(chartHeader)
                     .font(headerFont)
                     .foregroundColor(headerFontColor)
-//                    .padding(.bottom, 8)
+//                    .padding(.top, 4)
+                    
+                Spacer()
 
                 LineChart(
                     chartData: chartData,
