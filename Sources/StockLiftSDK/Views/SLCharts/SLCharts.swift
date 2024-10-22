@@ -64,8 +64,8 @@ public struct SLCharts: View {
         
         // Charts
         height: CGFloat = 250,
-        chartForegroundColor: Color = .black,
-        chartForegroundBorderColor: Color = .white,
+        chartForegroundColor: Color = Color(UIColor.tertiaryLabel),
+        chartForegroundBorderColor: Color = .blue,
         font: Font = .caption,
         fontColor: Color = .primary,
         headerFont: Font = .subheadline,
