@@ -15,9 +15,14 @@ public extension Endpoint {
     }
     
     // MARK: - PORTFOLIO
-    /// - GET PORTFOLIO
+    /// - GET PORTFOLIO (all charts)
     static func getPortfolio(_ clientId: String) -> Self {
         Endpoint(path: APIPath.v1.portfolio + "/\(clientId)")
+    }
+    
+    /// - GET BENCHMARK Chart
+    static func benchmarkChart(_ clientId: String) -> Self {
+        Endpoint(path: APIPath.v1.portfolio + "/benchmark" + "/\(clientId)")
     }
     
     // MARK: - CHARTS (coming soon)

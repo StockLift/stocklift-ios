@@ -24,8 +24,8 @@ final class PortfolioViewModel: BaseViewModel {
     @Published var userEquityAccounts: [UserEquity]?
     @Published var sectorDetails: [[SectorTotals: [UserEquity]]] = []
 //    @Published var netWorth: Float = 0
-//    @Published var percentChangeInPortfolio: String = "0.00"
-//    @Published var portfolioUpOrDown: Bool = false
+    @Published var percentChangeInPortfolio: String = "0.00"
+    @Published var portfolioUpOrDown: Bool = false
 //    @Published var diversificationScore: Float = 0
 //    @Published var returnOnInvestment: String = "0.00"
 //    @Published var returnUpOrDown: Bool = false
@@ -35,8 +35,8 @@ final class PortfolioViewModel: BaseViewModel {
     @Published var growthChartEntries: [ChartData]? = nil
     @Published var geoAssets: [GeoAssetsData]? = nil
 //    @Published var assetCoordinates: [AssetCoordinates]? = nil
-//    @Published var sp500ChartEntries: [ChartData]? = nil
-//    @Published var portfolioChartEntries: [ChartData]? = nil
+    @Published var sp500ChartEntries: [ChartData]? = nil
+    @Published var portfolioChartEntries: [ChartData]? = nil
     
     /// PLAID
 //    @Published var linkedAccounts: [LinkedAccount] = []
@@ -51,7 +51,7 @@ final class PortfolioViewModel: BaseViewModel {
     //MARK: Init
     fileprivate func initView() {
         getPortfolio()
-        getPortfolioChart()
+        getBenchmarkChartData()
         getAssetMapData()
     }
     
@@ -84,18 +84,20 @@ final class PortfolioViewModel: BaseViewModel {
     }
     
     //MARK: - BENCHMARK CHART DATA - SP vs User Portfolio
-    private func getPortfolioChart() {
-//        UserService.shared.getPortfolioChartData { [weak self] result in
-//            guard let self = self else { return }
-//            switch result {
-//            case .success(let res):
-//                DispatchQueue.main.async {
-//                    self.setChartData(res)
-//                }
-//            case .failure(let err):
-//                self.handleAlert(err: err, codeSheet: "Portfolio VM") { }
-//            }
-//        }
+    private func getBenchmarkChartData() {
+        guard let client = StockLiftSDK.client else {
+            fatalError(SLError.errorMessage("Remember to set the client details before connecting accounts."))
+        }
+        NetworkService.shared.getBenchmarkChart(clientId: client.uuid) { result in
+            switch result {
+            case .success(let res):
+                DispatchQueue.main.async {
+                    self.setChartData(res)
+                }
+            case .failure(let err):
+                print(err)
+            }
+        }
     }
     
     
@@ -190,15 +192,15 @@ extension PortfolioViewModel {
     
     // SET CHART DATA - Benchmark Chart
     private func setChartData(_ res: PortfolioChartResponse) {
-//        self.portfolioChartEntries = PortfolioChartUtils.setCharts(entryData: res.portfolioTimeSeries)
-//        self.sp500ChartEntries = PortfolioChartUtils.setCharts(entryData: res.spTimeSeries)
-//        self.percentChangeInPortfolio = res.portfolioChange ?? ""
-//        let portfolioChange = res.portfolioChange ?? ""
-//        if portfolioChange.first == "-" {
-//            self.portfolioUpOrDown = false
-//        } else {
-//            self.portfolioUpOrDown = true
-//        }
+        self.portfolioChartEntries = PortfolioChartUtils.setCharts(entryData: res.portfolioTimeSeries)
+        self.sp500ChartEntries = PortfolioChartUtils.setCharts(entryData: res.spTimeSeries)
+        self.percentChangeInPortfolio = res.portfolioChange ?? ""
+        let portfolioChange = res.portfolioChange ?? ""
+        if portfolioChange.first == "-" {
+            self.portfolioUpOrDown = false
+        } else {
+            self.portfolioUpOrDown = true
+        }
     }
     
 
