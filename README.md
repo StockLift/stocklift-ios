@@ -2,6 +2,42 @@
 
 StockLift iOS SDK
 
+# Setup
+
+- Init the StockLiftSDK config object with your access token in your App Delegate
+
+_Example_
+
+```swift
+public final class AppDelegate: NSObject, UIApplicationDelegate {
+
+    public func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+
+        /// SET YOUR SDK ACCESS TOKEN
+        ///  https://sdk-stocklift.co/docs/
+
+        StockLiftSDK.accessToken = <token>
+
+        return true
+    }
+}
+```
+
+- Set your client details before calling the endpoint to connect the users accounts.
+
+_Example_
+
+```swift
+fileprivate class ContentViewModel: ObservableObject {
+    init() {
+        let client = SLClient(uuid: "test-123", name: "Jane Doe", email: "test@test.com")
+        StockLiftSDK.client = client
+    }
+}
+
+```
+
 # SLProjectionsChart
 
 ## Overview
