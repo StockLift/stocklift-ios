@@ -42,6 +42,9 @@ public struct SLCharts: View {
     var headerFontColor: Color
     var sectorDetailFont: Font
     var sectorDetailFontColor: Color
+    var sp500Colors: [Color]
+    var portfolioColors: [Color]
+    
     // Card Background
     var cardBackgroundColor: Color
     var cardCornerRadius: CGFloat
@@ -66,12 +69,14 @@ public struct SLCharts: View {
         height: CGFloat = 250,
         chartForegroundColor: Color = Color(UIColor.tertiaryLabel),
         chartForegroundBorderColor: Color = .blue,
-        font: Font = .caption,
+        font: Font = .caption2,
         fontColor: Color = .primary,
         headerFont: Font = .subheadline,
         headerFontColor: Color = .primary,
         sectorDetailFont: Font = .caption2,
         sectorDetailFontColor: Color = .primary,
+        sp500Colors: [Color] = [.yellow, .yellow],
+        portfolioColors: [Color] = [.blue, .blue],
         
         // Card
         cardBackgroundColor: Color = .gray.opacity(0.3),
@@ -96,6 +101,8 @@ public struct SLCharts: View {
         self.fontColor = fontColor
         self.headerFont = headerFont
         self.headerFontColor = headerFontColor
+        self.sp500Colors = sp500Colors
+        self.portfolioColors = portfolioColors
         self.cardBackgroundColor = cardBackgroundColor
         self.cardCornerRadius = cardCornerRadius
         self.cardShadow = cardShadow
@@ -192,8 +199,8 @@ public struct SLCharts: View {
             linkAccountFont: linkAccountFont,
             linkAccountFontColor: linkAccountFontColor,
             height: height,
-            chartForegroundColor: chartForegroundColor,
-            chartForegroundBorderColor: chartForegroundBorderColor,
+            sp500Colors: sp500Colors,
+            portfolioColors: portfolioColors,
             font: font,
             fontColor: fontColor,
             headerFont: headerFont,

@@ -98,7 +98,7 @@ struct ProjectionsChart: View {
                     font: font,
                     fontColor: fontColor
                 )
-                .frame(height: height)
+//                .frame(height: height)
                 
             } else if portfolioVM.isLoading == false  {
                 // --- NO ACCOUNT DATA view

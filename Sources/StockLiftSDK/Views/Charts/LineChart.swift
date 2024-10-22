@@ -10,7 +10,7 @@ import SwiftUI
 import Charts
 
 @available(iOS 16.0, *)
-public struct LineChart: View {
+struct LineChart: View {
     let chartData: [ChartData]
     let foregroundColor: Color
     let foregroundBorderColor: Color
@@ -22,7 +22,7 @@ public struct LineChart: View {
     
     @State private var selectedElement: ChartData?
     
-    public init(
+    init(
         chartData: [ChartData],
         foregroundColor: Color,
         foregroundBorderColor: Color,
@@ -61,7 +61,7 @@ public struct LineChart: View {
         return dateFormatStyle
     }
     
-    public var body: some View {
+    var body: some View {
         Chart(chartData) { data in
             LineMark(x: .value("Date", data.date),
                      y: .value("Value", data.value)

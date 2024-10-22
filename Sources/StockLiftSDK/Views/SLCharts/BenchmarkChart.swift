@@ -22,8 +22,8 @@ struct BenchmarkChart: View {
     // Chart
     let chartHeader: String
     let height: CGFloat
-    let chartForegroundColor: Color
-    let chartForegroundBorderColor: Color
+    let sp500Colors: [Color]
+    let portfolioColors: [Color]
     let font: Font
     let fontColor: Color
     let headerFont: Font
@@ -40,8 +40,8 @@ struct BenchmarkChart: View {
         linkAccountFont: Font = .caption,
         linkAccountFontColor: Color = .white,
         height: CGFloat = 250,
-        chartForegroundColor: Color = Color(UIColor.tertiaryLabel),
-        chartForegroundBorderColor: Color = .blue,
+        sp500Colors: [Color] = [.yellow, .yellow],
+        portfolioColors: [Color] = [.blue, .blue],
         font: Font = .caption,
         fontColor: Color = .primary,
         headerFont: Font = .subheadline,
@@ -57,29 +57,36 @@ struct BenchmarkChart: View {
         self.linkAccountConnectSize = linkAccountConnectSize
         self.linkAccountFont = linkAccountFont
         self.linkAccountFontColor = linkAccountFontColor
-        self.chartForegroundColor = chartForegroundColor
-        self.chartForegroundBorderColor = chartForegroundBorderColor
+        self.sp500Colors = sp500Colors
+        self.portfolioColors = portfolioColors
         self.font = font
         self.fontColor = fontColor
         self.headerFont = headerFont
         self.headerFontColor = headerFontColor
     }
     
-
+    
     var body: some View {
         VStack {
             if let chartEntries = portfolioVM.portfolioChartEntries, let sp500ChartEntries = portfolioVM.sp500ChartEntries {
                 Text(chartHeader)
                     .font(headerFont)
                     .foregroundColor(headerFontColor)
-//                    .padding(.top)
                 
-                BarLineChart(portfolioChartData: chartEntries,
-                             sp500ChartData: sp500ChartEntries,
-                             dateType: .month)
-                .frame(height: height)
-//                .padding(.horizontal)
-//                LegendFooter()
+                BarLineChart(
+                    selectedElement: nil,
+                    portfolioChartData: chartEntries,
+                    sp500ChartData: sp500ChartEntries,
+                    sp500Colors: sp500Colors,
+                    portfolioColors: portfolioColors,
+                    font: font,
+                    fontColor: fontColor
+                )
+                //                .frame(height: height)
+                
+                LegendFooter(sp500Color: sp500Colors[0], portfolioColor: portfolioColors[0])
+                    .padding(.vertical, 6)
+                
             } else if portfolioVM.isLoading == false {
                 // --- NO ACCOUNT DATA view
                 // Link Plaid flow

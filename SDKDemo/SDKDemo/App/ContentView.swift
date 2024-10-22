@@ -186,6 +186,8 @@ fileprivate struct DemoAllChartsView: View {
                          fontColor: HelperClass.randomColor(),
                          headerFontColor: HelperClass.randomColor(),
                          sectorDetailFontColor: HelperClass.randomColor(),
+                         sp500Colors: [HelperClass.randomColor(), HelperClass.randomColor(), HelperClass.randomColor()],
+                         portfolioColors: [HelperClass.randomColor(), HelperClass.randomColor(), HelperClass.randomColor()],
                          cardBackgroundColor: HelperClass.randomColor()
                 )
                 .frame(height: 350)
@@ -210,6 +212,8 @@ fileprivate struct DemoAllChartsView: View {
                          fontColor: HelperClass.randomColor(),
                          headerFontColor: HelperClass.randomColor(),
                          sectorDetailFontColor: HelperClass.randomColor(),
+                         sp500Colors: [HelperClass.randomColor(), HelperClass.randomColor(), HelperClass.randomColor()],
+                         portfolioColors: [HelperClass.randomColor(), HelperClass.randomColor(), HelperClass.randomColor()],
                          cardBackgroundColor: HelperClass.randomColor()
                 )
                 .frame(height: 420)

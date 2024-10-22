@@ -14,7 +14,11 @@ struct BarLineChart: View {
     @State var selectedElement: (ChartData?, ChartData?)?
     let portfolioChartData: [ChartData]
     let sp500ChartData: [ChartData]
-    let dateType: DateType
+    let sp500Colors: [Color]
+    let portfolioColors: [Color]
+    let font: Font
+    let fontColor: Color
+    var dateType: DateType = .month
     
     private var setFormat: Date.FormatStyle {
         var dateFormatStyle: Date.FormatStyle = .dateTime.year()
@@ -42,14 +46,14 @@ struct BarLineChart: View {
                     LineMark(x: .value("Date", data.date),
                              y: .value("Value", data.value)
                     )
-                    .foregroundStyle(Gradient(colors: [Color.yellow, Color.yellow]))
+                    .foregroundStyle(Gradient(colors: portfolioColors))
                     .interpolationMethod(.catmullRom)
                 }
                 ForEach(sp500ChartData) { data in
                     BarMark(x: .value("Date", data.date),
                             y: .value("Value", data.value)
                     )
-                    .foregroundStyle(Gradient(colors: [Color.blue, Color.blue]))
+                    .foregroundStyle(Gradient(colors: sp500Colors))
                     .opacity(0.6)
                 }
             }
@@ -59,7 +63,8 @@ struct BarLineChart: View {
                         if let stringValue = value.as(String.self) {
                             let dateValue = self.encodeDate(stringValue)
                             Text("\(dateValue, format: setFormat)")
-                                .appFontRegular(size: 10, color: .gray)
+                                .font(font)
+                                .foregroundStyle(fontColor)
                         }
                     }
                 }
@@ -69,7 +74,8 @@ struct BarLineChart: View {
                     AxisValueLabel() {
                         if let intValue = value.as(Int.self) {
                             Text("\(intValue)%")
-                                .appFontRegular(size: 10)
+                                .font(font)
+                                .foregroundStyle(fontColor)
                         }
                     }
                 }
@@ -100,7 +106,6 @@ struct BarLineChart: View {
                                     })
                         )
                 }
-                
             }
             .chartOverlay { proxy in
                 ZStack(alignment: .topLeading) {
@@ -143,10 +148,8 @@ struct BarLineChart: View {
                                     Text("\(self.setSymbol(selectedElement.1?.value.amountToPercent() ?? ""))")
                                         .font(.caption)
                                         .foregroundColor(.primary)
-                                    
                                     Spacer()
                                 }
-                                
                             }
                             .frame(width: boxWidth, alignment: .leading)
                             .background {
