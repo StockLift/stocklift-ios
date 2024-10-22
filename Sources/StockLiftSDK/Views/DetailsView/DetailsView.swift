@@ -13,7 +13,7 @@ import SwiftUI
 struct DetailsView: View {
     @StateObject var sectorDetailsVM: DetailsViewModel
     @Binding var date: String
-    @Binding var missingData: Bool
+    let hasCostBasis: Bool
     let selectedSector: SelectedSector
     
     @State private var showEnterStock: Bool = false
@@ -23,10 +23,10 @@ struct DetailsView: View {
     
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
-            Color.gray.edgesIgnoringSafeArea(.all)
-            PortfolioDetails(sectorDetailsVM: sectorDetailsVM, 
+            Color(UIColor.systemBackground).edgesIgnoringSafeArea(.all)
+            PortfolioDetails(sectorDetailsVM: sectorDetailsVM,
                              date: $date, 
-                             hasCostBasis: $missingData,
+                             hasCostBasis: hasCostBasis,
                              selectedSector: selectedSector,
                              updateCostBasisAction: updateCostBasisAction)
 //            .setAnalyticsView("Portfolio Details View")

@@ -12,6 +12,7 @@ import Charts
 @available(iOS 15.0, *)
 struct SLSectorBreakdownChart: View {
     @ObservedObject private var portfolioVM: PortfolioViewModel
+    @State private var showBreakdown: Bool = false
     
     private var screenWidth: Double {
         let screen = UIScreen.main.bounds.width
@@ -105,6 +106,18 @@ struct SLSectorBreakdownChart: View {
                         .padding(.vertical, 18)
                         .padding(.horizontal, 14)
                     }
+                    
+                    Text("View Breakdown")
+                        .font(font)
+                        .foregroundStyle(detailFontColor)
+                        .onTapGesture { showBreakdown.toggle() }
+                        .padding(.bottom)
+                }
+                .popover(isPresented: $showBreakdown) {
+                    DetailsView(sectorDetailsVM: DetailsViewModel(sectDict: portfolioVM.sectorDetails),
+                                date: .constant(""),
+                                hasCostBasis: portfolioVM.hasCostBasis,
+                                selectedSector: .none)
                 }
             } else if portfolioVM.isLoading == false  {
                 // --- NO ACCOUNT DATA view

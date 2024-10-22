@@ -40,6 +40,7 @@ struct PieChartView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
+                /// Outer - SECTOR COLOR Layer
                 ForEach(0..<self.values.count, id: \.self) { i in
                     PieChartSlice(pieSliceData: self.slices[i])
                 }
@@ -48,6 +49,7 @@ struct PieChartView: View {
                 .clipped()
                 .offset(x: geometry.size.width / 4)
                 .overlay(alignment: .center) {
+                    /// Middle - SYSTEM BACKGROUND Layer
                     Circle()
                         .trim(from: 0, to: 0.5)
                         .fill(Color(UIColor.systemBackground))
@@ -55,10 +57,10 @@ struct PieChartView: View {
                         .rotationEffect(.degrees(-90))
                         .offset(x: -geometry.size.width / 4)
                         .overlay(alignment: .center) {
-                            /// PORTFOLIO
+                            /// Inner - TERTIARY LABEL COLOR Layer
                             Circle()
                                 .trim(from: 0, to: 0.5)
-                                .fill(Color(UIColor.label).opacity(0.4))
+                                .fill(Color(UIColor.tertiaryLabel))
                                 .frame(width: (geometry.size.width / 2) / offset)
                                 .rotationEffect(.degrees(-90))
                                 .offset(x: -geometry.size.width / 4)
