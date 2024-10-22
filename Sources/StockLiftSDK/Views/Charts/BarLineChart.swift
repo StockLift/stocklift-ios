@@ -9,7 +9,7 @@
 import SwiftUI
 import Charts
 
-@available(iOS 13.0, *)
+@available(iOS 16.0, *)
 struct BarLineChart: View {
     @State var selectedElement: (ChartData?, ChartData?)?
     let portfolioChartData: [ChartData]
@@ -38,7 +38,7 @@ struct BarLineChart: View {
 
     var body: some View {
         VStack {
-            if #available(iOS 16.0, *) {
+//            if #available(iOS 16.0, *) {
                 Chart {
                     ForEach(portfolioChartData) { data in
                         LineMark(x: .value("Date", data.date),
@@ -167,11 +167,11 @@ struct BarLineChart: View {
                   }
                 }
 
-            } else {
-                Text("Please update your phone")
-                    .foregroundColor(.white)
-                    .font(.title)
-            }
+//            } else {
+//                Text("Please update your phone")
+//                    .foregroundColor(.white)
+//                    .font(.title)
+//            }
         }
     }
     

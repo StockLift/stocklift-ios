@@ -1,16 +1,15 @@
 //
-//  GrowthProjectionsChart.swift
-//  Stocklift
+//  BenchmarkChart.swift
+//  StockLiftSDK
 //
-//  Created by Christopher Hicks on 7/21/24.
-//  Copyright © 2023 StockLift Inc. All rights reserved.
+//  Created by Christopher Hicks on 10/22/24.
 //
 
 import SwiftUI
 
-@available(iOS 14.0, *)
-struct SLProjectionsChart: View {
-    @ObservedObject private var portfolioVM: PortfolioViewModel
+@available(iOS 16.0, *)
+struct BenchmarkChart: View {
+    @ObservedObject var portfolioVM: PortfolioViewModel
     
     // Link Account
     let linkAccountHeader: String
@@ -30,22 +29,9 @@ struct SLProjectionsChart: View {
     let headerFont: Font
     let headerFontColor: Color
     
-    /// Growth Chart Projections for users portfolio
-    /// - Parameters:
-    ///   - chartHeader: "Header for Chart"
-    ///   - height: the height of the chart
-    ///   - linkAccountForegroundColor: foreground color for link account view
-    ///   - linkAccountBackgroundColor: background color for link account view
-    ///   - linkAccountHeader: header title for link account view
-    ///   - chartForegroundColor: chards area range color
-    ///   - chartForegroundBorderColor: charts area range border color
-    ///   - font: chart font style (system styles)
-    ///   - fontColor: color of the chart font
-    ///   - headerFont: chart header font
-    ///   - headerFontColor: chart header font color
-     init(
+    init (
         _ viewModel: PortfolioViewModel,
-        chartHeader: String = "Portfolio Growth Projections",
+        chartHeader: String = "My Portfolio vs. S&P 500",
         linkAccountHeader: String = "Add a brokerage account to get a free detailed breakdown of your investments",
         linkAccountForegroundColor: Color = .white,
         linkAccountBackgroundColor: Color = .black,
@@ -70,7 +56,7 @@ struct SLProjectionsChart: View {
         self.linkAccountBorderColor = linkAccountBorderColor
         self.linkAccountConnectSize = linkAccountConnectSize
         self.linkAccountFont = linkAccountFont
-        self.linkAccountFontColor = linkAccountFontColor    
+        self.linkAccountFontColor = linkAccountFontColor
         self.chartForegroundColor = chartForegroundColor
         self.chartForegroundBorderColor = chartForegroundBorderColor
         self.font = font
@@ -79,28 +65,22 @@ struct SLProjectionsChart: View {
         self.headerFontColor = headerFontColor
     }
     
-     var body: some View {
+
+    var body: some View {
         VStack {
-            if let chartData = portfolioVM.growthChartEntries {
-                // --- HAS ACCOUNT CONNECTED Chart View
-                /// Chart Header
+            if let chartEntries = portfolioVM.portfolioChartEntries, let sp500ChartEntries = portfolioVM.sp500ChartEntries {
                 Text(chartHeader)
                     .font(headerFont)
                     .foregroundColor(headerFontColor)
-//                    .padding(.top, 4)
-                    
-                Spacer()
-
-                LineChart(
-                    chartData: chartData,
-                    foregroundColor: chartForegroundColor,
-                    foregroundBorderColor: chartForegroundBorderColor,
-                    font: font,
-                    fontColor: fontColor
-                )
-                .frame(height: height)
+//                    .padding(.top)
                 
-            } else if portfolioVM.isLoading == false  {
+                BarLineChart(portfolioChartData: chartEntries,
+                             sp500ChartData: sp500ChartEntries,
+                             dateType: .month)
+                .frame(height: height)
+//                .padding(.horizontal)
+//                LegendFooter()
+            } else if portfolioVM.isLoading == false {
                 // --- NO ACCOUNT DATA view
                 // Link Plaid flow
                 LinkAccountView(
@@ -121,10 +101,11 @@ struct SLProjectionsChart: View {
     }
     
     private func plaidError() {
-        //TODO: -  handle error
+        //TODO: -
     }
     
     private func getPortfolio() {
-        //TODO: config get portfolio
+        //TODO: -
     }
 }
+
