@@ -18,8 +18,11 @@ struct ContentView: View {
     
     private enum ChartType: String, CaseIterable, Identifiable {
         public var id: Self { self }
+        case all = "All Charts"
         case projections = "Projections Chart"
         case sector = "Sector Chart"
+        case benchmark = "Benchmark Chart"
+        case netWorth = "Net Worth Chart"
     }
     
     private enum ViewState {
@@ -50,30 +53,58 @@ struct ContentView: View {
                     .padding(.horizontal)
                     .tint(.gray)
                 SLCharts(.all)
-//                    .border(.black)
+                //                    .border(.black)
                 NavigationStack {
                     ScrollView {
                         VStack {
                             ForEach(views) { view in
                                 switch view {
-                                    // MARK: - Projections Chart
+                                case .all:
+                                    // MARK: - All Charts
+                                    NavigationLink {
+                                        DemoAllChartsView()
+                                    } label: {
+                                        HeaderView(view) {
+                                            SLCharts(.all)
+                                        }
+                                    }
+                                    
                                 case .projections:
+                                    // MARK: - Projections Chart
                                     NavigationLink {
                                         DemoGrowthProjectionsChart()
                                     } label: {
                                         HeaderView(view) {
                                             // DEMO DEFAULT CHART
-//                                            SLProjectionsChart()
                                         }
                                     }
-                                    // MARK: - Sector Chart
                                 case .sector:
+                                    // MARK: - Sector Chart
                                     NavigationLink {
                                         DemoSectorBreakdownChart()
                                     } label: {
                                         HeaderView(view) {
                                             // DEMO DEFAULT CHART
-//                                            SLSectorBreakdownChart(linkAccountBackgroundColor: .purple, linkAccountFontColor: .white, fontColor: .black)
+                                        }
+                                    }
+                                    
+                                case .benchmark:
+                                    // MARK: - Benchmark Chart
+                                    NavigationLink {
+                                        DemoBenchmarkChart()
+                                    } label: {
+                                        HeaderView(view) {
+                                            // DEMO DEFAULT CHART
+                                        }
+                                    }
+                                    
+                                case .netWorth:
+                                    // MARK: - Net Worth Chart
+                                    NavigationLink {
+                                        DemoNetWorthChart()
+                                    } label: {
+                                        HeaderView(view) {
+                                            // DEMO DEFAULT CHART
                                         }
                                     }
                                 }
@@ -88,6 +119,7 @@ struct ContentView: View {
         }
     }
     
+    // LIST Header View
     private func HeaderView<T:View>(_ view: ChartType, @ViewBuilder content: () -> T) -> some View {
         VStack {
             Text(view.rawValue)
@@ -99,12 +131,14 @@ struct ContentView: View {
         .padding(.bottom, 12)
     }
     
+    // LOGIN - (create a new test client from uuid)
     private func login(_ id: String) {
         let client: SLClient = .init(uuid: id, name: "TEST-\(id)", email: "test-\(id)@test.com")
         StockLiftSDK.client = client
         toggleView()
     }
     
+    // TOGGLE View
     private func toggleView() {
         switch viewState {
         case .login:
@@ -116,10 +150,33 @@ struct ContentView: View {
 }
 
 
+//MARK: ALL Charts Demo
+fileprivate struct DemoAllChartsView: View {
+    var body: some View {
+        SLCharts(.all,
+                 projectionsChartHeader: HelperClass.randomTitle(),
+                 benchmarkChartHeader: HelperClass.randomTitle(),
+                 sectorChartHeader: HelperClass.randomTitle(),
+                 linkAccountHeader: HelperClass.randomConnectAccountTitle(),
+                 linkAccountForegroundColor: HelperClass.randomColor(),
+                 linkAccountBackgroundColor: HelperClass.randomColor(),
+                 linkAccountBorderColor: HelperClass.randomColor(),
+                 linkAccountFontColor: HelperClass.randomColor(),
+                 chartForegroundColor: HelperClass.randomColor(),
+                 chartForegroundBorderColor: HelperClass.randomColor(),
+                 fontColor: HelperClass.randomColor(),
+                 headerFontColor: HelperClass.randomColor(),
+                 cardBackgroundColor: HelperClass.randomColor()
+        )
+    }
+}
+
 //MARK: Growth Projections Chart Demo
 fileprivate struct DemoGrowthProjectionsChart: View {
     var body: some View {
-        TemplateDemoView {
+        Text("Will not be available until v2, focusing on the All Charts configuration first.")
+            .font(.footnote)
+//        TemplateDemoView {
 //            SLProjectionsChart(
 //                chartHeader: HelperClass.randomTitle(),
 //                height: HelperClass.randomHeight(),
@@ -134,14 +191,16 @@ fileprivate struct DemoGrowthProjectionsChart: View {
 //                headerFontColor: HelperClass.randomColor()
 //            )
 //            .padding(CGFloat(Int.random(in: 4...25)))
-        }
+//        }
     }
 }
 
 //MARK: Sector Breakdown Chart Demo
 fileprivate struct DemoSectorBreakdownChart: View {
     var body: some View {
-        TemplateDemoView {
+        Text("Will not be available until v2, focusing on the All Charts configuration first.")
+            .font(.footnote)
+//        TemplateDemoView {
 //            SLSectorBreakdownChart(
 //                chartHeader: HelperClass.randomTitle(),
 //                linkAccountHeader: HelperClass.randomConnectAccountTitle(),
@@ -154,9 +213,22 @@ fileprivate struct DemoSectorBreakdownChart: View {
 //                headerFontColor: HelperClass.randomColor()
 //            )
 //            .frame(height: UIScreen.main.bounds.width)
-        }
+//        }
     }
 }
 
+//MARK: Benchmark Chart Demo
+fileprivate struct DemoBenchmarkChart: View {
+    var body: some View {
+        Text("Will not be available until v2, focusing on the All Charts configuration first.")
+            .font(.footnote)
+    }
+}
 
-
+//MARK: Net Worth Chart Demo
+fileprivate struct DemoNetWorthChart: View {
+    var body: some View {
+        Text("Will not be available until v2, focusing on the All Charts configuration first.")
+            .font(.footnote)
+    }
+}
