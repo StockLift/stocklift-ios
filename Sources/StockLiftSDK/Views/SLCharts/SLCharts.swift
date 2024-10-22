@@ -16,6 +16,8 @@ public enum SLChartType {
 
 @available(iOS 15.0, *)
 public struct SLCharts: View {
+    @StateObject private var viewModel = PortfolioViewModel()
+    
     /// CHART Type to show
     var chartType: SLChartType
     // Header
@@ -44,8 +46,6 @@ public struct SLCharts: View {
     var cardBackgroundColor: Color
     var cardCornerRadius: CGFloat
     var cardShadow: Bool
-    
-    @StateObject private var viewModel = PortfolioViewModel()
     
     public init(
         _ chartViewType: SLChartType = .all,
@@ -106,29 +106,29 @@ public struct SLCharts: View {
     public var body: some View {
         switch chartType {
         case .projections:
-            //MARK: - Projections Chart
+            /// ------------ Projections Chart
             ProjectionsChart
-            .padding(8)
+                .padding(8)
         case .benchmark:
-            //MARK: - Benchmark
-            Text("Benchmark Coming Soon!")
+            /// ------------ Benchmark Chart
+            BenchmarkChart
                 .padding(8)
         case .sector:
-            //MARK: - Sector Breakdown
+            /// ------------ Sector Breakdown Chart
             SectorChart
         case .all:
             TabView {
-                //MARK: - Sector Breakdown
+                /// ------------ Sector Breakdown Chart
                 SectorChart
-                .tag(0)
-                //MARK: - Projections Chart
+                    .tag(0)
+                /// ------------ Projections Chart
                 ProjectionsChart
-                .tag(1)
-                .padding(8)
-                //MARK: - Benchmark
-                Text("Benchmark Coming Soon!").tag(2)
+                    .tag(1)
                     .padding(8)
-                
+                /// ------------ Benchmark Chart
+                BenchmarkChart
+                    .tag(2)
+                    .padding(8)
             }
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
             .frame(maxWidth: UIScreen.main.bounds.width / 1.05)
@@ -178,5 +178,11 @@ public struct SLCharts: View {
             headerFont: headerFont,
             headerFontColor: headerFontColor
         )
+    }
+    
+    //MARK: - BENCHMARKS CHART
+    @ViewBuilder
+    private var BenchmarkChart: some View {
+        Text("Benchmark Coming Soon!")
     }
 }
