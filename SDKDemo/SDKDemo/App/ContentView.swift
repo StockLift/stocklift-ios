@@ -14,7 +14,9 @@ struct ContentView: View {
     
     private let views = ChartType.allCases
     @State private var viewState: ViewState = .charts
+    @State private var showTopView: Bool = true
     private var toggleTitle: String { isDarkMode ? "Light Mode" : "Dark Mode" }
+    private var showTopViewTitle: String { showTopView ? "Hide Top View" : "Show Top View" }
     
     private enum ChartType: String, CaseIterable, Identifiable {
         public var id: Self { self }
@@ -52,8 +54,12 @@ struct ContentView: View {
                 Toggle(toggleTitle, isOn: $isDarkMode)
                     .padding(.horizontal)
                     .tint(.gray)
-                SLCharts(.all)
-                //                    .border(.black)
+                Toggle(showTopViewTitle, isOn: $showTopView)
+                    .padding(.horizontal)
+                    .tint(.gray)
+                if showTopView {
+                    SLCharts(.all)
+                }
                 NavigationStack {
                     ScrollView {
                         VStack {
@@ -155,6 +161,17 @@ fileprivate struct DemoAllChartsView: View {
     var body: some View {
         ScrollView {
             VStack {
+                SLCharts()
+                    .frame(height: 350)
+                    .padding()
+                    
+                    Spacer()
+                    Rectangle().fill(Color.gray).frame(height: 35)
+                        .overlay {
+                            Text("This is a demo of the All Charts configuration.")
+                        }
+                            
+                            
                 SLCharts(.all,
                          projectionsChartHeader: HelperClass.randomTitle(),
                          benchmarkChartHeader: HelperClass.randomTitle(),
