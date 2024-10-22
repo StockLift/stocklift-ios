@@ -72,8 +72,8 @@ extension View {
         //            }
     }
     
-    func makeCardLayer(width: CGFloat = UIScreen.main.bounds.width / 1.10,
-                       color: Color = .gray,
+    func makeCardLayer(width: CGFloat = UIScreen.main.bounds.width / 1.05,
+                       color: Color = .gray.opacity(0.3),
                        radius: CGFloat = 14,
                        shadowRadius: CGFloat = 8) -> some View {
         self

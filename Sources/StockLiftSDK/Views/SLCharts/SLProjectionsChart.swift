@@ -8,16 +8,21 @@
 
 import SwiftUI
 
-@available(iOS 15.0, *)
-public struct SLProjectionsChart: View {
-//    @StateObject private var growthChartVM = GrowthChartViewModel()
-    @StateObject private var portfolioVM = PortfolioViewModel()
-    
+@available(iOS 14.0, *)
+struct SLProjectionsChart: View {
+    @ObservedObject private var portfolioVM: PortfolioViewModel
+    // Header
     let chartHeader: String
     let height: CGFloat
+    // Link Account
+    let linkAccountHeader: String
     let linkAccountForegroundColor: Color
     let linkAccountBackgroundColor: Color
-    let linkAccountHeader: String
+    let linkAccountBorderColor: Color
+    let linkAccountConnectSize: CGFloat
+    let linkAccountFont: Font
+    let linkAccountFontColor: Color
+    // Chart
     let chartForegroundColor: Color
     let chartForegroundBorderColor: Color
     let font: Font
@@ -38,24 +43,34 @@ public struct SLProjectionsChart: View {
     ///   - fontColor: color of the chart font
     ///   - headerFont: chart header font
     ///   - headerFontColor: chart header font color
-    public init(
-        _ chartHeader: String = "Portfolio Growth Projections",
+     init(
+        _ viewModel: PortfolioViewModel,
+        chartHeader: String = "Portfolio Growth Projections",
         height: CGFloat = 250,
+        linkAccountHeader: String = "Add a brokerage account to get a free detailed breakdown of your investments",
         linkAccountForegroundColor: Color = .white,
         linkAccountBackgroundColor: Color = .black,
-        linkAccountHeader: String = "Add a brokerage account to get a free detailed breakdown of your investments",
-        chartForegroundColor: Color = .black,
-        chartForegroundBorderColor: Color = .white,
+        linkAccountBorderColor: Color = .white,
+        linkAccountConnectSize: CGFloat = 38,
+        linkAccountFont: Font = .caption,
+        linkAccountFontColor: Color = .white,
+        chartForegroundColor: Color = Color(UIColor.tertiaryLabel),
+        chartForegroundBorderColor: Color = .blue,
         font: Font = .caption,
         fontColor: Color = .primary,
         headerFont: Font = .subheadline,
         headerFontColor: Color = .primary
     ) {
+        self.portfolioVM = viewModel
         self.chartHeader = chartHeader
         self.height = height
+        self.linkAccountHeader = linkAccountHeader
         self.linkAccountForegroundColor = linkAccountForegroundColor
         self.linkAccountBackgroundColor = linkAccountBackgroundColor
-        self.linkAccountHeader = linkAccountHeader
+        self.linkAccountBorderColor = linkAccountBorderColor
+        self.linkAccountConnectSize = linkAccountConnectSize
+        self.linkAccountFont = linkAccountFont
+        self.linkAccountFontColor = linkAccountFontColor    
         self.chartForegroundColor = chartForegroundColor
         self.chartForegroundBorderColor = chartForegroundBorderColor
         self.font = font
@@ -64,14 +79,17 @@ public struct SLProjectionsChart: View {
         self.headerFontColor = headerFontColor
     }
     
-    public var body: some View {
+     var body: some View {
         VStack {
             if let chartData = portfolioVM.growthChartEntries {
                 // --- HAS ACCOUNT CONNECTED Chart View
+                /// Chart Header
                 Text(chartHeader)
                     .font(headerFont)
-                    .foregroundStyle(headerFontColor)
-                    .padding(.bottom, 8)
+                    .foregroundColor(headerFontColor)
+//                    .padding(.top, 4)
+                    
+                Spacer()
 
                 LineChart(
                     chartData: chartData,
@@ -85,18 +103,21 @@ public struct SLProjectionsChart: View {
             } else if portfolioVM.isLoading == false  {
                 // --- NO ACCOUNT DATA view
                 // Link Plaid flow
-                LinkAccountView(plaidError: plaidError,
-                                getPortfolio: getPortfolio,
-                                foregroundColor: linkAccountForegroundColor,
-                                backgroundColor: linkAccountBackgroundColor,
-                                linkAccountHeader: linkAccountHeader
+                LinkAccountView(
+                    linkAccountHeader: linkAccountHeader,
+                    plaidError: plaidError,
+                    getPortfolio: getPortfolio,
+                    foregroundColor: linkAccountForegroundColor,
+                    backgroundColor: linkAccountBackgroundColor,
+                    borderColor: linkAccountBorderColor,
+                    connectSize: linkAccountConnectSize,
+                    font: linkAccountFont,
+                    fontColor: linkAccountFontColor
                 )
-                .padding()
             } else {
                 ProgressView()
             }
         }
-        //        .makeCardLayer()
     }
     
     private func plaidError() {

@@ -12,7 +12,7 @@ import SwiftUI
 struct PortfolioDetails: View {
     var sectorDetailsVM: AssetDetails
     @Binding var date: String
-    @Binding var hasCostBasis: Bool
+    let hasCostBasis: Bool
     let selectedSector: SelectedSector
     var updateCostBasisAction: (String, Float) -> Void
 

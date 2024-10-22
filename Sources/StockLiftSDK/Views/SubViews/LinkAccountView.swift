@@ -9,16 +9,17 @@
 import SwiftUI
 
 
-@available(iOS 13.0, *)
+@available(iOS 14.0, *)
 struct LinkAccountView: View {
+    var linkAccountHeader: String = "Add a brokerage account to get a free detailed breakdown of your investments"
     let plaidError: () -> Void
     let getPortfolio: () -> Void
-    var foregroundColor: Color = .white
-    var backgroundColor: Color = .yellow
-    var borderColor: Color = .gray
-    var borderBackgroundColor: Color = .black
-    var connectSize: CGFloat = 38
-    var linkAccountHeader: String = "Add a brokerage account to get a free detailed breakdown of your investments"
+    let foregroundColor: Color
+    let backgroundColor: Color
+    let borderColor: Color
+    let connectSize: CGFloat
+    let font: Font
+    let fontColor: Color
     
     @State private var isLoading: PlaidLoadState = .loading
     
@@ -27,12 +28,14 @@ struct LinkAccountView: View {
             // ALLOWS Font Kerning
             return Text(linkAccountHeader)
                 .multilineTextAlignment(.center)
-                .appFontMedium()
+                .font(font)
+                .foregroundStyle(fontColor)
                 .kerning(1.4)
         } else {
             return Text(linkAccountHeader)
                 .multilineTextAlignment(.center)
-                .appFontMedium()
+                .font(font)
+                .foregroundColor(fontColor)
         }
     }
     
@@ -51,12 +54,12 @@ struct LinkAccountView: View {
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: connectSize, height: connectSize)
-                                .background(foregroundColor)
-                                .foregroundColor(backgroundColor)
+                                .background(backgroundColor)
+                                .foregroundColor(foregroundColor)
                                 .clipShape(Circle())
                         }
                         .padding()
-                        .appBorderOverlay(borderColor: borderColor, backgroundColor: borderBackgroundColor)
+                        .appBorderOverlay(borderColor: borderColor, backgroundColor: backgroundColor)
                     }
                 }
             case .failed:
