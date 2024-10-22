@@ -34,6 +34,8 @@ struct SLSectorBreakdownChart: View {
     let fontColor: Color
     let headerFont: Font
     let headerFontColor: Color
+    let detailFont: Font
+    let detailFontColor: Color
     
     init(
         _ viewModel: PortfolioViewModel,
@@ -43,12 +45,14 @@ struct SLSectorBreakdownChart: View {
         linkAccountBackgroundColor: Color = .black,
         linkAccountBorderColor: Color = .white,
         linkAccountConnectSize: CGFloat = 38,
-        linkAccountFont: Font = .caption2,
-        linkAccountFontColor: Color = .white,
+        linkAccountFont: Font = .caption,
+        linkAccountFontColor: Color = .primary,
         font: Font = .caption,
         fontColor: Color = .primary,
         headerFont: Font = .subheadline,
-        headerFontColor: Color = .primary
+        headerFontColor: Color = .primary,
+        detailFont: Font = .caption2,
+        detailFontColor: Color = .primary
     ) {
         self.portfolioVM = viewModel
         self.chartHeader = chartHeader
@@ -63,6 +67,8 @@ struct SLSectorBreakdownChart: View {
         self.fontColor = fontColor
         self.headerFont = headerFont
         self.headerFontColor = headerFontColor
+        self.detailFont = detailFont
+        self.detailFontColor = detailFontColor
     }
     
     //  Body
@@ -126,16 +132,18 @@ struct SLSectorBreakdownChart: View {
                 .foregroundColor(entry.color)
                 .frame(width: 8, height: 8)
             Text(PortfolioChartUtils.amount(entry.value))
-                .font(linkAccountFont)
+                .font(detailFont)
+                .foregroundStyle(detailFontColor)
             Text(entry.label)
-                .font(linkAccountFont)
+                .font(detailFont)
+                .foregroundStyle(detailFontColor)
                 .multilineTextAlignment(.leading)
             Spacer()
         }
         .padding(.horizontal)
         .padding(.vertical, 8)
         .frame(maxWidth: .infinity)
-        .background(Color(UIColor.label).opacity(0.4))
+        .background(Color(UIColor.tertiaryLabel))
         .cornerRadius(22)
     }
     

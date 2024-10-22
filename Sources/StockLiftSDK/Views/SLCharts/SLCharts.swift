@@ -38,6 +38,8 @@ public struct SLCharts: View {
     var fontColor: Color
     var headerFont: Font
     var headerFontColor: Color
+    var sectorDetailFont: Font
+    var sectorDetailFontColor: Color
     // Card Background
     var cardBackgroundColor: Color
     var cardCornerRadius: CGFloat
@@ -50,13 +52,17 @@ public struct SLCharts: View {
         projectionsChartHeader: String = "Portfolio Growth Projections",
         benchmarkChartHeader: String = "My Portfolio vs. SP 500",
         sectorChartHeader: String = "Diversification by Sector",
+        
+        // Link Account View
         linkAccountHeader: String = "Add a brokerage account to get a free detailed breakdown of your investments",
         linkAccountForegroundColor: Color = .white,
         linkAccountBackgroundColor: Color = .black,
         linkAccountBorderColor: Color = .white,
         linkAccountConnectSize: CGFloat = 38,
-        linkAccountFont: Font = .caption2,
+        linkAccountFont: Font = .caption,
         linkAccountFontColor: Color = .white,
+        
+        // Charts
         height: CGFloat = 250,
         chartForegroundColor: Color = .black,
         chartForegroundBorderColor: Color = .white,
@@ -64,6 +70,10 @@ public struct SLCharts: View {
         fontColor: Color = .primary,
         headerFont: Font = .subheadline,
         headerFontColor: Color = .primary,
+        sectorDetailFont: Font = .caption2,
+        sectorDetailFontColor: Color = .primary,
+        
+        // Card
         cardBackgroundColor: Color = .gray.opacity(0.3),
         cardCornerRadius: CGFloat = 14,
         cardShadow: Bool = true
@@ -89,6 +99,8 @@ public struct SLCharts: View {
         self.cardBackgroundColor = cardBackgroundColor
         self.cardCornerRadius = cardCornerRadius
         self.cardShadow = cardShadow
+        self.sectorDetailFont = sectorDetailFont
+        self.sectorDetailFontColor = sectorDetailFontColor
     }
     
     public var body: some View {
@@ -120,9 +132,9 @@ public struct SLCharts: View {
             }
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
             .frame(maxWidth: UIScreen.main.bounds.width / 1.05)
-            .shadow(radius: cardShadow ? 8 : 0)
             .background(cardBackgroundColor.opacity(0.3))
             .cornerRadius(cardCornerRadius)
+            .shadow(radius: cardShadow ? 8 : 0)
         }
     }
     
@@ -141,7 +153,9 @@ public struct SLCharts: View {
             font: font,
             fontColor: fontColor,
             headerFont: headerFont,
-            headerFontColor: headerFontColor
+            headerFontColor: headerFontColor,
+            detailFont: sectorDetailFont,
+            detailFontColor: sectorDetailFontColor
         )
     }
     

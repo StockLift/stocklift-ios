@@ -52,7 +52,7 @@ struct SLProjectionsChart: View {
         linkAccountBackgroundColor: Color = .black,
         linkAccountBorderColor: Color = .white,
         linkAccountConnectSize: CGFloat = 38,
-        linkAccountFont: Font = .caption2,
+        linkAccountFont: Font = .caption,
         linkAccountFontColor: Color = .white,
         chartForegroundColor: Color = .black,
         chartForegroundBorderColor: Color = .white,

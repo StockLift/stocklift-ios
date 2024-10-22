@@ -166,6 +166,7 @@ fileprivate struct DemoAllChartsView: View {
                  chartForegroundBorderColor: HelperClass.randomColor(),
                  fontColor: HelperClass.randomColor(),
                  headerFontColor: HelperClass.randomColor(),
+                 sectorDetailFontColor: HelperClass.randomColor(),
                  cardBackgroundColor: HelperClass.randomColor()
         )
     }
