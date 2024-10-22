@@ -68,11 +68,3 @@ struct PortfolioDetails: View {
     
 
 }
-
-//struct ViewEquityDetails_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ViewEquityDetails()
-//    }
-//}
-
-

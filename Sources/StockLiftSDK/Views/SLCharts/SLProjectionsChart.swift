@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-@available(iOS 14.0, *)
+@available(iOS 16.0, *)
 struct SLProjectionsChart: View {
     @ObservedObject private var portfolioVM: PortfolioViewModel
     

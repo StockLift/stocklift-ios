@@ -29,24 +29,10 @@ struct DetailsView: View {
                              hasCostBasis: hasCostBasis,
                              selectedSector: selectedSector,
                              updateCostBasisAction: updateCostBasisAction)
-//            .setAnalyticsView("Portfolio Details View")
         }
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
-//        .toolbar {
-//            SLToolBar(title: "Sector Details") {
-//                EmptyView()
-//            }
-//        }
     }
     
     private func updateCostBasisAction(_ symbol: String, value: Float) {
         DetailsViewModel.updateCostBasis(symbol: symbol, value: value)
     }
 }
-
-//struct DetailsView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        DetailsView()
-//    }
-//}
