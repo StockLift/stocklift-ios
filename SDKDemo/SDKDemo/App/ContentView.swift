@@ -164,14 +164,11 @@ fileprivate struct DemoAllChartsView: View {
                 SLCharts()
                     .frame(height: 350)
                     .padding()
-                    
-                    Spacer()
-                    Rectangle().fill(Color.gray).frame(height: 35)
-                        .overlay {
-                            Text("This is a demo of the All Charts configuration.")
-                        }
-                            
-                            
+                
+                Spacer()
+                Rectangle().fill(Color.gray).frame(height: 35)
+                    .overlay { Text("This is a demo of the All Charts configuration.") }
+                
                 SLCharts(.all,
                          projectionsChartHeader: HelperClass.randomTitle(),
                          benchmarkChartHeader: HelperClass.randomTitle(),
@@ -195,9 +192,8 @@ fileprivate struct DemoAllChartsView: View {
                 
                 Spacer()
                 Rectangle().fill(Color.gray).frame(height: 100)
-                    .overlay {
-                        Text("This is a demo of the All Charts configuration.")
-                    }
+                    .overlay { Text("This is a demo of the All Charts configuration.") }
+                
                 SLCharts(.all,
                          projectionsChartHeader: HelperClass.randomTitle(),
                          benchmarkChartHeader: HelperClass.randomTitle(),
@@ -219,9 +215,7 @@ fileprivate struct DemoAllChartsView: View {
                 .frame(height: 420)
                 Spacer()
                 Rectangle().fill(Color.gray).frame(height: 60)
-                    .overlay {
-                        Text("This is a demo of the All Charts configuration.")
-                    }
+                    .overlay { Text("This is a demo of the All Charts configuration.") }
             }
         }
         .navigationBarTitle("All Charts Demo")
@@ -233,22 +227,22 @@ fileprivate struct DemoGrowthProjectionsChart: View {
     var body: some View {
         Text("Will not be available until v2, focusing on the All Charts configuration first.")
             .font(.footnote)
-//        TemplateDemoView {
-//            SLProjectionsChart(
-//                chartHeader: HelperClass.randomTitle(),
-//                height: HelperClass.randomHeight(),
-//                linkAccountHeader: HelperClass.randomConnectAccountTitle(),
-//                linkAccountForegroundColor: HelperClass.randomColor(),
-//                linkAccountBackgroundColor:  HelperClass.randomColor(),
-//                chartForegroundColor: HelperClass.randomColor(),
-//                chartForegroundBorderColor: HelperClass.randomColor(),
-//                font: HelperClass.randomSmFont(),
-//                fontColor: HelperClass.randomColor(),
-//                headerFont: HelperClass.randomLgFont(),
-//                headerFontColor: HelperClass.randomColor()
-//            )
-//            .padding(CGFloat(Int.random(in: 4...25)))
-//        }
+        //        TemplateDemoView {
+        //            SLProjectionsChart(
+        //                chartHeader: HelperClass.randomTitle(),
+        //                height: HelperClass.randomHeight(),
+        //                linkAccountHeader: HelperClass.randomConnectAccountTitle(),
+        //                linkAccountForegroundColor: HelperClass.randomColor(),
+        //                linkAccountBackgroundColor:  HelperClass.randomColor(),
+        //                chartForegroundColor: HelperClass.randomColor(),
+        //                chartForegroundBorderColor: HelperClass.randomColor(),
+        //                font: HelperClass.randomSmFont(),
+        //                fontColor: HelperClass.randomColor(),
+        //                headerFont: HelperClass.randomLgFont(),
+        //                headerFontColor: HelperClass.randomColor()
+        //            )
+        //            .padding(CGFloat(Int.random(in: 4...25)))
+        //        }
     }
 }
 
@@ -257,20 +251,20 @@ fileprivate struct DemoSectorBreakdownChart: View {
     var body: some View {
         Text("Will not be available until v2, focusing on the All Charts configuration first.")
             .font(.footnote)
-//        TemplateDemoView {
-//            SLSectorBreakdownChart(
-//                chartHeader: HelperClass.randomTitle(),
-//                linkAccountHeader: HelperClass.randomConnectAccountTitle(),
-//                linkAccountForegroundColor: HelperClass.randomColor(),
-//                linkAccountBackgroundColor: HelperClass.randomColor(),
-//                linkAccountBorderColor: HelperClass.randomColor(),
-//                font: HelperClass.randomSmFont(),
-//                fontColor: HelperClass.randomColor(),
-//                headerFont: HelperClass.randomLgFont(),
-//                headerFontColor: HelperClass.randomColor()
-//            )
-//            .frame(height: UIScreen.main.bounds.width)
-//        }
+        //        TemplateDemoView {
+        //            SLSectorBreakdownChart(
+        //                chartHeader: HelperClass.randomTitle(),
+        //                linkAccountHeader: HelperClass.randomConnectAccountTitle(),
+        //                linkAccountForegroundColor: HelperClass.randomColor(),
+        //                linkAccountBackgroundColor: HelperClass.randomColor(),
+        //                linkAccountBorderColor: HelperClass.randomColor(),
+        //                font: HelperClass.randomSmFont(),
+        //                fontColor: HelperClass.randomColor(),
+        //                headerFont: HelperClass.randomLgFont(),
+        //                headerFontColor: HelperClass.randomColor()
+        //            )
+        //            .frame(height: UIScreen.main.bounds.width)
+        //        }
     }
 }
 

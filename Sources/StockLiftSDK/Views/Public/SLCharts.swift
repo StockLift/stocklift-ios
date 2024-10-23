@@ -124,17 +124,17 @@ public struct SLCharts: View {
             /// ------------ Sector Breakdown Chart
             SectorChartReference
         case .all:
-            TabView {
+            TabView { 
                 /// ------------ Sector Breakdown Chart
                 SectorChartReference
                     .tag(0)
                 /// ------------ Benchmark Chart
                 BenchmarkChartReference
-                    .tag(2)
+                    .tag(1)
                     .padding(8)
                 /// ------------ Projections Chart
                 ProjectionsChartReference
-                    .tag(1)
+                    .tag(2)
                     .padding(8)
             }
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
