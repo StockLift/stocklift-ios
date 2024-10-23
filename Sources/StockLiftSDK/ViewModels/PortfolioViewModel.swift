@@ -207,3 +207,27 @@ extension PortfolioViewModel {
     
 }
 
+
+
+extension PortfolioViewModel {
+    //MARK: SORT Top Holdings
+    public static func setTopHoldings(_ holdings: [UserEquity], type: SortTopHoldingType = .weight) -> [TopHoldingAsset] {
+        var rank = 0
+        switch type {
+        case .weight:
+            let assets = holdings.sorted(by: {$0.institutionValue ?? 0 > $1.institutionValue ?? 0})
+            return  assets.map { equity in
+                rank += 1
+                return TopHoldingAsset(holding: equity, rank: rank)
+            }
+        case .percentChange:
+            let assets = holdings.sorted(by: {$0.percentChange ?? 0 > $1.percentChange ?? 0})
+            return  assets.map { equity in
+                rank += 1
+                return TopHoldingAsset(holding: equity, rank: rank)
+            }
+        }
+
+    }
+
+}
