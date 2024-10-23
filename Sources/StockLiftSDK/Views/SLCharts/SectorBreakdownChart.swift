@@ -10,7 +10,7 @@ import SwiftUI
 import Charts
 
 @available(iOS 15.0, *)
-struct SLSectorBreakdownChart: View {
+struct SectorBreakdownChart: View {
     @ObservedObject private var portfolioVM: PortfolioViewModel
     @State private var showBreakdown: Bool = false
     

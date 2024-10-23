@@ -183,3 +183,69 @@ public extension View {
             .appFontRegular(size: 10, color: color)
     }
 }
+
+@available(iOS 13.0, *)
+public extension View {
+    var rect: CGRect {
+        UIScreen.main.bounds
+    }
+}
+
+@available(iOS 15.0, *)
+public extension View {
+    // CREATE Image for Symbol (url or symbol or name prefixed)
+    
+    func AssetImageHandler(assetImageUrl: URL?, asset: UserEquity) -> some View {
+        let symbol = asset.symbol?.lowercased()
+        return EmptyView()
+//        return Group {
+//            if symbol != "voc" {
+//                if let url = assetImageUrl {
+//                    EmptyView()
+////                    KFImage(url)
+////                        .resizable()
+////                        .scaledToFit()
+////                        .frame(width: 40, height: 40)
+////                        .background(Color.appBlue)
+////                        .clipShape(Circle())
+////                        .padding(.trailing, 8)
+//                } else {
+//                    if asset.type == .cash {
+//                        Text("$")
+//                            .appFontRegular()
+//                            .shadow(radius: 2)
+//                            .frame(width: 40, height: 40)
+//                            .background(Color.blue)
+//                            .clipShape(Circle())
+//                            .padding(.trailing, 8)
+//                    } else if let image = asset.symbol, image != "" {
+//                        Text(image.prefix(4))
+//                            .appFontRegular(size: 12)
+//                            .shadow(radius: 2)
+//                            .frame(width: 40, height: 40)
+//                            .background(Color.appBlue)
+//                            .clipShape(Circle())
+//                            .padding(.trailing, 8)
+//                    } else {
+//                        Text("")
+//                            .appFontRegular()
+//                            .shadow(radius: 2)
+//                            .frame(width: 40, height: 40)
+//                            .background(Color.appBlue)
+//                            .clipShape(Circle())
+//                            .padding(.trailing, 8)
+//                    }
+//                }
+//            } else {
+//                // HANDLER for images with weird bugs (returned from 12data not working)
+//                Text(asset.symbol?.prefix(4) ?? "")
+//                    .appFontRegular(size: 12)
+//                    .shadow(radius: 2)
+//                    .frame(width: 40, height: 40)
+//                    .background(Color.appBlue)
+//                    .clipShape(Circle())
+//                    .padding(.trailing, 8)
+//            }
+//        }
+    }
+}

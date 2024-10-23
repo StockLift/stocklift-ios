@@ -1,19 +1,16 @@
 //
-//  GrowthProjectionsChart.swift
-//  Stocklift
+//  BenchmarkChart.swift
+//  StockLiftSDK
 //
-//  Created by Christopher Hicks on 7/21/24.
-//  Copyright © 2023 StockLift Inc. All rights reserved.
+//  Created by Christopher Hicks on 10/22/24.
 //
 
 import SwiftUI
 
-@available(iOS 14.0, *)
-struct SLProjectionsChart: View {
-    @ObservedObject private var portfolioVM: PortfolioViewModel
-    // Header
-    let chartHeader: String
-    let height: CGFloat
+@available(iOS 16.0, *)
+struct BenchmarkChart: View {
+    @ObservedObject var portfolioVM: PortfolioViewModel
+    
     // Link Account
     let linkAccountHeader: String
     let linkAccountForegroundColor: Color
@@ -23,30 +20,18 @@ struct SLProjectionsChart: View {
     let linkAccountFont: Font
     let linkAccountFontColor: Color
     // Chart
-    let chartForegroundColor: Color
-    let chartForegroundBorderColor: Color
+    let chartHeader: String
+    let height: CGFloat
+    let sp500Colors: [Color]
+    let portfolioColors: [Color]
     let font: Font
     let fontColor: Color
     let headerFont: Font
     let headerFontColor: Color
     
-    /// Growth Chart Projections for users portfolio
-    /// - Parameters:
-    ///   - chartHeader: "Header for Chart"
-    ///   - height: the height of the chart
-    ///   - linkAccountForegroundColor: foreground color for link account view
-    ///   - linkAccountBackgroundColor: background color for link account view
-    ///   - linkAccountHeader: header title for link account view
-    ///   - chartForegroundColor: chards area range color
-    ///   - chartForegroundBorderColor: charts area range border color
-    ///   - font: chart font style (system styles)
-    ///   - fontColor: color of the chart font
-    ///   - headerFont: chart header font
-    ///   - headerFontColor: chart header font color
-     init(
+    init (
         _ viewModel: PortfolioViewModel,
-        chartHeader: String = "Portfolio Growth Projections",
-        height: CGFloat = 250,
+        chartHeader: String = "My Portfolio vs. S&P 500",
         linkAccountHeader: String = "Add a brokerage account to get a free detailed breakdown of your investments",
         linkAccountForegroundColor: Color = .white,
         linkAccountBackgroundColor: Color = .black,
@@ -54,8 +39,9 @@ struct SLProjectionsChart: View {
         linkAccountConnectSize: CGFloat = 38,
         linkAccountFont: Font = .caption,
         linkAccountFontColor: Color = .white,
-        chartForegroundColor: Color = Color(UIColor.tertiaryLabel),
-        chartForegroundBorderColor: Color = .blue,
+        height: CGFloat = 250,
+        sp500Colors: [Color] = [.yellow, .yellow],
+        portfolioColors: [Color] = [.blue, .blue],
         font: Font = .caption,
         fontColor: Color = .primary,
         headerFont: Font = .subheadline,
@@ -70,37 +56,38 @@ struct SLProjectionsChart: View {
         self.linkAccountBorderColor = linkAccountBorderColor
         self.linkAccountConnectSize = linkAccountConnectSize
         self.linkAccountFont = linkAccountFont
-        self.linkAccountFontColor = linkAccountFontColor    
-        self.chartForegroundColor = chartForegroundColor
-        self.chartForegroundBorderColor = chartForegroundBorderColor
+        self.linkAccountFontColor = linkAccountFontColor
+        self.sp500Colors = sp500Colors
+        self.portfolioColors = portfolioColors
         self.font = font
         self.fontColor = fontColor
         self.headerFont = headerFont
         self.headerFontColor = headerFontColor
     }
     
-     var body: some View {
+    
+    var body: some View {
         VStack {
-            if let chartData = portfolioVM.growthChartEntries {
-                // --- HAS ACCOUNT CONNECTED Chart View
-                /// Chart Header
+            if let chartEntries = portfolioVM.portfolioChartEntries, let sp500ChartEntries = portfolioVM.sp500ChartEntries {
                 Text(chartHeader)
                     .font(headerFont)
                     .foregroundColor(headerFontColor)
-//                    .padding(.top, 4)
-                    
-                Spacer()
-
-                LineChart(
-                    chartData: chartData,
-                    foregroundColor: chartForegroundColor,
-                    foregroundBorderColor: chartForegroundBorderColor,
+                
+                BarLineChart(
+                    selectedElement: nil,
+                    portfolioChartData: chartEntries,
+                    sp500ChartData: sp500ChartEntries,
+                    sp500Colors: sp500Colors,
+                    portfolioColors: portfolioColors,
                     font: font,
                     fontColor: fontColor
                 )
-                .frame(height: height)
+                //                .frame(height: height)
                 
-            } else if portfolioVM.isLoading == false  {
+                LegendFooter(sp500Color: sp500Colors[0], portfolioColor: portfolioColors[0])
+                    .padding(.vertical, 6)
+                
+            } else if portfolioVM.isLoading == false {
                 // --- NO ACCOUNT DATA view
                 // Link Plaid flow
                 LinkAccountView(
@@ -121,10 +108,11 @@ struct SLProjectionsChart: View {
     }
     
     private func plaidError() {
-        //TODO: -  handle error
+        //TODO: -
     }
     
     private func getPortfolio() {
-        //TODO: config get portfolio
+        //TODO: -
     }
 }
+

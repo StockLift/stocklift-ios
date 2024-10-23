@@ -14,7 +14,7 @@ public enum SLChartType {
     case all
 }
 
-@available(iOS 15.0, *)
+@available(iOS 16.0, *)
 public struct SLCharts: View {
     @StateObject private var viewModel = PortfolioViewModel()
     
@@ -42,6 +42,9 @@ public struct SLCharts: View {
     var headerFontColor: Color
     var sectorDetailFont: Font
     var sectorDetailFontColor: Color
+    var sp500Colors: [Color]
+    var portfolioColors: [Color]
+    
     // Card Background
     var cardBackgroundColor: Color
     var cardCornerRadius: CGFloat
@@ -66,12 +69,14 @@ public struct SLCharts: View {
         height: CGFloat = 250,
         chartForegroundColor: Color = Color(UIColor.tertiaryLabel),
         chartForegroundBorderColor: Color = .blue,
-        font: Font = .caption,
+        font: Font = .caption2,
         fontColor: Color = .primary,
         headerFont: Font = .subheadline,
         headerFontColor: Color = .primary,
         sectorDetailFont: Font = .caption2,
         sectorDetailFontColor: Color = .primary,
+        sp500Colors: [Color] = [.yellow, .yellow],
+        portfolioColors: [Color] = [.blue, .blue],
         
         // Card
         cardBackgroundColor: Color = .gray.opacity(0.3),
@@ -96,6 +101,8 @@ public struct SLCharts: View {
         self.fontColor = fontColor
         self.headerFont = headerFont
         self.headerFontColor = headerFontColor
+        self.sp500Colors = sp500Colors
+        self.portfolioColors = portfolioColors
         self.cardBackgroundColor = cardBackgroundColor
         self.cardCornerRadius = cardCornerRadius
         self.cardShadow = cardShadow
@@ -107,26 +114,26 @@ public struct SLCharts: View {
         switch chartType {
         case .projections:
             /// ------------ Projections Chart
-            ProjectionsChart
+            ProjectionsChartReference
                 .padding(8)
         case .benchmark:
             /// ------------ Benchmark Chart
-            BenchmarkChart
+            BenchmarkChartReference
                 .padding(8)
         case .sector:
             /// ------------ Sector Breakdown Chart
-            SectorChart
+            SectorChartReference
         case .all:
-            TabView {
+            TabView { 
                 /// ------------ Sector Breakdown Chart
-                SectorChart
+                SectorChartReference
                     .tag(0)
-                /// ------------ Projections Chart
-                ProjectionsChart
+                /// ------------ Benchmark Chart
+                BenchmarkChartReference
                     .tag(1)
                     .padding(8)
-                /// ------------ Benchmark Chart
-                BenchmarkChart
+                /// ------------ Projections Chart
+                ProjectionsChartReference
                     .tag(2)
                     .padding(8)
             }
@@ -140,8 +147,8 @@ public struct SLCharts: View {
     
     //MARK: - SECTOR BREAKDOWN CHART
     @ViewBuilder
-    private var SectorChart: some View {
-        SLSectorBreakdownChart(
+    private var SectorChartReference: some View {
+        SectorBreakdownChart(
             viewModel,
             chartHeader: sectorChartHeader,
             //                    height: height,
@@ -161,16 +168,16 @@ public struct SLCharts: View {
     
     //MARK: - PROJECTIONS CHART
     @ViewBuilder
-    private var ProjectionsChart: some View {
-        SLProjectionsChart(
+    private var ProjectionsChartReference: some View {
+        ProjectionsChart(
             viewModel,
             chartHeader: projectionsChartHeader,
-            height: height,
             linkAccountHeader: linkAccountHeader,
             linkAccountForegroundColor: linkAccountForegroundColor,
             linkAccountBackgroundColor:  linkAccountBackgroundColor,
             linkAccountFont: linkAccountFont,
             linkAccountFontColor: linkAccountFontColor,
+            height: height,
             chartForegroundColor: chartForegroundColor,
             chartForegroundBorderColor: chartForegroundBorderColor,
             font: font,
@@ -182,7 +189,22 @@ public struct SLCharts: View {
     
     //MARK: - BENCHMARKS CHART
     @ViewBuilder
-    private var BenchmarkChart: some View {
-        Text("Benchmark Coming Soon!")
+    private var BenchmarkChartReference: some View {
+        BenchmarkChart(
+            viewModel,
+            chartHeader: benchmarkChartHeader,
+            linkAccountHeader: linkAccountHeader,
+            linkAccountForegroundColor: linkAccountForegroundColor,
+            linkAccountBackgroundColor:  linkAccountBackgroundColor,
+            linkAccountFont: linkAccountFont,
+            linkAccountFontColor: linkAccountFontColor,
+            height: height,
+            sp500Colors: sp500Colors,
+            portfolioColors: portfolioColors,
+            font: font,
+            fontColor: fontColor,
+            headerFont: headerFont,
+            headerFontColor: headerFontColor
+        )
     }
 }
