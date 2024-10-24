@@ -130,11 +130,11 @@ public struct SLCharts: View {
         case .projections:
             /// ------------ Projections Chart
             ProjectionsChartReference
-                .padding(8)
+//                .padding(8)
         case .benchmark:
             /// ------------ Benchmark Chart
             BenchmarkChartReference
-                .padding(8)
+//                .padding(8)
         case .sector:
             /// ------------ Sector Breakdown Chart
             SectorChartReference
