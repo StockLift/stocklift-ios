@@ -14,8 +14,10 @@ struct LineChart: View {
     let chartData: [ChartData]
     let foregroundColor: Color
     let foregroundBorderColor: Color
-    let font: Font
-    let fontColor: Color
+    let xAxisFont: Font
+    let xAxisFontColor: Color
+    let yAxisFont: Font
+    let yAxisFontColor: Color
     
     var dateType: DateType
     var component: Calendar.Component?
@@ -26,8 +28,10 @@ struct LineChart: View {
         chartData: [ChartData],
         foregroundColor: Color,
         foregroundBorderColor: Color,
-        font: Font,
-        fontColor: Color,
+        xAxisFont: Font,
+        xAxisFontColor: Color,
+        yAxisFont: Font,
+        yAxisFontColor: Color,
         dateType: DateType = .all,
         component: Calendar.Component? = nil
         //        selectedElement: ChartData? = nil,
@@ -35,8 +39,10 @@ struct LineChart: View {
         self.chartData = chartData
         self.foregroundColor = foregroundColor
         self.foregroundBorderColor = foregroundBorderColor
-        self.font = font
-        self.fontColor = fontColor
+        self.xAxisFont = xAxisFont
+        self.xAxisFontColor = xAxisFontColor
+        self.yAxisFont = yAxisFont
+        self.yAxisFontColor = yAxisFontColor
         self.dateType = dateType
         self.component = component
         //        self.selectedElement = selectedElement
@@ -82,8 +88,8 @@ struct LineChart: View {
                     if let stringValue = value.as(String.self) {
                         let dateValue = self.encodeDate(stringValue)
                         Text("\(dateValue, format: setFormat)")
-                            .font(font)
-                            .foregroundStyle(fontColor)
+                            .font(xAxisFont)
+                            .foregroundStyle(xAxisFontColor)
                     }
                 }
             }
@@ -93,8 +99,8 @@ struct LineChart: View {
                 AxisValueLabel() {
                     if let intValue = value.as(Int.self) {
                         Text("$\(intValue)")
-                            .font(font)
-                            .foregroundStyle(fontColor)
+                            .font(yAxisFont)
+                            .foregroundStyle(yAxisFontColor)
                     }
                 }
             }

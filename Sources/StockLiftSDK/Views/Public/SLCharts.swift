@@ -36,8 +36,10 @@ public struct SLCharts: View {
     var height: CGFloat
     var chartForegroundColor: Color
     var chartForegroundBorderColor: Color
-    var font: Font
-    var fontColor: Color
+    var xAxisFont: Font
+    var xAxisFontColor: Color
+    var yAxisFont: Font
+    var yAxisFontColor: Color
     var headerFont: Font
     var headerFontColor: Color
     var sectorDetailFont: Font
@@ -69,8 +71,10 @@ public struct SLCharts: View {
         height: CGFloat = 250,
         chartForegroundColor: Color = Color(UIColor.tertiaryLabel),
         chartForegroundBorderColor: Color = .blue,
-        font: Font = .caption2,
-        fontColor: Color = .primary,
+        xAxisFont: Font = .caption2,
+        xAxisFontColor: Color = .secondary,
+        yAxisFont: Font = .caption2,
+        yAxisFontColor: Color = .primary,
         headerFont: Font = .subheadline,
         headerFontColor: Color = .primary,
         sectorDetailFont: Font = .caption2,
@@ -97,8 +101,10 @@ public struct SLCharts: View {
         self.height = height
         self.chartForegroundColor = chartForegroundColor
         self.chartForegroundBorderColor = chartForegroundBorderColor
-        self.font = font
-        self.fontColor = fontColor
+        self.xAxisFont = xAxisFont
+        self.xAxisFontColor = xAxisFontColor
+        self.yAxisFont = yAxisFont
+        self.yAxisFontColor = yAxisFontColor
         self.headerFont = headerFont
         self.headerFontColor = headerFontColor
         self.sp500Colors = sp500Colors
@@ -151,14 +157,13 @@ public struct SLCharts: View {
         SectorBreakdownChart(
             viewModel,
             chartHeader: sectorChartHeader,
-            //                    height: height,
             linkAccountHeader: linkAccountHeader,
             linkAccountForegroundColor: linkAccountForegroundColor,
             linkAccountBackgroundColor:  linkAccountBackgroundColor,
             linkAccountFont: linkAccountFont,
             linkAccountFontColor: linkAccountFontColor,
-            font: font,
-            fontColor: fontColor,
+//            font: font,
+//            fontColor: fontColor,
             headerFont: headerFont,
             headerFontColor: headerFontColor,
             detailFont: sectorDetailFont,
@@ -180,8 +185,10 @@ public struct SLCharts: View {
             height: height,
             chartForegroundColor: chartForegroundColor,
             chartForegroundBorderColor: chartForegroundBorderColor,
-            font: font,
-            fontColor: fontColor,
+            xAxisFont: xAxisFont,
+            xAxisFontColor: xAxisFontColor,
+            yAxisFont: yAxisFont,
+            yAxisFontColor: yAxisFontColor,
             headerFont: headerFont,
             headerFontColor: headerFontColor
         )
@@ -201,8 +208,10 @@ public struct SLCharts: View {
             height: height,
             sp500Colors: sp500Colors,
             portfolioColors: portfolioColors,
-            font: font,
-            fontColor: fontColor,
+            xAxisFont: xAxisFont,
+            xAxisFontColor: xAxisFontColor,
+            yAxisFont: yAxisFont,
+            yAxisFontColor: yAxisFontColor,
             headerFont: headerFont,
             headerFontColor: headerFontColor
         )

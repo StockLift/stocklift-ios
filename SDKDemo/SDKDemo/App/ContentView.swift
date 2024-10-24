@@ -20,11 +20,11 @@ struct ContentView: View {
     
     private enum ChartType: String, CaseIterable, Identifiable {
         public var id: Self { self }
-        case all = "All Charts"
-        case projections = "Projections Chart"
-        case sector = "Sector Chart"
-        case benchmark = "Benchmark Chart"
-        case netWorth = "Net Worth Chart"
+        case all = "SLCharts"
+        case projections = "SLProjectionsChart"
+        case sector = "SLSectorBreakdownChart"
+        case benchmark = "SLBenchmarkChart"
+        case netWorth = "SLNetWorthChart"
     }
     
     private enum ViewState {
@@ -167,7 +167,7 @@ fileprivate struct DemoAllChartsView: View {
                 
                 Spacer()
                 Rectangle().fill(Color.gray).frame(height: 35)
-                    .overlay { Text("This is a demo of the All Charts configuration.") }
+                    .overlay { Text("This is a demo of the SLCharts default configuration.") }
                 
                 SLCharts(.all,
                          projectionsChartHeader: HelperClass.randomTitle(),
@@ -180,7 +180,6 @@ fileprivate struct DemoAllChartsView: View {
                          linkAccountFontColor: HelperClass.randomColor(),
                          chartForegroundColor: HelperClass.randomColor(),
                          chartForegroundBorderColor: HelperClass.randomColor(),
-                         fontColor: HelperClass.randomColor(),
                          headerFontColor: HelperClass.randomColor(),
                          sectorDetailFontColor: HelperClass.randomColor(),
                          sp500Colors: [HelperClass.randomColor(), HelperClass.randomColor(), HelperClass.randomColor()],
@@ -192,7 +191,7 @@ fileprivate struct DemoAllChartsView: View {
                 
                 Spacer()
                 Rectangle().fill(Color.gray).frame(height: 100)
-                    .overlay { Text("This is a demo of the All Charts configuration.") }
+                    .overlay { Text("This is a demo of the SLCharts configuration.") }
                 
                 SLCharts(.all,
                          projectionsChartHeader: HelperClass.randomTitle(),
@@ -205,7 +204,6 @@ fileprivate struct DemoAllChartsView: View {
                          linkAccountFontColor: HelperClass.randomColor(),
                          chartForegroundColor: HelperClass.randomColor(),
                          chartForegroundBorderColor: HelperClass.randomColor(),
-                         fontColor: HelperClass.randomColor(),
                          headerFontColor: HelperClass.randomColor(),
                          sectorDetailFontColor: HelperClass.randomColor(),
                          sp500Colors: [HelperClass.randomColor(), HelperClass.randomColor(), HelperClass.randomColor()],
@@ -215,7 +213,7 @@ fileprivate struct DemoAllChartsView: View {
                 .frame(height: 420)
                 Spacer()
                 Rectangle().fill(Color.gray).frame(height: 60)
-                    .overlay { Text("This is a demo of the All Charts configuration.") }
+                    .overlay { Text("This is a demo of the SLCharts configuration.") }
             }
         }
         .navigationBarTitle("All Charts Demo")

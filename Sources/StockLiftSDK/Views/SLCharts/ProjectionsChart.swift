@@ -25,8 +25,10 @@ struct ProjectionsChart: View {
     let height: CGFloat
     let chartForegroundColor: Color
     let chartForegroundBorderColor: Color
-    let font: Font
-    let fontColor: Color
+    let xAxisFont: Font
+    let xAxisFontColor: Color
+    let yAxisFont: Font
+    let yAxisFontColor: Color
     let headerFont: Font
     let headerFontColor: Color
     
@@ -56,8 +58,10 @@ struct ProjectionsChart: View {
         height: CGFloat = 250,
         chartForegroundColor: Color = Color(UIColor.tertiaryLabel),
         chartForegroundBorderColor: Color = .blue,
-        font: Font = .caption,
-        fontColor: Color = .primary,
+        xAxisFont: Font = .caption2,
+        xAxisFontColor: Color = .secondary,
+        yAxisFont: Font = .caption2,
+        yAxisFontColor: Color = .primary,
         headerFont: Font = .subheadline,
         headerFontColor: Color = .primary
     ) {
@@ -73,8 +77,10 @@ struct ProjectionsChart: View {
         self.linkAccountFontColor = linkAccountFontColor    
         self.chartForegroundColor = chartForegroundColor
         self.chartForegroundBorderColor = chartForegroundBorderColor
-        self.font = font
-        self.fontColor = fontColor
+        self.xAxisFont = xAxisFont
+        self.xAxisFontColor = xAxisFontColor
+        self.yAxisFont = yAxisFont
+        self.yAxisFontColor = yAxisFontColor
         self.headerFont = headerFont
         self.headerFontColor = headerFontColor
     }
@@ -90,13 +96,15 @@ struct ProjectionsChart: View {
 //                    .padding(.top, 4)
                     
                 Spacer()
-
+                
                 LineChart(
                     chartData: chartData,
                     foregroundColor: chartForegroundColor,
                     foregroundBorderColor: chartForegroundBorderColor,
-                    font: font,
-                    fontColor: fontColor
+                    xAxisFont: xAxisFont,
+                    xAxisFontColor: xAxisFontColor,
+                    yAxisFont: yAxisFont,
+                    yAxisFontColor: yAxisFontColor
                 )
 //                .frame(height: height)
                 
