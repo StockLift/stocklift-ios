@@ -70,12 +70,12 @@ public struct SLCharts: View {
         
         // Link Account View
         linkAccountHeader: String = "Add a brokerage account to get a free detailed breakdown of your investments",
-        linkAccountForegroundColor: Color = .white,
-        linkAccountBackgroundColor: Color = .black,
-        linkAccountBorderColor: Color = .white,
+        linkAccountForegroundColor: Color = .primary,
+        linkAccountBackgroundColor: Color = Color(UIColor.systemBackground),
+        linkAccountBorderColor: Color = .primary,
         linkAccountConnectSize: CGFloat = 38,
         linkAccountFont: Font = .caption,
-        linkAccountFontColor: Color = .white,
+        linkAccountFontColor: Color = .primary,
         
         // Charts
         height: CGFloat = 250,
@@ -185,6 +185,8 @@ public struct SLCharts: View {
             linkAccountHeader: linkAccountHeader,
             linkAccountForegroundColor: linkAccountForegroundColor,
             linkAccountBackgroundColor:  linkAccountBackgroundColor,
+            linkAccountBorderColor: linkAccountBorderColor,
+            linkAccountConnectSize: linkAccountConnectSize,
             linkAccountFont: linkAccountFont,
             linkAccountFontColor: linkAccountFontColor,
             headerFont: headerFont,
@@ -203,6 +205,8 @@ public struct SLCharts: View {
             linkAccountHeader: linkAccountHeader,
             linkAccountForegroundColor: linkAccountForegroundColor,
             linkAccountBackgroundColor:  linkAccountBackgroundColor,
+            linkAccountBorderColor: linkAccountBorderColor,
+            linkAccountConnectSize: linkAccountConnectSize,
             linkAccountFont: linkAccountFont,
             linkAccountFontColor: linkAccountFontColor,
             height: height,
@@ -226,6 +230,8 @@ public struct SLCharts: View {
             linkAccountHeader: linkAccountHeader,
             linkAccountForegroundColor: linkAccountForegroundColor,
             linkAccountBackgroundColor:  linkAccountBackgroundColor,
+            linkAccountBorderColor: linkAccountBorderColor,
+            linkAccountConnectSize: linkAccountConnectSize,
             linkAccountFont: linkAccountFont,
             linkAccountFontColor: linkAccountFontColor,
             height: height,
@@ -249,6 +255,8 @@ public struct SLCharts: View {
             linkAccountHeader: linkAccountHeader,
             linkAccountForegroundColor: linkAccountForegroundColor,
             linkAccountBackgroundColor:  linkAccountBackgroundColor,
+            linkAccountBorderColor: linkAccountBorderColor,
+            linkAccountConnectSize: linkAccountConnectSize,
             linkAccountFont: linkAccountFont,
             linkAccountFontColor: linkAccountFontColor
         )
@@ -263,6 +271,8 @@ public struct SLCharts: View {
             linkAccountHeader: linkAccountHeader,
             linkAccountForegroundColor: linkAccountForegroundColor,
             linkAccountBackgroundColor:  linkAccountBackgroundColor,
+            linkAccountBorderColor: linkAccountBorderColor,
+            linkAccountConnectSize: linkAccountConnectSize,
             linkAccountFont: linkAccountFont,
             linkAccountFontColor: linkAccountFontColor
         )
