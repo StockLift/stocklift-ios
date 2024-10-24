@@ -42,10 +42,8 @@ struct ContentView: View {
         VStack {
             Text(viewState.title)
                 .font(.title)
-                .underline(color: .purple)
-                .onTapGesture {
-                    toggleView()
-                }
+//                .underline(color: .purple)
+                .onTapGesture { toggleView() }
             switch viewState {
             case .login:
                 DemoLoginView(login: login)
@@ -69,9 +67,7 @@ struct ContentView: View {
                                     NavigationLink {
                                         DemoAllChartsView()
                                     } label: {
-                                        HeaderView(view) {
-//                                            SLCharts(.all)
-                                        }
+                                        HeaderView(view) { }
                                     }
                                     
                                 case .projections:
@@ -79,18 +75,14 @@ struct ContentView: View {
                                     NavigationLink {
                                         DemoGrowthProjectionsChart()
                                     } label: {
-                                        HeaderView(view) {
-                                            // DEMO DEFAULT CHART
-                                        }
+                                        HeaderView(view) { }
                                     }
                                 case .sector:
                                     // MARK: - Sector Chart
                                     NavigationLink {
                                         DemoSectorBreakdownChart()
                                     } label: {
-                                        HeaderView(view) {
-                                            // DEMO DEFAULT CHART
-                                        }
+                                        HeaderView(view) { }
                                     }
                                     
                                 case .benchmark:
@@ -98,9 +90,7 @@ struct ContentView: View {
                                     NavigationLink {
                                         DemoBenchmarkChart()
                                     } label: {
-                                        HeaderView(view) {
-                                            // DEMO DEFAULT CHART
-                                        }
+                                        HeaderView(view) { }
                                     }
                                     
                                 case .netWorth:
@@ -108,14 +98,11 @@ struct ContentView: View {
                                     NavigationLink {
                                         DemoNetWorthChart()
                                     } label: {
-                                        HeaderView(view) {
-                                            // DEMO DEFAULT CHART
-                                        }
+                                        HeaderView(view) { }
                                     }
                                 }
                             }
                         }
-                        .padding(.horizontal, 8)
                     }
                     .navigationTitle("Select a Chart Type")
                     .navigationBarTitleDisplayMode(.inline)

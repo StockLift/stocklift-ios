@@ -72,22 +72,26 @@ struct DemoGrowthProjectionsChart: View {
     var body: some View {
         Text("Will not be available until v2, focusing on the All Charts configuration first.")
             .font(.footnote)
-        //        TemplateDemoView {
-        //            SLProjectionsChart(
-        //                chartHeader: HelperClass.randomTitle(),
-        //                height: HelperClass.randomHeight(),
-        //                linkAccountHeader: HelperClass.randomConnectAccountTitle(),
-        //                linkAccountForegroundColor: HelperClass.randomColor(),
-        //                linkAccountBackgroundColor:  HelperClass.randomColor(),
-        //                chartForegroundColor: HelperClass.randomColor(),
-        //                chartForegroundBorderColor: HelperClass.randomColor(),
-        //                font: HelperClass.randomSmFont(),
-        //                fontColor: HelperClass.randomColor(),
-        //                headerFont: HelperClass.randomLgFont(),
-        //                headerFontColor: HelperClass.randomColor()
-        //            )
-        //            .padding(CGFloat(Int.random(in: 4...25)))
-        //        }
+//        TemplateDemoView {
+//            ProjectionsChart(
+//                chartHeader: HelperClass.randomTitle(),
+//                linkAccountHeader: HelperClass.randomConnectAccountTitle(),
+//                linkAccountForegroundColor: HelperClass.randomColor(),
+//                linkAccountBackgroundColor:  HelperClass.randomColor(),
+//                linkAccountFont: HelperClass.randomSmFont(),
+//                linkAccountFontColor: HelperClass.randomColor(),
+//                height: HelperClass.randomHeight(),
+//                chartForegroundColor: HelperClass.randomColor(),
+//                chartForegroundBorderColor: HelperClass.randomColor(),
+//                xAxisFont: HelperClass.randomSmFont(),
+//                xAxisFontColor: HelperClass.randomColor(),
+//                yAxisFont: HelperClass.randomSmFont(),
+//                yAxisFontColor: HelperClass.randomColor(),
+//                headerFont: HelperClass.randomLgFont(),
+//                headerFontColor: HelperClass.randomColor()
+//            )
+//            .padding(CGFloat(Int.random(in: 4...25)))
+//        }
     }
 }
 
@@ -130,16 +134,17 @@ struct DemoNetWorthChart: View {
 }
 
 
+
+// -------- HELPER VIEWS
+
 struct DemoTextView: View {
     var text: String = "This is a demo of the SLCharts configuration."
     var body: some View {
         Rectangle().fill(Color.gray).frame(height: 60)
             .overlay { Text(text).font(.footnote) }
+            .padding(.vertical, 6)
     }
 }
-
-
-
 
 //MARK: - LOGIN VIEW
 struct DemoLoginView: View {

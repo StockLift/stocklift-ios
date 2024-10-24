@@ -130,7 +130,7 @@ struct BarLineChart: View {
                             // Data info box
                             VStack {
                                 HStack(alignment: .center) {
-                                    Circle().fill(Color.yellow).frame(width: 8, height: 8)
+                                    Circle().fill(sp500Colors[0]).frame(width: 8, height: 8)
                                     Text("\(encodeDate(selectedElement.0?.date ?? ""), format: .dateTime.year().month().day())")
                                         .font(.caption)
                                         .foregroundStyle(.secondary)
@@ -143,7 +143,7 @@ struct BarLineChart: View {
                                 .padding(.bottom, 4)
                                 
                                 HStack(alignment: .center) {
-                                    Circle().fill(Color.blue).frame(width: 8, height: 8)
+                                    Circle().fill(portfolioColors[0]).frame(width: 8, height: 8)
                                     Text("\(encodeDate(selectedElement.1?.date ?? ""), format: .dateTime.year().month().day())")
                                         .font(.caption)
                                         .foregroundStyle(.secondary)

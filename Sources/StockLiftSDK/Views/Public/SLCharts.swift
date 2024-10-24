@@ -79,8 +79,8 @@ public struct SLCharts: View {
         headerFontColor: Color = .primary,
         sectorDetailFont: Font = .caption2,
         sectorDetailFontColor: Color = .primary,
-        sp500Colors: [Color] = [.yellow, .yellow],
-        portfolioColors: [Color] = [.blue, .blue],
+        sp500Colors: [Color] = [.yellow, .yellow.opacity(0.3)],
+        portfolioColors: [Color] = [.blue, .blue.opacity(0.3)],
         
         // Card
         cardBackgroundColor: Color = .gray.opacity(0.3),
@@ -162,8 +162,6 @@ public struct SLCharts: View {
             linkAccountBackgroundColor:  linkAccountBackgroundColor,
             linkAccountFont: linkAccountFont,
             linkAccountFontColor: linkAccountFontColor,
-//            font: font,
-//            fontColor: fontColor,
             headerFont: headerFont,
             headerFontColor: headerFontColor,
             detailFont: sectorDetailFont,
