@@ -37,6 +37,7 @@ public struct SLCharts: View {
     var linkAccountConnectSize: CGFloat
     var linkAccountFont: Font
     var linkAccountFontColor: Color
+    
     // Chart
     var height: CGFloat
     var chartForegroundColor: Color
@@ -130,11 +131,9 @@ public struct SLCharts: View {
         case .projections:
             /// ------------ Projections Chart
             ProjectionsChartReference
-//                .padding(8)
         case .benchmark:
             /// ------------ Benchmark Chart
             BenchmarkChartReference
-//                .padding(8)
         case .sector:
             /// ------------ Sector Breakdown Chart
             SectorChartReference
@@ -163,7 +162,6 @@ public struct SLCharts: View {
                 /// ------------ Top Holdings Chart
                 TopHoldingsChartReference
                     .tag(4)
-                
             }
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
             .frame(maxWidth: UIScreen.main.bounds.width / 1.05)

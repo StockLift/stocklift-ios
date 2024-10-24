@@ -14,8 +14,12 @@ struct AssetMapView: View {
     let annotations: [AssetCoordinates]
     let missingSymbols: Int
     let usersAssets: [GeoAssetsData]
+    let chartHeader: String
+    
     @Binding var date: String
     @Binding var hasCostBasis: Bool
+    
+    @State private var showDetails: Bool = false
     
     /// New York
     @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 40.6943, longitude: -73.9249), 
@@ -31,7 +35,7 @@ struct AssetMapView: View {
 
     var body: some View {
         VStack {
-            Text("Geographic Diversification")
+            Text(chartHeader)
                 .appFontRegular()
                 .padding(.top)
             
@@ -57,19 +61,22 @@ struct AssetMapView: View {
             .padding(8)
             
             
-            NavigationLink {
-                MapViewDetails(geoVM: GeoAssetViewModel(usersAssets: usersAssets),
-                               date: $date,
-                               hasCostBasis: $hasCostBasis,
-                               updateCostBasisAction: updateCostBasisAction)
-            } label: {
-                Text("View by Region")
-                    .appFontMedium(color: .yellow)
-                    .padding(.bottom)
-            }
-
+            
+            Text("View by Region")
+                .appFontMedium(color: .yellow)
+                .padding(.bottom)
+                .onTapGesture {
+                    self.showDetails.toggle()
+                }
+            
+            
         }
-//        .makeCardLayer()
+        .popover(isPresented: $showDetails) {
+            MapViewDetails(geoVM: GeoAssetViewModel(usersAssets: usersAssets),
+                           date: $date,
+                           hasCostBasis: $hasCostBasis,
+                           updateCostBasisAction: updateCostBasisAction)
+        }
     }
     
     private func updateCostBasisAction(_ symbol: String, value: Float) {

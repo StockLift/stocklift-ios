@@ -57,6 +57,7 @@ struct GeoDiversificationChart: View {
                     AssetMapView(annotations: annotations,
                                  missingSymbols: 0, // TODO: Missing Symbols
                                  usersAssets: geoAssets,
+                                 chartHeader: chartHeader,
                                  date: $portfolioVM.dateConnected,
                                  hasCostBasis: $portfolioVM.hasCostBasis)
                 } else if portfolioVM.isLoading {
