@@ -78,6 +78,7 @@ struct BenchmarkChart: View {
                 Text(chartHeader)
                     .font(headerFont)
                     .foregroundColor(headerFontColor)
+                    .underline(color: headerFontColor)
                 
                 BarLineChart(
                     selectedElement: nil,

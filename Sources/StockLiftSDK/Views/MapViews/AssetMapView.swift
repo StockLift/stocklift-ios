@@ -18,6 +18,8 @@ struct AssetMapView: View {
     
     @Binding var date: String
     @Binding var hasCostBasis: Bool
+    let headerFont: Font
+    let headerFontColor: Color
     
     @State private var showDetails: Bool = false
     
@@ -36,7 +38,8 @@ struct AssetMapView: View {
     var body: some View {
         VStack {
             Text(chartHeader)
-                .appFontRegular()
+                .font(headerFont)
+                .underline(color: headerFontColor)
                 .padding(.top)
             
             // iOS 17

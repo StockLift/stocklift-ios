@@ -10,7 +10,6 @@ import SwiftUI
 
 struct TopHoldingsSortButton: View {
     @Binding var sortViewState: SortTopHoldingType
-    let font: Font
     let fontColor: Color
     
     var body: some View {
@@ -18,7 +17,7 @@ struct TopHoldingsSortButton: View {
             Text(sortViewState.toggleTitle)
             Image(systemName: "chevron.down")
         }
-        .font(font)
+        .font(.subheadline)
         .foregroundColor(fontColor)
         .frame(maxWidth: .infinity)
         .padding(.vertical, 8)

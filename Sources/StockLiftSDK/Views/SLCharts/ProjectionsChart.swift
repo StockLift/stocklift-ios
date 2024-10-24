@@ -93,6 +93,7 @@ struct ProjectionsChart: View {
                 Text(chartHeader)
                     .font(headerFont)
                     .foregroundColor(headerFontColor)
+                    .underline(color: headerFontColor)
 //                    .padding(.top, 4)
                     
                 Spacer()

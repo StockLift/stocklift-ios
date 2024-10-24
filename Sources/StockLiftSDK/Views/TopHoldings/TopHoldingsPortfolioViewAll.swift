@@ -14,7 +14,6 @@ struct TopHoldingsPortfolioViewAll: View {
     let totalNetValue: Decimal
     let hasCostBasis: Bool
     @Binding var showUpdateCostBasis: (Bool, String)
-    let font: Font
     let fontColor: Color
     
     
@@ -22,7 +21,7 @@ struct TopHoldingsPortfolioViewAll: View {
     
     var body: some View {
         ScrollView {
-            TopHoldingsSortButton(sortViewState: $viewSortType, font: font, fontColor: fontColor)
+            TopHoldingsSortButton(sortViewState: $viewSortType, fontColor: fontColor)
             
             VStack(spacing: 0) {
                 ForEach(topHoldings) { holding in

@@ -9,7 +9,7 @@
 import SwiftUI
 import Charts
 
-@available(iOS 15.0, *)
+@available(iOS 16.0, *)
 struct SectorBreakdownChart: View {
     @ObservedObject private var portfolioVM: PortfolioViewModel
     @State private var showBreakdown: Bool = false
@@ -76,6 +76,7 @@ struct SectorBreakdownChart: View {
                         .font(headerFont)
                         .foregroundColor(headerFontColor)
                         .padding(.top, 12)
+                        .underline(color: headerFontColor)
                     
                     
                     HStack {

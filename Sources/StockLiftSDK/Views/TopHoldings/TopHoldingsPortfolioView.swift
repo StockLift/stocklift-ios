@@ -13,8 +13,8 @@ struct TopHoldingsPortfolioView: View {
     @State var topHoldings: [TopHoldingAsset]
     let totalNetValue: Decimal
     let hasCostBasis: Bool
-    let font: Font
-    let fontColor: Color
+    let headerFont: Font
+    let headerFontColor: Color
     
     @State private var showDetails: Bool = false
     @State private var showUpdateCostBasis: (Bool, String) = (false, "")
@@ -24,10 +24,12 @@ struct TopHoldingsPortfolioView: View {
     var body: some View {
         VStack(spacing: 0) {
             Text("Top Holdings")
-                .appFontRegular()
+                .font(headerFont)
+                .foregroundColor(headerFontColor)
+                .underline(color: headerFontColor)
                 .padding(.top)
             
-            TopHoldingsSortButton(sortViewState: $sortViewState, font: font, fontColor: fontColor)
+            TopHoldingsSortButton(sortViewState: $sortViewState, fontColor: headerFontColor)
             
             ScrollView {
                 ForEach(topHoldings.prefix(10)) { holding in
@@ -56,8 +58,7 @@ struct TopHoldingsPortfolioView: View {
                 totalNetValue: totalNetValue,
                 hasCostBasis: hasCostBasis,
                 showUpdateCostBasis: $showUpdateCostBasis,
-                font: font,
-                fontColor: fontColor
+                fontColor: headerFontColor
             )
         })
         //        .overlay(alignment: .center) {

@@ -21,8 +21,8 @@ struct TopHoldingsChart: View {
     let linkAccountFontColor: Color
     // Chart
     let chartHeader: String
-    let font: Font
-    let fontColor: Color
+    let headerFont: Font
+    let headerFontColor: Color
     
     init(
         _ viewModel: PortfolioViewModel,
@@ -34,8 +34,8 @@ struct TopHoldingsChart: View {
         linkAccountConnectSize: CGFloat = 38,
         linkAccountFont: Font = .caption,
         linkAccountFontColor: Color = .white,
-        font: Font = .caption,
-        fontColor: Color = .primary
+        headerFont: Font = .subheadline,
+        headerFontColor: Color = .primary
     ) {
         self.portfolioVM = viewModel
         self.chartHeader = chartHeader
@@ -46,8 +46,8 @@ struct TopHoldingsChart: View {
         self.linkAccountConnectSize = linkAccountConnectSize
         self.linkAccountFont = linkAccountFont
         self.linkAccountFontColor = linkAccountFontColor
-        self.font = font
-        self.fontColor = fontColor
+        self.headerFont = headerFont
+        self.headerFontColor = headerFontColor  
     }
     
     var body: some View {
@@ -57,7 +57,9 @@ struct TopHoldingsChart: View {
                 TopHoldingsPortfolioView(
                     topHoldings: holdings,
                     totalNetValue: Decimal(Double(portfolioVM.netWorth)),
-                    hasCostBasis: portfolioVM.hasCostBasis, font: font, fontColor: fontColor
+                    hasCostBasis: portfolioVM.hasCostBasis,
+                    headerFont: headerFont,
+                    headerFontColor: headerFontColor
                 )
                 
             } else if portfolioVM.isLoading {

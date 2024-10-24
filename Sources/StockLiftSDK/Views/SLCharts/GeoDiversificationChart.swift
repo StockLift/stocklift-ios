@@ -21,6 +21,8 @@ struct GeoDiversificationChart: View {
     let linkAccountFontColor: Color
     // Chart
     let chartHeader: String
+    let headerFont: Font
+    let headerFontColor: Color
     
     init(
        _ viewModel: PortfolioViewModel,
@@ -31,7 +33,9 @@ struct GeoDiversificationChart: View {
        linkAccountBorderColor: Color = .white,
        linkAccountConnectSize: CGFloat = 38,
        linkAccountFont: Font = .caption,
-       linkAccountFontColor: Color = .white
+       linkAccountFontColor: Color = .white,
+       headerFont: Font = .subheadline,
+       headerFontColor: Color = .primary
    ) {
        self.portfolioVM = viewModel
        self.chartHeader = chartHeader
@@ -42,6 +46,8 @@ struct GeoDiversificationChart: View {
        self.linkAccountConnectSize = linkAccountConnectSize
        self.linkAccountFont = linkAccountFont
        self.linkAccountFontColor = linkAccountFontColor
+       self.headerFont = headerFont
+       self.headerFontColor = headerFontColor
    }
     
     var body: some View {
@@ -54,12 +60,16 @@ struct GeoDiversificationChart: View {
                 
                 // MAP CHART - Asset Locations
                 if let annotations = self.portfolioVM.assetCoordinates, let geoAssets = portfolioVM.geoAssets {
-                    AssetMapView(annotations: annotations,
-                                 missingSymbols: 0, // TODO: Missing Symbols
-                                 usersAssets: geoAssets,
-                                 chartHeader: chartHeader,
-                                 date: $portfolioVM.dateConnected,
-                                 hasCostBasis: $portfolioVM.hasCostBasis)
+                    AssetMapView(
+                        annotations: annotations,
+                        missingSymbols: 0, // TODO: Missing Symbols
+                        usersAssets: geoAssets,
+                        chartHeader: chartHeader,
+                        date: $portfolioVM.dateConnected,
+                        hasCostBasis: $portfolioVM.hasCostBasis,
+                        headerFont: headerFont,
+                        headerFontColor: headerFontColor
+                    )
                 } else if portfolioVM.isLoading {
                     ProgressView()
                 } else {

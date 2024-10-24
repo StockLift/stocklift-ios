@@ -274,7 +274,9 @@ public struct SLCharts: View {
             linkAccountBorderColor: linkAccountBorderColor,
             linkAccountConnectSize: linkAccountConnectSize,
             linkAccountFont: linkAccountFont,
-            linkAccountFontColor: linkAccountFontColor
+            linkAccountFontColor: linkAccountFontColor,
+            headerFont: headerFont,
+            headerFontColor: headerFontColor
         )
     }
 }
