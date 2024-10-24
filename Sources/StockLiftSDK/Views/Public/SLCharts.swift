@@ -159,11 +159,13 @@ public struct SLCharts: View {
                     .tag(2)
                     .padding(8)
                 /// ------------ Geo Diversification Chart
-//                GeoDiversificationChartReference
-//                    .tag(3)
+                GeoDiversificationChartReference
+                    .tag(3)
+                    .padding(8)
                 /// ------------ Top Holdings Chart
                 TopHoldingsChartReference
                     .tag(4)
+                    .padding(8)
             }
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
             .frame(maxWidth: UIScreen.main.bounds.width / 1.05)

@@ -16,7 +16,7 @@ final class PortfolioViewModel: BaseViewModel {
     @Published var dateConnected: String = ""
     @Published var hasAccountConnected = false
 //    @Published var missingData = [String]()
-//    @Published var missingSymbols: Int = 0
+    @Published var missingSymbols: Int = 0
 //    @Published var plaidError: PlaidError? = nil
 //    @Published var showPlaidError: Bool = true
 
@@ -104,22 +104,23 @@ final class PortfolioViewModel: BaseViewModel {
     
     //MARK: - ASSET LOCATION COORDINATES
     private func getAssetMapData() {
-//        UserService.shared.getAssetCoordinates { result in
-//            switch result {
-//            case .success(let res):
-//                DispatchQueue.main.async {
-//                    self.assetCoordinates = res.data.map { AssetCoordinates(name: $0.city ?? "",
-//                                                                           coordinate: .init(latitude: $0.lat ?? 0, longitude: $0.lng ?? 0),
-//                                                                           url: $0.url,
-//                                                                           symbol: $0.symbol) }
-//                    self.missingSymbols = res.missingSymbols
-//                }
-//            case .failure(let err):
-//                self.handleAlert(err: err, codeSheet: "PortfolioVM+getAssetMapData") {
-//                    print(err)
-//                }
-//            }
-//        }
+        guard let client = StockLiftSDK.client else {
+            fatalError(SLError.errorMessage(.clientDetailsNotSet))
+        }
+        NetworkService.shared.getGeoDiversificationChart(clientId: client.uuid) { result in
+            switch result {
+            case .success(let res):
+                DispatchQueue.main.async {
+                    self.assetCoordinates = res.data.map { AssetCoordinates(name: $0.city ?? "",
+                                                                           coordinate: .init(latitude: $0.lat ?? 0, longitude: $0.lng ?? 0),
+                                                                           url: $0.url,
+                                                                           symbol: $0.symbol) }
+                    self.missingSymbols = res.missingSymbols
+                }
+            case .failure(let err):
+                print(err)
+            }
+        }
     }
     
     
