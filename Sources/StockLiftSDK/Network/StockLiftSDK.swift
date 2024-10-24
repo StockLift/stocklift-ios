@@ -22,7 +22,7 @@ public class StockLiftSDK {
     
     public init() {
         guard let token = Self.accessToken, !token.isEmpty else {
-            fatalError(SLError.errorMessage("You must set your API Key in the StockLiftSDK.accessToken variable."))
+            fatalError(SLError.errorMessage(.accessTokenNotSet))
         }
     }
 }

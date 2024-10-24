@@ -66,7 +66,7 @@ final class PortfolioViewModel: BaseViewModel {
     //MARK: - GET PORTFOLIO
     private func getPortfolio() {
         guard let client = StockLiftSDK.client else {
-            fatalError(SLError.errorMessage("Remember to set the client details before connecting accounts."))
+            fatalError(SLError.errorMessage(.clientDetailsNotSet))
         }
         self.isLoading = true
         NetworkService.shared.getPortfolio(clientId: client.uuid) { result in
@@ -78,8 +78,8 @@ final class PortfolioViewModel: BaseViewModel {
             case .failure(let err):
                 DispatchQueue.main.async {
                     self.isLoading = false
+                    print(err)
                 }
-                print(SLError.errorMessage("\(err)"))
             }
         }
     }
@@ -87,7 +87,7 @@ final class PortfolioViewModel: BaseViewModel {
     //MARK: - BENCHMARK CHART DATA - SP vs User Portfolio
     private func getBenchmarkChartData() {
         guard let client = StockLiftSDK.client else {
-            fatalError(SLError.errorMessage("Remember to set the client details before connecting accounts."))
+            fatalError(SLError.errorMessage(.clientDetailsNotSet))
         }
         NetworkService.shared.getBenchmarkChart(clientId: client.uuid) { result in
             switch result {
