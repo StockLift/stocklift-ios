@@ -70,72 +70,58 @@ struct DemoAllChartsView: View {
 //MARK: Growth Projections Chart Demo
 struct DemoGrowthProjectionsChart: View {
     var body: some View {
-        Text("Will not be available until v2, focusing on the All Charts configuration first.")
-            .font(.footnote)
-//        TemplateDemoView {
-//            ProjectionsChart(
-//                chartHeader: HelperClass.randomTitle(),
-//                linkAccountHeader: HelperClass.randomConnectAccountTitle(),
-//                linkAccountForegroundColor: HelperClass.randomColor(),
-//                linkAccountBackgroundColor:  HelperClass.randomColor(),
-//                linkAccountFont: HelperClass.randomSmFont(),
-//                linkAccountFontColor: HelperClass.randomColor(),
-//                height: HelperClass.randomHeight(),
-//                chartForegroundColor: HelperClass.randomColor(),
-//                chartForegroundBorderColor: HelperClass.randomColor(),
-//                xAxisFont: HelperClass.randomSmFont(),
-//                xAxisFontColor: HelperClass.randomColor(),
-//                yAxisFont: HelperClass.randomSmFont(),
-//                yAxisFontColor: HelperClass.randomColor(),
-//                headerFont: HelperClass.randomLgFont(),
-//                headerFontColor: HelperClass.randomColor()
-//            )
-//            .padding(CGFloat(Int.random(in: 4...25)))
-//        }
+        TemplateDemoView {
+            ComingSoonView()
+        }
     }
 }
 
 //MARK: Sector Breakdown Chart Demo
 struct DemoSectorBreakdownChart: View {
     var body: some View {
-        Text("Will not be available until v2, focusing on the All Charts configuration first.")
-            .font(.footnote)
-        //        TemplateDemoView {
-        //            SLSectorBreakdownChart(
-        //                chartHeader: HelperClass.randomTitle(),
-        //                linkAccountHeader: HelperClass.randomConnectAccountTitle(),
-        //                linkAccountForegroundColor: HelperClass.randomColor(),
-        //                linkAccountBackgroundColor: HelperClass.randomColor(),
-        //                linkAccountBorderColor: HelperClass.randomColor(),
-        //                font: HelperClass.randomSmFont(),
-        //                fontColor: HelperClass.randomColor(),
-        //                headerFont: HelperClass.randomLgFont(),
-        //                headerFontColor: HelperClass.randomColor()
-        //            )
-        //            .frame(height: UIScreen.main.bounds.width)
-        //        }
+        TemplateDemoView {
+            ComingSoonView()
+        }
     }
 }
 
 //MARK: Benchmark Chart Demo
 struct DemoBenchmarkChart: View {
     var body: some View {
-        Text("Will not be available until v2, focusing on the All Charts configuration first.")
-            .font(.footnote)
+        TemplateDemoView {
+            ComingSoonView()
+        }
     }
 }
 
-//MARK: Net Worth Chart Demo
-struct DemoNetWorthChart: View {
+//MARK: GEO DIVERSIFICATION Chart Demo
+struct DemoGeoDiversificationChart: View {
     var body: some View {
-        Text("Coming Soon")
-            .font(.footnote)
+        TemplateDemoView {
+            ComingSoonView()
+        }
+    }
+}
+
+//MARK: TOP HOLDINGS Chart Demo
+struct DemoTopHoldingsChart: View {
+    var body: some View {
+        TemplateDemoView {
+            ComingSoonView()
+        }
     }
 }
 
 
 
 // -------- HELPER VIEWS
+
+struct ComingSoonView: View {
+    var body: some View {
+        Text("Will not be available until v2, focusing on the SLCharts (all charts) configuration first.")
+            .font(.body)
+    }
+}
 
 struct DemoTextView: View {
     var text: String = "This is a demo of the SLCharts configuration."

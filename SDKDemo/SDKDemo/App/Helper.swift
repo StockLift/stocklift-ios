@@ -25,7 +25,7 @@ struct HelperClass {
     }
     
     static func randomTitle() -> String {
-        let titles: [String] = ["Growth Chart", "Projections Data", "Portfolio Growth Projections", "More Data"]
+        let titles: [String] = ["Growth Chart", "Projections Data", "Portfolio Growth Projections", "Top Holdings", "Portfolio Breakdown", "My Portfolio vs. SP 500"]
         return titles.randomElement()!
     }
     

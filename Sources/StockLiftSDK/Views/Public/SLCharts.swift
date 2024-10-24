@@ -7,13 +7,14 @@
 
 import SwiftUI
 
-public enum SLChartType {
-    case projections
-    case sector
-    case benchmark
-    case geoDiversification
-    case topHoldings
-    case all
+public enum SLChartType: String, CaseIterable, Identifiable {
+    public var id: Self { self }
+    case all = "SLCharts"
+    case projections = "SLProjectionsChart"
+    case sector = "SLSectorBreakdownChart"
+    case benchmark = "SLBenchmarkChart"
+    case geoDiversification = "SLGeoDiversification Chart"
+    case topHoldings = "SLTopHoldingsChart"
 }
 
 @available(iOS 16.0, *)

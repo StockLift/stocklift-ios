@@ -10,21 +10,11 @@ import StockLiftSDK
 
 struct ContentView: View {
     @Binding var isDarkMode: Bool
-    
-    private let views = ChartType.allCases
+    private let views = SLChartType.allCases
     @State private var viewState: ViewState = .charts
     @State private var showTopView: Bool = true
     private var toggleTitle: String { isDarkMode ? "Light Mode" : "Dark Mode" }
     private var showTopViewTitle: String { showTopView ? "Hide Top View" : "Show Top View" }
-    
-    private enum ChartType: String, CaseIterable, Identifiable {
-        public var id: Self { self }
-        case all = "SLCharts"
-        case projections = "SLProjectionsChart"
-        case sector = "SLSectorBreakdownChart"
-        case benchmark = "SLBenchmarkChart"
-        case netWorth = "SLNetWorthChart"
-    }
     
     private enum ViewState {
         case login, charts
@@ -42,7 +32,6 @@ struct ContentView: View {
         VStack {
             Text(viewState.title)
                 .font(.title)
-//                .underline(color: .purple)
                 .onTapGesture { toggleView() }
             switch viewState {
             case .login:
@@ -51,12 +40,12 @@ struct ContentView: View {
                 Toggle(toggleTitle, isOn: $isDarkMode)
                     .padding(.horizontal)
                     .tint(.gray)
-//                Toggle(showTopViewTitle, isOn: $showTopView)
-//                    .padding(.horizontal)
-//                    .tint(.gray)
-//                if showTopView {
-//                    SLCharts(.all)
-//                }
+                //                Toggle(showTopViewTitle, isOn: $showTopView)
+                //                    .padding(.horizontal)
+                //                    .tint(.gray)
+                //                if showTopView {
+                //                    SLCharts(.all)
+                //                }
                 NavigationStack {
                     ScrollView {
                         VStack {
@@ -93,10 +82,17 @@ struct ContentView: View {
                                         HeaderView(view) { }
                                     }
                                     
-                                case .netWorth:
-                                    // MARK: - Net Worth Chart
+                                case .geoDiversification:
+                                    // MARK: - GEO DIVERSIFICATION Chart
                                     NavigationLink {
-                                        DemoNetWorthChart()
+                                        DemoGeoDiversificationChart()
+                                    } label: {
+                                        HeaderView(view) { }
+                                    }
+                                case .topHoldings:
+                                    // MARK: - TOP HOLDINGS Chart
+                                    NavigationLink {
+                                        DemoTopHoldingsChart()
                                     } label: {
                                         HeaderView(view) { }
                                     }
@@ -112,7 +108,7 @@ struct ContentView: View {
     }
     
     // LIST Header View
-    private func HeaderView<T:View>(_ view: ChartType, @ViewBuilder content: () -> T) -> some View {
+    private func HeaderView<T:View>(_ view: SLChartType, @ViewBuilder content: () -> T) -> some View {
         VStack {
             Text(view.rawValue)
                 .font(.headline)
