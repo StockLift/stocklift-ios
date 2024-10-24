@@ -19,7 +19,7 @@ public enum SLChartType {
 @available(iOS 16.0, *)
 public struct SLCharts: View {
     @StateObject private var viewModel = PortfolioViewModel()
-    
+    //MARK: - PROPERTIES
     /// CHART Type to show
     var chartType: SLChartType
     // Header
@@ -58,6 +58,7 @@ public struct SLCharts: View {
     var cardCornerRadius: CGFloat
     var cardShadow: Bool
     
+    //MARK: - INIT
     public init(
         _ chartViewType: SLChartType = .all,
         projectionsChartHeader: String = "Portfolio Growth Projections",
@@ -126,6 +127,7 @@ public struct SLCharts: View {
         self.sectorDetailFontColor = sectorDetailFontColor
     }
     
+    //MARK: - BODY
     public var body: some View {
         switch chartType {
         case .projections:
