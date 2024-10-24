@@ -51,17 +51,20 @@ struct TopHoldingsPortfolioCell: View {
                     HStack {
                         /// SYMBOL & RANK
                         Text(rankTitle)
-                            .appFontRegular()
+                            .font(.callout)
                             .layoutPriority(2)
                         /// WEIGHT
                         Text("\(totalPercent)%")
-                            .appFontRegular(size: 10, color: .yellow)
+                            .font(.caption)
+                            .foregroundColor(.yellow)
+//                            .appFontRegular(size: 10, color: .yellow)
                     }
                     
                     if let name = asset.name, !name.isEmpty {
                         /// NAME
                         Text(name)
-                            .appFontRegular(size: 10)
+                            .font(.caption)
+//                            .appFontRegular(size: 10)
                             .lineLimit(1)
                     }
                 }
@@ -71,15 +74,18 @@ struct TopHoldingsPortfolioCell: View {
             VStack(alignment: .trailing) {
                 /// PERFORMANCE
                 Text("\(percentChange)%")
+                    .font(.caption)
+                    .foregroundColor(setColor(percentChange))
 //                    .appFontRegular(size: 10, color: showView() ? setColor(percentChange) : .appGray)
                 /// TOTAL VALUE
                 Text(currentValue, format: .currency(code: "USD"))
-                    .appFontRegular()
+                    .font(.callout)
             }
             .layoutPriority(1)
         }
         .padding(.horizontal, 8)
         .padding(.vertical, 8)
+        .contentShape(Rectangle())
         .overlay(alignment: .center, content: {
             if showDetails {
                 PopUpDetailView(asset: asset,
@@ -88,7 +94,6 @@ struct TopHoldingsPortfolioCell: View {
                                 hideView: $showDetails)
             }
         })
-        .contentShape(Rectangle())
         .onTapGesture {
             withAnimation(.easeInOut) {
                 showDetails.toggle()

@@ -155,6 +155,7 @@ extension PortfolioViewModel {
         if hasAccount {
             self.hasAccountConnected = hasAccount
             self.setPortfolioData(res.data)
+            self.userTopHoldings = PortfolioViewModel.setTopHoldings(res.data.totalHoldings)
             self.geoAssets = res.data.geoAssets
             if let hasCostBasis = res.hasCostBasis {
                 self.hasCostBasis = hasCostBasis
@@ -173,7 +174,7 @@ extension PortfolioViewModel {
     // SET CHART DATA - Sector & Growth Charts
     private func setPortfolioData(_ portfolio: Portfolio) {
         userEquityAccounts = portfolio.totalHoldings
-//        netWorth = portfolio.currentNetWorth ?? 0
+        netWorth = portfolio.currentNetWorth ?? 0
 //        diversificationScore = portfolio.diversificationScore ?? 0
 //        returnOnInvestment = portfolio.returnOnInvestment ?? ""
 //        let returnChange = portfolio.returnOnInvestment

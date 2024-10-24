@@ -191,6 +191,16 @@ public extension View {
     }
 }
 
+@available(iOS 13.0, *)
+public extension View {
+    // DIVIDER
+    var SLDivider: some View {
+        Divider()
+            .frame(height: 1)
+            .overlay(Color.gray.opacity(0.3))
+    }
+}
+
 @available(iOS 15.0, *)
 public extension View {
     // SET COLOR for percentage change

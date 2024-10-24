@@ -14,12 +14,16 @@ struct TopHoldingsPortfolioViewAll: View {
     let totalNetValue: Decimal
     let hasCostBasis: Bool
     @Binding var showUpdateCostBasis: (Bool, String)
+    let font: Font
+    let fontColor: Color
+    
     
     @State private var viewSortType: SortTopHoldingType = .weight
     
     var body: some View {
         ScrollView {
-            TopHoldingsSortButton(sortViewState: $viewSortType)
+            TopHoldingsSortButton(sortViewState: $viewSortType, font: font, fontColor: fontColor)
+            
             VStack(spacing: 0) {
                 ForEach(topHoldings) { holding in
                     TopHoldingsPortfolioCell(asset: holding.holding,
@@ -27,18 +31,11 @@ struct TopHoldingsPortfolioViewAll: View {
                                              totalNetValue: totalNetValue,
                                              hasCostBasis: hasCostBasis,
                                              showUpdateCostBasis: $showUpdateCostBasis)
-//                    SLDivider
+                    SLDivider
                 }
             }
-            .makeCardLayer()
+//            .makeCardLayer()
         }
-//        .navigationBarTitleDisplayMode(.inline)
-//        .navigationBarBackButtonHidden(true)
-//        .toolbar {
-//            SLToolBar(title: "Top Holdings") {
-//                EmptyView()
-//            }
-//        }
         .onChange(of: viewSortType, perform: { _ in
             toggle(viewSortType)
         })
