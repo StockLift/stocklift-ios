@@ -22,11 +22,11 @@ struct MapViewDetails: View {
 //            Color.appBackground.edgesIgnoringSafeArea(.all)
             VStack {
                 ScrollView {
-                    if !hasCostBasis {
-                        Text(PortfolioViewModel.missingCostBasisMessage(date))
-                            .appFontRegular(color: .gray)
-                            .multilineTextAlignment(.center)
-                    }
+//                    if !hasCostBasis {
+//                        Text(PortfolioViewModel.missingCostBasisMessage(date))
+//                            .appFontRegular(color: .gray)
+//                            .multilineTextAlignment(.center)
+//                    }
                     ForEach(geoVM.usersAssets, id: \.continent) { asset in
                         ContinentDetailCell(assetDetails: asset,
                                             showUpdateCostBasis: $showUpdateCostBasis,
@@ -42,13 +42,6 @@ struct MapViewDetails: View {
                 }
             }
         }
-//        .navigationBarTitleDisplayMode(.inline)
-//        .navigationBarBackButtonHidden(true)
-//        .toolbar {
-//            SLToolBar(title: "Geography Details") {
-//                EmptyView()
-//            }
-//        }
     }
 }
 

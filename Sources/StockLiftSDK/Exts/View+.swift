@@ -193,8 +193,16 @@ public extension View {
 
 @available(iOS 15.0, *)
 public extension View {
-    // CREATE Image for Symbol (url or symbol or name prefixed)
+    // SET COLOR for percentage change
+    func setColor(_ value: String, upColor: Color = .green) -> Color {
+        if value.contains("-") {
+            return .red
+        } else {
+            return upColor
+        }
+    }
     
+    // CREATE Image for Symbol (url or symbol or name prefixed)
     func AssetImageHandler(assetImageUrl: URL?, asset: UserEquity) -> some View {
         let symbol = asset.symbol?.lowercased()
         return EmptyView()

@@ -33,7 +33,7 @@ struct BenchmarkChart: View {
     
     init (
         _ viewModel: PortfolioViewModel,
-        chartHeader: String = "My Portfolio vs. S&P 500",
+        chartHeader: String = "Geographic Diversification",
         linkAccountHeader: String = "Add a brokerage account to get a free detailed breakdown of your investments",
         linkAccountForegroundColor: Color = .white,
         linkAccountBackgroundColor: Color = .black,

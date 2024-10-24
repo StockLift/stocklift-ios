@@ -23,7 +23,7 @@ final class PortfolioViewModel: BaseViewModel {
     
     @Published var userEquityAccounts: [UserEquity]?
     @Published var sectorDetails: [[SectorTotals: [UserEquity]]] = []
-//    @Published var netWorth: Float = 0
+    @Published var netWorth: Float = 0
     @Published var percentChangeInPortfolio: String = "0.00"
     @Published var portfolioUpOrDown: Bool = false
 //    @Published var diversificationScore: Float = 0
@@ -33,8 +33,9 @@ final class PortfolioViewModel: BaseViewModel {
     /// CHARTS
     @Published var sectorEntries: [SectorData]? = nil
     @Published var growthChartEntries: [ChartData]? = nil
+    @Published var userTopHoldings: [TopHoldingAsset]? = nil
+    @Published var assetCoordinates: [AssetCoordinates]? = nil
     @Published var geoAssets: [GeoAssetsData]? = nil
-//    @Published var assetCoordinates: [AssetCoordinates]? = nil
     @Published var sp500ChartEntries: [ChartData]? = nil
     @Published var portfolioChartEntries: [ChartData]? = nil
     

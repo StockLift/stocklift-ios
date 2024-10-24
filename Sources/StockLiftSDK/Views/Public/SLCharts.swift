@@ -11,6 +11,8 @@ public enum SLChartType {
     case projections
     case sector
     case benchmark
+    case geoDiversification
+    case topHoldings
     case all
 }
 
@@ -24,6 +26,9 @@ public struct SLCharts: View {
     var projectionsChartHeader: String
     var benchmarkChartHeader: String
     var sectorChartHeader: String
+    var geoDiversificationChartHeader: String
+    var topHoldingsChartHeader: String
+    
     // Link Account
     var linkAccountHeader: String
     var linkAccountForegroundColor: Color
@@ -57,6 +62,8 @@ public struct SLCharts: View {
         projectionsChartHeader: String = "Portfolio Growth Projections",
         benchmarkChartHeader: String = "My Portfolio vs. SP 500",
         sectorChartHeader: String = "Diversification by Sector",
+        geoDiversificationChartHeader: String = "Geo Diversification",
+        topHoldingsChartHeader: String = "Top Holdings",
         
         // Link Account View
         linkAccountHeader: String = "Add a brokerage account to get a free detailed breakdown of your investments",
@@ -91,6 +98,8 @@ public struct SLCharts: View {
         self.projectionsChartHeader = projectionsChartHeader
         self.benchmarkChartHeader = benchmarkChartHeader
         self.sectorChartHeader = sectorChartHeader
+        self.geoDiversificationChartHeader = geoDiversificationChartHeader
+        self.topHoldingsChartHeader = topHoldingsChartHeader
         self.linkAccountHeader = linkAccountHeader
         self.linkAccountForegroundColor = linkAccountForegroundColor
         self.linkAccountBackgroundColor = linkAccountBackgroundColor
@@ -129,8 +138,14 @@ public struct SLCharts: View {
         case .sector:
             /// ------------ Sector Breakdown Chart
             SectorChartReference
+        case .geoDiversification:
+            /// ------------ GeoDiversification Chart
+            GeoDiversificationChartReference
+        case .topHoldings:
+            /// ------------ Top Holdings Chart
+            TopHoldingsChartReference
         case .all:
-            TabView { 
+            TabView {
                 /// ------------ Sector Breakdown Chart
                 SectorChartReference
                     .tag(0)
@@ -142,6 +157,13 @@ public struct SLCharts: View {
                 ProjectionsChartReference
                     .tag(2)
                     .padding(8)
+                /// ------------ Geo Diversification Chart
+                GeoDiversificationChartReference
+                    .tag(3)
+                /// ------------ Top Holdings Chart
+                TopHoldingsChartReference
+                    .tag(4)
+                
             }
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
             .frame(maxWidth: UIScreen.main.bounds.width / 1.05)
@@ -214,4 +236,34 @@ public struct SLCharts: View {
             headerFontColor: headerFontColor
         )
     }
+    
+    //MARK: - GEO DIVERSIFICATION CHART
+    @ViewBuilder
+    private var GeoDiversificationChartReference: some View {
+        GeoDiversificationChart(
+            viewModel,
+            chartHeader: geoDiversificationChartHeader,
+            linkAccountHeader: linkAccountHeader,
+            linkAccountForegroundColor: linkAccountForegroundColor,
+            linkAccountBackgroundColor:  linkAccountBackgroundColor,
+            linkAccountFont: linkAccountFont,
+            linkAccountFontColor: linkAccountFontColor
+        )
+    }
+    
+    //MARK: - TOP HOLDINGS CHART
+    @ViewBuilder
+    private var TopHoldingsChartReference: some View {
+        TopHoldingsChart(
+            viewModel,
+            chartHeader: topHoldingsChartHeader,
+            linkAccountHeader: linkAccountHeader,
+            linkAccountForegroundColor: linkAccountForegroundColor,
+            linkAccountBackgroundColor:  linkAccountBackgroundColor,
+            linkAccountFont: linkAccountFont,
+            linkAccountFontColor: linkAccountFontColor
+        )
+    }
 }
+
+

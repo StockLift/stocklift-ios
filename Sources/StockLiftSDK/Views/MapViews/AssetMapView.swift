@@ -56,10 +56,6 @@ struct AssetMapView: View {
             .frame(width: self.rect.width * 0.8, height: 300)
             .padding(8)
             
-//            if self.isDev() {
-//                Text("Missing Assets: \(missingSymbols)")
-//                    .appFontMedium(size: 10)
-//            }
             
             NavigationLink {
                 MapViewDetails(geoVM: GeoAssetViewModel(usersAssets: usersAssets),
@@ -73,7 +69,7 @@ struct AssetMapView: View {
             }
 
         }
-        .makeCardLayer()
+//        .makeCardLayer()
     }
     
     private func updateCostBasisAction(_ symbol: String, value: Float) {

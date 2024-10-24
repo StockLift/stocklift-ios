@@ -58,19 +58,19 @@ struct ContinentDetailCell: View {
             HStack {
                 VStack(alignment: .center, spacing: 0) {
                     HStack(alignment: .center, spacing: 10) {
-//                        if continentName != "Uncategorized" {
-//                            Image(self.setColor(continentGain) == Color.green ? "upArrow" : "downArrow")
-//                                .resizable()
-//                                .scaledToFit()
-//                                .frame(width: 20, height: 20)
-//                        } else {
-//                            Image(systemName: "dollarsign.circle")
-//                                .resizable()
-//                                .scaledToFit()
-//                                .background(Color.appBlue)
-//                                .frame(width: 20, height: 20)
-//                                .clipShape(Circle())
-//                        }
+                        if continentName != "Uncategorized" {
+                            Image(self.setColor(continentGain) == Color.green ? "upArrow" : "downArrow")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 20, height: 20)
+                        } else {
+                            Image(systemName: "dollarsign.circle")
+                                .resizable()
+                                .scaledToFit()
+                                .background(Color.blue)
+                                .frame(width: 20, height: 20)
+                                .clipShape(Circle())
+                        }
                         
                         VStack(alignment: .leading, spacing: 4) {
                             Text("\(continentWeight)%")
@@ -79,7 +79,7 @@ struct ContinentDetailCell: View {
                             
 //                            if continentName != "Uncategorized" {
                                 Text("\(setSymbol(continentGain))%")
-//                                    .appFontBlack(size: 12, color: self.setColor(continentGain, upColor: .appBlue))
+                                    .appFontBlack(size: 12, color: self.setColor(continentGain, upColor: .blue))
 //                            }
                         }
                     }
@@ -90,19 +90,19 @@ struct ContinentDetailCell: View {
                 
                 VStack(alignment: .center, spacing: 0) {
                     HStack(alignment: .center, spacing: 10) {
-//                        if continentName != "Uncategorized" {
-//                            Image(self.setColor(dollarGain) == Color.green ? "upArrow" : "downArrow")
-//                                .resizable()
-//                                .scaledToFit()
-//                                .frame(width: 20, height: 20)
-//                        } else {
-//                            Image(systemName: "dollarsign.circle")
-//                                .resizable()
-//                                .scaledToFit()
-//                                .background(Color.appBlue)
-//                                .frame(width: 20, height: 20)
-//                                .clipShape(Circle())
-//                        }
+                        if continentName != "Uncategorized" {
+                            Image(self.setColor(dollarGain) == Color.green ? "upArrow" : "downArrow")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 20, height: 20)
+                        } else {
+                            Image(systemName: "dollarsign.circle")
+                                .resizable()
+                                .scaledToFit()
+                                .background(Color.blue)
+                                .frame(width: 20, height: 20)
+                                .clipShape(Circle())
+                        }
                         
                         VStack(alignment: .leading, spacing: 4) {
                             Text(totalAmountInvested)
@@ -111,7 +111,7 @@ struct ContinentDetailCell: View {
                             
 //                            if continentName != "Uncategorized" {
                                 Text("\(setSymbol(dollarGain))")
-//                                    .appFontBlack(size: 12, color: self.setColor(dollarGain, upColor: .appBlue))
+                                    .appFontBlack(size: 12, color: self.setColor(dollarGain, upColor: .blue))
 //                            }
                         }
                     }
