@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 @available(iOS 13.0, *)
 extension View {
@@ -124,7 +125,7 @@ public extension View {
     func appFontRegular(size: CGFloat = 14, color: Color = .white) -> some View {
         if #available(iOS 14.0, *) {
             self
-                .font(.custom(FontNames.FONT_REGULAR, fixedSize: size))
+                .font(.system(size: size, weight: .regular, design: .default))
                 .foregroundColor(color)
         } else {
             // Fallback on earlier versions
@@ -137,7 +138,7 @@ public extension View {
     func appFontMedium(size: CGFloat = 14, color: Color = .white) -> some View {
         if #available(iOS 14.0, *) {
             self
-                .font(.custom(FontNames.FONT_MEDIUM, fixedSize: size))
+                .font(.system(size: size, weight: .medium, design: .default))
                 .foregroundColor(color)
         } else {
             // Fallback on earlier versions
@@ -150,7 +151,7 @@ public extension View {
     func appFontBold(size: CGFloat = 14, color: Color = .white) -> some View {
         if #available(iOS 14.0, *) {
             self
-                .font(.custom(FontNames.FONT_BOLD, fixedSize: size))
+                .font(.system(size: size, weight: .bold, design: .default))
                 .foregroundColor(color)
         } else {
             // Fallback on earlier versions
@@ -163,7 +164,7 @@ public extension View {
     func appFontBlack(size: CGFloat = 14, color: Color = .white) -> some View {
         if #available(iOS 14.0, *) {
             self
-                .font(.custom(FontNames.FONT_BLACK, fixedSize: size))
+                .font(.system(size: size, weight: .black, design: .default))
                 .foregroundColor(color)
         } else {
             // Fallback on earlier versions
@@ -215,55 +216,53 @@ public extension View {
     // CREATE Image for Symbol (url or symbol or name prefixed)
     func AssetImageHandler(assetImageUrl: URL?, asset: UserEquity) -> some View {
         let symbol = asset.symbol?.lowercased()
-        return EmptyView()
-//        return Group {
-//            if symbol != "voc" {
-//                if let url = assetImageUrl {
-//                    EmptyView()
-////                    KFImage(url)
-////                        .resizable()
-////                        .scaledToFit()
-////                        .frame(width: 40, height: 40)
-////                        .background(Color.appBlue)
-////                        .clipShape(Circle())
-////                        .padding(.trailing, 8)
-//                } else {
-//                    if asset.type == .cash {
-//                        Text("$")
-//                            .appFontRegular()
-//                            .shadow(radius: 2)
-//                            .frame(width: 40, height: 40)
-//                            .background(Color.blue)
-//                            .clipShape(Circle())
-//                            .padding(.trailing, 8)
-//                    } else if let image = asset.symbol, image != "" {
-//                        Text(image.prefix(4))
-//                            .appFontRegular(size: 12)
-//                            .shadow(radius: 2)
-//                            .frame(width: 40, height: 40)
-//                            .background(Color.appBlue)
-//                            .clipShape(Circle())
-//                            .padding(.trailing, 8)
-//                    } else {
-//                        Text("")
-//                            .appFontRegular()
-//                            .shadow(radius: 2)
-//                            .frame(width: 40, height: 40)
-//                            .background(Color.appBlue)
-//                            .clipShape(Circle())
-//                            .padding(.trailing, 8)
-//                    }
-//                }
-//            } else {
-//                // HANDLER for images with weird bugs (returned from 12data not working)
-//                Text(asset.symbol?.prefix(4) ?? "")
-//                    .appFontRegular(size: 12)
-//                    .shadow(radius: 2)
-//                    .frame(width: 40, height: 40)
-//                    .background(Color.appBlue)
-//                    .clipShape(Circle())
-//                    .padding(.trailing, 8)
-//            }
-//        }
+        return Group {
+            if symbol != "voc" {
+                if let url = assetImageUrl {
+                    KFImage(url)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 40, height: 40)
+                        .background(Color.blue)
+                        .clipShape(Circle())
+                        .padding(.trailing, 8)
+                } else {
+                    if asset.type == .cash {
+                        Text("$")
+                            .appFontRegular()
+                            .shadow(radius: 2)
+                            .frame(width: 40, height: 40)
+                            .background(Color.blue)
+                            .clipShape(Circle())
+                            .padding(.trailing, 8)
+                    } else if let image = asset.symbol, image != "" {
+                        Text(image.prefix(4))
+                            .appFontRegular(size: 12)
+                            .shadow(radius: 2)
+                            .frame(width: 40, height: 40)
+                            .background(Color.blue)
+                            .clipShape(Circle())
+                            .padding(.trailing, 8)
+                    } else {
+                        Text("")
+                            .appFontRegular()
+                            .shadow(radius: 2)
+                            .frame(width: 40, height: 40)
+                            .background(Color.blue)
+                            .clipShape(Circle())
+                            .padding(.trailing, 8)
+                    }
+                }
+            } else {
+                // HANDLER for images with weird bugs (returned from 12data not working)
+                Text(asset.symbol?.prefix(4) ?? "")
+                    .appFontRegular(size: 12)
+                    .shadow(radius: 2)
+                    .frame(width: 40, height: 40)
+                    .background(Color.blue)
+                    .clipShape(Circle())
+                    .padding(.trailing, 8)
+            }
+        }
     }
 }

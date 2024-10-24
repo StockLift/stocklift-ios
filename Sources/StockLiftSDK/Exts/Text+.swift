@@ -13,7 +13,7 @@ public extension Text {
     func appFontRegular(size: CGFloat = 14, color: Color = .white) -> some View {
         if #available(iOS 14.0, *) {
             self
-                .font(.custom(FontNames.FONT_REGULAR, fixedSize: size))
+                .font(.system(size: size, weight: .regular, design: .default))
                 .foregroundColor(color)
         } else {
             // Fallback on earlier versions
@@ -26,7 +26,7 @@ public extension Text {
     func appFontMedium(size: CGFloat = 14, color: Color = .white) -> some View {
         if #available(iOS 14.0, *) {
             self
-                .font(.custom(FontNames.FONT_MEDIUM, fixedSize: size))
+                .font(.system(size: size, weight: .medium, design: .default))
                 .foregroundColor(color)
         } else {
             // Fallback on earlier versions
@@ -39,7 +39,7 @@ public extension Text {
     func appFontBold(size: CGFloat = 14, color: Color = .white) -> some View {
         if #available(iOS 14.0, *) {
             self
-                .font(.custom(FontNames.FONT_BOLD, fixedSize: size))
+                .font(.system(size: size, weight: .bold, design: .default))
                 .foregroundColor(color)
         } else {
             // Fallback on earlier versions
@@ -52,7 +52,7 @@ public extension Text {
     func appFontBlack(size: CGFloat = 14, color: Color = .white) -> some View {
         if #available(iOS 14.0, *) {
             self
-                .font(.custom(FontNames.FONT_BLACK, fixedSize: size))
+                .font(.system(size: size, weight: .black, design: .default))
                 .foregroundColor(color)
         } else {
             // Fallback on earlier versions
