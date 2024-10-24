@@ -93,7 +93,7 @@ public struct SLCharts: View {
         portfolioColors: [Color] = [.blue, .blue.opacity(0.3)],
         
         // Card
-        cardBackgroundColor: Color = .gray.opacity(0.3),
+        cardBackgroundColor: Color = Color(UIColor.tertiaryLabel),
         cardCornerRadius: CGFloat = 14,
         cardShadow: Bool = true
     ) {
