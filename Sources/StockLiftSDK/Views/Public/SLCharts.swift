@@ -15,6 +15,7 @@ public enum SLChartType: String, CaseIterable, Identifiable {
     case benchmark = "SLBenchmarkChart"
     case geoDiversification = "SLGeoDiversification Chart"
     case topHoldings = "SLTopHoldingsChart"
+    case portfolioSummary = "SLSummaryChart"
 }
 
 @available(iOS 16.0, *)
@@ -146,6 +147,9 @@ public struct SLCharts: View {
         case .topHoldings:
             /// ------------ Top Holdings Chart
             TopHoldingsChartReference
+        case .portfolioSummary:
+            /// ------------ Portfolio Summary Chart
+            SummaryChartReference
         case .all:
             TabView {
                 /// ------------ Sector Breakdown Chart
@@ -166,6 +170,10 @@ public struct SLCharts: View {
                 /// ------------ Top Holdings Chart
                 TopHoldingsChartReference
                     .tag(4)
+                    .padding(8)
+                /// ------------ Portfolio Summary Chart
+                SummaryChartReference
+                    .tag(5)
                     .padding(8)
             }
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
@@ -278,6 +286,12 @@ public struct SLCharts: View {
             headerFont: headerFont,
             headerFontColor: headerFontColor
         )
+    }
+    
+    // MARK: - PORTFOLIO SUMMARY CHART
+    @ViewBuilder
+    private var SummaryChartReference: some View {
+        PortfolioSummaryChart(viewModel, showNullDataAlert: .constant(false))
     }
 }
 

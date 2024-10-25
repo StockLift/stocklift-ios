@@ -96,6 +96,14 @@ struct ContentView: View {
                                     } label: {
                                         HeaderView(view) { }
                                     }
+                                    
+                                case .portfolioSummary:
+                                    // MARK: - PORTFOLIO SUMMARY Chart
+                                    NavigationLink {
+                                        DemoPortfolioSummaryChart()
+                                    } label: {
+                                        HeaderView(view) { }
+                                    }
                                 }
                             }
                         }

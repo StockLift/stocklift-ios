@@ -112,6 +112,15 @@ struct DemoTopHoldingsChart: View {
     }
 }
 
+//MARK: - PORTFOLIO SUMMARY Chart Demo
+struct DemoPortfolioSummaryChart: View {
+    var body: some View {
+        TemplateDemoView {
+            ComingSoonView()
+        }
+    }
+}
+
 
 
 // -------- HELPER VIEWS

@@ -26,9 +26,9 @@ final class PortfolioViewModel: BaseViewModel {
     @Published var netWorth: Float = 0
     @Published var percentChangeInPortfolio: String = "0.00"
     @Published var portfolioUpOrDown: Bool = false
-//    @Published var diversificationScore: Float = 0
-//    @Published var returnOnInvestment: String = "0.00"
-//    @Published var returnUpOrDown: Bool = false
+    @Published var diversificationScore: Float = 0
+    @Published var returnOnInvestment: String = "0.00"
+    @Published var returnUpOrDown: Bool = false
     
     /// CHARTS
     @Published var sectorEntries: [SectorData]? = nil
@@ -176,14 +176,14 @@ extension PortfolioViewModel {
     private func setPortfolioData(_ portfolio: Portfolio) {
         userEquityAccounts = portfolio.totalHoldings
         netWorth = portfolio.currentNetWorth ?? 0
-//        diversificationScore = portfolio.diversificationScore ?? 0
-//        returnOnInvestment = portfolio.returnOnInvestment ?? ""
-//        let returnChange = portfolio.returnOnInvestment
-//        if returnChange?.first == "-" {
-//            returnUpOrDown = false
-//        } else {
-//            returnUpOrDown = true
-//        }
+        diversificationScore = portfolio.diversificationScore ?? 0
+        returnOnInvestment = portfolio.returnOnInvestment ?? ""
+        let returnChange = portfolio.returnOnInvestment
+        if returnChange?.first == "-" {
+            returnUpOrDown = false
+        } else {
+            returnUpOrDown = true
+        }
         // Sector Chart
         sectorEntries = PortfolioChartUtils.setSectorData(portfolio.sectorTotals)
         // Growth Chart
