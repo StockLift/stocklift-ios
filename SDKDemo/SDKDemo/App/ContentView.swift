@@ -16,6 +16,9 @@ struct ContentView: View {
     private var toggleTitle: String { isDarkMode ? "Light Mode" : "Dark Mode" }
     private var showTopViewTitle: String { showTopView ? "Hide Top View" : "Show Top View" }
     
+    // TESTING View
+    let testingView: SLChartType  = .geoDiversification
+    
     private enum ViewState {
         case login, charts
         var title: String {
@@ -54,7 +57,7 @@ struct ContentView: View {
                                 case .all:
                                     // MARK: - All Charts
                                     NavigationLink {
-                                        DemoAllChartsView()
+                                        DemoAllChartsView(testingType: testingView)
                                     } label: {
                                         HeaderView(view) { }
                                     }

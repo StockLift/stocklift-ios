@@ -10,6 +10,7 @@ import StockLiftSDK
 
 //MARK: ALL Charts Demo
 struct DemoAllChartsView: View {
+    var testingType: SLChartType
     var body: some View {
         ScrollView {
             VStack {
@@ -19,7 +20,7 @@ struct DemoAllChartsView: View {
                 
                 DemoTextView(text: "This is a demo of the SLCharts default configuration.")
                 
-                SLCharts(.all,
+                SLCharts(testingType,
                          projectionsChartHeader: HelperClass.randomTitle(),
                          benchmarkChartHeader: HelperClass.randomTitle(),
                          sectorChartHeader: HelperClass.randomTitle(),
@@ -41,7 +42,7 @@ struct DemoAllChartsView: View {
                 
                 DemoTextView()
                 
-                SLCharts(.all,
+                SLCharts(testingType,
                          projectionsChartHeader: HelperClass.randomTitle(),
                          benchmarkChartHeader: HelperClass.randomTitle(),
                          sectorChartHeader: HelperClass.randomTitle(),
