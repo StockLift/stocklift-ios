@@ -37,15 +37,16 @@ struct ContentView: View {
             case .login:
                 DemoLoginView(login: login)
             case .charts:
+                VStack {
                 Toggle(toggleTitle, isOn: $isDarkMode)
                     .padding(.horizontal)
                     .tint(.gray)
-                NavigationStack {
+//                NavigationStack {
                     ScrollView {
                         DemoAllChartsView(testingType: testingView)
                     }
-                    .navigationTitle("Select a Chart Type")
-                    .navigationBarTitleDisplayMode(.inline)
+//                    .navigationTitle("Select a Chart Type")
+//                    .navigationBarTitleDisplayMode(.inline)
                 }
             }
         }
