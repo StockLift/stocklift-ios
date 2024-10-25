@@ -1,14 +1,25 @@
 {
-  "pins" : [
-    {
-      "identity" : "plaid-link-ios",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/plaid/plaid-link-ios",
-      "state" : {
-        "revision" : "5eba7da849e0368517d58fdb312ba5a57cd0f267",
-        "version" : "3.1.1"
+  "object": {
+    "pins": [
+      {
+        "package": "Kingfisher",
+        "repositoryURL": "https://github.com/onevcat/Kingfisher",
+        "state": {
+          "branch": null,
+          "revision": "2ef543ee21d63734e1c004ad6c870255e8716c50",
+          "version": "7.12.0"
+        }
+      },
+      {
+        "package": "LinkKit",
+        "repositoryURL": "https://github.com/plaid/plaid-link-ios",
+        "state": {
+          "branch": null,
+          "revision": "5eba7da849e0368517d58fdb312ba5a57cd0f267",
+          "version": "3.1.1"
+        }
       }
-    }
-  ],
-  "version" : 2
+    ]
+  },
+  "version": 1
 }

@@ -22,6 +22,11 @@ let package = Package(
             url: "https://github.com/plaid/plaid-link-ios",
             .upToNextMajor(from: "3.0.0")
           ),
+        .package(
+            name: "Kingfisher",
+            url: "https://github.com/onevcat/Kingfisher",
+            .upToNextMajor(from: "7.0.0")
+        )
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -30,6 +35,7 @@ let package = Package(
             name: "StockLiftSDK",
             dependencies: [
                 .product(name: "LinkKit", package: "LinkKit"),
+                .product(name: "Kingfisher", package: "Kingfisher")
             ],
             path: "Sources",
             resources: [

@@ -2,6 +2,15 @@
   "originHash" : "4fd5b8b00a81ffba3f33476bec65b2df1993e89bc3da1c6061e31222329b27d6",
   "pins" : [
     {
+      "identity" : "kingfisher",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/onevcat/Kingfisher",
+      "state" : {
+        "revision" : "2ef543ee21d63734e1c004ad6c870255e8716c50",
+        "version" : "7.12.0"
+      }
+    },
+    {
       "identity" : "plaid-link-ios",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/plaid/plaid-link-ios",

@@ -69,7 +69,7 @@ struct SectorDetailCell: View {
                     HStack(alignment: .center, spacing: 10) {
                         
                         if sectorName != "Cash" {
-                            Image(investGainLose ? "upArrow" : "downArrow", bundle: .module)
+                            Image(investGainLose ? ImageKeys.upArrow : ImageKeys.downArrow, bundle: .module)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 20, height: 20)
@@ -104,7 +104,7 @@ struct SectorDetailCell: View {
                 VStack(alignment: .center, spacing: 0) {
                     HStack(alignment: .center, spacing: 10) {
                         if sectorName != "Cash" {
-                            Image(sectorVM.dollarChangeGainLose ? "upArrow" : "downArrow", bundle: .module)
+                            Image(sectorVM.dollarChangeGainLose ? ImageKeys.upArrow : ImageKeys.downArrow, bundle: .module)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 20, height: 20)
@@ -118,20 +118,16 @@ struct SectorDetailCell: View {
                         }
                         
                         VStack(alignment: .leading, spacing: 4) {
-                            
-                            if #available(iOS 15.0, *) {
-                                Text(amountInvested, format: .currency(code: "USD"))
-                                    .appFontBlack(size: 16)
-                                    .padding(.vertical, sectorName == "Cash" ? 8 : 0)
-                                
-                            } else {}
+                            Text(amountInvested, format: .currency(code: "USD"))
+                                .appFontBlack(size: 16)
+                                .padding(.vertical, sectorName == "Cash" ? 8 : 0)
                             
                             if sectorName != "Cash" {
                                 Text("\(setSymbol(dollarChange.clean, insert: "$"))")
                                     .appFontBlack(size: 12, color: sectorVM.dollarChangeGainLose ? Color.blue : Color.red)
                             }
                         }
-
+                        
                     }
                 }
                 .padding(.vertical, 6)
@@ -187,7 +183,7 @@ struct SectorDetailCell: View {
         .clipShape(RoundedRectangle(cornerRadius: 20))
         .onTapGesture {
             withAnimation(.easeInOut) {
-//                HAPTIC.impactOccurred()
+                HapticTap.medium.impactOccurred()
                 self.isShowing.toggle()
             }
         }

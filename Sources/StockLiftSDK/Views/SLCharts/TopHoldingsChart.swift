@@ -1,15 +1,15 @@
 //
-//  BenchmarkChart.swift
+//  TopHoldingsChart.swift
 //  StockLiftSDK
 //
-//  Created by Christopher Hicks on 10/22/24.
+//  Created by Christopher Hicks on 10/24/24.
 //
 
 import SwiftUI
 
-@available(iOS 16.0, *)
-struct BenchmarkChart: View {
-    @ObservedObject var portfolioVM: PortfolioViewModel
+@available(iOS 15.0, *)
+struct TopHoldingsChart: View {
+    @ObservedObject private var portfolioVM: PortfolioViewModel
     
     // Link Account
     let linkAccountHeader: String
@@ -21,19 +21,12 @@ struct BenchmarkChart: View {
     let linkAccountFontColor: Color
     // Chart
     let chartHeader: String
-    let height: CGFloat
-    let sp500Colors: [Color]
-    let portfolioColors: [Color]
-    let xAxisFont: Font
-    let xAxisFontColor: Color
-    let yAxisFont: Font
-    let yAxisFontColor: Color
     let headerFont: Font
     let headerFontColor: Color
     
-    init (
+    init(
         _ viewModel: PortfolioViewModel,
-        chartHeader: String = "Geographic Diversification",
+        chartHeader: String = "Top Holdings",
         linkAccountHeader: String = "Add a brokerage account to get a free detailed breakdown of your investments",
         linkAccountForegroundColor: Color = .white,
         linkAccountBackgroundColor: Color = .black,
@@ -41,19 +34,11 @@ struct BenchmarkChart: View {
         linkAccountConnectSize: CGFloat = 38,
         linkAccountFont: Font = .caption,
         linkAccountFontColor: Color = .white,
-        height: CGFloat = 250,
-        sp500Colors: [Color] = [.yellow, .yellow],
-        portfolioColors: [Color] = [.blue, .blue],
-        xAxisFont: Font = .caption2,
-        xAxisFontColor: Color = .secondary,
-        yAxisFont: Font = .caption2,
-        yAxisFontColor: Color = .primary,
         headerFont: Font = .subheadline,
         headerFontColor: Color = .primary
     ) {
         self.portfolioVM = viewModel
         self.chartHeader = chartHeader
-        self.height = height
         self.linkAccountHeader = linkAccountHeader
         self.linkAccountForegroundColor = linkAccountForegroundColor
         self.linkAccountBackgroundColor = linkAccountBackgroundColor
@@ -61,43 +46,25 @@ struct BenchmarkChart: View {
         self.linkAccountConnectSize = linkAccountConnectSize
         self.linkAccountFont = linkAccountFont
         self.linkAccountFontColor = linkAccountFontColor
-        self.sp500Colors = sp500Colors
-        self.portfolioColors = portfolioColors
-        self.xAxisFont = xAxisFont
-        self.xAxisFontColor = xAxisFontColor
-        self.yAxisFont = yAxisFont
-        self.yAxisFontColor = yAxisFontColor
         self.headerFont = headerFont
-        self.headerFontColor = headerFontColor
+        self.headerFontColor = headerFontColor  
     }
-    
     
     var body: some View {
         VStack {
-            if let chartEntries = portfolioVM.portfolioChartEntries, let sp500ChartEntries = portfolioVM.sp500ChartEntries {
-                Text(chartHeader)
-                    .font(headerFont)
-                    .foregroundColor(headerFontColor)
-                    .underline(color: headerFontColor)
-                
-                BarLineChart(
-                    selectedElement: nil,
-                    portfolioChartData: chartEntries,
-                    sp500ChartData: sp500ChartEntries,
-                    sp500Colors: sp500Colors,
-                    portfolioColors: portfolioColors,
-                    xAxisFont: xAxisFont,
-                    xAxisFontColor: xAxisFontColor,
-                    yAxisFont: yAxisFont,
-                    yAxisFontColor: yAxisFontColor
+            if let holdings = portfolioVM.userTopHoldings, !holdings.isEmpty {
+                // TOP HOLDINGS
+                TopHoldingsPortfolioView(
+                    topHoldings: holdings,
+                    totalNetValue: Decimal(Double(portfolioVM.netWorth)),
+                    hasCostBasis: portfolioVM.hasCostBasis,
+                    headerFont: headerFont,
+                    headerFontColor: headerFontColor
                 )
-                //                .frame(height: height)
                 
-                LegendFooter(sp500Color: sp500Colors[0], portfolioColor: portfolioColors[0])
-                    .padding(.vertical, 6)
-                
-            } else if portfolioVM.isLoading == false {
-                // --- NO ACCOUNT DATA view
+            } else if portfolioVM.isLoading {
+                ProgressView()
+            } else {
                 // Link Plaid flow
                 LinkAccountView(
                     linkAccountHeader: linkAccountHeader,
@@ -110,18 +77,15 @@ struct BenchmarkChart: View {
                     font: linkAccountFont,
                     fontColor: linkAccountFontColor
                 )
-            } else {
-                ProgressView()
             }
         }
     }
     
     private func plaidError() {
-        //TODO: -
+        //TODO: -  handle error
     }
     
     private func getPortfolio() {
-        //TODO: -
+        //TODO: config get portfolio
     }
 }
-

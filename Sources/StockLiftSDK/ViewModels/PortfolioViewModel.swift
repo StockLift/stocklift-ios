@@ -16,25 +16,26 @@ final class PortfolioViewModel: BaseViewModel {
     @Published var dateConnected: String = ""
     @Published var hasAccountConnected = false
 //    @Published var missingData = [String]()
-//    @Published var missingSymbols: Int = 0
+    @Published var missingSymbols: Int = 0
 //    @Published var plaidError: PlaidError? = nil
 //    @Published var showPlaidError: Bool = true
 
     
     @Published var userEquityAccounts: [UserEquity]?
     @Published var sectorDetails: [[SectorTotals: [UserEquity]]] = []
-//    @Published var netWorth: Float = 0
+    @Published var netWorth: Float = 0
     @Published var percentChangeInPortfolio: String = "0.00"
     @Published var portfolioUpOrDown: Bool = false
-//    @Published var diversificationScore: Float = 0
-//    @Published var returnOnInvestment: String = "0.00"
-//    @Published var returnUpOrDown: Bool = false
+    @Published var diversificationScore: Float = 0
+    @Published var returnOnInvestment: String = "0.00"
+    @Published var returnUpOrDown: Bool = false
     
     /// CHARTS
     @Published var sectorEntries: [SectorData]? = nil
     @Published var growthChartEntries: [ChartData]? = nil
+    @Published var userTopHoldings: [TopHoldingAsset]? = nil
+    @Published var assetCoordinates: [AssetCoordinates]? = nil
     @Published var geoAssets: [GeoAssetsData]? = nil
-//    @Published var assetCoordinates: [AssetCoordinates]? = nil
     @Published var sp500ChartEntries: [ChartData]? = nil
     @Published var portfolioChartEntries: [ChartData]? = nil
     
@@ -65,7 +66,7 @@ final class PortfolioViewModel: BaseViewModel {
     //MARK: - GET PORTFOLIO
     private func getPortfolio() {
         guard let client = StockLiftSDK.client else {
-            fatalError(SLError.errorMessage("Remember to set the client details before connecting accounts."))
+            fatalError(SLError.errorMessage(.clientDetailsNotSet))
         }
         self.isLoading = true
         NetworkService.shared.getPortfolio(clientId: client.uuid) { result in
@@ -77,8 +78,8 @@ final class PortfolioViewModel: BaseViewModel {
             case .failure(let err):
                 DispatchQueue.main.async {
                     self.isLoading = false
+                    print(err)
                 }
-                print(SLError.errorMessage("\(err)"))
             }
         }
     }
@@ -86,7 +87,7 @@ final class PortfolioViewModel: BaseViewModel {
     //MARK: - BENCHMARK CHART DATA - SP vs User Portfolio
     private func getBenchmarkChartData() {
         guard let client = StockLiftSDK.client else {
-            fatalError(SLError.errorMessage("Remember to set the client details before connecting accounts."))
+            fatalError(SLError.errorMessage(.clientDetailsNotSet))
         }
         NetworkService.shared.getBenchmarkChart(clientId: client.uuid) { result in
             switch result {
@@ -103,22 +104,23 @@ final class PortfolioViewModel: BaseViewModel {
     
     //MARK: - ASSET LOCATION COORDINATES
     private func getAssetMapData() {
-//        UserService.shared.getAssetCoordinates { result in
-//            switch result {
-//            case .success(let res):
-//                DispatchQueue.main.async {
-//                    self.assetCoordinates = res.data.map { AssetCoordinates(name: $0.city ?? "",
-//                                                                           coordinate: .init(latitude: $0.lat ?? 0, longitude: $0.lng ?? 0),
-//                                                                           url: $0.url,
-//                                                                           symbol: $0.symbol) }
-//                    self.missingSymbols = res.missingSymbols
-//                }
-//            case .failure(let err):
-//                self.handleAlert(err: err, codeSheet: "PortfolioVM+getAssetMapData") {
-//                    print(err)
-//                }
-//            }
-//        }
+        guard let client = StockLiftSDK.client else {
+            fatalError(SLError.errorMessage(.clientDetailsNotSet))
+        }
+        NetworkService.shared.getGeoDiversificationChart(clientId: client.uuid) { result in
+            switch result {
+            case .success(let res):
+                DispatchQueue.main.async {
+                    self.assetCoordinates = res.data.map { AssetCoordinates(name: $0.city ?? "",
+                                                                           coordinate: .init(latitude: $0.lat ?? 0, longitude: $0.lng ?? 0),
+                                                                           url: $0.url,
+                                                                           symbol: $0.symbol) }
+                    self.missingSymbols = res.missingSymbols
+                }
+            case .failure(let err):
+                print(err)
+            }
+        }
     }
     
     
@@ -154,6 +156,7 @@ extension PortfolioViewModel {
         if hasAccount {
             self.hasAccountConnected = hasAccount
             self.setPortfolioData(res.data)
+            self.userTopHoldings = PortfolioViewModel.setTopHoldings(res.data.totalHoldings)
             self.geoAssets = res.data.geoAssets
             if let hasCostBasis = res.hasCostBasis {
                 self.hasCostBasis = hasCostBasis
@@ -172,15 +175,15 @@ extension PortfolioViewModel {
     // SET CHART DATA - Sector & Growth Charts
     private func setPortfolioData(_ portfolio: Portfolio) {
         userEquityAccounts = portfolio.totalHoldings
-//        netWorth = portfolio.currentNetWorth ?? 0
-//        diversificationScore = portfolio.diversificationScore ?? 0
-//        returnOnInvestment = portfolio.returnOnInvestment ?? ""
-//        let returnChange = portfolio.returnOnInvestment
-//        if returnChange?.first == "-" {
-//            returnUpOrDown = false
-//        } else {
-//            returnUpOrDown = true
-//        }
+        netWorth = portfolio.currentNetWorth ?? 0
+        diversificationScore = portfolio.diversificationScore ?? 0
+        returnOnInvestment = portfolio.returnOnInvestment ?? ""
+        let returnChange = portfolio.returnOnInvestment
+        if returnChange?.first == "-" {
+            returnUpOrDown = false
+        } else {
+            returnUpOrDown = true
+        }
         // Sector Chart
         sectorEntries = PortfolioChartUtils.setSectorData(portfolio.sectorTotals)
         // Growth Chart

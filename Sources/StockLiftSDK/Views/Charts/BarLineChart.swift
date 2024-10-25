@@ -16,8 +16,10 @@ struct BarLineChart: View {
     let sp500ChartData: [ChartData]
     let sp500Colors: [Color]
     let portfolioColors: [Color]
-    let font: Font
-    let fontColor: Color
+    let xAxisFont: Font
+    let xAxisFontColor: Color
+    let yAxisFont: Font
+    let yAxisFontColor: Color
     var dateType: DateType = .month
     
     private var setFormat: Date.FormatStyle {
@@ -63,8 +65,8 @@ struct BarLineChart: View {
                         if let stringValue = value.as(String.self) {
                             let dateValue = self.encodeDate(stringValue)
                             Text("\(dateValue, format: setFormat)")
-                                .font(font)
-                                .foregroundStyle(fontColor)
+                                .font(xAxisFont)
+                                .foregroundStyle(xAxisFontColor)
                         }
                     }
                 }
@@ -74,8 +76,8 @@ struct BarLineChart: View {
                     AxisValueLabel() {
                         if let intValue = value.as(Int.self) {
                             Text("\(intValue)%")
-                                .font(font)
-                                .foregroundStyle(fontColor)
+                                .font(yAxisFont)
+                                .foregroundStyle(yAxisFontColor)
                         }
                     }
                 }
@@ -128,7 +130,7 @@ struct BarLineChart: View {
                             // Data info box
                             VStack {
                                 HStack(alignment: .center) {
-                                    Circle().fill(Color.yellow).frame(width: 8, height: 8)
+                                    Circle().fill(sp500Colors[0]).frame(width: 8, height: 8)
                                     Text("\(encodeDate(selectedElement.0?.date ?? ""), format: .dateTime.year().month().day())")
                                         .font(.caption)
                                         .foregroundStyle(.secondary)
@@ -141,7 +143,7 @@ struct BarLineChart: View {
                                 .padding(.bottom, 4)
                                 
                                 HStack(alignment: .center) {
-                                    Circle().fill(Color.blue).frame(width: 8, height: 8)
+                                    Circle().fill(portfolioColors[0]).frame(width: 8, height: 8)
                                     Text("\(encodeDate(selectedElement.1?.date ?? ""), format: .dateTime.year().month().day())")
                                         .font(.caption)
                                         .foregroundStyle(.secondary)

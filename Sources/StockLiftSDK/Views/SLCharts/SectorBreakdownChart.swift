@@ -9,7 +9,7 @@
 import SwiftUI
 import Charts
 
-@available(iOS 15.0, *)
+@available(iOS 16.0, *)
 struct SectorBreakdownChart: View {
     @ObservedObject private var portfolioVM: PortfolioViewModel
     @State private var showBreakdown: Bool = false
@@ -31,8 +31,6 @@ struct SectorBreakdownChart: View {
     let linkAccountFont: Font
     let linkAccountFontColor: Color
     // Chart
-    let font: Font
-    let fontColor: Color
     let headerFont: Font
     let headerFontColor: Color
     let detailFont: Font
@@ -48,8 +46,6 @@ struct SectorBreakdownChart: View {
         linkAccountConnectSize: CGFloat = 38,
         linkAccountFont: Font = .caption,
         linkAccountFontColor: Color = .primary,
-        font: Font = .caption,
-        fontColor: Color = .primary,
         headerFont: Font = .subheadline,
         headerFontColor: Color = .primary,
         detailFont: Font = .caption2,
@@ -64,8 +60,6 @@ struct SectorBreakdownChart: View {
         self.linkAccountConnectSize = linkAccountConnectSize
         self.linkAccountFont = linkAccountFont
         self.linkAccountFontColor = linkAccountFontColor
-        self.font = font
-        self.fontColor = fontColor
         self.headerFont = headerFont
         self.headerFontColor = headerFontColor
         self.detailFont = detailFont
@@ -82,6 +76,7 @@ struct SectorBreakdownChart: View {
                         .font(headerFont)
                         .foregroundColor(headerFontColor)
                         .padding(.top, 12)
+                        .underline(color: headerFontColor)
                     
                     
                     HStack {
@@ -108,7 +103,7 @@ struct SectorBreakdownChart: View {
                     }
                     
                     Text("View Breakdown")
-                        .font(font)
+                        .font(detailFont)
                         .foregroundStyle(detailFontColor)
                         .onTapGesture { showBreakdown.toggle() }
                         .padding(.bottom)

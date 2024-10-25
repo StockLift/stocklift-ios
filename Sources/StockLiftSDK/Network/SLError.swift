@@ -24,7 +24,11 @@ public enum SLError: String, Error {
     case countryNotSupported = "Apologies, but at this time we do not support this country. We are working to get there though!"
     case canNotClaim = "You can not claim this."
     
-    static func errorMessage(_ message: String) -> String {
+    // SDK
+    case clientDetailsNotSet = "Please set the client details before connecting accounts."
+    case accessTokenNotSet = "You must set your API Key in the StockLiftSDK.accessToken variable."
+    
+    static func errorMessage(_ message: SLError = .clientDetailsNotSet) -> String {
         return """
     \n\n*** ⛔️  StockLift SDK ERROR  ⛔️ ***\n\n\(message)\n\n⛔️ https://sdk-stocklift.co/docs/ ⛔️\n\n
     """

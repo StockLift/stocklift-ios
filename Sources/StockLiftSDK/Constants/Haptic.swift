@@ -8,4 +8,9 @@
 import SwiftUI
 
 /// Haptic
-//public let HAPTIC = UIImpactFeedbackGenerator(style: .medium)
+
+struct HapticTap {
+    static let medium = UIImpactFeedbackGenerator(style: .medium)
+    static let light = UIImpactFeedbackGenerator(style: .light)
+    static let heavy = UIImpactFeedbackGenerator(style: .heavy)
+}

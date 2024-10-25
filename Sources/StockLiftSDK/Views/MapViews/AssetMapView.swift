@@ -14,8 +14,14 @@ struct AssetMapView: View {
     let annotations: [AssetCoordinates]
     let missingSymbols: Int
     let usersAssets: [GeoAssetsData]
+    let chartHeader: String
+    
     @Binding var date: String
     @Binding var hasCostBasis: Bool
+    let headerFont: Font
+    let headerFontColor: Color
+    
+    @State private var showDetails: Bool = false
     
     /// New York
     @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 40.6943, longitude: -73.9249), 
@@ -31,8 +37,9 @@ struct AssetMapView: View {
 
     var body: some View {
         VStack {
-            Text("Geographic Diversification")
-                .appFontRegular()
+            Text(chartHeader)
+                .font(headerFont)
+                .underline(color: headerFontColor)
                 .padding(.top)
             
             // iOS 17
@@ -56,24 +63,23 @@ struct AssetMapView: View {
             .frame(width: self.rect.width * 0.8, height: 300)
             .padding(8)
             
-//            if self.isDev() {
-//                Text("Missing Assets: \(missingSymbols)")
-//                    .appFontMedium(size: 10)
-//            }
             
-            NavigationLink {
-                MapViewDetails(geoVM: GeoAssetViewModel(usersAssets: usersAssets),
-                               date: $date,
-                               hasCostBasis: $hasCostBasis,
-                               updateCostBasisAction: updateCostBasisAction)
-            } label: {
-                Text("View by Region")
-                    .appFontMedium(color: .yellow)
-                    .padding(.bottom)
-            }
-
+            
+            Text("View by Region")
+                .appFontMedium(color: .yellow)
+                .padding(.bottom)
+                .onTapGesture {
+                    self.showDetails.toggle()
+                }
+            
+            
         }
-        .makeCardLayer()
+        .popover(isPresented: $showDetails) {
+            MapViewDetails(geoVM: GeoAssetViewModel(usersAssets: usersAssets),
+                           date: $date,
+                           hasCostBasis: $hasCostBasis,
+                           updateCostBasisAction: updateCostBasisAction)
+        }
     }
     
     private func updateCostBasisAction(_ symbol: String, value: Float) {
