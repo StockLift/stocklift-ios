@@ -13,7 +13,7 @@ public enum SLChartType: String, CaseIterable, Identifiable {
     case projections = "SLProjectionsChart"
     case sector = "SLSectorBreakdownChart"
     case benchmark = "SLBenchmarkChart"
-    case geoDiversification = "SLGeoDiversification Chart"
+    case geoDiversification = "SLGeoDiversificationChart"
     case topHoldings = "SLTopHoldingsChart"
     case portfolioSummary = "SLSummaryChart"
 }
@@ -30,6 +30,7 @@ public struct SLCharts: View {
     var sectorChartHeader: String
     var geoDiversificationChartHeader: String
     var topHoldingsChartHeader: String
+    var portfolioSummaryChartHeader: String
     
     // Link Account
     var linkAccountHeader: String
@@ -52,8 +53,8 @@ public struct SLCharts: View {
     var headerFontColor: Color
     var sectorDetailFont: Font
     var sectorDetailFontColor: Color
-    var sp500Colors: [Color]
-    var portfolioColors: [Color]
+    var sp500Colors: [Color] // Benchmark Chart
+    var portfolioColors: [Color] // Benchmark Chart
     
     // Card Background
     var cardBackgroundColor: Color
@@ -68,6 +69,7 @@ public struct SLCharts: View {
         sectorChartHeader: String = "Diversification by Sector",
         geoDiversificationChartHeader: String = "Geo Diversification",
         topHoldingsChartHeader: String = "Top Holdings",
+        portfolioSummaryChartHeader: String = "Portfolio Net Summary",
         
         // Link Account View
         linkAccountHeader: String = "Add a brokerage account to get a free detailed breakdown of your investments",
@@ -104,6 +106,7 @@ public struct SLCharts: View {
         self.sectorChartHeader = sectorChartHeader
         self.geoDiversificationChartHeader = geoDiversificationChartHeader
         self.topHoldingsChartHeader = topHoldingsChartHeader
+        self.portfolioSummaryChartHeader = portfolioSummaryChartHeader
         self.linkAccountHeader = linkAccountHeader
         self.linkAccountForegroundColor = linkAccountForegroundColor
         self.linkAccountBackgroundColor = linkAccountBackgroundColor
@@ -291,7 +294,11 @@ public struct SLCharts: View {
     // MARK: - PORTFOLIO SUMMARY CHART
     @ViewBuilder
     private var SummaryChartReference: some View {
-        PortfolioSummaryChart(viewModel, showNullDataAlert: .constant(false))
+        PortfolioSummaryChart(
+            viewModel,
+            showNullDataAlert: .constant(false),
+            chartHeader: portfolioSummaryChartHeader
+        )
     }
 }
 

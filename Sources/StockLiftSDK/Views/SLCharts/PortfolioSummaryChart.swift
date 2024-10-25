@@ -18,6 +18,8 @@ struct PortfolioSummaryChart: View {
     @ObservedObject var portfolioVM: PortfolioViewModel
     @Binding var showNullDataAlert: Bool
     
+    let chartHeader: String
+    
     @State private var progressPercent: CGFloat = 0
     @State private var showScore: Bool = false
     @State private var showScorePoints = false
@@ -44,9 +46,10 @@ struct PortfolioSummaryChart: View {
         return portfolioVM.diversificationScore.clean
     }
     
-    init(_ vm: PortfolioViewModel, showNullDataAlert: Binding<Bool>) {
+    init(_ vm: PortfolioViewModel, showNullDataAlert: Binding<Bool>, chartHeader: String) {
         self.portfolioVM = vm
         self._showNullDataAlert = showNullDataAlert
+        self.chartHeader = chartHeader
     }
   
     
@@ -54,7 +57,7 @@ struct PortfolioSummaryChart: View {
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
             VStack {
-                Text("Portfolio Net Worth")
+                Text(chartHeader)
                     .appFontRegular(size: 16)
                 Text(portfolioVM.netWorth, format: .currency(code: "USD"))
                     .appFontBold(size: 24, color: .blue)
@@ -73,7 +76,6 @@ struct PortfolioSummaryChart: View {
 //                .padding(.top, 0)
 //            }
             
-            if #available(iOS 15.0, *) {
                 HStack {
                     PercentChangeView(config: gainOrLoss,
                                       amount: portfolioVM.percentChangeInPortfolio,
@@ -101,7 +103,7 @@ struct PortfolioSummaryChart: View {
                 .padding(.top, 0)
                 .padding(.bottom)
                 
-            } else { }
+   
             
             VStack {
                 if showScore {
@@ -138,7 +140,6 @@ struct PortfolioSummaryChart: View {
     
     
     
-    @available(iOS 15.0, *)
     private func PercentChangeView(config: PortfolioPercentChange, amount: String?, type: Bool) -> some View {
         VStack {
             HStack(alignment: .center, spacing: 8) {
