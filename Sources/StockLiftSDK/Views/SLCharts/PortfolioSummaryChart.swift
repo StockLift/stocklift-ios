@@ -140,19 +140,19 @@ struct PortfolioSummaryChart: View {
     @ViewBuilder
     private func MainView(netWorth: Float, score: String) -> some View {
         VStack(alignment: .center, spacing: 0) {
-            VStack {
+            VStack(spacing: 24) {
                 Text(chartHeader)
                     .font(headerFont)
                     .foregroundColor(headerFontColor)
                     .underline(color: headerFontColor)
                 
-                Spacer()
+//                Spacer()
                 
                 Text(netWorth, format: .currency(code: "USD"))
                     .font(.title2)
                     .foregroundColor(.primary)
             }
-            .padding(.vertical, 6)
+//            .padding(.vertical, 6)
             
             Spacer()
             HStack {
@@ -179,8 +179,8 @@ struct PortfolioSummaryChart: View {
                     }
                 }
             }
-            .padding(.top, 0)
-            .padding(.bottom)
+//            .padding(.top, 0)
+//            .padding(.bottom)
             
             Spacer()
             
@@ -221,7 +221,7 @@ struct PortfolioSummaryChart: View {
                                percentOfProgress: $progressPercent
                 )
                 .animation(.spring(response: 0.55, dampingFraction: 0.85), value: progressPercent)
-                .padding(.horizontal, 4)
+                .padding(.horizontal, 8)
                 .padding(.bottom)
                 
             } else {
