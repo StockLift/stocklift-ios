@@ -281,6 +281,8 @@ public struct SLCharts: View {
             linkAccountConnectSize: linkAccountConnectSize,
             linkAccountFont: linkAccountFont,
             linkAccountFontColor: linkAccountFontColor,
+            plaidError: plaidError,
+            getPortfolio: getPortfolio,
             height: height,
             sp500Colors: sp500Colors,
             portfolioColors: portfolioColors,
@@ -305,7 +307,9 @@ public struct SLCharts: View {
             linkAccountBorderColor: linkAccountBorderColor,
             linkAccountConnectSize: linkAccountConnectSize,
             linkAccountFont: linkAccountFont,
-            linkAccountFontColor: linkAccountFontColor
+            linkAccountFontColor: linkAccountFontColor,
+            plaidError: plaidError,
+            getPortfolio: getPortfolio
         )
     }
     

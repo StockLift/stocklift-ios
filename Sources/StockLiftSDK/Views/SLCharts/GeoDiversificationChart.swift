@@ -19,6 +19,8 @@ struct GeoDiversificationChart: View {
     let linkAccountConnectSize: CGFloat
     let linkAccountFont: Font
     let linkAccountFontColor: Color
+    let plaidError: () -> Void
+    let getPortfolio: () -> Void
     // Chart
     let chartHeader: String
     let headerFont: Font
@@ -36,6 +38,8 @@ struct GeoDiversificationChart: View {
         linkAccountConnectSize: CGFloat = 38,
         linkAccountFont: Font = .caption,
         linkAccountFontColor: Color = .white,
+        plaidError: @escaping () -> Void,
+        getPortfolio: @escaping () -> Void,
         headerFont: Font = .subheadline,
         headerFontColor: Color = .primary,
         subHeaderFont: Font = .caption,
@@ -50,6 +54,8 @@ struct GeoDiversificationChart: View {
         self.linkAccountConnectSize = linkAccountConnectSize
         self.linkAccountFont = linkAccountFont
         self.linkAccountFontColor = linkAccountFontColor
+        self.plaidError = plaidError
+        self.getPortfolio = getPortfolio
         self.headerFont = headerFont
         self.headerFontColor = headerFontColor
         self.subHeaderFont = subHeaderFont
@@ -89,14 +95,6 @@ struct GeoDiversificationChart: View {
                 )
             }
         }
-    }
-    
-    private func plaidError() {
-        //TODO: -  handle error
-    }
-    
-    private func getPortfolio() {
-        //TODO: config get portfolio
     }
 }
 

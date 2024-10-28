@@ -19,6 +19,8 @@ struct BenchmarkChart: View {
     let linkAccountConnectSize: CGFloat
     let linkAccountFont: Font
     let linkAccountFontColor: Color
+    let plaidError: () -> Void
+    let getPortfolio: () -> Void
     // Chart
     let chartHeader: String
     let height: CGFloat
@@ -41,6 +43,8 @@ struct BenchmarkChart: View {
         linkAccountConnectSize: CGFloat = 38,
         linkAccountFont: Font = .caption,
         linkAccountFontColor: Color = .white,
+        plaidError: @escaping () -> Void,
+        getPortfolio: @escaping () -> Void,
         height: CGFloat = 250,
         sp500Colors: [Color] = [.yellow, .yellow],
         portfolioColors: [Color] = [.blue, .blue],
@@ -61,6 +65,8 @@ struct BenchmarkChart: View {
         self.linkAccountConnectSize = linkAccountConnectSize
         self.linkAccountFont = linkAccountFont
         self.linkAccountFontColor = linkAccountFontColor
+        self.plaidError = plaidError
+        self.getPortfolio = getPortfolio
         self.sp500Colors = sp500Colors
         self.portfolioColors = portfolioColors
         self.xAxisFont = xAxisFont
@@ -114,14 +120,6 @@ struct BenchmarkChart: View {
                 ProgressView()
             }
         }
-    }
-    
-    private func plaidError() {
-        //TODO: -
-    }
-    
-    private func getPortfolio() {
-        //TODO: -
     }
 }
 
