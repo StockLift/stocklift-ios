@@ -7,11 +7,13 @@
 
 import SwiftUI
 
+@available(iOS 15.0, *)
 struct DisclaimerView: View {
+    @Binding var isPresented: Bool
     var body: some View {
         ScrollView {
             Text("DISCLAIMER")
-                .font(.title2)
+                .font(.title3)
                 .padding(.bottom)
             
             VStack(alignment: .leading, spacing: 8) {
@@ -27,10 +29,17 @@ struct DisclaimerView: View {
                 Text("Keep in mind that past performance is not a guarantee of future performance. StockLift is not a brokerage firm or financial advisory firm and bears no responsibility for investment outcomes, as stated and previously agreed upon in the StockLift Terms and Conditions.")
                 
             }
-            .font(.callout)
+            .font(.caption)
             
             Spacer()
         }
         .padding()
+        .overlay(alignment: .topTrailing) {
+            Image(systemName: ImageKeys.xMark)
+                .padding()
+                .onTapGesture {
+                    isPresented.toggle()
+                }
+        }
     }
 }

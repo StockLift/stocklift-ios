@@ -167,39 +167,42 @@ public struct SLCharts: View {
     //MARK: - BODY
     public var body: some View {
         TabView {
-            ForEach(chartViews) { view in
-                switch view {
-                case .projections:
-                    /// ------------ Projections Chart
-                    ProjectionsChartReference
-                        .tag(view.tag)
-                        .padding(8)
-                case .benchmark:
-                    /// ------------ Benchmark Chart
-                    BenchmarkChartReference
-                        .tag(view.tag)
-                        .padding(8)
-                case .sector:
-                    /// ------------ Sector Breakdown Chart
-                    SectorChartReference
-                        .tag(view.tag)
-                case .geoDiversification:
-                    /// ------------ GeoDiversification Chart
-                    GeoDiversificationChartReference
-                        .tag(view.tag)
-                        .padding(8)
-                case .topHoldings:
-                    /// ------------ Top Holdings Chart
-                    TopHoldingsChartReference
-                        .tag(view.tag)
-                        .padding(8)
-                case .portfolioSummary:
-                    /// ------------ Portfolio Summary Chart
-                    SummaryChartReference
-                        .tag(view.tag)
-                        .padding(8)
+            if showDisclaimer {
+                DisclaimerView(isPresented: $showDisclaimer)
+            } else {
+                ForEach(chartViews) { view in
+                    switch view {
+                    case .projections:
+                        /// ------------ Projections Chart
+                        ProjectionsChartReference
+                            .tag(view.tag)
+                            .padding(8)
+                    case .benchmark:
+                        /// ------------ Benchmark Chart
+                        BenchmarkChartReference
+                            .tag(view.tag)
+                            .padding(8)
+                    case .sector:
+                        /// ------------ Sector Breakdown Chart
+                        SectorChartReference
+                            .tag(view.tag)
+                    case .geoDiversification:
+                        /// ------------ GeoDiversification Chart
+                        GeoDiversificationChartReference
+                            .tag(view.tag)
+                            .padding(8)
+                    case .topHoldings:
+                        /// ------------ Top Holdings Chart
+                        TopHoldingsChartReference
+                            .tag(view.tag)
+                            .padding(8)
+                    case .portfolioSummary:
+                        /// ------------ Portfolio Summary Chart
+                        SummaryChartReference
+                            .tag(view.tag)
+                            .padding(8)
+                    }
                 }
-                
             }
         }
         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
@@ -207,7 +210,7 @@ public struct SLCharts: View {
         .background(cardBackgroundColor.opacity(0.3))
         .cornerRadius(cardCornerRadius)
         .shadow(radius: cardShadow ? 8 : 0)
-        .popover(isPresented: $showDisclaimer) { DisclaimerView() }
+//        .popover(isPresented: $showDisclaimer) { DisclaimerView() }
     }
     
     

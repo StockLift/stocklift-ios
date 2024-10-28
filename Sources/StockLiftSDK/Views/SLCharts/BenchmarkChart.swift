@@ -89,10 +89,7 @@ struct BenchmarkChart: View {
                         .font(headerFont)
                         .foregroundColor(headerFontColor)
                         .underline(color: headerFontColor)
-                    Image(systemName: ImageKeys.infoCircle)
-                        .font(.caption2)
-                        .foregroundStyle(Color.gray)
-                        .onTapGesture { showDisclaimer.toggle() }
+                    DisclaimerImage(showDisclaimer: $showDisclaimer, headerFontColor: headerFontColor)
                 }
                 
                 BarLineChart(
