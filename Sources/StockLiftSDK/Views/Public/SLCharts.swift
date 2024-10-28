@@ -7,16 +7,16 @@
 
 import SwiftUI
 
-public enum SLChartType: String, CaseIterable, Identifiable {
+public enum SLChartType: Int, CaseIterable, Identifiable {
     public var id: Self { self }
-    case sector = "SLSectorBreakdownChart"
-    case benchmark = "SLBenchmarkChart"
-    case projections = "SLProjectionsChart"
-    case geoDiversification = "SLGeoDiversificationChart"
-    case topHoldings = "SLTopHoldingsChart"
-    case portfolioSummary = "SLSummaryChart"
+    case sector
+    case benchmark
+    case projections
+    case geoDiversification
+    case topHoldings
+    case portfolioSummary
     
-    var tag: Int { rawValue.hashValue }
+    var tag: Int { self.rawValue }
 }
 
 @available(iOS 16.0, *)
@@ -136,79 +136,47 @@ public struct SLCharts: View {
     
     //MARK: - BODY
     public var body: some View {
-            TabView {
-                ForEach(chartViews) { view in
-                    switch view {
-                    case .projections:
-                        /// ------------ Projections Chart
-                        ProjectionsChartReference
-                            .onAppear {
-                                print(view.tag)
-                            }
-                    case .benchmark:
-                        /// ------------ Benchmark Chart
-                        BenchmarkChartReference
-                            .onAppear {
-                                print(view.tag)
-                            }
-                    case .sector:
-                        /// ------------ Sector Breakdown Chart
-                        SectorChartReference
-                            .onAppear {
-                                print(view.tag)
-                            }
-                    case .geoDiversification:
-                        /// ------------ GeoDiversification Chart
-                        GeoDiversificationChartReference
-                            .onAppear {
-                                print(view.tag)
-                            }
-                    case .topHoldings:
-                        /// ------------ Top Holdings Chart
-                        TopHoldingsChartReference
-                            .onAppear {
-                                print(view.tag)
-                            }
-                    case .portfolioSummary:
-                        /// ------------ Portfolio Summary Chart
-                        SummaryChartReference
-                            .onAppear {
-                                print(view.tag)
-                            }
-                    }
-              
+        TabView {
+            ForEach(chartViews) { view in
+                switch view {
+                case .projections:
+                    /// ------------ Projections Chart
+                    ProjectionsChartReference
+                        .tag(view.tag)
+                        .padding(8)
+                case .benchmark:
+                    /// ------------ Benchmark Chart
+                    BenchmarkChartReference
+                        .tag(view.tag)
+                        .padding(8)
+                case .sector:
+                    /// ------------ Sector Breakdown Chart
+                    SectorChartReference
+                        .tag(view.tag)
+                case .geoDiversification:
+                    /// ------------ GeoDiversification Chart
+                    GeoDiversificationChartReference
+                        .tag(view.tag)
+                        .padding(8)
+                case .topHoldings:
+                    /// ------------ Top Holdings Chart
+                    TopHoldingsChartReference
+                        .tag(view.tag)
+                        .padding(8)
+                case .portfolioSummary:
+                    /// ------------ Portfolio Summary Chart
+                    SummaryChartReference
+                        .tag(view.tag)
+                        .padding(8)
                 }
                 
-                /// ------------ Sector Breakdown Chart
-//                SectorChartReference
-//                    .tag(0)
-//                /// ------------ Benchmark Chart
-//                BenchmarkChartReference
-//                    .tag(1)
-//                    .padding(8)
-//                /// ------------ Projections Chart
-//                ProjectionsChartReference
-//                    .tag(2)
-//                    .padding(8)
-//                /// ------------ Geo Diversification Chart
-//                GeoDiversificationChartReference
-//                    .tag(3)
-//                    .padding(8)
-//                /// ------------ Top Holdings Chart
-//                TopHoldingsChartReference
-//                    .tag(4)
-//                    .padding(8)
-//                /// ------------ Portfolio Summary Chart
-//                SummaryChartReference
-//                    .tag(5)
-//                    .padding(8)
             }
-            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-            .frame(maxWidth: UIScreen.main.bounds.width / 1.05)
-            .background(cardBackgroundColor.opacity(0.3))
-            .cornerRadius(cardCornerRadius)
-            .shadow(radius: cardShadow ? 8 : 0)
-        
+        }
+        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+        .frame(maxWidth: UIScreen.main.bounds.width / 1.05)
+        .background(cardBackgroundColor.opacity(0.3))
+        .cornerRadius(cardCornerRadius)
+        .shadow(radius: cardShadow ? 8 : 0)
     }
     
     //MARK: - SECTOR BREAKDOWN CHART
