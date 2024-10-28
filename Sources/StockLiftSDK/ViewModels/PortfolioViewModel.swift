@@ -119,25 +119,6 @@ final class PortfolioViewModel: BaseViewModel {
             }
         }
     }
-    
-    
-    //TODO: - Refactor duplicate method in OpenLinkButton view
-    public func removeOldToken(err: PlaidError, complete: @escaping (Bool) -> Void) {
-//        UserService.shared.removePlaidAccountWithError(id: err.instId) { [weak self] result in
-//            guard let self = self else { return }
-//            switch result {
-//            case .success(_):
-//                DispatchQueue.main.async {
-//                    complete(true)
-//                }
-//            case .failure(let err):
-//                self.handleAlert(err: err, codeSheet: "PortfolioVM+removeOldToken") {
-//                    complete(false)
-//                    print(err)
-//                }
-//            }
-//        }
-    }
 }
 
 //MARK: - Handler Extensions
