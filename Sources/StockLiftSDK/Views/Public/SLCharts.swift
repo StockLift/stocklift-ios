@@ -14,57 +14,57 @@ public struct SLCharts: View {
     
     //MARK: - PROPERTIES
     /// CHART Type to show
-    var chartViews: [SLChartType]
+    public var chartViews: [SLChartType]
     // Header
-    var projectionsChartHeader: String
-    var benchmarkChartHeader: String
-    var sectorChartHeader: String
-    var geoDiversificationChartHeader: String
-    var topHoldingsChartHeader: String
-    var portfolioSummaryChartHeader: String
+    public var projectionsChartHeader: String
+    public var benchmarkChartHeader: String
+    public var sectorChartHeader: String
+    public var geoDiversificationChartHeader: String
+    public var topHoldingsChartHeader: String
+    public var portfolioSummaryChartHeader: String
     
     // Link Account
-    var linkAccountHeader: String
-    var linkAccountForegroundColor: Color
-    var linkAccountBackgroundColor: Color
-    var linkAccountBorderColor: Color
-    var linkAccountConnectSize: CGFloat
-    var linkAccountFont: Font
-    var linkAccountFontColor: Color
+    public var linkAccountHeader: String
+    public var linkAccountForegroundColor: Color
+    public var linkAccountBackgroundColor: Color
+    public var linkAccountBorderColor: Color
+    public var linkAccountConnectSize: CGFloat
+    public var linkAccountFont: Font
+    public var linkAccountFontColor: Color
     
     // Chart
-    var height: CGFloat
-    var chartForegroundColor: Color
-    var chartForegroundBorderColor: Color
-    var xAxisFont: Font
-    var xAxisFontColor: Color
-    var yAxisFont: Font
-    var yAxisFontColor: Color
-    var headerFont: Font
-    var headerFontColor: Color
-    var subHeaderFont: Font
-    var subHeaderFontColor: Color
-    var sectorDetailFont: Font
-    var sectorDetailFontColor: Color
-    var sp500Colors: [Color] // Benchmark Chart
-    var portfolioColors: [Color] // Benchmark Chart
+    public var height: CGFloat
+    public var chartForegroundColor: Color
+    public var chartForegroundBorderColor: Color
+    public var xAxisFont: Font
+    public var xAxisFontColor: Color
+    public var yAxisFont: Font
+    public var yAxisFontColor: Color
+    public var headerFont: Font
+    public var headerFontColor: Color
+    public var subHeaderFont: Font
+    public var subHeaderFontColor: Color
+    public var sectorDetailFont: Font
+    public var sectorDetailFontColor: Color
+    public var sp500Colors: [Color] // Benchmark Chart
+    public var portfolioColors: [Color] // Benchmark Chart
     
     // Card Background
-    var cardBackgroundColor: Color
-    var cardCornerRadius: CGFloat
-    var cardShadow: Bool
+    public var cardBackgroundColor: Color
+    public var cardCornerRadius: CGFloat
+    public var cardShadow: Bool
     
     // Score Button
-    var scoreButtonColor: Color
-    var scoreButtonFontColor: Color
-    var scoreButtonFont: Font
+    public var scoreButtonColor: Color
+    public var scoreButtonFontColor: Color
+    public var scoreButtonFont: Font
     
     // TOP HOLDINGS
-    var topHoldingsButtonColor: Color
+    public var topHoldingsButtonColor: Color
     
     // Disclaimer Font
-    var disclaimerTitleFont: Font
-    var disclaimerBodyFont: Font
+    public var disclaimerTitleFont: Font
+    public var disclaimerBodyFont: Font
     
     //MARK: - INIT
     public init(
