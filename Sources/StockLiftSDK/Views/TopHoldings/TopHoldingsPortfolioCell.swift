@@ -87,12 +87,12 @@ struct TopHoldingsPortfolioCell: View {
         .padding(.vertical, 8)
         .contentShape(Rectangle())
         .overlay(alignment: .center, content: {
-            if showDetails {
-                PopUpDetailView(asset: asset,
-                                showUpdateCostBasis: $showUpdateCostBasis,
-                                hasCostBasis: hasCostBasis,
-                                hideView: $showDetails)
-            }
+//            if showDetails {
+//                PopUpDetailView(asset: asset,
+//                                showUpdateCostBasis: $showUpdateCostBasis,
+//                                hasCostBasis: hasCostBasis,
+//                                hideView: $showDetails)
+//            }
         })
         .onTapGesture {
             withAnimation(.easeInOut) {

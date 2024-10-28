@@ -7,23 +7,25 @@
 
 import SwiftUI
 
-public enum SLChartType: String, CaseIterable, Identifiable {
+public enum SLChartType: Int, CaseIterable, Identifiable {
     public var id: Self { self }
-    case all = "SLCharts"
-    case projections = "SLProjectionsChart"
-    case sector = "SLSectorBreakdownChart"
-    case benchmark = "SLBenchmarkChart"
-    case geoDiversification = "SLGeoDiversificationChart"
-    case topHoldings = "SLTopHoldingsChart"
-    case portfolioSummary = "SLSummaryChart"
+    case sector
+    case benchmark
+    case projections
+    case geoDiversification
+    case topHoldings
+    case portfolioSummary
+    
+    var tag: Int { self.rawValue }
 }
 
 @available(iOS 16.0, *)
 public struct SLCharts: View {
     @StateObject private var viewModel = PortfolioViewModel()
+    
     //MARK: - PROPERTIES
     /// CHART Type to show
-    var chartType: SLChartType
+    var chartViews: [SLChartType]
     // Header
     var projectionsChartHeader: String
     var benchmarkChartHeader: String
@@ -51,6 +53,8 @@ public struct SLCharts: View {
     var yAxisFontColor: Color
     var headerFont: Font
     var headerFontColor: Color
+    var subHeaderFont: Font
+    var subHeaderFontColor: Color
     var sectorDetailFont: Font
     var sectorDetailFontColor: Color
     var sp500Colors: [Color] // Benchmark Chart
@@ -61,9 +65,19 @@ public struct SLCharts: View {
     var cardCornerRadius: CGFloat
     var cardShadow: Bool
     
+    // Score Button
+    var scoreButtonColor: Color
+    var scoreButtonFontColor: Color
+    var scoreButtonFont: Font
+    
+    // TOP HOLDINGS
+    var topHoldingsButtonColor: Color
+    
     //MARK: - INIT
     public init(
-        _ chartViewType: SLChartType = .all,
+        _ views: [SLChartType] = SLChartType.allCases,
+        
+        // Chart Headers
         projectionsChartHeader: String = "Portfolio Growth Projections",
         benchmarkChartHeader: String = "My Portfolio vs. SP 500",
         sectorChartHeader: String = "Diversification by Sector",
@@ -90,6 +104,8 @@ public struct SLCharts: View {
         yAxisFontColor: Color = .primary,
         headerFont: Font = .subheadline,
         headerFontColor: Color = .primary,
+        subHeaderFont: Font = .caption,
+        subHeaderFontColor: Color = .primary,
         sectorDetailFont: Font = .caption2,
         sectorDetailFontColor: Color = .primary,
         sp500Colors: [Color] = [.yellow, .yellow.opacity(0.3)],
@@ -98,9 +114,18 @@ public struct SLCharts: View {
         // Card
         cardBackgroundColor: Color = Color(UIColor.tertiaryLabel),
         cardCornerRadius: CGFloat = 14,
-        cardShadow: Bool = true
+        cardShadow: Bool = true,
+        
+        // Portfolio Summary Score Button
+        scoreButtonColor: Color = .blue,
+        scoreButtonFontColor: Color = .white,
+        scoreButtonFont: Font = .caption,
+        
+        // TOP HOLDINGS
+        topHoldingsButtonColor: Color = .blue
+        
     ) {
-        self.chartType = chartViewType
+        self.chartViews = views
         self.projectionsChartHeader = projectionsChartHeader
         self.benchmarkChartHeader = benchmarkChartHeader
         self.sectorChartHeader = sectorChartHeader
@@ -123,6 +148,8 @@ public struct SLCharts: View {
         self.yAxisFontColor = yAxisFontColor
         self.headerFont = headerFont
         self.headerFontColor = headerFontColor
+        self.subHeaderFont = subHeaderFont
+        self.subHeaderFontColor = subHeaderFontColor
         self.sp500Colors = sp500Colors
         self.portfolioColors = portfolioColors
         self.cardBackgroundColor = cardBackgroundColor
@@ -130,61 +157,64 @@ public struct SLCharts: View {
         self.cardShadow = cardShadow
         self.sectorDetailFont = sectorDetailFont
         self.sectorDetailFontColor = sectorDetailFontColor
+        self.scoreButtonColor = scoreButtonColor
+        self.scoreButtonFontColor = scoreButtonFontColor
+        self.scoreButtonFont = scoreButtonFont
+        self.topHoldingsButtonColor = topHoldingsButtonColor
     }
     
     //MARK: - BODY
     public var body: some View {
-        switch chartType {
-        case .projections:
-            /// ------------ Projections Chart
-            ProjectionsChartReference
-        case .benchmark:
-            /// ------------ Benchmark Chart
-            BenchmarkChartReference
-        case .sector:
-            /// ------------ Sector Breakdown Chart
-            SectorChartReference
-        case .geoDiversification:
-            /// ------------ GeoDiversification Chart
-            GeoDiversificationChartReference
-        case .topHoldings:
-            /// ------------ Top Holdings Chart
-            TopHoldingsChartReference
-        case .portfolioSummary:
-            /// ------------ Portfolio Summary Chart
-            SummaryChartReference
-        case .all:
-            TabView {
-                /// ------------ Sector Breakdown Chart
-                SectorChartReference
-                    .tag(0)
-                /// ------------ Benchmark Chart
-                BenchmarkChartReference
-                    .tag(1)
-                    .padding(8)
-                /// ------------ Projections Chart
-                ProjectionsChartReference
-                    .tag(2)
-                    .padding(8)
-                /// ------------ Geo Diversification Chart
-                GeoDiversificationChartReference
-                    .tag(3)
-                    .padding(8)
-                /// ------------ Top Holdings Chart
-                TopHoldingsChartReference
-                    .tag(4)
-                    .padding(8)
-                /// ------------ Portfolio Summary Chart
-                SummaryChartReference
-                    .tag(5)
-                    .padding(8)
+        TabView {
+            ForEach(chartViews) { view in
+                switch view {
+                case .projections:
+                    /// ------------ Projections Chart
+                    ProjectionsChartReference
+                        .tag(view.tag)
+                        .padding(8)
+                case .benchmark:
+                    /// ------------ Benchmark Chart
+                    BenchmarkChartReference
+                        .tag(view.tag)
+                        .padding(8)
+                case .sector:
+                    /// ------------ Sector Breakdown Chart
+                    SectorChartReference
+                        .tag(view.tag)
+                case .geoDiversification:
+                    /// ------------ GeoDiversification Chart
+                    GeoDiversificationChartReference
+                        .tag(view.tag)
+                        .padding(8)
+                case .topHoldings:
+                    /// ------------ Top Holdings Chart
+                    TopHoldingsChartReference
+                        .tag(view.tag)
+                        .padding(8)
+                case .portfolioSummary:
+                    /// ------------ Portfolio Summary Chart
+                    SummaryChartReference
+                        .tag(view.tag)
+                        .padding(8)
+                }
+                
             }
-            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-            .frame(maxWidth: UIScreen.main.bounds.width / 1.05)
-            .background(cardBackgroundColor.opacity(0.3))
-            .cornerRadius(cardCornerRadius)
-            .shadow(radius: cardShadow ? 8 : 0)
         }
+        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+        .frame(maxWidth: UIScreen.main.bounds.width / 1.05)
+        .background(cardBackgroundColor.opacity(0.3))
+        .cornerRadius(cardCornerRadius)
+        .shadow(radius: cardShadow ? 8 : 0)
+    }
+    
+    
+    private func plaidError() {
+        //TODO: -  handle error
+    }
+    
+    private func getPortfolio() {
+        //TODO: config get portfolio
     }
     
     //MARK: - SECTOR BREAKDOWN CHART
@@ -200,10 +230,14 @@ public struct SLCharts: View {
             linkAccountConnectSize: linkAccountConnectSize,
             linkAccountFont: linkAccountFont,
             linkAccountFontColor: linkAccountFontColor,
+            plaidError: plaidError,
+            getPortfolio: getPortfolio,
             headerFont: headerFont,
             headerFontColor: headerFontColor,
             detailFont: sectorDetailFont,
-            detailFontColor: sectorDetailFontColor
+            detailFontColor: sectorDetailFontColor,
+            subHeaderFont: subHeaderFont,
+            subHeaderFontColor: subHeaderFontColor
         )
     }
     
@@ -220,6 +254,8 @@ public struct SLCharts: View {
             linkAccountConnectSize: linkAccountConnectSize,
             linkAccountFont: linkAccountFont,
             linkAccountFontColor: linkAccountFontColor,
+            plaidError: plaidError,
+            getPortfolio: getPortfolio,
             height: height,
             chartForegroundColor: chartForegroundColor,
             chartForegroundBorderColor: chartForegroundBorderColor,
@@ -286,8 +322,13 @@ public struct SLCharts: View {
             linkAccountConnectSize: linkAccountConnectSize,
             linkAccountFont: linkAccountFont,
             linkAccountFontColor: linkAccountFontColor,
+            plaidError: plaidError,
+            getPortfolio: getPortfolio,
             headerFont: headerFont,
-            headerFontColor: headerFontColor
+            headerFontColor: headerFontColor,
+            subHeaderFont: subHeaderFont,
+            subHeaderFontColor: subHeaderFontColor,
+            buttonColor: topHoldingsButtonColor
         )
     }
     
@@ -296,8 +337,22 @@ public struct SLCharts: View {
     private var SummaryChartReference: some View {
         PortfolioSummaryChart(
             viewModel,
-            showNullDataAlert: .constant(false),
-            chartHeader: portfolioSummaryChartHeader
+//            showNullDataAlert: !viewModel.hasCostBasis,
+            chartHeader: portfolioSummaryChartHeader,
+            headerFont: headerFont,
+            headerFontColor: headerFontColor,
+            scoreButtonColor: scoreButtonColor,
+            scoreButtonFontColor: scoreButtonFontColor,
+            scoreButtonFont: scoreButtonFont,
+            linkAccountHeader: linkAccountHeader,
+            linkAccountForegroundColor: linkAccountForegroundColor,
+            linkAccountBackgroundColor:  linkAccountBackgroundColor,
+            linkAccountBorderColor: linkAccountBorderColor,
+            linkAccountConnectSize: linkAccountConnectSize,
+            linkAccountFont: linkAccountFont,
+            linkAccountFontColor: linkAccountFontColor,
+            plaidError: plaidError,
+            getPortfolio: getPortfolio
         )
     }
 }

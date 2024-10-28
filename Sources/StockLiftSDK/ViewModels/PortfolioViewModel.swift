@@ -21,13 +21,13 @@ final class PortfolioViewModel: BaseViewModel {
 //    @Published var showPlaidError: Bool = true
 
     
-    @Published var userEquityAccounts: [UserEquity]?
+    @Published var userEquityAccounts: [UserEquity]? = nil
     @Published var sectorDetails: [[SectorTotals: [UserEquity]]] = []
-    @Published var netWorth: Float = 0
-    @Published var percentChangeInPortfolio: String = "0.00"
+    @Published var netWorth: Float? = nil
+    @Published var percentChangeInPortfolio: String? = nil
     @Published var portfolioUpOrDown: Bool = false
-    @Published var diversificationScore: Float = 0
-    @Published var returnOnInvestment: String = "0.00"
+    @Published var diversificationScore: Float? = nil
+    @Published var returnOnInvestment: String? = nil
     @Published var returnUpOrDown: Bool = false
     
     /// CHARTS

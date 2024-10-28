@@ -10,7 +10,7 @@ import StockLiftSDK
 
 //MARK: ALL Charts Demo
 struct DemoAllChartsView: View {
-    var testingType: SLChartType
+    var testingType: [SLChartType]
     var body: some View {
         ScrollView {
             VStack {
@@ -18,9 +18,9 @@ struct DemoAllChartsView: View {
                     .frame(height: 350)
                     .padding()
                 
-                DemoTextView(text: "This is a demo of the SLCharts default configuration.")
+                DemoTextView(text: "This is a demo of the SLCharts default configuration (all charts).")
                 
-                SLCharts(testingType,
+                SLCharts([.portfolioSummary, .topHoldings],
                          projectionsChartHeader: HelperClass.randomTitle(),
                          benchmarkChartHeader: HelperClass.randomTitle(),
                          sectorChartHeader: HelperClass.randomTitle(),
@@ -40,9 +40,9 @@ struct DemoAllChartsView: View {
                 .frame(height: 350)
                 .padding()
                 
-                DemoTextView()
+                DemoTextView(text: "This is a demo of the SLCharts configured with the portfolio summary and top holdings charts.")
                 
-                SLCharts(testingType,
+                SLCharts([.benchmark, .projections, .geoDiversification],
                          projectionsChartHeader: HelperClass.randomTitle(),
                          benchmarkChartHeader: HelperClass.randomTitle(),
                          sectorChartHeader: HelperClass.randomTitle(),
@@ -61,7 +61,7 @@ struct DemoAllChartsView: View {
                 )
                 .frame(height: 420)
                 
-                DemoTextView()
+                DemoTextView(text: "This is a demo of the SLCharts configured with the benchmark, projections, and geo diversification charts.")
             }
         }
         .navigationBarTitle("All Charts Demo")
@@ -138,7 +138,8 @@ struct DemoTextView: View {
     var body: some View {
         Rectangle().fill(Color.gray).frame(height: 60)
             .overlay { Text(text).font(.footnote) }
-            .padding(.vertical, 6)
+            .multilineTextAlignment(.center)
+            .padding(6)
     }
 }
 

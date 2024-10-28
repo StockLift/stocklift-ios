@@ -1,10 +1,8 @@
-# sdk-ios
+# StockLift iOS SDK
 
-StockLift iOS SDK
+## Setup
 
-# Setup
-
-- Init the StockLiftSDK config object with your access token in your App Delegate
+1. Init the StockLiftSDK config object with your access token in your App Delegate
 
 _Example_
 
@@ -24,7 +22,7 @@ public final class AppDelegate: NSObject, UIApplicationDelegate {
 }
 ```
 
-- Set your client details before calling the endpoint to connect the users accounts.
+2. Set your client details before calling the endpoint to connect the users accounts.
 
 _Example_
 

@@ -30,11 +30,15 @@ struct SectorBreakdownChart: View {
     let linkAccountConnectSize: CGFloat
     let linkAccountFont: Font
     let linkAccountFontColor: Color
+    let plaidError: () -> Void
+    let getPortfolio: () -> Void
     // Chart
     let headerFont: Font
     let headerFontColor: Color
     let detailFont: Font
     let detailFontColor: Color
+    let subHeaderFont: Font
+    let subHeaderFontColor: Color
     
     init(
         _ viewModel: PortfolioViewModel,
@@ -46,10 +50,14 @@ struct SectorBreakdownChart: View {
         linkAccountConnectSize: CGFloat = 38,
         linkAccountFont: Font = .caption,
         linkAccountFontColor: Color = .primary,
+        plaidError: @escaping () -> Void,
+        getPortfolio: @escaping () -> Void,
         headerFont: Font = .subheadline,
         headerFontColor: Color = .primary,
         detailFont: Font = .caption2,
-        detailFontColor: Color = .primary
+        detailFontColor: Color = .primary,
+        subHeaderFont: Font = .caption,
+        subHeaderFontColor: Color = .primary
     ) {
         self.portfolioVM = viewModel
         self.chartHeader = chartHeader
@@ -60,10 +68,14 @@ struct SectorBreakdownChart: View {
         self.linkAccountConnectSize = linkAccountConnectSize
         self.linkAccountFont = linkAccountFont
         self.linkAccountFontColor = linkAccountFontColor
+        self.plaidError = plaidError
+        self.getPortfolio = getPortfolio
         self.headerFont = headerFont
         self.headerFontColor = headerFontColor
         self.detailFont = detailFont
         self.detailFontColor = detailFontColor
+        self.subHeaderFont = subHeaderFont
+        self.subHeaderFontColor = subHeaderFontColor
     }
     
     //  Body
@@ -75,8 +87,8 @@ struct SectorBreakdownChart: View {
                     Text(chartHeader)
                         .font(headerFont)
                         .foregroundColor(headerFontColor)
-                        .padding(.top, 12)
                         .underline(color: headerFontColor)
+                        .padding(.top, 12)
                     
                     
                     HStack {
@@ -103,8 +115,8 @@ struct SectorBreakdownChart: View {
                     }
                     
                     Text("View Breakdown")
-                        .font(detailFont)
-                        .foregroundStyle(detailFontColor)
+                        .font(subHeaderFont)
+                        .foregroundStyle(subHeaderFontColor)
                         .onTapGesture { showBreakdown.toggle() }
                         .padding(.bottom)
                 }
@@ -154,14 +166,5 @@ struct SectorBreakdownChart: View {
         .background(Color(UIColor.tertiaryLabel))
         .cornerRadius(22)
     }
-    
-    private func plaidError() {
-        //TODO: -  handle error
-    }
-    
-    private func getPortfolio() {
-        //TODO: config get portfolio
-    }
-    
 }
 
