@@ -15,6 +15,7 @@ enum PortfolioPercentChange {
 @available(iOS 15.0, *)
 struct PortfolioSummaryChart: View {
     @ObservedObject var portfolioVM: PortfolioViewModel
+    @Binding var showDisclaimer: Bool
     
     // Initializers
 //    let showNullDataAlert: Bool
@@ -75,6 +76,7 @@ struct PortfolioSummaryChart: View {
     
     init(
         _ vm: PortfolioViewModel,
+        showDisclaimer: Binding<Bool>,
 //        showNullDataAlert: Bool,
         chartHeader: String = "Portfolio Net Summary",
         headerFont: Font = .subheadline,
@@ -94,6 +96,7 @@ struct PortfolioSummaryChart: View {
     )
     {
         self.portfolioVM = vm
+        self._showDisclaimer = showDisclaimer
 //        self.showNullDataAlert = showNullDataAlert
         self.chartHeader = chartHeader
         self.headerFont = headerFont
@@ -140,10 +143,16 @@ struct PortfolioSummaryChart: View {
     private func MainView(netWorth: Float, score: String) -> some View {
         VStack(alignment: .center, spacing: 0) {
             VStack(spacing: 24) {
-                Text(chartHeader)
-                    .font(headerFont)
-                    .foregroundColor(headerFontColor)
-                    .underline(color: headerFontColor)
+                HStack {
+                    Text(chartHeader)
+                        .font(headerFont)
+                        .foregroundColor(headerFontColor)
+                        .underline(color: headerFontColor)
+                    Image(systemName: ImageKeys.infoCircle)
+                        .font(.caption2)
+                        .foregroundStyle(Color.gray)
+                        .onTapGesture { showDisclaimer.toggle() }
+                }
                 
 //                Spacer()
                 

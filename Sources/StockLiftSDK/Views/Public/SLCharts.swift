@@ -22,6 +22,7 @@ public enum SLChartType: Int, CaseIterable, Identifiable {
 @available(iOS 16.0, *)
 public struct SLCharts: View {
     @StateObject private var viewModel = PortfolioViewModel()
+    @State private var showDisclaimer: Bool = false
     
     //MARK: - PROPERTIES
     /// CHART Type to show
@@ -206,6 +207,7 @@ public struct SLCharts: View {
         .background(cardBackgroundColor.opacity(0.3))
         .cornerRadius(cardCornerRadius)
         .shadow(radius: cardShadow ? 8 : 0)
+        .popover(isPresented: $showDisclaimer) { DisclaimerView() }
     }
     
     
@@ -222,6 +224,7 @@ public struct SLCharts: View {
     private var SectorChartReference: some View {
         SectorBreakdownChart(
             viewModel,
+            showDisclaimer: $showDisclaimer,
             chartHeader: sectorChartHeader,
             linkAccountHeader: linkAccountHeader,
             linkAccountForegroundColor: linkAccountForegroundColor,
@@ -246,6 +249,7 @@ public struct SLCharts: View {
     private var ProjectionsChartReference: some View {
         ProjectionsChart(
             viewModel,
+            showDisclaimer: $showDisclaimer,
             chartHeader: projectionsChartHeader,
             linkAccountHeader: linkAccountHeader,
             linkAccountForegroundColor: linkAccountForegroundColor,
@@ -273,6 +277,7 @@ public struct SLCharts: View {
     private var BenchmarkChartReference: some View {
         BenchmarkChart(
             viewModel,
+            showDisclaimer: $showDisclaimer,
             chartHeader: benchmarkChartHeader,
             linkAccountHeader: linkAccountHeader,
             linkAccountForegroundColor: linkAccountForegroundColor,
@@ -300,6 +305,7 @@ public struct SLCharts: View {
     private var GeoDiversificationChartReference: some View {
         GeoDiversificationChart(
             viewModel,
+            showDisclaimer: $showDisclaimer,
             chartHeader: geoDiversificationChartHeader,
             linkAccountHeader: linkAccountHeader,
             linkAccountForegroundColor: linkAccountForegroundColor,
@@ -318,6 +324,7 @@ public struct SLCharts: View {
     private var TopHoldingsChartReference: some View {
         TopHoldingsChart(
             viewModel,
+            showDisclaimer: $showDisclaimer,
             chartHeader: topHoldingsChartHeader,
             linkAccountHeader: linkAccountHeader,
             linkAccountForegroundColor: linkAccountForegroundColor,
@@ -341,6 +348,7 @@ public struct SLCharts: View {
     private var SummaryChartReference: some View {
         PortfolioSummaryChart(
             viewModel,
+            showDisclaimer: $showDisclaimer,
 //            showNullDataAlert: !viewModel.hasCostBasis,
             chartHeader: portfolioSummaryChartHeader,
             headerFont: headerFont,

@@ -11,6 +11,7 @@ enum ImageKeys {
     /// SYSTEM IMAGES
     public static let plusCircleFill = "plus.circle.fill"
     public static let warning = "exclamationmark.circle.fill"
+    public static let infoCircle = "info.circle.fill"
     
     /// CUSTOM
     public static let upArrow = "upArrow"

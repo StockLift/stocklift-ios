@@ -11,6 +11,7 @@ import MapKit
 
 @available(iOS 15.0, *)
 struct AssetMapView: View {
+    @Binding var showDisclaimer: Bool
     let annotations: [AssetCoordinates]
     let missingSymbols: Int
     let usersAssets: [GeoAssetsData]
@@ -39,11 +40,17 @@ struct AssetMapView: View {
 
     var body: some View {
         VStack {
-            Text(chartHeader)
-                .font(headerFont)
-                .foregroundColor(headerFontColor)
-                .underline(color: headerFontColor)
-                .padding(.bottom)
+            HStack {
+                Text(chartHeader)
+                    .font(headerFont)
+                    .foregroundColor(headerFontColor)
+                    .underline(color: headerFontColor)
+                Image(systemName: ImageKeys.infoCircle)
+                    .font(.caption2)
+                    .foregroundStyle(Color.gray)
+                    .onTapGesture { showDisclaimer.toggle() }
+            }
+            .padding(.bottom)
             
             // iOS 17
 //            Map(initialPosition: position, interactionModes: [.rotate, .zoom])

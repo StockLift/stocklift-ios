@@ -11,6 +11,7 @@ import SwiftUI
 @available(iOS 16.0, *)
 struct ProjectionsChart: View {
     @ObservedObject private var portfolioVM: PortfolioViewModel
+    @Binding var showDisclaimer: Bool
     
     // Link Account
     let linkAccountHeader: String
@@ -35,21 +36,9 @@ struct ProjectionsChart: View {
     let headerFont: Font
     let headerFontColor: Color
     
-    /// Growth Chart Projections for users portfolio
-    /// - Parameters:
-    ///   - chartHeader: "Header for Chart"
-    ///   - height: the height of the chart
-    ///   - linkAccountForegroundColor: foreground color for link account view
-    ///   - linkAccountBackgroundColor: background color for link account view
-    ///   - linkAccountHeader: header title for link account view
-    ///   - chartForegroundColor: chards area range color
-    ///   - chartForegroundBorderColor: charts area range border color
-    ///   - font: chart font style (system styles)
-    ///   - fontColor: color of the chart font
-    ///   - headerFont: chart header font
-    ///   - headerFontColor: chart header font color
-     init(
+    init(
         _ viewModel: PortfolioViewModel,
+        showDisclaimer: Binding<Bool>,
         chartHeader: String = "Portfolio Growth Projections",
         linkAccountHeader: String = "Add a brokerage account to get a free detailed breakdown of your investments",
         linkAccountForegroundColor: Color = .white,
@@ -71,6 +60,7 @@ struct ProjectionsChart: View {
         headerFontColor: Color = .primary
     ) {
         self.portfolioVM = viewModel
+        self._showDisclaimer = showDisclaimer
         self.chartHeader = chartHeader
         self.height = height
         self.linkAccountHeader = linkAccountHeader
@@ -92,17 +82,22 @@ struct ProjectionsChart: View {
         self.headerFontColor = headerFontColor
     }
     
-     var body: some View {
+    var body: some View {
         VStack {
             if let chartData = portfolioVM.growthChartEntries {
                 // --- HAS ACCOUNT CONNECTED Chart View
                 /// Chart Header
-                Text(chartHeader)
-                    .font(headerFont)
-                    .foregroundColor(headerFontColor)
-                    .underline(color: headerFontColor)
-//                    .padding(.top, 4)
-                    
+                HStack {
+                    Text(chartHeader)
+                        .font(headerFont)
+                        .foregroundColor(headerFontColor)
+                        .underline(color: headerFontColor)
+                    Image(systemName: ImageKeys.infoCircle)
+                        .font(.caption2)
+                        .foregroundStyle(Color.gray)
+                        .onTapGesture { showDisclaimer.toggle() }
+                }
+                
                 Spacer()
                 
                 LineChart(
@@ -114,7 +109,7 @@ struct ProjectionsChart: View {
                     yAxisFont: yAxisFont,
                     yAxisFontColor: yAxisFontColor
                 )
-//                .frame(height: height)
+                //                .frame(height: height)
                 
             } else if portfolioVM.isLoading == false  {
                 // --- NO ACCOUNT DATA view

@@ -10,6 +10,7 @@ import SwiftUI
 @available(iOS 16.0, *)
 struct BenchmarkChart: View {
     @ObservedObject var portfolioVM: PortfolioViewModel
+    @Binding var showDisclaimer: Bool
     
     // Link Account
     let linkAccountHeader: String
@@ -35,6 +36,7 @@ struct BenchmarkChart: View {
     
     init (
         _ viewModel: PortfolioViewModel,
+        showDisclaimer: Binding<Bool>,
         chartHeader: String = "Geographic Diversification",
         linkAccountHeader: String = "Add a brokerage account to get a free detailed breakdown of your investments",
         linkAccountForegroundColor: Color = .white,
@@ -56,6 +58,7 @@ struct BenchmarkChart: View {
         headerFontColor: Color = .primary
     ) {
         self.portfolioVM = viewModel
+        self._showDisclaimer = showDisclaimer
         self.chartHeader = chartHeader
         self.height = height
         self.linkAccountHeader = linkAccountHeader
@@ -81,10 +84,16 @@ struct BenchmarkChart: View {
     var body: some View {
         VStack {
             if let chartEntries = portfolioVM.portfolioChartEntries, let sp500ChartEntries = portfolioVM.sp500ChartEntries {
-                Text(chartHeader)
-                    .font(headerFont)
-                    .foregroundColor(headerFontColor)
-                    .underline(color: headerFontColor)
+                HStack {
+                    Text(chartHeader)
+                        .font(headerFont)
+                        .foregroundColor(headerFontColor)
+                        .underline(color: headerFontColor)
+                    Image(systemName: ImageKeys.infoCircle)
+                        .font(.caption2)
+                        .foregroundStyle(Color.gray)
+                        .onTapGesture { showDisclaimer.toggle() }
+                }
                 
                 BarLineChart(
                     selectedElement: nil,

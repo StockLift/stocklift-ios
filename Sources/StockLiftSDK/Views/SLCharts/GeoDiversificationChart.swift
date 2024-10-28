@@ -10,6 +10,7 @@ import SwiftUI
 @available(iOS 15.0, *)
 struct GeoDiversificationChart: View {
     @ObservedObject private var portfolioVM: PortfolioViewModel
+    @Binding var showDisclaimer: Bool
     
     // Link Account
     let linkAccountHeader: String
@@ -30,6 +31,7 @@ struct GeoDiversificationChart: View {
     
     init(
         _ viewModel: PortfolioViewModel,
+        showDisclaimer: Binding<Bool>,
         chartHeader: String = "Geo Diversification",
         linkAccountHeader: String = "Add a brokerage account to get a free detailed breakdown of your investments",
         linkAccountForegroundColor: Color = .white,
@@ -46,6 +48,7 @@ struct GeoDiversificationChart: View {
         subHeaderFontColor: Color = .primary
     ) {
         self.portfolioVM = viewModel
+        self._showDisclaimer = showDisclaimer
         self.chartHeader = chartHeader
         self.linkAccountHeader = linkAccountHeader
         self.linkAccountForegroundColor = linkAccountForegroundColor
@@ -67,6 +70,7 @@ struct GeoDiversificationChart: View {
             // MAP CHART - Asset Locations
             if let annotations = self.portfolioVM.assetCoordinates, let geoAssets = portfolioVM.geoAssets {
                 AssetMapView(
+                    showDisclaimer: $showDisclaimer,
                     annotations: annotations,
                     missingSymbols: portfolioVM.missingSymbols, 
                     usersAssets: geoAssets,
