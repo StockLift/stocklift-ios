@@ -66,6 +66,8 @@ public struct SLCharts: View {
     //MARK: - INIT
     public init(
         _ views: [SLChartType] = SLChartType.allCases,
+        
+        // Chart Headers
         projectionsChartHeader: String = "Portfolio Growth Projections",
         benchmarkChartHeader: String = "My Portfolio vs. SP 500",
         sectorChartHeader: String = "Diversification by Sector",

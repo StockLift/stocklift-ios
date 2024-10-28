@@ -59,7 +59,7 @@ struct ContinentDetailCell: View {
                 VStack(alignment: .center, spacing: 0) {
                     HStack(alignment: .center, spacing: 10) {
                         if continentName != "Uncategorized" {
-                            Image(self.setColor(continentGain) == Color.green ? ImageKeys.upArrow : ImageKeys.downArrow)
+                            Image(self.setColor(continentGain) == Color.green ? ImageKeys.upArrow : ImageKeys.downArrow, bundle: .module)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 20, height: 20)
@@ -91,7 +91,7 @@ struct ContinentDetailCell: View {
                 VStack(alignment: .center, spacing: 0) {
                     HStack(alignment: .center, spacing: 10) {
                         if continentName != "Uncategorized" {
-                            Image(self.setColor(dollarGain) == Color.green ? ImageKeys.upArrow : ImageKeys.downArrow)
+                            Image(self.setColor(dollarGain) == Color.green ? ImageKeys.upArrow : ImageKeys.downArrow, bundle: .module)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 20, height: 20)

@@ -25,68 +25,61 @@ struct GeoDiversificationChart: View {
     let headerFontColor: Color
     
     init(
-       _ viewModel: PortfolioViewModel,
-       chartHeader: String = "Geo Diversification",
-       linkAccountHeader: String = "Add a brokerage account to get a free detailed breakdown of your investments",
-       linkAccountForegroundColor: Color = .white,
-       linkAccountBackgroundColor: Color = .black,
-       linkAccountBorderColor: Color = .white,
-       linkAccountConnectSize: CGFloat = 38,
-       linkAccountFont: Font = .caption,
-       linkAccountFontColor: Color = .white,
-       headerFont: Font = .subheadline,
-       headerFontColor: Color = .primary
-   ) {
-       self.portfolioVM = viewModel
-       self.chartHeader = chartHeader
-       self.linkAccountHeader = linkAccountHeader
-       self.linkAccountForegroundColor = linkAccountForegroundColor
-       self.linkAccountBackgroundColor = linkAccountBackgroundColor
-       self.linkAccountBorderColor = linkAccountBorderColor
-       self.linkAccountConnectSize = linkAccountConnectSize
-       self.linkAccountFont = linkAccountFont
-       self.linkAccountFontColor = linkAccountFontColor
-       self.headerFont = headerFont
-       self.headerFontColor = headerFontColor
-   }
+        _ viewModel: PortfolioViewModel,
+        chartHeader: String = "Geo Diversification",
+        linkAccountHeader: String = "Add a brokerage account to get a free detailed breakdown of your investments",
+        linkAccountForegroundColor: Color = .white,
+        linkAccountBackgroundColor: Color = .black,
+        linkAccountBorderColor: Color = .white,
+        linkAccountConnectSize: CGFloat = 38,
+        linkAccountFont: Font = .caption,
+        linkAccountFontColor: Color = .white,
+        headerFont: Font = .subheadline,
+        headerFontColor: Color = .primary
+    ) {
+        self.portfolioVM = viewModel
+        self.chartHeader = chartHeader
+        self.linkAccountHeader = linkAccountHeader
+        self.linkAccountForegroundColor = linkAccountForegroundColor
+        self.linkAccountBackgroundColor = linkAccountBackgroundColor
+        self.linkAccountBorderColor = linkAccountBorderColor
+        self.linkAccountConnectSize = linkAccountConnectSize
+        self.linkAccountFont = linkAccountFont
+        self.linkAccountFontColor = linkAccountFontColor
+        self.headerFont = headerFont
+        self.headerFontColor = headerFontColor
+    }
     
     var body: some View {
         VStack {
-//            if let holdings = portfolioVM.userTopHoldings, !holdings.isEmpty {
-//                // TOP HOLDINGS
-//                TopHoldingsPortfolioView(topHoldings: holdings,
-//                                         totalNetValue: Decimal(Double(portfolioVM.netWorth)),
-//                                         hasCostBasis: portfolioVM.hasCostBasis)
-                
-                // MAP CHART - Asset Locations
-                if let annotations = self.portfolioVM.assetCoordinates, let geoAssets = portfolioVM.geoAssets {
-                    AssetMapView(
-                        annotations: annotations,
-                        missingSymbols: 0, // TODO: Missing Symbols
-                        usersAssets: geoAssets,
-                        chartHeader: chartHeader,
-                        date: $portfolioVM.dateConnected,
-                        hasCostBasis: $portfolioVM.hasCostBasis,
-                        headerFont: headerFont,
-                        headerFontColor: headerFontColor
-                    )
-                } else if portfolioVM.isLoading {
-                    ProgressView()
-                } else {
-                    // Link Plaid flow
-                    LinkAccountView(
-                        linkAccountHeader: linkAccountHeader,
-                        plaidError: plaidError,
-                        getPortfolio: getPortfolio,
-                        foregroundColor: linkAccountForegroundColor,
-                        backgroundColor: linkAccountBackgroundColor,
-                        borderColor: linkAccountBorderColor,
-                        connectSize: linkAccountConnectSize,
-                        font: linkAccountFont,
-                        fontColor: linkAccountFontColor
-                    )
-                }
-//            }
+            // MAP CHART - Asset Locations
+            if let annotations = self.portfolioVM.assetCoordinates, let geoAssets = portfolioVM.geoAssets {
+                AssetMapView(
+                    annotations: annotations,
+                    missingSymbols: portfolioVM.missingSymbols, 
+                    usersAssets: geoAssets,
+                    chartHeader: chartHeader,
+                    date: $portfolioVM.dateConnected,
+                    hasCostBasis: $portfolioVM.hasCostBasis,
+                    headerFont: headerFont,
+                    headerFontColor: headerFontColor
+                )
+            } else if portfolioVM.isLoading {
+                ProgressView()
+            } else {
+                // Link Plaid flow
+                LinkAccountView(
+                    linkAccountHeader: linkAccountHeader,
+                    plaidError: plaidError,
+                    getPortfolio: getPortfolio,
+                    foregroundColor: linkAccountForegroundColor,
+                    backgroundColor: linkAccountBackgroundColor,
+                    borderColor: linkAccountBorderColor,
+                    connectSize: linkAccountConnectSize,
+                    font: linkAccountFont,
+                    fontColor: linkAccountFontColor
+                )
+            }
         }
     }
     

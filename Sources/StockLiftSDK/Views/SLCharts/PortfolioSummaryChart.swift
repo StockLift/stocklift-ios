@@ -64,18 +64,6 @@ struct PortfolioSummaryChart: View {
             }
             .padding(.vertical, 6)
             
-            
-            // MARKET STATE
-//            if !portfolioVM.isMarketOpen {
-//                HStack(alignment: .center, spacing: 4) {
-//                    Image(systemName: ImageKeys.infoCircle)
-//                    Text("Market Closed")
-//                }
-//                .appFontRegular(size: 12, color: .gray)
-//                .padding(.bottom, 6)
-//                .padding(.top, 0)
-//            }
-            
                 HStack {
                     PercentChangeView(config: gainOrLoss,
                                       amount: portfolioVM.percentChangeInPortfolio,
@@ -144,7 +132,7 @@ struct PortfolioSummaryChart: View {
         VStack {
             HStack(alignment: .center, spacing: 8) {
                 
-                Image(config == .increase ? ImageKeys.upArrow : ImageKeys.downArrow)
+                Image(config == .increase ? ImageKeys.upArrow : ImageKeys.downArrow, bundle: .module)
                     .resizable()
                     .scaledToFit()
                     .frame(width: 20, height: 20)
