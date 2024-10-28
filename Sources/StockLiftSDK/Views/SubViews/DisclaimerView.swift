@@ -12,8 +12,9 @@ struct DisclaimerView: View {
     @Binding var isPresented: Bool
     var body: some View {
         ScrollView {
-            Text("Disclaimer")
-                .font(.title3)
+            Text("DISCLAIMER")
+                .font(.body)
+                .fontWeight(.heavy)
                 .padding(.bottom)
             
             VStack(alignment: .leading, spacing: 14) {
