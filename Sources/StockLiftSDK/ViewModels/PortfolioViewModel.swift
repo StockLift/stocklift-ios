@@ -16,7 +16,6 @@ final class PortfolioViewModel: BaseViewModel {
     @Published var dateConnected: String = ""
     @Published var hasAccountConnected = false
 //    @Published var missingData = [String]()
-    @Published var missingSymbols: Int = 0
 //    @Published var plaidError: PlaidError? = nil
 //    @Published var showPlaidError: Bool = true
 
@@ -39,19 +38,14 @@ final class PortfolioViewModel: BaseViewModel {
     @Published var sp500ChartEntries: [ChartData]? = nil
     @Published var portfolioChartEntries: [ChartData]? = nil
     
-    /// PLAID
-//    @Published var linkedAccounts: [LinkedAccount] = []
-//    var institutionName: String?
-//    var instutionId: String?
-    
-//    override init(types: [SLChartType]) {
-//        super.init()
-//        initView()
-//    }
-    
     //MARK: Init
     func initView(types: [SLChartType]) {
-        getPortfolio()
+        if types.contains(.portfolioSummary) ||
+            types.contains(.projections) ||
+            types.contains(.sector) ||
+            types.contains(.topHoldings) {
+            getPortfolio()
+        }
         if types.contains(.benchmark) {
             getBenchmarkChartData()
         }
@@ -119,7 +113,6 @@ final class PortfolioViewModel: BaseViewModel {
                                                                            coordinate: .init(latitude: $0.lat ?? 0, longitude: $0.lng ?? 0),
                                                                            url: $0.url,
                                                                            symbol: $0.symbol) }
-                    self.missingSymbols = res.missingSymbols
                 }
             case .failure(let err):
                 print(err)

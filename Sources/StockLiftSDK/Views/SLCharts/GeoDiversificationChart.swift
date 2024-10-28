@@ -72,7 +72,6 @@ struct GeoDiversificationChart: View {
                 AssetMapView(
                     showDisclaimer: $showDisclaimer,
                     annotations: annotations,
-                    missingSymbols: portfolioVM.missingSymbols, 
                     usersAssets: geoAssets,
                     chartHeader: chartHeader,
                     date: $portfolioVM.dateConnected,

@@ -13,7 +13,6 @@ import MapKit
 struct AssetMapView: View {
     @Binding var showDisclaimer: Bool
     let annotations: [AssetCoordinates]
-    let missingSymbols: Int
     let usersAssets: [GeoAssetsData]
     let chartHeader: String
     
