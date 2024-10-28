@@ -28,6 +28,7 @@ struct TopHoldingsChart: View {
     let headerFontColor: Color
     let subHeaderFont: Font
     let subHeaderFontColor: Color
+    let buttonColor: Color
     
     init(
         _ viewModel: PortfolioViewModel,
@@ -44,7 +45,8 @@ struct TopHoldingsChart: View {
         headerFont: Font = .subheadline,
         headerFontColor: Color = .primary,
         subHeaderFont: Font = .caption,
-        subHeaderFontColor: Color = .primary
+        subHeaderFontColor: Color = .primary,
+        buttonColor: Color = .yellow
     ) {
         self.portfolioVM = viewModel
         self.chartHeader = chartHeader
@@ -61,6 +63,7 @@ struct TopHoldingsChart: View {
         self.headerFontColor = headerFontColor
         self.subHeaderFont = subHeaderFont
         self.subHeaderFontColor = subHeaderFontColor
+        self.buttonColor = buttonColor
     }
     
     var body: some View {
@@ -75,7 +78,8 @@ struct TopHoldingsChart: View {
                     headerFont: headerFont,
                     headerFontColor: headerFontColor,
                     subHeaderFont: subHeaderFont,
-                    subHeaderFontColor: subHeaderFontColor
+                    subHeaderFontColor: subHeaderFontColor,
+                    buttonColor: buttonColor
                 )
                 
             } else if portfolioVM.isLoading {

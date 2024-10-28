@@ -11,6 +11,7 @@ import SwiftUI
 struct TopHoldingsSortButton: View {
     @Binding var sortViewState: SortTopHoldingType
     let fontColor: Color
+    let buttonColor: Color
     
     var body: some View {
         HStack {
@@ -21,7 +22,7 @@ struct TopHoldingsSortButton: View {
         .foregroundColor(fontColor)
         .frame(maxWidth: .infinity)
         .padding(.vertical, 8)
-        .background(Color.yellow)
+        .background(buttonColor)
         .clipShape(.capsule)
         .contentShape(Capsule())
         .padding(.horizontal, 34)

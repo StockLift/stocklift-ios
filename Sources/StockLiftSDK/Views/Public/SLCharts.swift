@@ -66,9 +66,12 @@ public struct SLCharts: View {
     var cardShadow: Bool
     
     // Score Button
-    let scoreButtonColor: Color
-    let scoreButtonFontColor: Color
-    let scoreButtonFont: Font
+    var scoreButtonColor: Color
+    var scoreButtonFontColor: Color
+    var scoreButtonFont: Font
+    
+    // TOP HOLDINGS
+    var topHoldingsButtonColor: Color
     
     //MARK: - INIT
     public init(
@@ -116,7 +119,10 @@ public struct SLCharts: View {
         // Portfolio Summary Score Button
         scoreButtonColor: Color = .blue,
         scoreButtonFontColor: Color = .white,
-        scoreButtonFont: Font = .caption
+        scoreButtonFont: Font = .caption,
+        
+        // TOP HOLDINGS
+        topHoldingsButtonColor: Color = .blue
         
     ) {
         self.chartViews = views
@@ -154,6 +160,7 @@ public struct SLCharts: View {
         self.scoreButtonColor = scoreButtonColor
         self.scoreButtonFontColor = scoreButtonFontColor
         self.scoreButtonFont = scoreButtonFont
+        self.topHoldingsButtonColor = topHoldingsButtonColor
     }
     
     //MARK: - BODY
@@ -320,7 +327,8 @@ public struct SLCharts: View {
             headerFont: headerFont,
             headerFontColor: headerFontColor,
             subHeaderFont: subHeaderFont,
-            subHeaderFontColor: subHeaderFontColor
+            subHeaderFontColor: subHeaderFontColor,
+            buttonColor: topHoldingsButtonColor
         )
     }
     
