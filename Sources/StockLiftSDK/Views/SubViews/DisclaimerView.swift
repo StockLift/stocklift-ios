@@ -12,11 +12,11 @@ struct DisclaimerView: View {
     @Binding var isPresented: Bool
     var body: some View {
         ScrollView {
-            Text("DISCLAIMER")
+            Text("Disclaimer")
                 .font(.title3)
                 .padding(.bottom)
             
-            VStack(alignment: .leading, spacing: 8) {
+            VStack(alignment: .leading, spacing: 14) {
                 
                 Text("The Portfolio calculations and insight in this app do not constitute financial advice and are intended as an informational tool to help understand your portfolio. Your personal performance figures are an estimate only and should not be solely relied upon in making investment decisions. Your personal performance figures are calculated using data provided by StockLift’s third-party partner Plaid.")
                 
