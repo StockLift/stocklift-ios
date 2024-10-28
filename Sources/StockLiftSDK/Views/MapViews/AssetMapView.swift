@@ -40,14 +40,15 @@ struct AssetMapView: View {
 
     var body: some View {
         VStack {
-            HStack {
-                Text(chartHeader)
-                    .font(headerFont)
-                    .foregroundColor(headerFontColor)
-                    .underline(color: headerFontColor)
-                DisclaimerImage(showDisclaimer: $showDisclaimer, headerFontColor: headerFontColor)
-            }
-            .padding(.bottom)
+            Text(chartHeader)
+                .font(headerFont)
+                .foregroundColor(headerFontColor)
+                .underline(color: headerFontColor)
+                .overlay(alignment: .trailing) {
+                    DisclaimerImage(showDisclaimer: $showDisclaimer, headerFontColor: headerFontColor)
+                        .offset(x: 18)
+                }
+                .padding(.bottom)
             
             // iOS 17
 //            Map(initialPosition: position, interactionModes: [.rotate, .zoom])

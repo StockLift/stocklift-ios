@@ -88,14 +88,16 @@ struct SectorBreakdownChart: View {
             if let entries = portfolioVM.sectorEntries {
                 VStack {
                     /// Chart Header
-                    HStack {
-                        Text(chartHeader)
-                            .font(headerFont)
-                            .foregroundColor(headerFontColor)
-                            .underline(color: headerFontColor)
-                        DisclaimerImage(showDisclaimer: $showDisclaimer, headerFontColor: headerFontColor)
-                    }
-                    .padding(.top, 12)
+                    Text(chartHeader)
+                        .font(headerFont)
+                        .foregroundColor(headerFontColor)
+                        .underline(color: headerFontColor)
+                        .overlay(alignment: .trailing) {
+                            DisclaimerImage(showDisclaimer: $showDisclaimer, headerFontColor: headerFontColor)
+                                .offset(x: 18)
+                        }
+                        .padding(.top, 12)
+                    
                     
                     
                     HStack {

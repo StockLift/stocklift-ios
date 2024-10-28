@@ -84,13 +84,14 @@ struct BenchmarkChart: View {
     var body: some View {
         VStack {
             if let chartEntries = portfolioVM.portfolioChartEntries, let sp500ChartEntries = portfolioVM.sp500ChartEntries {
-                HStack {
-                    Text(chartHeader)
-                        .font(headerFont)
-                        .foregroundColor(headerFontColor)
-                        .underline(color: headerFontColor)
-                    DisclaimerImage(showDisclaimer: $showDisclaimer, headerFontColor: headerFontColor)
-                }
+                Text(chartHeader)
+                    .font(headerFont)
+                    .foregroundColor(headerFontColor)
+                    .underline(color: headerFontColor)
+                    .overlay(alignment: .trailing) {
+                        DisclaimerImage(showDisclaimer: $showDisclaimer, headerFontColor: headerFontColor)
+                            .offset(x: 18)
+                    }
                 
                 BarLineChart(
                     selectedElement: nil,

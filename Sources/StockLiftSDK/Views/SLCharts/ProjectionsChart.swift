@@ -87,13 +87,14 @@ struct ProjectionsChart: View {
             if let chartData = portfolioVM.growthChartEntries {
                 // --- HAS ACCOUNT CONNECTED Chart View
                 /// Chart Header
-                HStack {
                     Text(chartHeader)
                         .font(headerFont)
                         .foregroundColor(headerFontColor)
                         .underline(color: headerFontColor)
-                    DisclaimerImage(showDisclaimer: $showDisclaimer, headerFontColor: headerFontColor)
-                }
+                        .overlay(alignment: .trailing) {
+                            DisclaimerImage(showDisclaimer: $showDisclaimer, headerFontColor: headerFontColor)
+                                .offset(x: 18)
+                        }
                 
                 Spacer()
                 

@@ -30,14 +30,15 @@ struct TopHoldingsPortfolioView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            HStack {
-                Text("Top Holdings")
-                    .font(headerFont)
-                    .foregroundColor(headerFontColor)
-                    .underline(color: headerFontColor)
-                DisclaimerImage(showDisclaimer: $showDisclaimer, headerFontColor: headerFontColor)
-            }
-            .padding(.bottom)
+            Text("Top Holdings")
+                .font(headerFont)
+                .foregroundColor(headerFontColor)
+                .underline(color: headerFontColor)
+                .overlay(alignment: .trailing) {
+                    DisclaimerImage(showDisclaimer: $showDisclaimer, headerFontColor: headerFontColor)
+                        .offset(x: 18)
+                }
+                .padding(.bottom)
             
             TopHoldingsSortButton(sortViewState: $sortViewState, fontColor: headerFontColor, buttonColor: buttonColor)
             

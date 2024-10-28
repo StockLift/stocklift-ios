@@ -143,13 +143,14 @@ struct PortfolioSummaryChart: View {
     private func MainView(netWorth: Float, score: String) -> some View {
         VStack(alignment: .center, spacing: 0) {
             VStack(spacing: 24) {
-                HStack {
-                    Text(chartHeader)
-                        .font(headerFont)
-                        .foregroundColor(headerFontColor)
-                        .underline(color: headerFontColor)
-                    DisclaimerImage(showDisclaimer: $showDisclaimer, headerFontColor: headerFontColor)
-                }
+                Text(chartHeader)
+                    .font(headerFont)
+                    .foregroundColor(headerFontColor)
+                    .underline(color: headerFontColor)
+                    .overlay(alignment: .trailing) {
+                        DisclaimerImage(showDisclaimer: $showDisclaimer, headerFontColor: headerFontColor)
+                            .offset(x: 18)
+                    }
                 
 //                Spacer()
                 
