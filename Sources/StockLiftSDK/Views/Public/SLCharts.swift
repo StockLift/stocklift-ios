@@ -7,18 +7,6 @@
 
 import SwiftUI
 
-public enum SLChartType: Int, CaseIterable, Identifiable {
-    public var id: Self { self }
-    case sector
-    case benchmark
-    case projections
-    case geoDiversification
-    case topHoldings
-    case portfolioSummary
-    
-    var tag: Int { self.rawValue }
-}
-
 @available(iOS 16.0, *)
 public struct SLCharts: View {
     @StateObject private var viewModel = PortfolioViewModel()
