@@ -10,10 +10,13 @@ import SwiftUI
 @available(iOS 15.0, *)
 struct DisclaimerView: View {
     @Binding var isPresented: Bool
+    let titleFont: Font // body
+    let bodyFont: Font // caption
+    
     var body: some View {
         ScrollView {
             Text("DISCLAIMER")
-                .font(.body)
+                .font(titleFont)
                 .fontWeight(.heavy)
                 .padding(.bottom)
             
@@ -30,7 +33,7 @@ struct DisclaimerView: View {
                 Text("Keep in mind that past performance is not a guarantee of future performance. StockLift is not a brokerage firm or financial advisory firm and bears no responsibility for investment outcomes, as stated and previously agreed upon in the StockLift Terms and Conditions.")
                 
             }
-            .font(.caption)
+            .font(bodyFont)
             
             Spacer()
         }

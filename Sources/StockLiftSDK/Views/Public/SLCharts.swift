@@ -74,6 +74,10 @@ public struct SLCharts: View {
     // TOP HOLDINGS
     var topHoldingsButtonColor: Color
     
+    // Disclaimer Font
+    var disclaimerTitleFont: Font
+    var disclaimerBodyFont: Font
+    
     //MARK: - INIT
     public init(
         _ views: [SLChartType] = SLChartType.allCases,
@@ -122,7 +126,12 @@ public struct SLCharts: View {
         scoreButtonFont: Font = .caption,
         
         // TOP HOLDINGS
-        topHoldingsButtonColor: Color = .blue
+        topHoldingsButtonColor: Color = .blue,
+        
+        // Disclaimer Font
+        disclaimerTitleFont: Font = .body,
+        disclaimerBodyFont: Font = .caption
+        
         
     ) {
         self.chartViews = views
@@ -161,13 +170,15 @@ public struct SLCharts: View {
         self.scoreButtonFontColor = scoreButtonFontColor
         self.scoreButtonFont = scoreButtonFont
         self.topHoldingsButtonColor = topHoldingsButtonColor
+        self.disclaimerBodyFont = disclaimerBodyFont
+        self.disclaimerTitleFont = disclaimerTitleFont
     }
     
     //MARK: - BODY
     public var body: some View {
         TabView {
             if showDisclaimer {
-                DisclaimerView(isPresented: $showDisclaimer)
+                DisclaimerView(isPresented: $showDisclaimer, titleFont: disclaimerTitleFont, bodyFont: disclaimerBodyFont)
             } else {
                 ForEach(chartViews) { view in
                     switch view {
