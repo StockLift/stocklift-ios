@@ -115,7 +115,6 @@ struct PortfolioSummaryChart: View {
     //MARK: - BODY
     var body: some View {
         if let netWorth = portfolioVM.netWorth, let score = diversificationScore {
-            
             MainView(netWorth: netWorth, score: score)
         } else if portfolioVM.isLoading == false {
             // --- NO ACCOUNT DATA view

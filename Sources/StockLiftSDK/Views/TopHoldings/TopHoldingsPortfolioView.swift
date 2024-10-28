@@ -13,8 +13,12 @@ struct TopHoldingsPortfolioView: View {
     @State var topHoldings: [TopHoldingAsset]
     let totalNetValue: Decimal
     let hasCostBasis: Bool
+    
+    let chartHeader: String
     let headerFont: Font
     let headerFontColor: Color
+    let subHeaderFont: Font
+    let subHeaderFontColor: Color
     
     @State private var showDetails: Bool = false
     @State private var showUpdateCostBasis: (Bool, String) = (false, "")
@@ -27,7 +31,7 @@ struct TopHoldingsPortfolioView: View {
                 .font(headerFont)
                 .foregroundColor(headerFontColor)
                 .underline(color: headerFontColor)
-                .padding(.top)
+                .padding(.bottom)
             
             TopHoldingsSortButton(sortViewState: $sortViewState, fontColor: headerFontColor)
             
@@ -44,7 +48,8 @@ struct TopHoldingsPortfolioView: View {
             .setScrollBorderShading()
             
             Text("See All")
-                .appFontMedium(color: .yellow)
+                .font(subHeaderFont)
+                .foregroundColor(subHeaderFontColor)
                 .padding(.horizontal)
                 .padding(.vertical)
                 .onTapGesture {
@@ -67,9 +72,9 @@ struct TopHoldingsPortfolioView: View {
         //                                  showUpdateCostBasis: $showUpdateCostBasis)
         //            }
         //        }
-        .overlay(
-            RoundedRectangle(cornerRadius: 14).stroke(Color.primary, lineWidth: 2)
-        )
+//        .overlay(
+//            RoundedRectangle(cornerRadius: 14).stroke(Color.primary, lineWidth: 2)
+//        )
         .padding(4)
         //        .makeCardLayer()
         .onChange(of: sortViewState, perform: { _ in

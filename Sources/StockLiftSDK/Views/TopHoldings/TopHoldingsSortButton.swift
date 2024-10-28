@@ -17,7 +17,7 @@ struct TopHoldingsSortButton: View {
             Text(sortViewState.toggleTitle)
             Image(systemName: "chevron.down")
         }
-        .font(.subheadline)
+        .font(.caption)
         .foregroundColor(fontColor)
         .frame(maxWidth: .infinity)
         .padding(.vertical, 8)

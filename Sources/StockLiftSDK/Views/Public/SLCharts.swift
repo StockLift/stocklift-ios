@@ -53,6 +53,8 @@ public struct SLCharts: View {
     var yAxisFontColor: Color
     var headerFont: Font
     var headerFontColor: Color
+    var subHeaderFont: Font
+    var subHeaderFontColor: Color
     var sectorDetailFont: Font
     var sectorDetailFontColor: Color
     var sp500Colors: [Color] // Benchmark Chart
@@ -99,6 +101,8 @@ public struct SLCharts: View {
         yAxisFontColor: Color = .primary,
         headerFont: Font = .subheadline,
         headerFontColor: Color = .primary,
+        subHeaderFont: Font = .caption,
+        subHeaderFontColor: Color = .primary,
         sectorDetailFont: Font = .caption2,
         sectorDetailFontColor: Color = .primary,
         sp500Colors: [Color] = [.yellow, .yellow.opacity(0.3)],
@@ -138,6 +142,8 @@ public struct SLCharts: View {
         self.yAxisFontColor = yAxisFontColor
         self.headerFont = headerFont
         self.headerFontColor = headerFontColor
+        self.subHeaderFont = subHeaderFont
+        self.subHeaderFontColor = subHeaderFontColor
         self.sp500Colors = sp500Colors
         self.portfolioColors = portfolioColors
         self.cardBackgroundColor = cardBackgroundColor
@@ -195,6 +201,15 @@ public struct SLCharts: View {
         .shadow(radius: cardShadow ? 8 : 0)
     }
     
+    
+    private func plaidError() {
+        //TODO: -  handle error
+    }
+    
+    private func getPortfolio() {
+        //TODO: config get portfolio
+    }
+    
     //MARK: - SECTOR BREAKDOWN CHART
     @ViewBuilder
     private var SectorChartReference: some View {
@@ -213,7 +228,9 @@ public struct SLCharts: View {
             headerFont: headerFont,
             headerFontColor: headerFontColor,
             detailFont: sectorDetailFont,
-            detailFontColor: sectorDetailFontColor
+            detailFontColor: sectorDetailFontColor,
+            subHeaderFont: subHeaderFont,
+            subHeaderFontColor: subHeaderFontColor
         )
     }
     
@@ -230,6 +247,8 @@ public struct SLCharts: View {
             linkAccountConnectSize: linkAccountConnectSize,
             linkAccountFont: linkAccountFont,
             linkAccountFontColor: linkAccountFontColor,
+            plaidError: plaidError,
+            getPortfolio: getPortfolio,
             height: height,
             chartForegroundColor: chartForegroundColor,
             chartForegroundBorderColor: chartForegroundBorderColor,
@@ -296,8 +315,12 @@ public struct SLCharts: View {
             linkAccountConnectSize: linkAccountConnectSize,
             linkAccountFont: linkAccountFont,
             linkAccountFontColor: linkAccountFontColor,
+            plaidError: plaidError,
+            getPortfolio: getPortfolio,
             headerFont: headerFont,
-            headerFontColor: headerFontColor
+            headerFontColor: headerFontColor,
+            subHeaderFont: subHeaderFont,
+            subHeaderFontColor: subHeaderFontColor
         )
     }
     
@@ -323,15 +346,6 @@ public struct SLCharts: View {
             plaidError: plaidError,
             getPortfolio: getPortfolio
         )
-    }
-    
-    
-    private func plaidError() {
-        //TODO: -  handle error
-    }
-    
-    private func getPortfolio() {
-        //TODO: config get portfolio
     }
 }
 

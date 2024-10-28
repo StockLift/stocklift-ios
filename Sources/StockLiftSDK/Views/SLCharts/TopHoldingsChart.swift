@@ -19,10 +19,15 @@ struct TopHoldingsChart: View {
     let linkAccountConnectSize: CGFloat
     let linkAccountFont: Font
     let linkAccountFontColor: Color
+    let plaidError: () -> Void
+    let getPortfolio: () -> Void
+    
     // Chart
     let chartHeader: String
     let headerFont: Font
     let headerFontColor: Color
+    let subHeaderFont: Font
+    let subHeaderFontColor: Color
     
     init(
         _ viewModel: PortfolioViewModel,
@@ -34,8 +39,12 @@ struct TopHoldingsChart: View {
         linkAccountConnectSize: CGFloat = 38,
         linkAccountFont: Font = .caption,
         linkAccountFontColor: Color = .white,
+        plaidError: @escaping () -> Void,
+        getPortfolio: @escaping () -> Void,
         headerFont: Font = .subheadline,
-        headerFontColor: Color = .primary
+        headerFontColor: Color = .primary,
+        subHeaderFont: Font = .caption,
+        subHeaderFontColor: Color = .primary
     ) {
         self.portfolioVM = viewModel
         self.chartHeader = chartHeader
@@ -46,8 +55,12 @@ struct TopHoldingsChart: View {
         self.linkAccountConnectSize = linkAccountConnectSize
         self.linkAccountFont = linkAccountFont
         self.linkAccountFontColor = linkAccountFontColor
+        self.plaidError = plaidError
+        self.getPortfolio = getPortfolio
         self.headerFont = headerFont
-        self.headerFontColor = headerFontColor  
+        self.headerFontColor = headerFontColor
+        self.subHeaderFont = subHeaderFont
+        self.subHeaderFontColor = subHeaderFontColor
     }
     
     var body: some View {
@@ -58,8 +71,11 @@ struct TopHoldingsChart: View {
                     topHoldings: holdings,
                     totalNetValue: Decimal(Double(netWorth)),
                     hasCostBasis: portfolioVM.hasCostBasis,
+                    chartHeader: chartHeader,
                     headerFont: headerFont,
-                    headerFontColor: headerFontColor
+                    headerFontColor: headerFontColor,
+                    subHeaderFont: subHeaderFont,
+                    subHeaderFontColor: subHeaderFontColor
                 )
                 
             } else if portfolioVM.isLoading {
@@ -79,13 +95,5 @@ struct TopHoldingsChart: View {
                 )
             }
         }
-    }
-    
-    private func plaidError() {
-        //TODO: -  handle error
-    }
-    
-    private func getPortfolio() {
-        //TODO: config get portfolio
     }
 }

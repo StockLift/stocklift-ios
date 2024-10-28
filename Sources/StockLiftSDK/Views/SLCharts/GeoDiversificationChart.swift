@@ -23,6 +23,8 @@ struct GeoDiversificationChart: View {
     let chartHeader: String
     let headerFont: Font
     let headerFontColor: Color
+    let subHeaderFont: Font
+    let subHeaderFontColor: Color
     
     init(
         _ viewModel: PortfolioViewModel,
@@ -35,7 +37,9 @@ struct GeoDiversificationChart: View {
         linkAccountFont: Font = .caption,
         linkAccountFontColor: Color = .white,
         headerFont: Font = .subheadline,
-        headerFontColor: Color = .primary
+        headerFontColor: Color = .primary,
+        subHeaderFont: Font = .caption,
+        subHeaderFontColor: Color = .primary
     ) {
         self.portfolioVM = viewModel
         self.chartHeader = chartHeader
@@ -48,6 +52,8 @@ struct GeoDiversificationChart: View {
         self.linkAccountFontColor = linkAccountFontColor
         self.headerFont = headerFont
         self.headerFontColor = headerFontColor
+        self.subHeaderFont = subHeaderFont
+        self.subHeaderFontColor = subHeaderFontColor
     }
     
     var body: some View {
@@ -62,7 +68,9 @@ struct GeoDiversificationChart: View {
                     date: $portfolioVM.dateConnected,
                     hasCostBasis: $portfolioVM.hasCostBasis,
                     headerFont: headerFont,
-                    headerFontColor: headerFontColor
+                    headerFontColor: headerFontColor,
+                    subHeaderFont: subHeaderFont,
+                    subHeaderFontColor: subHeaderFontColor
                 )
             } else if portfolioVM.isLoading {
                 ProgressView()

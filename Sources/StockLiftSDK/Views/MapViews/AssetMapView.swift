@@ -20,6 +20,8 @@ struct AssetMapView: View {
     @Binding var hasCostBasis: Bool
     let headerFont: Font
     let headerFontColor: Color
+    let subHeaderFont: Font
+    let subHeaderFontColor: Color
     
     @State private var showDetails: Bool = false
     
@@ -39,8 +41,9 @@ struct AssetMapView: View {
         VStack {
             Text(chartHeader)
                 .font(headerFont)
+                .foregroundColor(headerFontColor)
                 .underline(color: headerFontColor)
-                .padding(.top)
+                .padding(.bottom)
             
             // iOS 17
 //            Map(initialPosition: position, interactionModes: [.rotate, .zoom])
@@ -60,13 +63,12 @@ struct AssetMapView: View {
                     }
                 }
             }
-            .frame(width: self.rect.width * 0.8, height: 300)
+//            .frame(width: self.rect.width * 0.8, height: 300)
             .padding(8)
             
-            
-            
             Text("View by Region")
-                .appFontMedium(color: .yellow)
+                .font(subHeaderFont)
+                .foregroundColor(subHeaderFontColor)
                 .padding(.bottom)
                 .onTapGesture {
                     self.showDetails.toggle()

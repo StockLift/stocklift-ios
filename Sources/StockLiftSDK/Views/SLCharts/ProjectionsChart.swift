@@ -20,6 +20,9 @@ struct ProjectionsChart: View {
     let linkAccountConnectSize: CGFloat
     let linkAccountFont: Font
     let linkAccountFontColor: Color
+    let plaidError: () -> Void
+    let getPortfolio: () -> Void
+    
     // Chart
     let chartHeader: String
     let height: CGFloat
@@ -55,6 +58,8 @@ struct ProjectionsChart: View {
         linkAccountConnectSize: CGFloat = 38,
         linkAccountFont: Font = .caption,
         linkAccountFontColor: Color = .white,
+        plaidError: @escaping () -> Void,
+        getPortfolio: @escaping () -> Void,
         height: CGFloat = 250,
         chartForegroundColor: Color = Color(UIColor.tertiaryLabel),
         chartForegroundBorderColor: Color = .blue,
@@ -74,7 +79,9 @@ struct ProjectionsChart: View {
         self.linkAccountBorderColor = linkAccountBorderColor
         self.linkAccountConnectSize = linkAccountConnectSize
         self.linkAccountFont = linkAccountFont
-        self.linkAccountFontColor = linkAccountFontColor    
+        self.linkAccountFontColor = linkAccountFontColor
+        self.plaidError = plaidError
+        self.getPortfolio = getPortfolio
         self.chartForegroundColor = chartForegroundColor
         self.chartForegroundBorderColor = chartForegroundBorderColor
         self.xAxisFont = xAxisFont
@@ -127,13 +134,5 @@ struct ProjectionsChart: View {
                 ProgressView()
             }
         }
-    }
-    
-    private func plaidError() {
-        //TODO: -  handle error
-    }
-    
-    private func getPortfolio() {
-        //TODO: config get portfolio
     }
 }
