@@ -52,11 +52,11 @@ struct TopHoldingsChart: View {
     
     var body: some View {
         VStack {
-            if let holdings = portfolioVM.userTopHoldings, !holdings.isEmpty {
+            if let holdings = portfolioVM.userTopHoldings, !holdings.isEmpty, let netWorth = portfolioVM.netWorth {
                 // TOP HOLDINGS
                 TopHoldingsPortfolioView(
                     topHoldings: holdings,
-                    totalNetValue: Decimal(Double(portfolioVM.netWorth)),
+                    totalNetValue: Decimal(Double(netWorth)),
                     hasCostBasis: portfolioVM.hasCostBasis,
                     headerFont: headerFont,
                     headerFontColor: headerFontColor

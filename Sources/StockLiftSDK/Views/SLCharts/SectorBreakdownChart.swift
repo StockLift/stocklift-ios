@@ -30,6 +30,8 @@ struct SectorBreakdownChart: View {
     let linkAccountConnectSize: CGFloat
     let linkAccountFont: Font
     let linkAccountFontColor: Color
+    let plaidError: () -> Void
+    let getPortfolio: () -> Void
     // Chart
     let headerFont: Font
     let headerFontColor: Color
@@ -46,6 +48,8 @@ struct SectorBreakdownChart: View {
         linkAccountConnectSize: CGFloat = 38,
         linkAccountFont: Font = .caption,
         linkAccountFontColor: Color = .primary,
+        plaidError: @escaping () -> Void,
+        getPortfolio: @escaping () -> Void,
         headerFont: Font = .subheadline,
         headerFontColor: Color = .primary,
         detailFont: Font = .caption2,
@@ -60,6 +64,8 @@ struct SectorBreakdownChart: View {
         self.linkAccountConnectSize = linkAccountConnectSize
         self.linkAccountFont = linkAccountFont
         self.linkAccountFontColor = linkAccountFontColor
+        self.plaidError = plaidError
+        self.getPortfolio = getPortfolio
         self.headerFont = headerFont
         self.headerFontColor = headerFontColor
         self.detailFont = detailFont
@@ -75,8 +81,8 @@ struct SectorBreakdownChart: View {
                     Text(chartHeader)
                         .font(headerFont)
                         .foregroundColor(headerFontColor)
-                        .padding(.top, 12)
                         .underline(color: headerFontColor)
+                        .padding(.top, 12)
                     
                     
                     HStack {
@@ -154,14 +160,5 @@ struct SectorBreakdownChart: View {
         .background(Color(UIColor.tertiaryLabel))
         .cornerRadius(22)
     }
-    
-    private func plaidError() {
-        //TODO: -  handle error
-    }
-    
-    private func getPortfolio() {
-        //TODO: config get portfolio
-    }
-    
 }
 

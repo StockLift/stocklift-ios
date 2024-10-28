@@ -63,6 +63,11 @@ public struct SLCharts: View {
     var cardCornerRadius: CGFloat
     var cardShadow: Bool
     
+    // Score Button
+    let scoreButtonColor: Color
+    let scoreButtonFontColor: Color
+    let scoreButtonFont: Font
+    
     //MARK: - INIT
     public init(
         _ views: [SLChartType] = SLChartType.allCases,
@@ -102,7 +107,13 @@ public struct SLCharts: View {
         // Card
         cardBackgroundColor: Color = Color(UIColor.tertiaryLabel),
         cardCornerRadius: CGFloat = 14,
-        cardShadow: Bool = true
+        cardShadow: Bool = true,
+        
+        // Portfolio Summary Score Button
+        scoreButtonColor: Color = .blue,
+        scoreButtonFontColor: Color = .white,
+        scoreButtonFont: Font = .caption
+        
     ) {
         self.chartViews = views
         self.projectionsChartHeader = projectionsChartHeader
@@ -134,6 +145,9 @@ public struct SLCharts: View {
         self.cardShadow = cardShadow
         self.sectorDetailFont = sectorDetailFont
         self.sectorDetailFontColor = sectorDetailFontColor
+        self.scoreButtonColor = scoreButtonColor
+        self.scoreButtonFontColor = scoreButtonFontColor
+        self.scoreButtonFont = scoreButtonFont
     }
     
     //MARK: - BODY
@@ -194,6 +208,8 @@ public struct SLCharts: View {
             linkAccountConnectSize: linkAccountConnectSize,
             linkAccountFont: linkAccountFont,
             linkAccountFontColor: linkAccountFontColor,
+            plaidError: plaidError,
+            getPortfolio: getPortfolio,
             headerFont: headerFont,
             headerFontColor: headerFontColor,
             detailFont: sectorDetailFont,
@@ -290,9 +306,32 @@ public struct SLCharts: View {
     private var SummaryChartReference: some View {
         PortfolioSummaryChart(
             viewModel,
-            showNullDataAlert: .constant(false),
-            chartHeader: portfolioSummaryChartHeader
+//            showNullDataAlert: !viewModel.hasCostBasis,
+            chartHeader: portfolioSummaryChartHeader,
+            headerFont: headerFont,
+            headerFontColor: headerFontColor,
+            scoreButtonColor: scoreButtonColor,
+            scoreButtonFontColor: scoreButtonFontColor,
+            scoreButtonFont: scoreButtonFont,
+            linkAccountHeader: linkAccountHeader,
+            linkAccountForegroundColor: linkAccountForegroundColor,
+            linkAccountBackgroundColor:  linkAccountBackgroundColor,
+            linkAccountBorderColor: linkAccountBorderColor,
+            linkAccountConnectSize: linkAccountConnectSize,
+            linkAccountFont: linkAccountFont,
+            linkAccountFontColor: linkAccountFontColor,
+            plaidError: plaidError,
+            getPortfolio: getPortfolio
         )
+    }
+    
+    
+    private func plaidError() {
+        //TODO: -  handle error
+    }
+    
+    private func getPortfolio() {
+        //TODO: config get portfolio
     }
 }
 
