@@ -77,7 +77,6 @@ public struct SLCharts: View {
     //MARK: - INIT
     public init(
         _ views: [SLChartType] = SLChartType.allCases,
-        
         // Chart Headers
         projectionsChartHeader: String = "Portfolio Growth Projections",
         benchmarkChartHeader: String = "My Portfolio vs. SP 500",
@@ -210,7 +209,7 @@ public struct SLCharts: View {
         .background(cardBackgroundColor.opacity(0.3))
         .cornerRadius(cardCornerRadius)
         .shadow(radius: cardShadow ? 8 : 0)
-//        .popover(isPresented: $showDisclaimer) { DisclaimerView() }
+        .onAppear { viewModel.initView(types: chartViews) }
     }
     
     

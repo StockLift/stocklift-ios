@@ -44,16 +44,20 @@ final class PortfolioViewModel: BaseViewModel {
 //    var institutionName: String?
 //    var instutionId: String?
     
-    override init() {
-        super.init()
-        initView()
-    }
+//    override init(types: [SLChartType]) {
+//        super.init()
+//        initView()
+//    }
     
     //MARK: Init
-    fileprivate func initView() {
+    func initView(types: [SLChartType]) {
         getPortfolio()
-        getBenchmarkChartData()
-        getAssetMapData()
+        if types.contains(.benchmark) {
+            getBenchmarkChartData()
+        }
+        if types.contains(.geoDiversification) {
+            getAssetMapData()
+        }
     }
     
     static public func missingCostBasisMessage(_ date: String) -> String {
