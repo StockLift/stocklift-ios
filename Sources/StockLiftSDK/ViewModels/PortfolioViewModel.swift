@@ -1,12 +1,12 @@
 //
 //  PortfolioViewModel.swift
-//  Plaid-CloudFunctions
+//  Stocklift
 //
-//  Created by Christopher Hicks on 7/22/22.
+//  Created by Christopher Hicks on 8/22/24.
+//  Copyright © 2022 StockLift Inc. All rights reserved.
 //
 
 import SwiftUI
-//import MapKit
 
 @available(iOS 13.0, *)
 final class PortfolioViewModel: BaseViewModel {
