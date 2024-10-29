@@ -20,7 +20,11 @@ public struct SLCharts: View {
     //MARK: - PROPERTIES
     /// CHARTS to show
     public var chartViews: [SLChartType]
+    // Vertical or Horizontal
     public var axis: SLChartAxis
+    // Vertical Alignment Chart Heights
+    public var chartHeight: CGFloat
+    
     // Header
     public var projectionsChartHeader: String
     public var benchmarkChartHeader: String
@@ -67,12 +71,11 @@ public struct SLCharts: View {
     public var disclaimerTitleFont: Font
     public var disclaimerBodyFont: Font
     
-    let chartHeight: CGFloat = UIScreen.main.bounds.width * 0.8
-    
     //MARK: - INIT
     public init(
         _ views: [SLChartType] = SLChartType.allCases,
         axis: SLChartAxis = .horizontal,
+        chartHeight: CGFloat = UIScreen.main.bounds.width * 0.8,
         // Chart Headers
         projectionsChartHeader: String = "Portfolio Growth Projections",
         benchmarkChartHeader: String = "My Portfolio vs. SP 500",
@@ -122,6 +125,7 @@ public struct SLCharts: View {
     ) {
         self.chartViews = views
         self.axis = axis
+        self.chartHeight = chartHeight
         self.projectionsChartHeader = projectionsChartHeader
         self.benchmarkChartHeader = benchmarkChartHeader
         self.sectorChartHeader = sectorChartHeader
