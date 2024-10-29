@@ -185,13 +185,6 @@ extension PortfolioViewModel {
         }
     }
     
-
-    
-}
-
-
-
-extension PortfolioViewModel {
     //MARK: SORT Top Holdings
     public static func setTopHoldings(_ holdings: [UserEquity], type: SortTopHoldingType = .weight) -> [TopHoldingAsset] {
         var rank = 0
@@ -209,7 +202,5 @@ extension PortfolioViewModel {
                 return TopHoldingAsset(holding: equity, rank: rank)
             }
         }
-
     }
-
 }
