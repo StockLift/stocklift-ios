@@ -80,15 +80,15 @@ struct DemoAllChartsView: View {
                     height: HelperClass.randomHeight(),
                     chartForegroundColor: HelperClass.randomColor(),
                     chartForegroundBorderColor: HelperClass.randomColor(),
-                    xAxisFont: HelperClass.randomSmFont(),
+//                    xAxisFont: HelperClass.randomSmFont(),
                     xAxisFontColor: HelperClass.randomColor(),
-                    yAxisFont: HelperClass.randomSmFont(),
+//                    yAxisFont: HelperClass.randomSmFont(),
                     yAxisFontColor: HelperClass.randomColor(),
                     headerFont: HelperClass.randomLgFont(),
                     headerFontColor: HelperClass.randomColor(),
                     subHeaderFont: HelperClass.randomSmFont(),
                     subHeaderFontColor: HelperClass.randomColor(),
-                    sectorDetailFont: HelperClass.randomSmFont(),
+//                    sectorDetailFont: HelperClass.randomSmFont(),
                     sectorDetailFontColor: HelperClass.randomColor(),
                     sp500Colors: [HelperClass.randomColor(), HelperClass.randomColor()],
                     portfolioColors: [HelperClass.randomColor(), HelperClass.randomColor()],
@@ -101,6 +101,9 @@ struct DemoAllChartsView: View {
                     disclaimerTitleFont: HelperClass.randomLgFont(),
                     disclaimerBodyFont: HelperClass.randomSmFont()
                 )
+                .frame(height: 350)
+                
+                DemoTextView(text: "This is a demo of the SLCharts configured with all charts.")
             }
         }
         .navigationBarTitle("All Charts Demo")
