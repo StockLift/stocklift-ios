@@ -163,6 +163,7 @@ public struct SLCharts: View {
     //MARK: - BODY
     public var body: some View {
         switch axis {
+            //MARK: Horizontal alignment
         case .horizontal:
             TabView {
                 if showDisclaimer {
@@ -213,6 +214,8 @@ public struct SLCharts: View {
             .cornerRadius(cardCornerRadius)
             .shadow(radius: cardShadow ? 8 : 0)
             .onAppear { viewModel.initView(types: chartViews) }
+            
+            //MARK: Vertical alignment
         case .vertical:
             ScrollView {
                 ForEach(chartViews) { view in
@@ -258,9 +261,7 @@ public struct SLCharts: View {
             }
             .onAppear { viewModel.initView(types: chartViews) }
         }
-
     }
-    
     
     private func plaidError() {
         //TODO: -  handle error
@@ -405,7 +406,7 @@ public struct SLCharts: View {
     private var SummaryChartReference: some View {
         PortfolioSummaryChart(
             viewModel,
-//            showNullDataAlert: !viewModel.hasCostBasis,
+            //            showNullDataAlert: !viewModel.hasCostBasis,
             showDisclaimer: $showDisclaimer,
             chartHeader: portfolioSummaryChartHeader,
             linkAccountHeader: linkAccountHeader,
