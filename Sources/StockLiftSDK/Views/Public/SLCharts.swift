@@ -48,6 +48,9 @@ public struct SLCharts: View {
     public var sectorDetailFontColor: Color
     public var sp500Colors: [Color] // Benchmark Chart
     public var portfolioColors: [Color] // Benchmark Chart
+    public var buttonColor: Color
+    public var buttonFontColor: Color
+    public var buttonFont: Font
     
     // Card Background
     public var cardBackgroundColor: Color
@@ -55,12 +58,12 @@ public struct SLCharts: View {
     public var cardShadow: Bool
     
     // Score Button
-    public var scoreButtonColor: Color
-    public var scoreButtonFontColor: Color
-    public var scoreButtonFont: Font
+//    public var scoreButtonColor: Color
+//    public var scoreButtonFontColor: Color
+//    public var scoreButtonFont: Font
     
     // TOP HOLDINGS
-    public var topHoldingsButtonColor: Color
+//    public var topHoldingsButtonColor: Color
     
     // Disclaimer Font
     public var disclaimerTitleFont: Font
@@ -102,6 +105,9 @@ public struct SLCharts: View {
         sectorDetailFontColor: Color = .primary,
         sp500Colors: [Color] = [.yellow, .yellow.opacity(0.3)],
         portfolioColors: [Color] = [.blue, .blue.opacity(0.3)],
+        buttonColor: Color = .blue,
+        buttonFontColor: Color = .white,
+        buttonFont: Font = .caption,
         
         // Card
         cardBackgroundColor: Color = Color(UIColor.tertiaryLabel),
@@ -109,12 +115,12 @@ public struct SLCharts: View {
         cardShadow: Bool = true,
         
         // Portfolio Summary Score Button
-        scoreButtonColor: Color = .blue,
-        scoreButtonFontColor: Color = .white,
-        scoreButtonFont: Font = .caption,
+//        scoreButtonColor: Color = .blue,
+//        scoreButtonFontColor: Color = .white,
+//        scoreButtonFont: Font = .caption,
         
         // TOP HOLDINGS
-        topHoldingsButtonColor: Color = .blue,
+//        topHoldingsButtonColor: Color = .blue,
         
         // Disclaimer Font
         disclaimerTitleFont: Font = .body,
@@ -149,15 +155,18 @@ public struct SLCharts: View {
         self.subHeaderFontColor = subHeaderFontColor
         self.sp500Colors = sp500Colors
         self.portfolioColors = portfolioColors
+        self.buttonColor = buttonColor
+        self.buttonFontColor = buttonFontColor
+        self.buttonFont = buttonFont
         self.cardBackgroundColor = cardBackgroundColor
         self.cardCornerRadius = cardCornerRadius
         self.cardShadow = cardShadow
         self.sectorDetailFont = sectorDetailFont
         self.sectorDetailFontColor = sectorDetailFontColor
-        self.scoreButtonColor = scoreButtonColor
-        self.scoreButtonFontColor = scoreButtonFontColor
-        self.scoreButtonFont = scoreButtonFont
-        self.topHoldingsButtonColor = topHoldingsButtonColor
+//        self.scoreButtonColor = scoreButtonColor
+//        self.scoreButtonFontColor = scoreButtonFontColor
+//        self.scoreButtonFont = scoreButtonFont
+//        self.topHoldingsButtonColor = topHoldingsButtonColor
         self.disclaimerBodyFont = disclaimerBodyFont
         self.disclaimerTitleFont = disclaimerTitleFont
     }
@@ -320,7 +329,11 @@ public struct SLCharts: View {
             linkAccountFont: linkAccountFont,
             linkAccountFontColor: linkAccountFontColor,
             plaidError: plaidError,
-            getPortfolio: getPortfolio
+            getPortfolio: getPortfolio,
+            headerFont: headerFont,
+            headerFontColor: headerFontColor,
+            subHeaderFont: subHeaderFont,
+            subHeaderFontColor: subHeaderFontColor
         )
     }
     
@@ -344,7 +357,9 @@ public struct SLCharts: View {
             headerFontColor: headerFontColor,
             subHeaderFont: subHeaderFont,
             subHeaderFontColor: subHeaderFontColor,
-            buttonColor: topHoldingsButtonColor
+            buttonColor: buttonColor,
+            buttonFontColor: buttonFontColor,
+            buttonFont: buttonFont
         )
     }
     
@@ -354,6 +369,7 @@ public struct SLCharts: View {
         PortfolioSummaryChart(
             viewModel,
 //            showNullDataAlert: !viewModel.hasCostBasis,
+            showDisclaimer: $showDisclaimer,
             chartHeader: portfolioSummaryChartHeader,
             linkAccountHeader: linkAccountHeader,
             linkAccountForegroundColor: linkAccountForegroundColor,
@@ -364,12 +380,11 @@ public struct SLCharts: View {
             linkAccountFontColor: linkAccountFontColor,
             plaidError: plaidError,
             getPortfolio: getPortfolio,
-            showDisclaimer: $showDisclaimer,
             headerFont: headerFont,
             headerFontColor: headerFontColor,
-            scoreButtonColor: scoreButtonColor,
-            scoreButtonFontColor: scoreButtonFontColor,
-            scoreButtonFont: scoreButtonFont,
+            scoreButtonColor: buttonColor,
+            scoreButtonFontColor: buttonFontColor,
+            scoreButtonFont: buttonFont,
             bodyFont: subHeaderFont,
             bodyFontColor: subHeaderFontColor
         )

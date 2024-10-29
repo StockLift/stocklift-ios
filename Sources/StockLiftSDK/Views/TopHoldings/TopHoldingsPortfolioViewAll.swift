@@ -16,13 +16,13 @@ struct TopHoldingsPortfolioViewAll: View {
     @Binding var showUpdateCostBasis: (Bool, String)
     let fontColor: Color
     let buttonColor: Color
-    
+    let buttonFont: Font
     
     @State private var viewSortType: SortTopHoldingType = .weight
     
     var body: some View {
         ScrollView {
-            TopHoldingsSortButton(sortViewState: $viewSortType, fontColor: fontColor, buttonColor: buttonColor)
+            TopHoldingsSortButton(sortViewState: $viewSortType, fontColor: fontColor, buttonColor: buttonColor, buttonFont: buttonFont)
             
             VStack(spacing: 0) {
                 ForEach(topHoldings) { holding in

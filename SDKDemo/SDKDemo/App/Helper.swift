@@ -39,6 +39,15 @@ struct HelperClass {
         return CGFloat.random(in: 150...350)
     }
     
+    static func randomCornerRadius() -> CGFloat {
+        return CGFloat.random(in: 10...20)
+    }
+    
+    static func randomShadowBool() -> Bool {
+        let bools: [Bool] = [true, false]
+        return bools.randomElement()!
+    }
+    
 }
 
 

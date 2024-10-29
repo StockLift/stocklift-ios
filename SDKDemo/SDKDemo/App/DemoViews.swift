@@ -62,6 +62,45 @@ struct DemoAllChartsView: View {
                 .frame(height: 420)
                 
                 DemoTextView(text: "This is a demo of the SLCharts configured with the Benchmark, Projections, and Geo Diversification Charts.")
+                
+                SLCharts(
+                    projectionsChartHeader: HelperClass.randomTitle(),
+                    benchmarkChartHeader: HelperClass.randomTitle(),
+                    sectorChartHeader: HelperClass.randomTitle(),
+                    geoDiversificationChartHeader: HelperClass.randomTitle(),
+                    topHoldingsChartHeader: HelperClass.randomTitle(),
+                    portfolioSummaryChartHeader: HelperClass.randomTitle(),
+                    linkAccountHeader: HelperClass.randomConnectAccountTitle(),
+                    linkAccountForegroundColor: HelperClass.randomColor(),
+                    linkAccountBackgroundColor: HelperClass.randomColor(),
+                    linkAccountBorderColor: HelperClass.randomColor(),
+                    linkAccountConnectSize: HelperClass.randomHeight(),
+                    linkAccountFont: HelperClass.randomSmFont(),
+                    linkAccountFontColor: HelperClass.randomColor(),
+                    height: HelperClass.randomHeight(),
+                    chartForegroundColor: HelperClass.randomColor(),
+                    chartForegroundBorderColor: HelperClass.randomColor(),
+                    xAxisFont: HelperClass.randomSmFont(),
+                    xAxisFontColor: HelperClass.randomColor(),
+                    yAxisFont: HelperClass.randomSmFont(),
+                    yAxisFontColor: HelperClass.randomColor(),
+                    headerFont: HelperClass.randomLgFont(),
+                    headerFontColor: HelperClass.randomColor(),
+                    subHeaderFont: HelperClass.randomSmFont(),
+                    subHeaderFontColor: HelperClass.randomColor(),
+                    sectorDetailFont: HelperClass.randomSmFont(),
+                    sectorDetailFontColor: HelperClass.randomColor(),
+                    sp500Colors: [HelperClass.randomColor(), HelperClass.randomColor()],
+                    portfolioColors: [HelperClass.randomColor(), HelperClass.randomColor()],
+                    buttonColor: HelperClass.randomColor(),
+                    buttonFontColor: HelperClass.randomColor(),
+                    buttonFont: HelperClass.randomSmFont(),
+                    cardBackgroundColor: HelperClass.randomColor(),
+                    cardCornerRadius: HelperClass.randomCornerRadius(),
+                    cardShadow: HelperClass.randomShadowBool(),
+                    disclaimerTitleFont: HelperClass.randomLgFont(),
+                    disclaimerBodyFont: HelperClass.randomSmFont()
+                )
             }
         }
         .navigationBarTitle("All Charts Demo")

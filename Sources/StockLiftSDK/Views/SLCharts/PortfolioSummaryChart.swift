@@ -81,6 +81,7 @@ struct PortfolioSummaryChart: View {
     init(
         _ vm: PortfolioViewModel,
 //        showNullDataAlert: Bool,
+        showDisclaimer: Binding<Bool>,
         chartHeader: String = "Portfolio Net Summary",
         linkAccountHeader: String = "Add a brokerage account to get a free detailed breakdown of your investments",
         linkAccountForegroundColor: Color = .white,
@@ -91,7 +92,6 @@ struct PortfolioSummaryChart: View {
         linkAccountFontColor: Color = .primary,
         plaidError: @escaping () -> Void,
         getPortfolio: @escaping () -> Void,
-        showDisclaimer: Binding<Bool>,
         headerFont: Font = .subheadline,
         headerFontColor: Color = .primary,
         scoreButtonColor: Color = .blue,
