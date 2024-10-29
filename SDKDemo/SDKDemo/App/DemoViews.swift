@@ -106,7 +106,7 @@ struct DemoAllChartsView: View {
                 DemoTextView(text: "This is a demo of the SLCharts configured with all charts.")
             }
         }
-        .navigationBarTitle("All Charts Demo")
+//        .navigationBarTitle("All Charts Demo")
     }
 }
 
@@ -185,25 +185,71 @@ struct DemoTextView: View {
     }
 }
 
+struct Example1View: View {
+    var body: some View {
+        ScrollView {
+            SLCharts([.portfolioSummary])
+                .frame(height: 210)
+            
+            SLCharts([.topHoldings])
+                .frame(height: 320)
+            
+            SLCharts([.geoDiversification, .benchmark, .sector])
+                .frame(height: 320)
+        }
+    }
+}
+
+struct Example2View: View {
+    var body: some View {
+        ScrollView {
+            SLCharts([.portfolioSummary, .projections])
+                .frame(height: 220)
+            
+//            SLCharts([.topHoldings])
+//                .frame(height: 320)
+//            
+//            SLCharts([.geoDiversification, .benchmark, .sector])
+//                .frame(height: 320)
+        }
+    }
+}
+
 //MARK: - LOGIN VIEW
 struct DemoLoginView: View {
     let login: (String) -> Void
     @State private var userUuid: String = ""
     var body: some View {
-        TextField("User uuid", text: $userUuid)
-            .keyboardType(.default)
-            .autocapitalization(.none)
-            .padding()
-        Divider()
-        Text("Submit")
-            .padding(.horizontal)
-            .padding(.vertical, 8)
-            .foregroundStyle(Color.white)
-            .background(Color.purple)
-            .cornerRadius(10)
-            .onTapGesture {
-                login(userUuid)
-            }
-        Spacer()
+        VStack {
+//            HStack {
+//                NavigationLink {
+//                    Example1View()
+//                } label: {
+//                    Text("Example 1")
+//                }
+//                
+//                NavigationLink {
+//                    Example2View()
+//                } label: {
+//                    Text("Example 2")
+//                }
+//            }
+
+            TextField("User uuid", text: $userUuid)
+                .keyboardType(.default)
+                .autocapitalization(.none)
+                .padding()
+            Divider()
+            Text("Submit")
+                .padding(.horizontal)
+                .padding(.vertical, 8)
+                .foregroundStyle(Color.white)
+                .background(Color.purple)
+                .cornerRadius(10)
+                .onTapGesture {
+                    login(userUuid)
+                }
+            Spacer()
+        }
     }
 }

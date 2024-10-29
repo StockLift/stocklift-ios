@@ -70,7 +70,7 @@ public struct SLCharts: View {
         sectorChartHeader: String = "Diversification by Sector",
         geoDiversificationChartHeader: String = "Geo Diversification",
         topHoldingsChartHeader: String = "Top Holdings",
-        portfolioSummaryChartHeader: String = "Portfolio Net Summary",
+        portfolioSummaryChartHeader: String = "Portfolio Summary",
         
         // Link Account View
         linkAccountHeader: String = "Add a brokerage account to get a free detailed breakdown of your investments",

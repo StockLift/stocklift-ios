@@ -29,15 +29,33 @@ struct ContentView: View {
     }
     
     var body: some View {
-        VStack {
+        NavigationStack {
             Text(viewState.title)
                 .font(.title)
                 .onTapGesture { toggleView() }
             switch viewState {
             case .login:
-                DemoLoginView(login: login)
+//                NavigationStack {
+                    DemoLoginView(login: login)
+//                }
             case .charts:
                 VStack {
+                    HStack {
+                        NavigationLink {
+                            Example1View()
+                        } label: {
+                            Text("Example 1")
+                        }
+                        
+                        Spacer()
+                        
+                        NavigationLink {
+                            Example2View()
+                        } label: {
+                            Text("Example 2")
+                        }
+                    }
+                    .padding(.horizontal)
                 Toggle(toggleTitle, isOn: $isDarkMode)
                     .padding(.horizontal)
                     .tint(.gray)
