@@ -10,7 +10,12 @@ import SwiftUI
 struct HelperClass {
     
     static func randomColor() -> Color {
-        let colors: [Color] = [.blue, .red, .yellow, .green, .blue, .purple, .pink, .orange, .gray, .green,]
+        let colors: [Color] = [.blue, .red, .yellow, .green, .blue, .purple, .pink, .orange, .gray, .green, .clear]
+        return colors[.random(in: 0..<colors.count)]
+    }
+    
+    static func randomFontColor() -> Color {
+        let colors: [Color] = [.blue, .blue, .purple]
         return colors[.random(in: 0..<colors.count)]
     }
     

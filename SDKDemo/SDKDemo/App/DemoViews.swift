@@ -18,7 +18,7 @@ struct DemoAllChartsView: View {
                     .frame(height: 350)
                     .padding()
                 
-                DemoTextView(text: "This is a demo of the SLCharts default configuration (colors, fonts, etc.) with all charts.")
+                DemoTextView(text: "This is a demo of the SLCharts default configuration (colors, fonts, charts, etc.).")
                 
                 SLCharts([.portfolioSummary, .topHoldings],
                          projectionsChartHeader: HelperClass.randomTitle(),
@@ -28,11 +28,11 @@ struct DemoAllChartsView: View {
                          linkAccountForegroundColor: HelperClass.randomColor(),
                          linkAccountBackgroundColor: HelperClass.randomColor(),
                          linkAccountBorderColor: HelperClass.randomColor(),
-                         linkAccountFontColor: HelperClass.randomColor(),
+//                         linkAccountFontColor: HelperClass.randomColor(),
                          chartForegroundColor: HelperClass.randomColor(),
                          chartForegroundBorderColor: HelperClass.randomColor(),
-                         headerFontColor: HelperClass.randomColor(),
-                         sectorDetailFontColor: HelperClass.randomColor(),
+//                         headerFontColor: HelperClass.randomColor(),
+//                         sectorDetailFontColor: HelperClass.randomColor(),
                          sp500Colors: [HelperClass.randomColor(), HelperClass.randomColor(), HelperClass.randomColor()],
                          portfolioColors: [HelperClass.randomColor(), HelperClass.randomColor(), HelperClass.randomColor()],
                          cardBackgroundColor: HelperClass.randomColor()
@@ -50,11 +50,11 @@ struct DemoAllChartsView: View {
                          linkAccountForegroundColor: HelperClass.randomColor(),
                          linkAccountBackgroundColor: HelperClass.randomColor(),
                          linkAccountBorderColor: HelperClass.randomColor(),
-                         linkAccountFontColor: HelperClass.randomColor(),
+//                         linkAccountFontColor: HelperClass.randomColor(),
                          chartForegroundColor: HelperClass.randomColor(),
                          chartForegroundBorderColor: HelperClass.randomColor(),
-                         headerFontColor: HelperClass.randomColor(),
-                         sectorDetailFontColor: HelperClass.randomColor(),
+//                         headerFontColor: HelperClass.randomColor(),
+//                         sectorDetailFontColor: HelperClass.randomColor(),
                          sp500Colors: [HelperClass.randomColor(), HelperClass.randomColor(), HelperClass.randomColor()],
                          portfolioColors: [HelperClass.randomColor(), HelperClass.randomColor(), HelperClass.randomColor()],
                          cardBackgroundColor: HelperClass.randomColor()
@@ -76,24 +76,24 @@ struct DemoAllChartsView: View {
                     linkAccountBorderColor: HelperClass.randomColor(),
                     linkAccountConnectSize: HelperClass.randomHeight(),
                     linkAccountFont: HelperClass.randomSmFont(),
-                    linkAccountFontColor: HelperClass.randomColor(),
+//                    linkAccountFontColor: HelperClass.randomColor(),
                     height: HelperClass.randomHeight(),
                     chartForegroundColor: HelperClass.randomColor(),
                     chartForegroundBorderColor: HelperClass.randomColor(),
-//                    xAxisFont: HelperClass.randomSmFont(),
-                    xAxisFontColor: HelperClass.randomColor(),
-//                    yAxisFont: HelperClass.randomSmFont(),
-                    yAxisFontColor: HelperClass.randomColor(),
-                    headerFont: HelperClass.randomLgFont(),
-                    headerFontColor: HelperClass.randomColor(),
-                    subHeaderFont: HelperClass.randomSmFont(),
-                    subHeaderFontColor: HelperClass.randomColor(),
-//                    sectorDetailFont: HelperClass.randomSmFont(),
-                    sectorDetailFontColor: HelperClass.randomColor(),
+                    //                    xAxisFont: HelperClass.randomSmFont(),
+//                    xAxisFontColor: HelperClass.randomColor(),
+                    //                    yAxisFont: HelperClass.randomSmFont(),
+//                    yAxisFontColor: HelperClass.randomColor(),
+//                    headerFont: HelperClass.randomLgFont(),
+//                    headerFontColor: HelperClass.randomColor(),
+//                    subHeaderFont: HelperClass.randomSmFont(),
+//                    subHeaderFontColor: HelperClass.randomColor(),
+                    //                    sectorDetailFont: HelperClass.randomSmFont(),
+//                    sectorDetailFontColor: HelperClass.randomColor(),
                     sp500Colors: [HelperClass.randomColor(), HelperClass.randomColor()],
                     portfolioColors: [HelperClass.randomColor(), HelperClass.randomColor()],
                     buttonColor: HelperClass.randomColor(),
-                    buttonFontColor: HelperClass.randomColor(),
+//                    buttonFontColor: HelperClass.randomColor(),
                     buttonFont: HelperClass.randomSmFont(),
                     cardBackgroundColor: HelperClass.randomColor(),
                     cardCornerRadius: HelperClass.randomCornerRadius(),
@@ -101,7 +101,7 @@ struct DemoAllChartsView: View {
                     disclaimerTitleFont: HelperClass.randomLgFont(),
                     disclaimerBodyFont: HelperClass.randomSmFont()
                 )
-                .frame(height: 350)
+                .frame(height: 380)
                 
                 DemoTextView(text: "This is a demo of the SLCharts configured with all charts.")
             }
@@ -178,9 +178,9 @@ struct ComingSoonView: View {
 struct DemoTextView: View {
     var text: String = "This is a demo of the SLCharts configuration."
     var body: some View {
-        Rectangle().fill(Color.gray).frame(height: 60)
+        Rectangle().fill(Color(UIColor.tertiaryLabel)).frame(height: 60)
             .overlay { Text(text).font(.footnote) }
-            .multilineTextAlignment(.center)
+        //            .multilineTextAlignment(.center)
             .padding(6)
     }
 }

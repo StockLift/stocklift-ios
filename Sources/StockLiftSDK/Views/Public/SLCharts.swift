@@ -110,7 +110,6 @@ public struct SLCharts: View {
         disclaimerTitleFont: Font = .body,
         disclaimerBodyFont: Font = .caption
         
-        
     ) {
         self.chartViews = views
         self.projectionsChartHeader = projectionsChartHeader
