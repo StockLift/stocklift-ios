@@ -38,7 +38,7 @@ struct TopHoldingsPortfolioView: View {
                     DisclaimerImage(showDisclaimer: $showDisclaimer, headerFontColor: headerFontColor)
                         .offset(x: 18)
                 }
-                .padding(.bottom)
+                .padding(.bottom, 12)
             
             TopHoldingsSortButton(sortViewState: $sortViewState, fontColor: headerFontColor, buttonColor: buttonColor)
             
@@ -51,14 +51,14 @@ struct TopHoldingsPortfolioView: View {
                                              showUpdateCostBasis: $showUpdateCostBasis)
                 }
             }
-            .frame(maxHeight: 190)
+//            .frame(maxHeight: 190)
             .setScrollBorderShading()
             
             Text("See All")
                 .font(subHeaderFont)
                 .foregroundColor(subHeaderFontColor)
-                .padding(.horizontal)
-                .padding(.vertical)
+//                .padding(.horizontal)
+                .padding(.vertical, 8)
                 .onTapGesture {
                     self.showDetails.toggle()
                 }

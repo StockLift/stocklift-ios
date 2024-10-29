@@ -21,12 +21,13 @@ struct TopHoldingsSortButton: View {
         .font(.caption)
         .foregroundColor(fontColor)
         .frame(maxWidth: .infinity)
-        .padding(.vertical, 8)
+        .padding(.vertical, 6)
         .background(buttonColor)
         .clipShape(.capsule)
         .contentShape(Capsule())
         .padding(.horizontal, 34)
-        .padding(.vertical)
+        .padding(.bottom, 8)
+//        .padding(.vertical)
         .onTapGesture {
             switch sortViewState {
             case .weight:

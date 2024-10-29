@@ -205,7 +205,7 @@ public extension View {
     }
     
     // CREATE Image for Symbol (url or symbol or name prefixed)
-    func AssetImageHandler(assetImageUrl: URL?, asset: UserEquity) -> some View {
+    func AssetImageHandler(assetImageUrl: URL?, asset: UserEquity, size: CGFloat = 40) -> some View {
         let symbol = asset.symbol?.lowercased()
         return Group {
             if symbol != "voc" {
@@ -213,32 +213,32 @@ public extension View {
                     KFImage(url)
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 40, height: 40)
+                        .frame(width: size, height: size)
                         .background(Color.blue)
                         .clipShape(Circle())
                         .padding(.trailing, 8)
                 } else {
                     if asset.type == .cash {
                         Text("$")
-                            .appFontRegular()
+                            .font(.caption2)
                             .shadow(radius: 2)
-                            .frame(width: 40, height: 40)
+                            .frame(width: size, height: size)
                             .background(Color.blue)
                             .clipShape(Circle())
                             .padding(.trailing, 8)
                     } else if let image = asset.symbol, image != "" {
                         Text(image.prefix(4))
-                            .appFontRegular(size: 12)
+                            .font(.caption2)
                             .shadow(radius: 2)
-                            .frame(width: 40, height: 40)
+                            .frame(width: size, height: size)
                             .background(Color.blue)
                             .clipShape(Circle())
                             .padding(.trailing, 8)
                     } else {
                         Text("")
-                            .appFontRegular()
+                            .font(.caption2)
                             .shadow(radius: 2)
-                            .frame(width: 40, height: 40)
+                            .frame(width: size, height: size)
                             .background(Color.blue)
                             .clipShape(Circle())
                             .padding(.trailing, 8)
@@ -247,9 +247,9 @@ public extension View {
             } else {
                 // HANDLER for images with weird bugs (returned from 12data not working)
                 Text(asset.symbol?.prefix(4) ?? "")
-                    .appFontRegular(size: 12)
+                    .font(.footnote)
                     .shadow(radius: 2)
-                    .frame(width: 40, height: 40)
+                    .frame(width: size, height: size)
                     .background(Color.blue)
                     .clipShape(Circle())
                     .padding(.trailing, 8)

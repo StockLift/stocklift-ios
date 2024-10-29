@@ -18,7 +18,7 @@ struct DemoAllChartsView: View {
                     .frame(height: 350)
                     .padding()
                 
-                DemoTextView(text: "This is a demo of the SLCharts default configuration (all charts).")
+                DemoTextView(text: "This is a demo of the SLCharts default configuration (colors, fonts, etc.) with all charts.")
                 
                 SLCharts([.portfolioSummary, .topHoldings],
                          projectionsChartHeader: HelperClass.randomTitle(),
@@ -40,7 +40,7 @@ struct DemoAllChartsView: View {
                 .frame(height: 350)
                 .padding()
                 
-                DemoTextView(text: "This is a demo of the SLCharts configured with the portfolio summary and top holdings charts.")
+                DemoTextView(text: "This is a demo of the SLCharts configured with the Portfolio Summary and Top Holdings Charts.")
                 
                 SLCharts([.benchmark, .projections, .geoDiversification],
                          projectionsChartHeader: HelperClass.randomTitle(),
@@ -61,7 +61,7 @@ struct DemoAllChartsView: View {
                 )
                 .frame(height: 420)
                 
-                DemoTextView(text: "This is a demo of the SLCharts configured with the benchmark, projections, and geo diversification charts.")
+                DemoTextView(text: "This is a demo of the SLCharts configured with the Benchmark, Projections, and Geo Diversification Charts.")
             }
         }
         .navigationBarTitle("All Charts Demo")
