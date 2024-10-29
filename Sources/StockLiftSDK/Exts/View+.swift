@@ -174,15 +174,6 @@ public extension View {
         }
     }
     
-    func headerFont(_ color: Color = .blue) -> some View {
-        self
-            .appFontMedium(size: 10, color: color)
-    }
-    
-    func bodyFont(_ color: Color = .white) -> some View {
-        self
-            .appFontRegular(size: 10, color: color)
-    }
 }
 
 @available(iOS 13.0, *)

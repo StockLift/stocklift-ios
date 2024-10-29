@@ -353,14 +353,8 @@ public struct SLCharts: View {
     private var SummaryChartReference: some View {
         PortfolioSummaryChart(
             viewModel,
-            showDisclaimer: $showDisclaimer,
 //            showNullDataAlert: !viewModel.hasCostBasis,
             chartHeader: portfolioSummaryChartHeader,
-            headerFont: headerFont,
-            headerFontColor: headerFontColor,
-            scoreButtonColor: scoreButtonColor,
-            scoreButtonFontColor: scoreButtonFontColor,
-            scoreButtonFont: scoreButtonFont,
             linkAccountHeader: linkAccountHeader,
             linkAccountForegroundColor: linkAccountForegroundColor,
             linkAccountBackgroundColor:  linkAccountBackgroundColor,
@@ -369,7 +363,15 @@ public struct SLCharts: View {
             linkAccountFont: linkAccountFont,
             linkAccountFontColor: linkAccountFontColor,
             plaidError: plaidError,
-            getPortfolio: getPortfolio
+            getPortfolio: getPortfolio,
+            showDisclaimer: $showDisclaimer,
+            headerFont: headerFont,
+            headerFontColor: headerFontColor,
+            scoreButtonColor: scoreButtonColor,
+            scoreButtonFontColor: scoreButtonFontColor,
+            scoreButtonFont: scoreButtonFont,
+            bodyFont: subHeaderFont,
+            bodyFontColor: subHeaderFontColor
         )
     }
 }

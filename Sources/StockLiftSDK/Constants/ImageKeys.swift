@@ -15,6 +15,6 @@ enum ImageKeys {
     public static let xMark = "x.circle"
     
     /// CUSTOM
-    public static let upArrow = "upArrow"
-    public static let downArrow = "downArrow"
+    public static let upArrow = "arrow.up.circle.fill"
+    public static let downArrow = "arrow.down.circle.fill"
 }

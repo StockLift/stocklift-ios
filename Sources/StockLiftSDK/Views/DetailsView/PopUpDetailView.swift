@@ -24,15 +24,15 @@ struct PopUpDetailView: View {
                 // NAME
                 HStack {
                     Text("Symbol")
-                        .headerFont()
+//                        .headerFont()
                     Text(asset.symbol ?? "n/a")
-                        .bodyFont()
+//                        .bodyFont()
                 }
                 HStack {
                     Text("Cost Basis")
-                        .headerFont()
+//                        .headerFont()
                     Text("\(asset.costBasis ?? 0)")
-                        .bodyFont(.yellow)
+//                        .bodyFont(.yellow)
                 }
 //                .overlay(alignment: .trailing) {
 //                    if counter < 2 && !hasCostBasis {
@@ -53,30 +53,30 @@ struct PopUpDetailView: View {
 //                }
                 HStack {
                     Text("Value")
-                        .headerFont()
+//                        .headerFont()
                     Text("\(asset.institutionValue ?? 0)")
-                        .bodyFont()
+//                        .bodyFont()
                 }
             }
             Spacer()
             VStack(alignment: .leading) {
                 HStack {
                     Text("Close")
-                        .headerFont()
+//                        .headerFont()
                     Text("\(asset.closePrice ?? 0)")
-                        .bodyFont()
+//                        .bodyFont()
                 }
                 HStack {
                     Text("Quantity")
-                        .headerFont()
+//                        .headerFont()
                     Text("\(asset.quantity ?? 0)")
-                        .bodyFont()
+//                        .bodyFont()
                 }
                 HStack {
                     Text("Type")
-                        .headerFont()
+//                        .headerFont()
                     Text(asset.type?.rawValue ?? "n/a")
-                        .bodyFont()
+//                        .bodyFont()
                 }
             }
         }

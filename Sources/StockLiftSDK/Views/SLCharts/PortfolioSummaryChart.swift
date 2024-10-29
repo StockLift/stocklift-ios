@@ -20,11 +20,6 @@ struct PortfolioSummaryChart: View {
     // Initializers
 //    let showNullDataAlert: Bool
     let chartHeader: String
-    let headerFont: Font
-    let headerFontColor: Color
-    let scoreButtonColor: Color
-    let scoreButtonFontColor: Color
-    let scoreButtonFont: Font
     // Link Account
     let linkAccountHeader: String
     let linkAccountForegroundColor: Color
@@ -35,6 +30,15 @@ struct PortfolioSummaryChart: View {
     let linkAccountFontColor: Color
     let plaidError: () -> Void
     let getPortfolio: () -> Void
+    
+    // Chart Details
+    let headerFont: Font
+    let headerFontColor: Color
+    let scoreButtonColor: Color
+    let scoreButtonFontColor: Color
+    let scoreButtonFont: Font
+    let bodyFont: Font
+    let bodyFontColor: Color
     
     @State private var progressPercent: CGFloat = 0
     @State private var showScore: Bool = false
@@ -76,14 +80,8 @@ struct PortfolioSummaryChart: View {
     
     init(
         _ vm: PortfolioViewModel,
-        showDisclaimer: Binding<Bool>,
 //        showNullDataAlert: Bool,
         chartHeader: String = "Portfolio Net Summary",
-        headerFont: Font = .subheadline,
-        headerFontColor: Color = .primary,
-        scoreButtonColor: Color = .blue,
-        scoreButtonFontColor: Color = .primary,
-        scoreButtonFont: Font = .caption,
         linkAccountHeader: String = "Add a brokerage account to get a free detailed breakdown of your investments",
         linkAccountForegroundColor: Color = .white,
         linkAccountBackgroundColor: Color = .black,
@@ -92,18 +90,20 @@ struct PortfolioSummaryChart: View {
         linkAccountFont: Font = .caption,
         linkAccountFontColor: Color = .primary,
         plaidError: @escaping () -> Void,
-        getPortfolio: @escaping () -> Void
+        getPortfolio: @escaping () -> Void,
+        showDisclaimer: Binding<Bool>,
+        headerFont: Font = .subheadline,
+        headerFontColor: Color = .primary,
+        scoreButtonColor: Color = .blue,
+        scoreButtonFontColor: Color = .primary,
+        scoreButtonFont: Font = .caption,
+        bodyFont: Font = .caption,
+        bodyFontColor: Color = .primary
     )
     {
         self.portfolioVM = vm
-        self._showDisclaimer = showDisclaimer
 //        self.showNullDataAlert = showNullDataAlert
         self.chartHeader = chartHeader
-        self.headerFont = headerFont
-        self.headerFontColor = headerFontColor
-        self.scoreButtonColor = scoreButtonColor
-        self.scoreButtonFontColor = scoreButtonFontColor
-        self.scoreButtonFont = scoreButtonFont
         self.linkAccountHeader = linkAccountHeader
         self.linkAccountForegroundColor = linkAccountForegroundColor
         self.linkAccountBackgroundColor = linkAccountBackgroundColor
@@ -113,6 +113,14 @@ struct PortfolioSummaryChart: View {
         self.linkAccountFontColor = linkAccountFontColor
         self.plaidError = plaidError
         self.getPortfolio = getPortfolio
+        self._showDisclaimer = showDisclaimer
+        self.headerFont = headerFont
+        self.headerFontColor = headerFontColor
+        self.scoreButtonColor = scoreButtonColor
+        self.scoreButtonFontColor = scoreButtonFontColor
+        self.scoreButtonFont = scoreButtonFont
+        self.bodyFont = bodyFont
+        self.bodyFontColor = bodyFontColor
     }
     
     //MARK: - BODY
@@ -152,14 +160,12 @@ struct PortfolioSummaryChart: View {
                             .offset(x: 18)
                     }
                 
-//                Spacer()
-                
                 Text(netWorth, format: .currency(code: "USD"))
-                    .font(.title2)
-                    .foregroundColor(.primary)
+                    .font(.title)
+                    .foregroundColor(headerFontColor)
+                    .fontWeight(.heavy)
             }
-//            .padding(.vertical, 6)
-            
+
             Spacer()
             HStack {
                 PercentChangeView(config: gainOrLoss,
@@ -185,8 +191,6 @@ struct PortfolioSummaryChart: View {
                     }
                 }
             }
-//            .padding(.top, 0)
-//            .padding(.bottom)
             
             Spacer()
             
@@ -217,12 +221,13 @@ struct PortfolioSummaryChart: View {
                     Spacer()
                     if showScorePoints {
                         Text(score)
-                            .appFontBlack(size: 16, color: .blue)
+                            .font(.callout)
+                            .fontWeight(.heavy)
+                            .foregroundStyle(Color.blue)
                     }
                 }
                 .padding(.horizontal, 10)
                 AppProgressBar(width: $width,
-                               height: 12,
                                cornerRadius: 22,
                                percentOfProgress: $progressPercent
                 )
@@ -235,7 +240,7 @@ struct PortfolioSummaryChart: View {
                     .font(scoreButtonFont)
                     .foregroundColor(scoreButtonFontColor)
                     .padding(.vertical, 8)
-                    .frame(width: UIScreen.main.bounds.width / 1.15, height: 24)
+                    .frame(width: UIScreen.main.bounds.width / 1.15, height: 28)
                     .background(!hasAccount ? Color.gray : scoreButtonColor)
                     .cornerRadius(20)
                     .padding(.horizontal, 8)
@@ -255,9 +260,10 @@ struct PortfolioSummaryChart: View {
     private func PercentChangeView(config: PortfolioPercentChange, amount: String?, type: Bool) -> some View {
         VStack {
             HStack(alignment: .center, spacing: 8) {
-                Image(config == .increase ? ImageKeys.upArrow : ImageKeys.downArrow, bundle: .module)
+                Image(systemName: config == .increase ? ImageKeys.upArrow : ImageKeys.downArrow)
                     .resizable()
                     .scaledToFit()
+                    .foregroundStyle(config == .increase ? .blue : .red)
                     .frame(width: 20, height: 20)
                 
                 VStack(alignment: .leading, spacing: 0) {
@@ -271,7 +277,9 @@ struct PortfolioSummaryChart: View {
                     
                     else if let amount = amount {
                         Text("\(setSymbol(amount))%")
-                            .appFontBlack(size: 16, color: config == .increase ? Color.blue : Color.red)
+                            .font(.callout)
+                            .fontWeight(.heavy)
+                            .foregroundStyle(config == .increase ? Color.blue : Color.red)
                     }
                     
                     else {
@@ -281,12 +289,14 @@ struct PortfolioSummaryChart: View {
                     
                     if type == true {
                         Text(config == .increase ? "Increase from\nlast close" : "Decrease from\nlast close")
-                            .appFontRegular()
+                            .font(bodyFont)
+                            .foregroundStyle(bodyFontColor)
                             .multilineTextAlignment(.leading)
                             .layoutPriority(1)
                     } else {
                         Text("Return on\nInvestment")
-                            .appFontRegular()
+                            .font(bodyFont)
+                            .foregroundStyle(bodyFontColor)
                             .multilineTextAlignment(.leading)
                             .layoutPriority(1)
                     }
@@ -296,7 +306,7 @@ struct PortfolioSummaryChart: View {
         }
         .padding(.vertical, 6)
         .padding(.horizontal)
-        .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(Color.white.opacity(0.6), lineWidth: 1))
+        .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(Color(UIColor.tertiaryLabel), lineWidth: 1))
     }
     
 }
