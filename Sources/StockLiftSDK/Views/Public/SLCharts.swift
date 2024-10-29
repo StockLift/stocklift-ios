@@ -166,7 +166,11 @@ public struct SLCharts: View {
     public var body: some View {
         TabView {
             if showDisclaimer {
-                DisclaimerView(isPresented: $showDisclaimer, titleFont: disclaimerTitleFont, bodyFont: disclaimerBodyFont)
+                DisclaimerView(
+                    isPresented: $showDisclaimer,
+                    titleFont: disclaimerTitleFont,
+                    bodyFont: disclaimerBodyFont
+                )
             } else {
                 ForEach(chartViews) { view in
                     switch view {

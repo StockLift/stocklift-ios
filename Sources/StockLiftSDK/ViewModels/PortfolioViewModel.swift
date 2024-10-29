@@ -46,7 +46,8 @@ final class PortfolioViewModel: BaseViewModel {
             types.contains(.topHoldings) {
             getPortfolio()
         }
-        if types.contains(.benchmark) {
+        if types.contains(.benchmark) ||
+            types.contains(.portfolioSummary) {
             getBenchmarkChartData()
         }
         if types.contains(.geoDiversification) {
