@@ -15,10 +15,5 @@ public enum APIPath {
         // PORTFOLIO
         public static let portfolio = "v1/portfolio"
         
-        // CHARTS (coming soon)
-        public static let sectorChart = "v1/chart/sector"
-        public static let growthChart = "v1/chart/growth"
-        public static let performanceChart = "v1/chart/performance"
-        
     }
 }
