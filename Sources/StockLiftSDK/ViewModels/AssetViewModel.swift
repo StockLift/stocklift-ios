@@ -92,16 +92,16 @@ final class AssetViewModel: BaseViewModel {
     
     //MARK: GET ASSET IMAGE
     static func getAssetImage(_ symbol: String, complete: @escaping (URL?) -> Void) {
-//        NetworkService.shared.fetchTickerImage(symbol) { result in
-//            switch result {
-//            case .success(let res):
-//                DispatchQueue.main.async {
-//                    complete(URL(string: res.imageUrl ?? ""))
-//                }
-//            case .failure(_):
-//                complete(nil)
-//            }
-//        }
+        NetworkService.shared.getAssetImageUrl(symbol: symbol) { result in
+            switch result {
+            case .success(let res):
+                DispatchQueue.main.async {
+                    complete(URL(string: res.url ?? ""))
+                }
+            case .failure(_):
+                complete(nil)
+            }
+        }
     }
     
     
