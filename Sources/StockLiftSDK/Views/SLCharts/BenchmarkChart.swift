@@ -10,6 +10,7 @@ import SwiftUI
 @available(iOS 16.0, *)
 struct BenchmarkChart: View {
     @ObservedObject var portfolioVM: PortfolioViewModel
+    @Binding var showDisclaimer: Bool
     
     // Link Account
     let linkAccountHeader: String
@@ -19,6 +20,8 @@ struct BenchmarkChart: View {
     let linkAccountConnectSize: CGFloat
     let linkAccountFont: Font
     let linkAccountFontColor: Color
+    let plaidError: () -> Void
+    let getPortfolio: () -> Void
     // Chart
     let chartHeader: String
     let height: CGFloat
@@ -33,6 +36,7 @@ struct BenchmarkChart: View {
     
     init (
         _ viewModel: PortfolioViewModel,
+        showDisclaimer: Binding<Bool>,
         chartHeader: String = "Geographic Diversification",
         linkAccountHeader: String = "Add a brokerage account to get a free detailed breakdown of your investments",
         linkAccountForegroundColor: Color = .white,
@@ -41,6 +45,8 @@ struct BenchmarkChart: View {
         linkAccountConnectSize: CGFloat = 38,
         linkAccountFont: Font = .caption,
         linkAccountFontColor: Color = .white,
+        plaidError: @escaping () -> Void,
+        getPortfolio: @escaping () -> Void,
         height: CGFloat = 250,
         sp500Colors: [Color] = [.yellow, .yellow],
         portfolioColors: [Color] = [.blue, .blue],
@@ -52,6 +58,7 @@ struct BenchmarkChart: View {
         headerFontColor: Color = .primary
     ) {
         self.portfolioVM = viewModel
+        self._showDisclaimer = showDisclaimer
         self.chartHeader = chartHeader
         self.height = height
         self.linkAccountHeader = linkAccountHeader
@@ -61,6 +68,8 @@ struct BenchmarkChart: View {
         self.linkAccountConnectSize = linkAccountConnectSize
         self.linkAccountFont = linkAccountFont
         self.linkAccountFontColor = linkAccountFontColor
+        self.plaidError = plaidError
+        self.getPortfolio = getPortfolio
         self.sp500Colors = sp500Colors
         self.portfolioColors = portfolioColors
         self.xAxisFont = xAxisFont
@@ -79,6 +88,10 @@ struct BenchmarkChart: View {
                     .font(headerFont)
                     .foregroundColor(headerFontColor)
                     .underline(color: headerFontColor)
+                    .overlay(alignment: .trailing) {
+                        DisclaimerImage(showDisclaimer: $showDisclaimer, headerFontColor: headerFontColor)
+                            .offset(x: 18)
+                    }
                 
                 BarLineChart(
                     selectedElement: nil,
@@ -114,14 +127,6 @@ struct BenchmarkChart: View {
                 ProgressView()
             }
         }
-    }
-    
-    private func plaidError() {
-        //TODO: -
-    }
-    
-    private func getPortfolio() {
-        //TODO: -
     }
 }
 

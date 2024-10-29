@@ -10,6 +10,7 @@ import SwiftUI
 @available(iOS 15.0, *)
 struct GeoDiversificationChart: View {
     @ObservedObject private var portfolioVM: PortfolioViewModel
+    @Binding var showDisclaimer: Bool
     
     // Link Account
     let linkAccountHeader: String
@@ -19,6 +20,8 @@ struct GeoDiversificationChart: View {
     let linkAccountConnectSize: CGFloat
     let linkAccountFont: Font
     let linkAccountFontColor: Color
+    let plaidError: () -> Void
+    let getPortfolio: () -> Void
     // Chart
     let chartHeader: String
     let headerFont: Font
@@ -28,6 +31,7 @@ struct GeoDiversificationChart: View {
     
     init(
         _ viewModel: PortfolioViewModel,
+        showDisclaimer: Binding<Bool>,
         chartHeader: String = "Geo Diversification",
         linkAccountHeader: String = "Add a brokerage account to get a free detailed breakdown of your investments",
         linkAccountForegroundColor: Color = .white,
@@ -36,12 +40,15 @@ struct GeoDiversificationChart: View {
         linkAccountConnectSize: CGFloat = 38,
         linkAccountFont: Font = .caption,
         linkAccountFontColor: Color = .white,
+        plaidError: @escaping () -> Void,
+        getPortfolio: @escaping () -> Void,
         headerFont: Font = .subheadline,
         headerFontColor: Color = .primary,
         subHeaderFont: Font = .caption,
         subHeaderFontColor: Color = .primary
     ) {
         self.portfolioVM = viewModel
+        self._showDisclaimer = showDisclaimer
         self.chartHeader = chartHeader
         self.linkAccountHeader = linkAccountHeader
         self.linkAccountForegroundColor = linkAccountForegroundColor
@@ -50,6 +57,8 @@ struct GeoDiversificationChart: View {
         self.linkAccountConnectSize = linkAccountConnectSize
         self.linkAccountFont = linkAccountFont
         self.linkAccountFontColor = linkAccountFontColor
+        self.plaidError = plaidError
+        self.getPortfolio = getPortfolio
         self.headerFont = headerFont
         self.headerFontColor = headerFontColor
         self.subHeaderFont = subHeaderFont
@@ -61,8 +70,8 @@ struct GeoDiversificationChart: View {
             // MAP CHART - Asset Locations
             if let annotations = self.portfolioVM.assetCoordinates, let geoAssets = portfolioVM.geoAssets {
                 AssetMapView(
+                    showDisclaimer: $showDisclaimer,
                     annotations: annotations,
-                    missingSymbols: portfolioVM.missingSymbols, 
                     usersAssets: geoAssets,
                     chartHeader: chartHeader,
                     date: $portfolioVM.dateConnected,
@@ -89,14 +98,6 @@ struct GeoDiversificationChart: View {
                 )
             }
         }
-    }
-    
-    private func plaidError() {
-        //TODO: -  handle error
-    }
-    
-    private func getPortfolio() {
-        //TODO: config get portfolio
     }
 }
 

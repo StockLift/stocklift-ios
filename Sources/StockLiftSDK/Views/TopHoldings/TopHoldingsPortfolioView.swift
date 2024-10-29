@@ -10,7 +10,9 @@ import SwiftUI
 
 @available(iOS 15.0, *)
 struct TopHoldingsPortfolioView: View {
+    @Binding var showDisclaimer: Bool
     @State var topHoldings: [TopHoldingAsset]
+    
     let totalNetValue: Decimal
     let hasCostBasis: Bool
     
@@ -32,6 +34,10 @@ struct TopHoldingsPortfolioView: View {
                 .font(headerFont)
                 .foregroundColor(headerFontColor)
                 .underline(color: headerFontColor)
+                .overlay(alignment: .trailing) {
+                    DisclaimerImage(showDisclaimer: $showDisclaimer, headerFontColor: headerFontColor)
+                        .offset(x: 18)
+                }
                 .padding(.bottom)
             
             TopHoldingsSortButton(sortViewState: $sortViewState, fontColor: headerFontColor, buttonColor: buttonColor)
@@ -74,11 +80,7 @@ struct TopHoldingsPortfolioView: View {
         //                                  showUpdateCostBasis: $showUpdateCostBasis)
         //            }
         //        }
-//        .overlay(
-//            RoundedRectangle(cornerRadius: 14).stroke(Color.primary, lineWidth: 2)
-//        )
         .padding(4)
-        //        .makeCardLayer()
         .onChange(of: sortViewState, perform: { _ in
             toggle(sortViewState)
         })

@@ -10,6 +10,7 @@ import SwiftUI
 @available(iOS 15.0, *)
 struct TopHoldingsChart: View {
     @ObservedObject private var portfolioVM: PortfolioViewModel
+    @Binding var showDisclaimer: Bool
     
     // Link Account
     let linkAccountHeader: String
@@ -32,6 +33,7 @@ struct TopHoldingsChart: View {
     
     init(
         _ viewModel: PortfolioViewModel,
+        showDisclaimer: Binding<Bool>,
         chartHeader: String = "Top Holdings",
         linkAccountHeader: String = "Add a brokerage account to get a free detailed breakdown of your investments",
         linkAccountForegroundColor: Color = .white,
@@ -49,6 +51,7 @@ struct TopHoldingsChart: View {
         buttonColor: Color = .yellow
     ) {
         self.portfolioVM = viewModel
+        self._showDisclaimer = showDisclaimer
         self.chartHeader = chartHeader
         self.linkAccountHeader = linkAccountHeader
         self.linkAccountForegroundColor = linkAccountForegroundColor
@@ -71,6 +74,7 @@ struct TopHoldingsChart: View {
             if let holdings = portfolioVM.userTopHoldings, !holdings.isEmpty, let netWorth = portfolioVM.netWorth {
                 // TOP HOLDINGS
                 TopHoldingsPortfolioView(
+                    showDisclaimer: $showDisclaimer,
                     topHoldings: holdings,
                     totalNetValue: Decimal(Double(netWorth)),
                     hasCostBasis: portfolioVM.hasCostBasis,

@@ -12,6 +12,8 @@ import Charts
 @available(iOS 16.0, *)
 struct SectorBreakdownChart: View {
     @ObservedObject private var portfolioVM: PortfolioViewModel
+    @Binding var showDisclaimer: Bool
+    
     @State private var showBreakdown: Bool = false
     
     private var screenWidth: Double {
@@ -42,6 +44,7 @@ struct SectorBreakdownChart: View {
     
     init(
         _ viewModel: PortfolioViewModel,
+        showDisclaimer: Binding<Bool>,
         chartHeader: String = "Diversification by Sector",
         linkAccountHeader: String = "Add a brokerage account to get a free detailed breakdown of your investments",
         linkAccountForegroundColor: Color = .white,
@@ -60,6 +63,7 @@ struct SectorBreakdownChart: View {
         subHeaderFontColor: Color = .primary
     ) {
         self.portfolioVM = viewModel
+        self._showDisclaimer = showDisclaimer
         self.chartHeader = chartHeader
         self.linkAccountHeader = linkAccountHeader
         self.linkAccountForegroundColor = linkAccountForegroundColor
@@ -88,7 +92,12 @@ struct SectorBreakdownChart: View {
                         .font(headerFont)
                         .foregroundColor(headerFontColor)
                         .underline(color: headerFontColor)
+                        .overlay(alignment: .trailing) {
+                            DisclaimerImage(showDisclaimer: $showDisclaimer, headerFontColor: headerFontColor)
+                                .offset(x: 18)
+                        }
                         .padding(.top, 12)
+                    
                     
                     
                     HStack {

@@ -11,8 +11,8 @@ import MapKit
 
 @available(iOS 15.0, *)
 struct AssetMapView: View {
+    @Binding var showDisclaimer: Bool
     let annotations: [AssetCoordinates]
-    let missingSymbols: Int
     let usersAssets: [GeoAssetsData]
     let chartHeader: String
     
@@ -43,6 +43,10 @@ struct AssetMapView: View {
                 .font(headerFont)
                 .foregroundColor(headerFontColor)
                 .underline(color: headerFontColor)
+                .overlay(alignment: .trailing) {
+                    DisclaimerImage(showDisclaimer: $showDisclaimer, headerFontColor: headerFontColor)
+                        .offset(x: 18)
+                }
                 .padding(.bottom)
             
             // iOS 17
