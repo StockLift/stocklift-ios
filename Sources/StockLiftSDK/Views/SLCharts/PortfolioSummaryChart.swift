@@ -165,9 +165,9 @@ struct PortfolioSummaryChart: View {
                     .foregroundColor(headerFontColor)
                     .fontWeight(.heavy)
             }
-            .padding(.bottom)
+//            .padding(.bottom)
 
-//            Spacer()
+            Spacer()
             HStack {
                 PercentChangeView(config: gainOrLoss,
                                   amount: portfolioVM.percentChangeInPortfolio,
