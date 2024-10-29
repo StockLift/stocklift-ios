@@ -188,6 +188,8 @@ struct DemoTextView: View {
 struct Example1View: View {
     var body: some View {
         ScrollView {
+            Text("Example if a user initializes each chart individually.")
+                .font(.footnote).foregroundStyle(Color.secondary)
             SLCharts([.portfolioSummary])
                 .frame(height: 210)
             
@@ -202,15 +204,10 @@ struct Example1View: View {
 
 struct Example2View: View {
     var body: some View {
-        ScrollView {
-            SLCharts([.portfolioSummary, .projections])
-                .frame(height: 220)
-            
-//            SLCharts([.topHoldings])
-//                .frame(height: 320)
-//            
-//            SLCharts([.geoDiversification, .benchmark, .sector])
-//                .frame(height: 320)
+        VStack {
+            Text("Example if a user initializes using the new vertical alignment.")
+                .font(.footnote).foregroundStyle(Color.secondary)
+            SLCharts(axis: .vertical)
         }
     }
 }

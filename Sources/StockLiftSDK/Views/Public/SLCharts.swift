@@ -7,6 +7,11 @@
 
 import SwiftUI
 
+public enum SLChartAxis {
+    case horizontal
+    case vertical
+}
+
 @available(iOS 16.0, *)
 public struct SLCharts: View {
     @StateObject private var viewModel = PortfolioViewModel()
@@ -15,6 +20,7 @@ public struct SLCharts: View {
     //MARK: - PROPERTIES
     /// CHARTS to show
     public var chartViews: [SLChartType]
+    public var axis: SLChartAxis
     // Header
     public var projectionsChartHeader: String
     public var benchmarkChartHeader: String
@@ -61,9 +67,12 @@ public struct SLCharts: View {
     public var disclaimerTitleFont: Font
     public var disclaimerBodyFont: Font
     
+    let chartHeight: CGFloat = UIScreen.main.bounds.width * 0.8
+    
     //MARK: - INIT
     public init(
         _ views: [SLChartType] = SLChartType.allCases,
+        axis: SLChartAxis = .horizontal,
         // Chart Headers
         projectionsChartHeader: String = "Portfolio Growth Projections",
         benchmarkChartHeader: String = "My Portfolio vs. SP 500",
@@ -112,6 +121,7 @@ public struct SLCharts: View {
         
     ) {
         self.chartViews = views
+        self.axis = axis
         self.projectionsChartHeader = projectionsChartHeader
         self.benchmarkChartHeader = benchmarkChartHeader
         self.sectorChartHeader = sectorChartHeader
@@ -152,55 +162,103 @@ public struct SLCharts: View {
     
     //MARK: - BODY
     public var body: some View {
-        TabView {
-            if showDisclaimer {
-                DisclaimerView(
-                    isPresented: $showDisclaimer,
-                    titleFont: disclaimerTitleFont,
-                    bodyFont: disclaimerBodyFont
-                )
-            } else {
-                ForEach(chartViews) { view in
-                    switch view {
-                    case .projections:
-                        /// ------------ Projections Chart
-                        ProjectionsChartReference
-                            .tag(view.tag)
-                            .padding(8)
-                    case .benchmark:
-                        /// ------------ Benchmark Chart
-                        BenchmarkChartReference
-                            .tag(view.tag)
-                            .padding(8)
-                    case .sector:
-                        /// ------------ Sector Breakdown Chart
-                        SectorChartReference
-                            .tag(view.tag)
-                    case .geoDiversification:
-                        /// ------------ GeoDiversification Chart
-                        GeoDiversificationChartReference
-                            .tag(view.tag)
-                            .padding(8)
-                    case .topHoldings:
-                        /// ------------ Top Holdings Chart
-                        TopHoldingsChartReference
-                            .tag(view.tag)
-                            .padding(8)
-                    case .portfolioSummary:
-                        /// ------------ Portfolio Summary Chart
-                        SummaryChartReference
-                            .tag(view.tag)
-                            .padding(8)
+        switch axis {
+        case .horizontal:
+            TabView {
+                if showDisclaimer {
+                    DisclaimerView(
+                        isPresented: $showDisclaimer,
+                        titleFont: disclaimerTitleFont,
+                        bodyFont: disclaimerBodyFont
+                    )
+                } else {
+                    ForEach(chartViews) { view in
+                        switch view {
+                        case .projections:
+                            /// ------------ Projections Chart
+                            ProjectionsChartReference
+                                .tag(view.tag)
+                                .padding(8)
+                        case .benchmark:
+                            /// ------------ Benchmark Chart
+                            BenchmarkChartReference
+                                .tag(view.tag)
+                                .padding(8)
+                        case .sector:
+                            /// ------------ Sector Breakdown Chart
+                            SectorChartReference
+                                .tag(view.tag)
+                        case .geoDiversification:
+                            /// ------------ GeoDiversification Chart
+                            GeoDiversificationChartReference
+                                .tag(view.tag)
+                                .padding(8)
+                        case .topHoldings:
+                            /// ------------ Top Holdings Chart
+                            TopHoldingsChartReference
+                                .tag(view.tag)
+                                .padding(8)
+                        case .portfolioSummary:
+                            /// ------------ Portfolio Summary Chart
+                            SummaryChartReference
+                                .tag(view.tag)
+                                .padding(8)
+                        }
                     }
                 }
             }
+            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+            .frame(maxWidth: UIScreen.main.bounds.width / 1.05)
+            .background(cardBackgroundColor.opacity(0.3))
+            .cornerRadius(cardCornerRadius)
+            .shadow(radius: cardShadow ? 8 : 0)
+            .onAppear { viewModel.initView(types: chartViews) }
+        case .vertical:
+            ScrollView {
+                ForEach(chartViews) { view in
+                    switch view {
+                    case .portfolioSummary:
+                        /// ------------ Portfolio Summary Chart
+                        SummaryChartReference
+                            .frame(height: UIScreen.main.bounds.width * 0.4)
+                            .padding(8)
+                        SLDivider
+                    case .projections:
+                        /// ------------ Projections Chart
+                        ProjectionsChartReference
+                            .frame(height: chartHeight)
+                            .padding(8)
+                        SLDivider
+                    case .benchmark:
+                        /// ------------ Benchmark Chart
+                        BenchmarkChartReference
+                            .frame(height: chartHeight)
+                            .padding(8)
+                        SLDivider
+                    case .sector:
+                        /// ------------ Sector Breakdown Chart
+                        SectorChartReference
+                            .frame(height: chartHeight)
+                            .padding(8)
+                        SLDivider
+                    case .geoDiversification:
+                        /// ------------ GeoDiversification Chart
+                        GeoDiversificationChartReference
+                            .frame(height: chartHeight)
+                            .padding(8)
+                        SLDivider
+                    case .topHoldings:
+                        /// ------------ Top Holdings Chart
+                        TopHoldingsChartReference
+                            .frame(height: chartHeight)
+                            .padding(8)
+                        SLDivider
+                    }
+                }
+            }
+            .onAppear { viewModel.initView(types: chartViews) }
         }
-        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-        .frame(maxWidth: UIScreen.main.bounds.width / 1.05)
-        .background(cardBackgroundColor.opacity(0.3))
-        .cornerRadius(cardCornerRadius)
-        .shadow(radius: cardShadow ? 8 : 0)
-        .onAppear { viewModel.initView(types: chartViews) }
+
     }
     
     

@@ -9,12 +9,12 @@ import Foundation
 
 public enum SLChartType: Int, CaseIterable, Identifiable {
     public var id: Self { self }
+    case portfolioSummary
     case sector
     case benchmark
     case projections
     case geoDiversification
     case topHoldings
-    case portfolioSummary
     
     var tag: Int { self.rawValue }
 }
