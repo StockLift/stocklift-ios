@@ -144,7 +144,7 @@ struct ContinentDetailCell: View {
         .clipShape(RoundedRectangle(cornerRadius: 20))
         .onTapGesture {
             withAnimation(.easeInOut) {
-                HapticTap.medium.impactOccurred()
+                HapticTap.medium()
                 self.isShowing.toggle()
             }
         }
