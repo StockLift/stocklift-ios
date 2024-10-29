@@ -13,7 +13,7 @@ public struct SLCharts: View {
     @State private var showDisclaimer: Bool = false
     
     //MARK: - PROPERTIES
-    /// CHART Type to show
+    /// CHARTS to show
     public var chartViews: [SLChartType]
     // Header
     public var projectionsChartHeader: String
@@ -56,14 +56,6 @@ public struct SLCharts: View {
     public var cardBackgroundColor: Color
     public var cardCornerRadius: CGFloat
     public var cardShadow: Bool
-    
-    // Score Button
-//    public var scoreButtonColor: Color
-//    public var scoreButtonFontColor: Color
-//    public var scoreButtonFont: Font
-    
-    // TOP HOLDINGS
-//    public var topHoldingsButtonColor: Color
     
     // Disclaimer Font
     public var disclaimerTitleFont: Font
@@ -114,14 +106,6 @@ public struct SLCharts: View {
         cardCornerRadius: CGFloat = 14,
         cardShadow: Bool = true,
         
-        // Portfolio Summary Score Button
-//        scoreButtonColor: Color = .blue,
-//        scoreButtonFontColor: Color = .white,
-//        scoreButtonFont: Font = .caption,
-        
-        // TOP HOLDINGS
-//        topHoldingsButtonColor: Color = .blue,
-        
         // Disclaimer Font
         disclaimerTitleFont: Font = .body,
         disclaimerBodyFont: Font = .caption
@@ -163,10 +147,6 @@ public struct SLCharts: View {
         self.cardShadow = cardShadow
         self.sectorDetailFont = sectorDetailFont
         self.sectorDetailFontColor = sectorDetailFontColor
-//        self.scoreButtonColor = scoreButtonColor
-//        self.scoreButtonFontColor = scoreButtonFontColor
-//        self.scoreButtonFont = scoreButtonFont
-//        self.topHoldingsButtonColor = topHoldingsButtonColor
         self.disclaimerBodyFont = disclaimerBodyFont
         self.disclaimerTitleFont = disclaimerTitleFont
     }
