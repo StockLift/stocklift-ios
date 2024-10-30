@@ -40,7 +40,9 @@ final class PortfolioViewModel: BaseViewModel {
     
     //MARK: Init
     func initView(types: [SLChartType]) {
-        isLoading = true
+        if !types.isEmpty {
+            isLoading = true
+        }
         if types.contains(.portfolioSummary) ||
             types.contains(.projections) ||
             types.contains(.sector) ||
