@@ -21,5 +21,6 @@ public enum SelectedSector: String {
     case consumerCyclical = "Consumer Cyclical"
     case communicationServices = "Communication Services"
     case basicMaterials = "Basic Materials"
+    case fixedIncome = "Fixed Income"
     case none = "none selected"
 }

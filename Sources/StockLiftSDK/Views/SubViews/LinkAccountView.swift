@@ -46,7 +46,7 @@ struct LinkAccountView: View {
                 ProgressView()
             case .loaded:
                 // Plaid Link flow
-                OpenLinkButton(getPortfolio: getPortfolio, errorHandler: plaidError, plaidAccountError: .constant(nil)) {
+                OpenLinkButton(getPortfolio: getPortfolio, errorHandler: plaidError) {
                     VStack(alignment: .center, spacing: 24) {
                         VStack(spacing: 16) {
                             HeaderView

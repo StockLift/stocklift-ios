@@ -186,7 +186,6 @@ public struct SLCharts: View {
         self.assetDefaultColor = assetDefaultColor
         self.symbolFont = symbolFont
         self.nameFont = nameFont
-        
     }
     
     public var body: some View {

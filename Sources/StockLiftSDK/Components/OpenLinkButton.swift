@@ -12,7 +12,6 @@ import SwiftUI
 struct OpenLinkButton<Content: View>: View {
     var getPortfolio: () -> Void
     var errorHandler: () -> Void
-    @Binding var plaidAccountError: PlaidError?
     @ViewBuilder var content: Content
     
     private var token: String {
@@ -54,8 +53,7 @@ struct OpenLinkButton<Content: View>: View {
                 self.exchangeToken(token: success.publicToken,
                                    name: name,
                                    id: id,
-                                   accounts: accounts,
-                                   plaidError: plaidAccountError)
+                                   accounts: accounts)
             }
         )
 
@@ -101,7 +99,7 @@ private struct PlaidLinkFlow: View {
 
 extension OpenLinkButton {
     /// 2nd - Exchange plaid token for public access token
-    func exchangeToken(token: String, name: String, id: String, accounts: [PlaidAccount], plaidError: PlaidError?) {
+    func exchangeToken(token: String, name: String, id: String, accounts: [PlaidAccount]) {
         /// - SLClient
         guard let client = StockLiftSDK.client else { fatalError(SLError.errorMessage()) }
         /// - Plaid Linked Account
