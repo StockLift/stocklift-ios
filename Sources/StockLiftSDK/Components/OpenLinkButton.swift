@@ -119,30 +119,9 @@ extension OpenLinkButton {
             /// - Hide Show Link View (Main View)
             showLink = false
             // GET PORTFOLIO
-            //                DispatchQueue.main.async {
-            //                    if let error = plaidError {
-            //                        self.removeOldToken(err: error)
-            //                    } else {
-            //                        getPortfolio()
-            //                    }
+            DispatchQueue.main.async {
+                getPortfolio()
+            }
         }
-    }
-    
-    private func removeOldToken(err: PlaidError) {
-//        UserService.shared.removePlaidAccountWithError(id: err.instId) { result in
-//            switch result {
-//            case .success(_):
-//                DispatchQueue.main.async {
-//                    self.plaidAccountError = nil
-//                    getPortfolio()
-//                }
-//            case .failure(let err):
-//                print("⛔️ ERROR: Removing Old Token ⛔️\n\(err.rawValue)")
-//                FBAuth.sendSlackMessage(codeSheet: "OpenLinkButton+removeOldToken",
-//                                        message: "\(err.rawValue)",
-//                                        data: "UUID: \(userUuid ?? "")")
-//                
-//            }
-//        }
     }
 }

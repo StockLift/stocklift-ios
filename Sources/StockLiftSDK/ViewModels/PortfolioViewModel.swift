@@ -40,6 +40,7 @@ final class PortfolioViewModel: BaseViewModel {
     
     //MARK: Init
     func initView(types: [SLChartType]) {
+        isLoading = true
         if types.contains(.portfolioSummary) ||
             types.contains(.projections) ||
             types.contains(.sector) ||
@@ -67,7 +68,6 @@ final class PortfolioViewModel: BaseViewModel {
         guard let client = StockLiftSDK.client else {
             fatalError(SLError.errorMessage(.clientDetailsNotSet))
         }
-        self.isLoading = true
         NetworkService.shared.getPortfolio(clientId: client.uuid) { result in
             switch result {
             case .success(let res):
