@@ -272,7 +272,7 @@ public struct SLCharts: View {
     }
     
     private func getPortfolio() {
-        //TODO: config get portfolio
+        viewModel.initView(types: chartViews)
     }
     
     //MARK: - SECTOR BREAKDOWN CHART
