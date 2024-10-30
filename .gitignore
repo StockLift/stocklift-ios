@@ -91,3 +91,9 @@ iOSInjectionProject/
 
 
 .DS_Store
+
+# !!!!!!!!!!!!!!!!!!!!
+# TESTING - don't want to add testing changes from demo app
+# Will need to remove the below line to make changes to DEMO APP
+SDKDemo/SDKDemo/App/ContentView.swift
+#!!!!!!!!!!!!!!!!!
