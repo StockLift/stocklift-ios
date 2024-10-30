@@ -114,7 +114,7 @@ struct DemoTextView: View {
     var text: String = "This is a demo of the SLCharts configuration."
     var body: some View {
         Rectangle().fill(Color(UIColor.tertiaryLabel)).frame(height: 60)
-            .overlay { Text(text).font(.footnote) }
+            .overlay { Text(text).font(.footnote).padding(4) }
             .padding(6)
     }
 }
@@ -124,8 +124,7 @@ struct Example1View: View {
         ScrollView {
             Text("Example if a user initializes each chart individually.")
                 .font(.footnote).foregroundStyle(Color.secondary)
-            SLCharts([.portfolioSummary])
-                .frame(height: 210)
+            SLCharts([.portfolioSummary], axis: .vertical)
             
             SLCharts([.topHoldings])
                 .frame(height: 320)
