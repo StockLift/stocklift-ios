@@ -356,14 +356,16 @@ public struct SLCharts: View {
     }
     
     private func nextTab() {
-        if selectedTab != self.chartViews.count - 1 {
+        if selectedTab != chartViews.count - 1 {
             withAnimation(.easeInOut) {selectedTab += 1}
+            HapticTap.light()
         }
     }
     
     private func backTab() {
         if selectedTab != 0 {
             withAnimation(.easeInOut) {selectedTab -= 1}
+            HapticTap.light()
         }
     }
     

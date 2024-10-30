@@ -13,7 +13,7 @@ struct ContentView: View {
     @State private var viewState: ViewState = .charts
     private var toggleTitle: String { isDarkMode ? "Light Mode" : "Dark Mode" }
     
-    // Current Testing View (set to empty show default demo layout)
+    // Current Testing View (set to empty to show default demo layout)
     private let testingView: [SLChartType] = []
     
     private enum ViewState {
