@@ -243,6 +243,7 @@ public struct SLCharts: View {
                         ForEach(chartViews) { view in
                             switch view {
                             case .portfolioSummary:
+                                /// Vertical alignment always shows summary at top
                                 EmptyView()
                             case .projections:
                                 /// ------------ Projections Chart
