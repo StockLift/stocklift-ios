@@ -42,46 +42,71 @@ StockLiftSDK.client = client
 Majority of all the UI is customizable. Look at the docs or Package files to see what is available. 
 
 ```swift
-SLCharts(
-    projectionsChartHeader: HelperClass.randomTitle(),
-    benchmarkChartHeader: HelperClass.randomTitle(),
-    sectorChartHeader: HelperClass.randomTitle(),
-    geoDiversificationChartHeader: HelperClass.randomTitle(),
-    topHoldingsChartHeader: HelperClass.randomTitle(),
-    portfolioSummaryChartHeader: HelperClass.randomTitle(),
-    linkAccountHeader: HelperClass.randomConnectAccountTitle(),
-    linkAccountForegroundColor: HelperClass.randomColor(),
-    linkAccountBackgroundColor: HelperClass.randomColor(),
-    linkAccountBorderColor: HelperClass.randomColor(),
-    linkAccountButtonColor: HelperClass.randomColor(),
-    linkAccountButtonFontColor: HelperClass.randomColor(),
-    linkAccountConnectSize: HelperClass.randomHeight(),
-    linkAccountFont: HelperClass.randomSmFont(),
-    linkAccountFontColor: HelperClass.randomColor(),
-    height: HelperClass.randomHeight(),
-    chartForegroundColor: HelperClass.randomColor(),
-    chartForegroundBorderColor: HelperClass.randomColor(),
-    xAxisFont: HelperClass.randomSmFont(),
-    xAxisFontColor: HelperClass.randomColor(),
-    yAxisFont: HelperClass.randomSmFont(),
-    yAxisFontColor: HelperClass.randomColor(),
-    headerFont: HelperClass.randomLgFont(),
-    headerFontColor: HelperClass.randomColor(),
-    subHeaderFont: HelperClass.randomSmFont(),
-    subHeaderFontColor: HelperClass.randomColor(),
-    sectorDetailFont: HelperClass.randomSmFont(),
-    sectorDetailFontColor: HelperClass.randomColor(),
-    sp500Colors: [HelperClass.randomColor(), HelperClass.randomColor()],
-    portfolioColors: [HelperClass.randomColor(), HelperClass.randomColor()],
-    buttonColor: HelperClass.randomColor(),
-    buttonFontColor: HelperClass.randomColor(),
-    buttonFont: HelperClass.randomSmFont(),
-    cardBackgroundColor: HelperClass.randomColor(),
-    cardCornerRadius: HelperClass.randomCornerRadius(),
-    cardShadow: HelperClass.randomShadowBool(),
-    disclaimerTitleFont: HelperClass.randomLgFont(),
-    disclaimerBodyFont: HelperClass.randomSmFont()
-        )
+    // CHARTS to show
+    public var chartViews: [SLChartType]
+    // Vertical or Horizontal
+    public var axis: SLChartAxis
+    // Vertical Alignment Chart Heights
+    public var verticalChartHeights: CGFloat
+    
+    // Header
+    public var projectionsChartHeader: String
+    public var benchmarkChartHeader: String
+    public var sectorChartHeader: String
+    public var geoDiversificationChartHeader: String
+    public var topHoldingsChartHeader: String
+    public var portfolioSummaryChartHeader: String
+    
+    // Link Account
+    public var linkAccountHeader: String
+    public var linkAccountForegroundColor: Color
+    public var linkAccountBackgroundColor: Color
+    public var linkAccountBorderColor: Color
+    public var linkAccountConnectSize: CGFloat
+    public var linkAccountFont: Font
+    public var linkAccountFontColor: Color
+    public var linkAccountButtonFont: Font
+    public var linkAccountButtonColor: Color
+    public var linkAccountButtonFontColor: Color
+    public var linkAccountButtonText: String
+    
+    // Chart
+    public var gainColor: Color
+    public let lossColor: Color
+    public var height: CGFloat
+    public var chartForegroundColor: Color
+    public var chartForegroundBorderColor: Color
+    public var xAxisFont: Font
+    public var xAxisFontColor: Color
+    public var yAxisFont: Font
+    public var yAxisFontColor: Color
+    public var headerFont: Font
+    public var headerFontColor: Color
+    public var subHeaderFont: Font
+    public var subHeaderFontColor: Color
+    public var sectorDetailFont: Font
+    public var sectorDetailFontColor: Color
+    public var sp500Colors: [Color] // Benchmark Chart
+    public var portfolioColors: [Color] // Benchmark Chart
+    public var buttonColor: Color
+    public var buttonFontColor: Color
+    public var buttonFont: Font
+    public var sectorHeaderFont: Font // Sector Details Breakdown
+    public var sectorHeaderFontColor: Color // Sector Details Breakdown
+    public var sectorSubHeaderFont: Font // Sector Details Breakdown
+    public var sectorSubHeaderFontColor: Color // Sector Details Breakdown
+    public var assetDefaultColor: Color // Sector Details Breakdown
+    public var symbolFont: Font // Sector Details Breakdown &
+    public var nameFont: Font // Sector Details Breakdown &
+    
+    // Card Background
+    public var cardBackgroundColor: Color
+    public var cardCornerRadius: CGFloat
+    public var cardShadow: Bool
+    
+    // Disclaimer Font
+    public var disclaimerTitleFont: Font
+    public var disclaimerBodyFont: Font
 ```
 
 # SLProjectionsChart
