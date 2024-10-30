@@ -16,10 +16,15 @@ struct SectorDetailCell: View {
     @Binding var showUpdateCostBasis: (Bool, String)
     let hasCostBasis: Bool
     // -- Properties
-    let gainColor: Color = .blue
-    let lossColor: Color = .red
-    let sectorHeaderFont: Font = .callout
-    let sectorHeaderFontColor: Color = .primary
+    let gainColor: Color
+    let lossColor: Color
+    let sectorHeaderFont: Font
+    let sectorHeaderFontColor: Color
+    let sectorSubHeaderFont: Font
+    let sectorSubHeaderFontColor: Color
+    let assetDefaultColor: Color
+    let symbolFont: Font
+    let nameFont: Font
     
     var percentOfInvestment: String {
         sectorVM.percentOfInvestment
@@ -96,18 +101,21 @@ struct SectorDetailCell: View {
                         
                         VStack(alignment: .leading, spacing: 4) {
                             Text("\(percentOfInvestment)%")
-                                .appFontBlack(size: 16)
+                                .font(.caption)
+                                .fontWeight(.black)
                                 .padding(.vertical, sectorName == "Cash" ? 8 : 0)
                             if sectorName != "Cash" {
                                 Text("\(self.setSymbol(percentInvestChange))%")
-                                    .appFontBlack(size: 12, color: investGainLose ? gainColor : lossColor)
+                                    .font(.caption)
+                                    .fontWeight(.black)
+                                    .foregroundStyle(investGainLose ? gainColor : lossColor)
                             }
                         }
                     }
                 }
                 .padding(.vertical, 6)
                 .frame(maxWidth: .infinity)
-                .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(Color.white.opacity(0.6), lineWidth: 1))
+                .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(Color(UIColor.label), lineWidth: 1))
                 
                 //MARK: RIGHT CELL
                 // 1. GAIN / LOSE Image
@@ -131,38 +139,48 @@ struct SectorDetailCell: View {
                         
                         VStack(alignment: .leading, spacing: 4) {
                             Text(amountInvested, format: .currency(code: "USD"))
-                                .appFontBlack(size: 16)
+                                .font(.caption)
+                                .fontWeight(.black)
                                 .padding(.vertical, sectorName == "Cash" ? 8 : 0)
                             if sectorName != "Cash" {
                                 Text("\(setSymbol(dollarChange.clean, insert: "$"))")
-                                    .appFontBlack(size: 12, color: sectorVM.dollarChangeGainLose ? gainColor : lossColor)
+                                    .font(.caption)
+                                    .fontWeight(.black)
+                                    .foregroundStyle(sectorVM.dollarChangeGainLose ? gainColor : lossColor)
                             }
                         }
                     }
                 }
                 .padding(.vertical, 6)
                 .frame(maxWidth: .infinity)
-                .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(Color.white.opacity(0.6), lineWidth: 1))
+                .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(Color(UIColor.label), lineWidth: 1))
                 
             }
             
-            //MARK: List of Assets in the current selected Sector
+            //MARK: - ASSETS for SECTOR
             if isShowing {
                 VStack {
                     if determineSectorType() {
                         if !sectorVM.sectorStocks.isEmpty {
                             HStack {
                                 Text("Stocks")
-                                    .appFontRegular(size: 12)
+                                    .font(sectorSubHeaderFont)
+                                    .fontWeight(.semibold)
+                                    .foregroundStyle(sectorSubHeaderFontColor)
                                 Spacer()
                             }
                         }
                     }
                     
                     ForEach(sectorVM.sectorStocks) { stock in
-                        AssetDetailCell(assetVM: AssetViewModel(equity: stock, sector: sectorVM.sector),
-                                        showUpdateCostBasis: $showUpdateCostBasis,
-                                        hasCostBasis: hasCostBasis)
+                        AssetDetailCell(
+                            assetVM: AssetViewModel(equity: stock, sector: sectorVM.sector),
+                            showUpdateCostBasis: $showUpdateCostBasis,
+                            hasCostBasis: hasCostBasis,
+                            assetDefaultColor: assetDefaultColor,
+                            symbolFont: symbolFont,
+                            nameFont: nameFont
+                        )
                     }
                     
                     if determineSectorType() {
@@ -170,7 +188,9 @@ struct SectorDetailCell: View {
                             if !sectorVM.sectorFunds.isEmpty {
                                 HStack {
                                     Text("Funds")
-                                        .appFontRegular(size: 12)
+                                        .font(sectorSubHeaderFont)
+                                        .fontWeight(.semibold)
+                                        .foregroundStyle(sectorSubHeaderFontColor)
                                     Spacer()
                                 }
                             }
@@ -178,9 +198,14 @@ struct SectorDetailCell: View {
                     }
                     
                     ForEach(sectorVM.sectorFunds) { stock in
-                        AssetDetailCell(assetVM: AssetViewModel(equity: stock, sector: sectorVM.sector),
-                                        showUpdateCostBasis: $showUpdateCostBasis,
-                                        hasCostBasis: hasCostBasis)
+                        AssetDetailCell(
+                            assetVM: AssetViewModel(equity: stock, sector: sectorVM.sector),
+                            showUpdateCostBasis: $showUpdateCostBasis,
+                            hasCostBasis: hasCostBasis,
+                            assetDefaultColor: assetDefaultColor,
+                            symbolFont: symbolFont,
+                            nameFont: nameFont
+                        )
                     }
                 }
                 .padding(.top)

@@ -130,9 +130,9 @@ struct ContinentDetailCell: View {
                         Spacer()
                     }
                     ForEach(assetDetails.continentAssets) { stock in
-                        AssetDetailCell(assetVM: AssetViewModel(equity: stock),
-                                        showUpdateCostBasis: $showUpdateCostBasis,
-                                        hasCostBasis: hasCostBasis)
+//                        AssetDetailCell(assetVM: AssetViewModel(equity: stock),
+//                                        showUpdateCostBasis: $showUpdateCostBasis,
+//                                        hasCostBasis: hasCostBasis)
                     }
                 }
                 .padding(.top)

@@ -125,14 +125,15 @@ struct SectorBreakdownChart: View {
                     Text("View Breakdown")
                         .font(subHeaderFont)
                         .foregroundStyle(subHeaderFontColor)
-                        .onTapGesture { showBreakdown.toggle() }
+                        .onTapGesture { showBreakdownView() }
                         .padding(.bottom)
                 }
                 .popover(isPresented: $showBreakdown) {
-                    DetailsView(sectorDetailsVM: DetailsViewModel(sectDict: portfolioVM.sectorDetails),
-                                date: portfolioVM.dateConnected,
-                                hasCostBasis: portfolioVM.hasCostBasis,
-                                selectedSector: .none)
+                    PortfolioDetails(sectorDetailsVM: DetailsViewModel(sectDict: portfolioVM.sectorDetails),
+                                     date: portfolioVM.dateConnected,
+                                     hasCostBasis: portfolioVM.hasCostBasis,
+                                     selectedSector: .none,
+                                     updateCostBasisAction: updateCostBasisAction)
                 }
             } else if portfolioVM.isLoading == false  {
                 // --- NO ACCOUNT DATA view
@@ -173,6 +174,15 @@ struct SectorBreakdownChart: View {
         .frame(maxWidth: .infinity)
         .background(Color(UIColor.tertiaryLabel))
         .cornerRadius(22)
+    }
+    
+    private func updateCostBasisAction(_ symbol: String, value: Float) {
+//        DetailsViewModel.updateCostBasis(symbol: symbol, value: value)
+    }
+    
+    private func showBreakdownView() {
+        HapticTap.light()
+        showBreakdown.toggle()
     }
 }
 
