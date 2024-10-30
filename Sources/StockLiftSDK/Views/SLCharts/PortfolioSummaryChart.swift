@@ -20,6 +20,7 @@ struct PortfolioSummaryChart: View {
     // Initializers
 //    let showNullDataAlert: Bool
     let chartHeader: String
+    let axis: SLChartAxis
     // Link Account
     let linkAccountHeader: String
     let linkAccountForegroundColor: Color
@@ -80,6 +81,7 @@ struct PortfolioSummaryChart: View {
     
     init(
         _ vm: PortfolioViewModel,
+        axis: SLChartAxis,
 //        showNullDataAlert: Bool,
         showDisclaimer: Binding<Bool>,
         chartHeader: String = "Portfolio Net Summary",
@@ -102,6 +104,7 @@ struct PortfolioSummaryChart: View {
     )
     {
         self.portfolioVM = vm
+        self.axis = axis
 //        self.showNullDataAlert = showNullDataAlert
         self.chartHeader = chartHeader
         self.linkAccountHeader = linkAccountHeader
@@ -149,35 +152,37 @@ struct PortfolioSummaryChart: View {
     //MARK: MAIN VIEW
     @ViewBuilder
     private func MainView(netWorth: Float, score: String) -> some View {
-        VStack(alignment: .center, spacing: 0) {
-            VStack(spacing: 24) {
+        VStack(alignment: .center) {
+//            VStack(spacing: 24) {
                 Text(chartHeader)
                     .font(headerFont)
                     .foregroundColor(headerFontColor)
                     .underline(color: headerFontColor)
                     .overlay(alignment: .trailing) {
                         DisclaimerImage(showDisclaimer: $showDisclaimer, headerFontColor: headerFontColor)
-                            .offset(x: 18)
                     }
+                    .padding(.bottom)
                 
                 Text(netWorth, format: .currency(code: "USD"))
                     .font(.title)
                     .foregroundColor(headerFontColor)
                     .fontWeight(.heavy)
-            }
+//            }
 //            .padding(.bottom)
 
-            Spacer()
+            if axis == .horizontal {
+                Spacer()
+            }
             HStack {
                 PercentChangeView(config: gainOrLoss,
                                   amount: portfolioVM.percentChangeInPortfolio,
                                   type: true)
-                .fixedSize(horizontal: false, vertical: true)
+//                .fixedSize(horizontal: false, vertical: true)
                 
                 PercentChangeView(config: returnGainOrLoss,
                                   amount: portfolioVM.returnOnInvestment,
                                   type: false)
-                .fixedSize(horizontal: false, vertical: true)
+//                .fixedSize(horizontal: false, vertical: true)
                 
                 .overlay(alignment: .topTrailing) {
                     if !portfolioVM.hasCostBasis {
@@ -194,11 +199,16 @@ struct PortfolioSummaryChart: View {
                     }
                 }
             }
+            .padding(.bottom)
             
-            Spacer()
+            if axis == .horizontal {
+                Spacer()
+            }
             
             // Diversification Score View
             DiversificationScore(score: score)
+                .padding(.horizontal, 8)
+                .padding(.bottom)
         }
         .onReceive(timer) { value in
             guard let percent = percent else { return }
@@ -235,8 +245,8 @@ struct PortfolioSummaryChart: View {
                                percentOfProgress: $progressPercent
                 )
                 .animation(.spring(response: 0.55, dampingFraction: 0.85), value: progressPercent)
-                .padding(.horizontal, 8)
-                .padding(.bottom)
+//                .padding(.horizontal, 8)
+//                .padding(.bottom)
                 
             } else {
                 Text("Calculate Diversification Score")
@@ -246,8 +256,8 @@ struct PortfolioSummaryChart: View {
                     .frame(width: UIScreen.main.bounds.width / 1.15, height: 28)
                     .background(!hasAccount ? Color.gray : scoreButtonColor)
                     .cornerRadius(20)
-                    .padding(.horizontal, 8)
-                    .padding(.bottom)
+//                    .padding(.horizontal, 8)
+//                    .padding(.bottom)
                     .onTapGesture {
                         guard hasAccount else { return }
                         withAnimation(.easeOut) {
@@ -295,13 +305,15 @@ struct PortfolioSummaryChart: View {
                             .font(bodyFont)
                             .foregroundStyle(bodyFontColor)
                             .multilineTextAlignment(.leading)
-                            .layoutPriority(1)
+//                            .layoutPriority(1)
+                            .fixedSize(horizontal: false, vertical: true)
                     } else {
                         Text("Return on\nInvestment")
                             .font(bodyFont)
                             .foregroundStyle(bodyFontColor)
                             .multilineTextAlignment(.leading)
-                            .layoutPriority(1)
+//                            .layoutPriority(1)
+                            .fixedSize(horizontal: false, vertical: true)
                     }
                 }
             }

@@ -38,7 +38,6 @@ struct TopHoldingsPortfolioView: View {
                 .underline(color: headerFontColor)
                 .overlay(alignment: .trailing) {
                     DisclaimerImage(showDisclaimer: $showDisclaimer, headerFontColor: headerFontColor)
-                        .offset(x: 18)
                 }
                 .padding(.bottom, 12)
             

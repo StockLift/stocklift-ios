@@ -189,7 +189,7 @@ public extension View {
     var SLDivider: some View {
         Divider()
             .frame(height: 1)
-            .overlay(Color.gray.opacity(0.3))
+            .overlay(Color(UIColor.tertiaryLabel))
     }
 }
 
@@ -205,7 +205,7 @@ public extension View {
     }
     
     // CREATE Image for Symbol (url or symbol or name prefixed)
-    func AssetImageHandler(assetImageUrl: URL?, asset: UserEquity, size: CGFloat = 40) -> some View {
+    func AssetImageHandler(assetImageUrl: URL?, asset: UserEquity, size: CGFloat = 40, color: Color = .blue) -> some View {
         let symbol = asset.symbol?.lowercased()
         return Group {
             if symbol != "voc" {
@@ -214,7 +214,7 @@ public extension View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: size, height: size)
-                        .background(Color.blue)
+                        .background(color)
                         .clipShape(Circle())
                         .padding(.trailing, 8)
                 } else {
@@ -223,7 +223,7 @@ public extension View {
                             .font(.caption2)
                             .shadow(radius: 2)
                             .frame(width: size, height: size)
-                            .background(Color.blue)
+                            .background(color)
                             .clipShape(Circle())
                             .padding(.trailing, 8)
                     } else if let image = asset.symbol, image != "" {
@@ -231,7 +231,7 @@ public extension View {
                             .font(.caption2)
                             .shadow(radius: 2)
                             .frame(width: size, height: size)
-                            .background(Color.blue)
+                            .background(color)
                             .clipShape(Circle())
                             .padding(.trailing, 8)
                     } else {
@@ -239,7 +239,7 @@ public extension View {
                             .font(.caption2)
                             .shadow(radius: 2)
                             .frame(width: size, height: size)
-                            .background(Color.blue)
+                            .background(color)
                             .clipShape(Circle())
                             .padding(.trailing, 8)
                     }
@@ -250,7 +250,7 @@ public extension View {
                     .font(.footnote)
                     .shadow(radius: 2)
                     .frame(width: size, height: size)
-                    .background(Color.blue)
+                    .background(color)
                     .clipShape(Circle())
                     .padding(.trailing, 8)
             }

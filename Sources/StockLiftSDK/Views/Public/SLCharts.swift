@@ -222,44 +222,51 @@ public struct SLCharts: View {
             //MARK: Vertical alignment
         case .vertical:
             ScrollView {
-                ForEach(chartViews) { view in
-                    switch view {
-                    case .portfolioSummary:
-                        /// ------------ Portfolio Summary Chart
-                        SummaryChartReference
-                            .frame(height: UIScreen.main.bounds.width * 0.4)
-                            .padding(8)
-                        SLDivider
-                    case .projections:
-                        /// ------------ Projections Chart
-                        ProjectionsChartReference
-                            .frame(height: chartHeight)
-                            .padding(8)
-                        SLDivider
-                    case .benchmark:
-                        /// ------------ Benchmark Chart
-                        BenchmarkChartReference
-                            .frame(height: chartHeight)
-                            .padding(8)
-                        SLDivider
-                    case .sector:
-                        /// ------------ Sector Breakdown Chart
-                        SectorChartReference
-                            .frame(height: chartHeight)
-                            .padding(8)
-                        SLDivider
-                    case .geoDiversification:
-                        /// ------------ GeoDiversification Chart
-                        GeoDiversificationChartReference
-                            .frame(height: chartHeight)
-                            .padding(8)
-                        SLDivider
-                    case .topHoldings:
-                        /// ------------ Top Holdings Chart
-                        TopHoldingsChartReference
-                            .frame(height: chartHeight)
-                            .padding(8)
-                        SLDivider
+                if showDisclaimer {
+                    DisclaimerView(
+                        isPresented: $showDisclaimer,
+                        titleFont: disclaimerTitleFont,
+                        bodyFont: disclaimerBodyFont
+                    )
+                } else {
+                    /// ------------ Portfolio Summary Chart
+                    SummaryChartReference
+                    SLDivider
+                    ForEach(chartViews) { view in
+                        switch view {
+                        case .portfolioSummary:
+                            EmptyView()
+                        case .projections:
+                            /// ------------ Projections Chart
+                            ProjectionsChartReference
+                                .frame(height: chartHeight)
+                                .padding(8)
+                            SLDivider
+                        case .benchmark:
+                            /// ------------ Benchmark Chart
+                            BenchmarkChartReference
+                                .frame(height: chartHeight)
+                                .padding(8)
+                            SLDivider
+                        case .sector:
+                            /// ------------ Sector Breakdown Chart
+                            SectorChartReference
+                                .frame(height: chartHeight)
+                                .padding(8)
+                            SLDivider
+                        case .geoDiversification:
+                            /// ------------ GeoDiversification Chart
+                            GeoDiversificationChartReference
+                                .frame(height: chartHeight)
+                                .padding(8)
+                            SLDivider
+                        case .topHoldings:
+                            /// ------------ Top Holdings Chart
+                            TopHoldingsChartReference
+                                .frame(height: chartHeight)
+                                .padding(8)
+                            SLDivider
+                        }
                     }
                 }
             }
@@ -410,6 +417,7 @@ public struct SLCharts: View {
     private var SummaryChartReference: some View {
         PortfolioSummaryChart(
             viewModel,
+            axis: axis,
             //            showNullDataAlert: !viewModel.hasCostBasis,
             showDisclaimer: $showDisclaimer,
             chartHeader: portfolioSummaryChartHeader,
