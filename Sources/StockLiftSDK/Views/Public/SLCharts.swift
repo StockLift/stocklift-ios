@@ -259,13 +259,7 @@ public struct SLCharts: View {
                                 selectable: selectedTab != 0)
                     Spacer()
                     OpenLinkButton(getPortfolio: getPortfolio, errorHandler: plaidError) {
-                        Text(linkAccountButtonText)
-                            .font(linkAccountButtonFont)
-                            .foregroundColor(linkAccountButtonFontColor)
-                            .padding(.vertical, 4)
-                            .padding(.horizontal, 12)
-                            .background(linkAccountButtonColor)
-                            .clipShape(.capsule)
+                        LinkAccountButton
                     }
                     Spacer()
                     TabSelector(imageName: "arrow.right.circle",
@@ -551,6 +545,17 @@ public struct SLCharts: View {
                     action()
                 }
             }
+    }
+    
+    @ViewBuilder
+    private var LinkAccountButton: some View {
+        Text(linkAccountButtonText)
+            .font(linkAccountButtonFont)
+            .foregroundColor(linkAccountButtonFontColor)
+            .padding(.vertical, 4)
+            .padding(.horizontal, 12)
+            .background(linkAccountButtonColor)
+            .clipShape(.capsule)
     }
 }
 

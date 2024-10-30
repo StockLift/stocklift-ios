@@ -50,6 +50,8 @@ struct DemoAllChartsView: View {
                          linkAccountForegroundColor: HelperClass.randomColor(),
                          linkAccountBackgroundColor: HelperClass.randomColor(),
                          linkAccountBorderColor: HelperClass.randomColor(),
+                         linkAccountButtonColor: HelperClass.randomColor(),
+                         linkAccountButtonFontColor: HelperClass.randomColor(),
                          //                         linkAccountFontColor: HelperClass.randomColor(),
                          chartForegroundColor: HelperClass.randomColor(),
                          chartForegroundBorderColor: HelperClass.randomColor(),
