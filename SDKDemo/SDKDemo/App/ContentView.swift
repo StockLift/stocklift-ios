@@ -13,8 +13,8 @@ struct ContentView: View {
     @State private var viewState: ViewState = .charts
     private var toggleTitle: String { isDarkMode ? "Light Mode" : "Dark Mode" }
     
-    // TESTING View
-    let testingView: [SLChartType]  = SLChartType.allCases
+    // Current Testing View (set to empty show default demo layout)
+    private let testingView: [SLChartType] = []
     
     private enum ViewState {
         case login, charts
@@ -32,40 +32,33 @@ struct ContentView: View {
         NavigationStack {
             Text(viewState.title)
                 .font(.title)
-                .onTapGesture { toggleView() }
+                .onTapGesture { withAnimation(.easeInOut) {toggleView()} }
             switch viewState {
             case .login:
-//                NavigationStack {
                     DemoLoginView(login: login)
-//                }
             case .charts:
                 VStack {
+                    // Example Vertical Views
                     HStack {
-                        NavigationLink {
-                            Example1View()
-                        } label: {
-                            Text("Example 1")
-                        }
-                        
+                        NavigationLink { Example1View()
+                        } label: { Text("Vertical Example 1").font(.callout).tint(Color.secondary).underline() }
                         Spacer()
-                        
-                        NavigationLink {
-                            Example2View()
-                        } label: {
-                            Text("Example 2")
-                        }
+                        NavigationLink { Example2View()
+                        } label: { Text("Vertical Example 2").font(.callout).tint(Color.secondary).underline() }
                     }
                     .padding(.horizontal)
-                Toggle(toggleTitle, isOn: $isDarkMode)
-                    .padding(.horizontal)
-                    .tint(.gray)
-//                NavigationStack {
+                    
+                    // LIGHT / DARK Toggle
+                    Toggle(toggleTitle, isOn: $isDarkMode)
+                        .padding(.horizontal)
+                        .tint(.secondary)
+              
+                    // VIEW
                     ScrollView {
                         DemoAllChartsView(testingType: testingView)
                     }
-//                    .navigationTitle("Select a Chart Type")
-//                    .navigationBarTitleDisplayMode(.inline)
                 }
+                .navigationBarTitleDisplayMode(.inline)
             }
         }
     }

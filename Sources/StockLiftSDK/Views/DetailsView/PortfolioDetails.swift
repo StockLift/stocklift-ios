@@ -11,11 +11,11 @@ import SwiftUI
 @available(iOS 15.0, *)
 struct PortfolioDetails: View {
     var sectorDetailsVM: AssetDetails
-    @Binding var date: String
+    let date: String
     let hasCostBasis: Bool
     let selectedSector: SelectedSector
     var updateCostBasisAction: (String, Float) -> Void
-
+    
     @State private var showUpdateCostBasis: (Bool, String) = (false, "")
     
     var queryAssets: Range<Int> {
@@ -28,15 +28,22 @@ struct PortfolioDetails: View {
                 ScrollView(.vertical, showsIndicators: false) {
                     if !hasCostBasis {
                         Text(PortfolioViewModel.missingCostBasisMessage(date))
-                            .appFontRegular(color: .gray)
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
                             .multilineTextAlignment(.center)
                     }
                     
                     ForEach(queryAssets, id: \.self) { index in
-                        SectorDetailCell(sectorVM: SectorViewModel(sector: sectorDetailsVM.sectors[index],
-                                                                   sectorFunds: sectorDetailsVM.funds[index],
-                                                                   sectorStocks: sectorDetailsVM.equities[index]),
-                                         isShowing: sectorIsSelected(sectorDetailsVM.sectors[index].sector), showUpdateCostBasis: $showUpdateCostBasis, hasCostBasis: hasCostBasis)
+                        SectorDetailCell(
+                            sectorVM: SectorViewModel(
+                                sector: sectorDetailsVM.sectors[index],
+                                sectorFunds: sectorDetailsVM.funds[index],
+                                sectorStocks: sectorDetailsVM.equities[index]
+                            ),
+                            isShowing: sectorIsSelected(sectorDetailsVM.sectors[index].sector),
+                            showUpdateCostBasis: $showUpdateCostBasis,
+                            hasCostBasis: hasCostBasis
+                        )
                         .id(sectorDetailsVM.sectors[index].sector)
                     }
                 }
@@ -48,10 +55,10 @@ struct PortfolioDetails: View {
                 }
             }
             .overlay(alignment: .center) {
-//                if showUpdateCostBasis.0 {
-//                    EditCostBasisView(updateCostBasisAction: updateCostBasisAction, 
-//                                      showUpdateCostBasis: $showUpdateCostBasis)
-//                }
+                //                if showUpdateCostBasis.0 {
+                //                    EditCostBasisView(updateCostBasisAction: updateCostBasisAction,
+                //                                      showUpdateCostBasis: $showUpdateCostBasis)
+                //                }
             }
         }
         .padding()
@@ -66,5 +73,5 @@ struct PortfolioDetails: View {
         return false
     }
     
-
+    
 }

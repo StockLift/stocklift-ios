@@ -12,7 +12,7 @@ import StockLiftSDK
 struct DemoAllChartsView: View {
     var testingType: [SLChartType]
     var body: some View {
-        ScrollView {
+        if testingType.isEmpty {
             VStack {
                 SLCharts()
                     .frame(height: 350)
@@ -105,6 +105,10 @@ struct DemoAllChartsView: View {
                 
                 DemoTextView(text: "This is a demo of the SLCharts configured with all charts.")
             }
+        } else {
+            SLCharts(testingType)
+                .frame(height: 350)
+                .padding()
         }
     }
 }
@@ -157,7 +161,8 @@ struct DemoLoginView: View {
                 .background(Color(UIColor.tertiaryLabel))
                 .cornerRadius(8)
                 .padding(.bottom)
-
+                .padding(.horizontal)
+            
             Text("Submit")
                 .padding(.horizontal)
                 .padding(.vertical, 8)

@@ -286,6 +286,7 @@ public struct SLCharts: View {
     // PLAID ERROR
     private func plaidError() {
         //TODO: -  handle error
+        // this setup will not be using this for now, the backend is handling errors differently then the app
     }
     
     // GET PORTFOLIO

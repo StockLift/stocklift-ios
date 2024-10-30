@@ -12,7 +12,7 @@ import SwiftUI
 @available(iOS 15.0, *)
 struct DetailsView: View {
     @StateObject var sectorDetailsVM: DetailsViewModel
-    @Binding var date: String
+    let date: String
     let hasCostBasis: Bool
     let selectedSector: SelectedSector
     
@@ -25,7 +25,7 @@ struct DetailsView: View {
         ZStack(alignment: .bottomTrailing) {
             Color(UIColor.systemBackground).edgesIgnoringSafeArea(.all)
             PortfolioDetails(sectorDetailsVM: sectorDetailsVM,
-                             date: $date, 
+                             date: date, 
                              hasCostBasis: hasCostBasis,
                              selectedSector: selectedSector,
                              updateCostBasisAction: updateCostBasisAction)

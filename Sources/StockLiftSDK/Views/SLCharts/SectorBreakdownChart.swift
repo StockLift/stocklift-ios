@@ -130,7 +130,7 @@ struct SectorBreakdownChart: View {
                 }
                 .popover(isPresented: $showBreakdown) {
                     DetailsView(sectorDetailsVM: DetailsViewModel(sectDict: portfolioVM.sectorDetails),
-                                date: .constant(""),
+                                date: portfolioVM.dateConnected,
                                 hasCostBasis: portfolioVM.hasCostBasis,
                                 selectedSector: .none)
                 }
