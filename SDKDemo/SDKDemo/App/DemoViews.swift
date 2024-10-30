@@ -106,7 +106,6 @@ struct DemoAllChartsView: View {
                 DemoTextView(text: "This is a demo of the SLCharts configured with all charts.")
             }
         }
-        //        .navigationBarTitle("All Charts Demo")
     }
 }
 

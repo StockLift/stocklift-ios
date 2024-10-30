@@ -224,43 +224,58 @@ public struct SLCharts: View {
                         bodyFont: disclaimerBodyFont
                     )
                 } else {
-                    /// ------------ Portfolio Summary Chart
-                    SummaryChartReference
-                    SLDivider
-                    ForEach(chartViews) { view in
-                        switch view {
-                        case .portfolioSummary:
-                            EmptyView()
-                        case .projections:
-                            /// ------------ Projections Chart
-                            ProjectionsChartReference
-                                .frame(height: verticalChartHeights)
-                                .padding(8)
-                            SLDivider
-                        case .benchmark:
-                            /// ------------ Benchmark Chart
-                            BenchmarkChartReference
-                                .frame(height: verticalChartHeights)
-                                .padding(8)
-                            SLDivider
-                        case .sector:
-                            /// ------------ Sector Breakdown Chart
-                            SectorChartReference
-                                .frame(height: verticalChartHeights)
-                                .padding(8)
-                            SLDivider
-                        case .geoDiversification:
-                            /// ------------ GeoDiversification Chart
-                            GeoDiversificationChartReference
-                                .frame(height: verticalChartHeights)
-                                .padding(8)
-                            SLDivider
-                        case .topHoldings:
-                            /// ------------ Top Holdings Chart
-                            TopHoldingsChartReference
-                                .frame(height: verticalChartHeights)
-                                .padding(8)
-                            SLDivider
+                    if viewModel.isLoading == false && !viewModel.hasAccountConnected {
+                        // Link Plaid flow
+                        LinkAccountView(
+                            linkAccountHeader: linkAccountHeader,
+                            plaidError: plaidError,
+                            getPortfolio: getPortfolio,
+                            foregroundColor: linkAccountForegroundColor,
+                            backgroundColor: linkAccountBackgroundColor,
+                            borderColor: linkAccountBorderColor,
+                            connectSize: linkAccountConnectSize,
+                            font: linkAccountFont,
+                            fontColor: linkAccountFontColor
+                        )
+                    } else {
+                        /// ------------ Portfolio Summary Chart
+                        SummaryChartReference
+                        SLDivider
+                        ForEach(chartViews) { view in
+                            switch view {
+                            case .portfolioSummary:
+                                EmptyView()
+                            case .projections:
+                                /// ------------ Projections Chart
+                                ProjectionsChartReference
+                                    .frame(height: verticalChartHeights)
+                                    .padding(8)
+                                SLDivider
+                            case .benchmark:
+                                /// ------------ Benchmark Chart
+                                BenchmarkChartReference
+                                    .frame(height: verticalChartHeights)
+                                    .padding(8)
+                                SLDivider
+                            case .sector:
+                                /// ------------ Sector Breakdown Chart
+                                SectorChartReference
+                                    .frame(height: verticalChartHeights)
+                                    .padding(8)
+                                SLDivider
+                            case .geoDiversification:
+                                /// ------------ GeoDiversification Chart
+                                GeoDiversificationChartReference
+                                    .frame(height: verticalChartHeights)
+                                    .padding(8)
+                                SLDivider
+                            case .topHoldings:
+                                /// ------------ Top Holdings Chart
+                                TopHoldingsChartReference
+                                    .frame(height: verticalChartHeights)
+                                    .padding(8)
+                                SLDivider
+                            }
                         }
                     }
                 }
