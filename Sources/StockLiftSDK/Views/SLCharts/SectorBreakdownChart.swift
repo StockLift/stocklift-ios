@@ -42,6 +42,17 @@ struct SectorBreakdownChart: View {
     let subHeaderFont: Font
     let subHeaderFontColor: Color
     
+    // DETAILS View
+    let gainColor: Color
+    let lossColor: Color
+    let sectorHeaderFont: Font
+    let sectorHeaderFontColor: Color
+    let sectorSubHeaderFont: Font
+    let sectorSubHeaderFontColor: Color
+    let assetDefaultColor: Color
+    let symbolFont: Font
+    let nameFont: Font
+    
     init(
         _ viewModel: PortfolioViewModel,
         showDisclaimer: Binding<Bool>,
@@ -60,7 +71,16 @@ struct SectorBreakdownChart: View {
         detailFont: Font = .caption2,
         detailFontColor: Color = .primary,
         subHeaderFont: Font = .caption,
-        subHeaderFontColor: Color = .primary
+        subHeaderFontColor: Color = .primary,
+        gainColor: Color = .blue,
+        lossColor: Color = .red,
+        sectorHeaderFont: Font = .callout,
+        sectorHeaderFontColor: Color = .primary,
+        sectorSubHeaderFont: Font = .caption2,
+        sectorSubHeaderFontColor: Color = .primary,
+        assetDefaultColor: Color = .blue,
+        symbolFont: Font = .caption,
+        nameFont: Font = .caption
     ) {
         self.portfolioVM = viewModel
         self._showDisclaimer = showDisclaimer
@@ -80,6 +100,15 @@ struct SectorBreakdownChart: View {
         self.detailFontColor = detailFontColor
         self.subHeaderFont = subHeaderFont
         self.subHeaderFontColor = subHeaderFontColor
+        self.gainColor = gainColor
+        self.lossColor = lossColor
+        self.sectorHeaderFont = sectorHeaderFont
+        self.sectorHeaderFontColor = sectorHeaderFontColor
+        self.sectorSubHeaderFont = sectorSubHeaderFont
+        self.sectorSubHeaderFontColor = sectorSubHeaderFontColor
+        self.assetDefaultColor = assetDefaultColor
+        self.symbolFont = symbolFont
+        self.nameFont = nameFont
     }
     
     //  Body
@@ -97,15 +126,13 @@ struct SectorBreakdownChart: View {
                         }
                         .padding(.top, 12)
                     
-                    
-                    
                     HStack {
                         /// PIE CHART ** SP 500 Sector
                         PieChartView(
                             values: PortfolioChartUtils.entriesForDiversification(entries, colors: PIE_CHART_COLORS).map { $0.value },
                             colors: PortfolioChartUtils.entriesForDiversification(entries, colors: PIE_CHART_COLORS).map { $0.color }
                         )
-                        .frame(width: screenWidth)
+                        .frame(width: screenWidth) // weird bug but it works 
                         .frame(width: screenWidth / 2)
                         .padding(.leading, 4)
                         
@@ -129,11 +156,22 @@ struct SectorBreakdownChart: View {
                         .padding(.bottom)
                 }
                 .popover(isPresented: $showBreakdown) {
-                    PortfolioDetails(sectorDetailsVM: DetailsViewModel(sectDict: portfolioVM.sectorDetails),
-                                     date: portfolioVM.dateConnected,
-                                     hasCostBasis: portfolioVM.hasCostBasis,
-                                     selectedSector: .none,
-                                     updateCostBasisAction: updateCostBasisAction)
+                    PortfolioDetails(
+                        sectorDetailsVM: DetailsViewModel(sectDict: portfolioVM.sectorDetails),
+                        date: portfolioVM.dateConnected,
+                        hasCostBasis: portfolioVM.hasCostBasis,
+                        selectedSector: .none,
+                        updateCostBasisAction: updateCostBasisAction,
+                        gainColor: gainColor,
+                        lossColor: lossColor,
+                        sectorHeaderFont: sectorHeaderFont,
+                        sectorHeaderFontColor: sectorHeaderFontColor,
+                        sectorSubHeaderFont: sectorSubHeaderFont,
+                        sectorSubHeaderFontColor: sectorSubHeaderFontColor,
+                        assetDefaultColor: assetDefaultColor,
+                        symbolFont: symbolFont,
+                        nameFont: nameFont
+                    )
                 }
             } else if portfolioVM.isLoading == false  {
                 // --- NO ACCOUNT DATA view

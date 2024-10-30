@@ -38,6 +38,8 @@ public struct SLCharts: View {
     public var linkAccountFontColor: Color
     
     // Chart
+    public var gainColor: Color
+    public let lossColor: Color
     public var height: CGFloat
     public var chartForegroundColor: Color
     public var chartForegroundBorderColor: Color
@@ -56,6 +58,13 @@ public struct SLCharts: View {
     public var buttonColor: Color
     public var buttonFontColor: Color
     public var buttonFont: Font
+    public var sectorHeaderFont: Font // Sector Details Breakdown
+    public var sectorHeaderFontColor: Color // Sector Details Breakdown
+    public var sectorSubHeaderFont: Font // Sector Details Breakdown
+    public var sectorSubHeaderFontColor: Color // Sector Details Breakdown
+    public var assetDefaultColor: Color // Sector Details Breakdown
+    public var symbolFont: Font // Sector Details Breakdown &
+    public var nameFont: Font // Sector Details Breakdown &
     
     // Card Background
     public var cardBackgroundColor: Color
@@ -89,6 +98,8 @@ public struct SLCharts: View {
         linkAccountFontColor: Color = .primary,
         
         // Charts
+        gainColor: Color = .blue,
+        lossColor: Color = .red,
         height: CGFloat = 250,
         chartForegroundColor: Color = Color(UIColor.tertiaryLabel),
         chartForegroundBorderColor: Color = .blue,
@@ -107,6 +118,13 @@ public struct SLCharts: View {
         buttonColor: Color = .blue,
         buttonFontColor: Color = .white,
         buttonFont: Font = .caption,
+        sectorHeaderFont: Font = .callout,
+        sectorHeaderFontColor: Color = .primary,
+        sectorSubHeaderFont: Font = .caption2,
+        sectorSubHeaderFontColor: Color = .primary,
+        assetDefaultColor: Color = .blue,
+        symbolFont: Font = .caption,
+        nameFont: Font = .caption,
         
         // Card
         cardBackgroundColor: Color = Color(UIColor.tertiaryLabel),
@@ -127,6 +145,7 @@ public struct SLCharts: View {
         self.geoDiversificationChartHeader = geoDiversificationChartHeader
         self.topHoldingsChartHeader = topHoldingsChartHeader
         self.portfolioSummaryChartHeader = portfolioSummaryChartHeader
+        // Link Account
         self.linkAccountHeader = linkAccountHeader
         self.linkAccountForegroundColor = linkAccountForegroundColor
         self.linkAccountBackgroundColor = linkAccountBackgroundColor
@@ -134,6 +153,9 @@ public struct SLCharts: View {
         self.linkAccountConnectSize = linkAccountConnectSize
         self.linkAccountFont = linkAccountFont
         self.linkAccountFontColor = linkAccountFontColor
+        // Chart
+        self.gainColor = gainColor
+        self.lossColor = lossColor
         self.height = height
         self.chartForegroundColor = chartForegroundColor
         self.chartForegroundBorderColor = chartForegroundBorderColor
@@ -157,6 +179,14 @@ public struct SLCharts: View {
         self.sectorDetailFontColor = sectorDetailFontColor
         self.disclaimerBodyFont = disclaimerBodyFont
         self.disclaimerTitleFont = disclaimerTitleFont
+        self.sectorHeaderFont = sectorHeaderFont
+        self.sectorHeaderFontColor = sectorHeaderFontColor
+        self.sectorSubHeaderFont = sectorSubHeaderFont
+        self.sectorSubHeaderFontColor = sectorSubHeaderFontColor
+        self.assetDefaultColor = assetDefaultColor
+        self.symbolFont = symbolFont
+        self.nameFont = nameFont
+        
     }
     
     public var body: some View {
@@ -316,7 +346,16 @@ public struct SLCharts: View {
             detailFont: sectorDetailFont,
             detailFontColor: sectorDetailFontColor,
             subHeaderFont: subHeaderFont,
-            subHeaderFontColor: subHeaderFontColor
+            subHeaderFontColor: subHeaderFontColor,
+            gainColor: gainColor,
+            lossColor: lossColor,
+            sectorHeaderFont: sectorHeaderFont,
+            sectorHeaderFontColor: sectorHeaderFontColor,
+            sectorSubHeaderFont: sectorSubHeaderFont,
+            sectorSubHeaderFontColor: sectorSubHeaderFontColor,
+            assetDefaultColor: assetDefaultColor,
+            symbolFont: symbolFont,
+            nameFont: nameFont
         )
     }
     

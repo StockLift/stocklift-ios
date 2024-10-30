@@ -17,15 +17,15 @@ struct PortfolioDetails: View {
     let hasCostBasis: Bool
     let selectedSector: SelectedSector
     var updateCostBasisAction: (String, Float) -> Void
-    let gainColor: Color = .blue
-    let lossColor: Color = .red
-    let sectorHeaderFont: Font = .callout
-    let sectorHeaderFontColor: Color = .primary
-    let sectorSubHeaderFont: Font = .caption2
-    let sectorSubHeaderFontColor: Color = .primary
-    let assetDefaultColor: Color = .blue
-    let symbolFont: Font = .caption
-    let nameFont: Font = .caption
+    let gainColor: Color
+    let lossColor: Color
+    let sectorHeaderFont: Font 
+    let sectorHeaderFontColor: Color
+    let sectorSubHeaderFont: Font
+    let sectorSubHeaderFontColor: Color
+    let assetDefaultColor: Color
+    let symbolFont: Font
+    let nameFont: Font
     
     @State private var showUpdateCostBasis: (Bool, String) = (false, "")
     
