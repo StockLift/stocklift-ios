@@ -7,11 +7,6 @@
 
 import SwiftUI
 
-public enum SLChartAxis {
-    case horizontal
-    case vertical
-}
-
 @available(iOS 16.0, *)
 public struct SLCharts: View {
     @StateObject private var viewModel = PortfolioViewModel()
@@ -23,7 +18,7 @@ public struct SLCharts: View {
     // Vertical or Horizontal
     public var axis: SLChartAxis
     // Vertical Alignment Chart Heights
-    public var chartHeight: CGFloat
+    public var verticalChartHeights: CGFloat
     
     // Header
     public var projectionsChartHeader: String
@@ -75,7 +70,7 @@ public struct SLCharts: View {
     public init(
         _ views: [SLChartType] = SLChartType.allCases,
         axis: SLChartAxis = .horizontal,
-        chartHeight: CGFloat = UIScreen.main.bounds.width * 0.8,
+        verticalChartHeights: CGFloat = UIScreen.main.bounds.width * 0.8,
         // Chart Headers
         projectionsChartHeader: String = "Portfolio Growth Projections",
         benchmarkChartHeader: String = "My Portfolio vs. SP 500",
@@ -125,7 +120,7 @@ public struct SLCharts: View {
     ) {
         self.chartViews = views
         self.axis = axis
-        self.chartHeight = chartHeight
+        self.verticalChartHeights = verticalChartHeights
         self.projectionsChartHeader = projectionsChartHeader
         self.benchmarkChartHeader = benchmarkChartHeader
         self.sectorChartHeader = sectorChartHeader
@@ -239,31 +234,31 @@ public struct SLCharts: View {
                         case .projections:
                             /// ------------ Projections Chart
                             ProjectionsChartReference
-                                .frame(height: chartHeight)
+                                .frame(height: verticalChartHeights)
                                 .padding(8)
                             SLDivider
                         case .benchmark:
                             /// ------------ Benchmark Chart
                             BenchmarkChartReference
-                                .frame(height: chartHeight)
+                                .frame(height: verticalChartHeights)
                                 .padding(8)
                             SLDivider
                         case .sector:
                             /// ------------ Sector Breakdown Chart
                             SectorChartReference
-                                .frame(height: chartHeight)
+                                .frame(height: verticalChartHeights)
                                 .padding(8)
                             SLDivider
                         case .geoDiversification:
                             /// ------------ GeoDiversification Chart
                             GeoDiversificationChartReference
-                                .frame(height: chartHeight)
+                                .frame(height: verticalChartHeights)
                                 .padding(8)
                             SLDivider
                         case .topHoldings:
                             /// ------------ Top Holdings Chart
                             TopHoldingsChartReference
-                                .frame(height: chartHeight)
+                                .frame(height: verticalChartHeights)
                                 .padding(8)
                             SLDivider
                         }
