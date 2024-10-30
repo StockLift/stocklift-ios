@@ -159,10 +159,9 @@ public struct SLCharts: View {
         self.disclaimerTitleFont = disclaimerTitleFont
     }
     
-    //MARK: - BODY
     public var body: some View {
         switch axis {
-            //MARK: Horizontal alignment
+            //MARK: - Horizontal alignment
         case .horizontal:
             TabView {
                 if showDisclaimer {
@@ -284,10 +283,12 @@ public struct SLCharts: View {
         }
     }
     
+    // PLAID ERROR
     private func plaidError() {
         //TODO: -  handle error
     }
     
+    // GET PORTFOLIO
     private func getPortfolio() {
         viewModel.initView(types: chartViews)
     }
