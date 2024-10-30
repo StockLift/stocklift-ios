@@ -254,7 +254,7 @@ public struct SLCharts: View {
                 
                 // TAB SELECTOR (back or next)
                 HStack {
-                    TabSelector(imageName: "arrow.left.circle",
+                    TabSelector(imageName: ImageKeys.arrowLeftCircle,
                                 action: backTab,
                                 selectable: selectedTab != 0)
                     Spacer()
@@ -262,7 +262,7 @@ public struct SLCharts: View {
                         LinkAccountButton
                     }
                     Spacer()
-                    TabSelector(imageName: "arrow.right.circle",
+                    TabSelector(imageName: ImageKeys.arrowRightCircle,
                                 action: nextTab,
                                 selectable: selectedTab != chartViews.count - 1)
                 }
@@ -549,6 +549,7 @@ public struct SLCharts: View {
             }
     }
     
+    //MARK: Link Account Button
     @ViewBuilder
     private var LinkAccountButton: some View {
         Text(linkAccountButtonText)
