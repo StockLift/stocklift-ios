@@ -10,7 +10,15 @@ import SwiftUI
 /// Haptic
 
 struct HapticTap {
-    static let medium = UIImpactFeedbackGenerator(style: .medium)
-    static let light = UIImpactFeedbackGenerator(style: .light)
-    static let heavy = UIImpactFeedbackGenerator(style: .heavy)
+    static func light() {
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+    }
+    
+    static func medium() {
+        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+    }
+    
+    static func heavy() {
+        UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+    }
 }

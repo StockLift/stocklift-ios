@@ -99,5 +99,36 @@ public extension NetworkService {
             }
         }
     }
+    
+    func getAssetImageUrl(symbol: String, with session: URLSession = .shared,
+                          complete: @escaping (Result<AssetImageResponse, SLError>) -> Void) {
+        session.request(.getAssetImage(symbol), method: .get) { data, response, error in
+            if let _ = error {
+                complete(.failure(.unableToComplete))
+                return
+            }
+
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                complete(.failure(.invalidResponse))
+                return
+            }
+            guard let data = data else {
+                complete(.failure(.invalidData))
+                return
+            }
+            
+            do {
+                let decoder = JSONDecoder()
+                let res = try decoder.decode(AssetImageResponse.self, from: data)
+                complete(.success(res))
+                return
+            } catch {
+                print(error)
+                complete(.failure(.invalidData))
+            }
+        }
+    }
 }
+
+
 

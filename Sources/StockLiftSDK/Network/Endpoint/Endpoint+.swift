@@ -14,6 +14,11 @@ public extension Endpoint {
         Endpoint(path: APIPath.v1.plaidLinkToken)
     }
     
+    /// - ASSET IMAGE URL
+    static func getAssetImage(_ symbol: String) -> Self {
+        Endpoint(path: APIPath.v1.portfolio + "/image" + "/\(symbol)")
+    }
+    
     // MARK: - PORTFOLIO
     /// - GET PORTFOLIO (all charts)
     static func getPortfolio(_ clientId: String) -> Self {

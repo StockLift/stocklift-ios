@@ -46,7 +46,7 @@ struct TopHoldingsPortfolioCell: View {
         HStack {
             HStack {
                 /// IMAGE
-                AssetImageHandler(assetImageUrl: assetImageUrl, asset: asset)
+                AssetImageHandler(assetImageUrl: assetImageUrl, asset: asset, size: 34)
                 VStack(alignment: .leading, spacing: 2) {
                     HStack {
                         /// SYMBOL & RANK

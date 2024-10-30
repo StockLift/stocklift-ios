@@ -1,12 +1,12 @@
 //
 //  PortfolioViewModel.swift
-//  Plaid-CloudFunctions
+//  Stocklift
 //
-//  Created by Christopher Hicks on 7/22/22.
+//  Created by Christopher Hicks on 8/22/24.
+//  Copyright © 2022 StockLift Inc. All rights reserved.
 //
 
 import SwiftUI
-//import MapKit
 
 @available(iOS 13.0, *)
 final class PortfolioViewModel: BaseViewModel {
@@ -46,7 +46,8 @@ final class PortfolioViewModel: BaseViewModel {
             types.contains(.topHoldings) {
             getPortfolio()
         }
-        if types.contains(.benchmark) {
+        if types.contains(.benchmark) ||
+            types.contains(.portfolioSummary) {
             getBenchmarkChartData()
         }
         if types.contains(.geoDiversification) {
@@ -184,13 +185,6 @@ extension PortfolioViewModel {
         }
     }
     
-
-    
-}
-
-
-
-extension PortfolioViewModel {
     //MARK: SORT Top Holdings
     public static func setTopHoldings(_ holdings: [UserEquity], type: SortTopHoldingType = .weight) -> [TopHoldingAsset] {
         var rank = 0
@@ -208,7 +202,5 @@ extension PortfolioViewModel {
                 return TopHoldingAsset(holding: equity, rank: rank)
             }
         }
-
     }
-
 }

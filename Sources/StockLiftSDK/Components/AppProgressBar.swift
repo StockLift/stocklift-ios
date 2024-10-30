@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AppProgressBar: View {
     @Binding var width: CGFloat
-    var height: CGFloat
+    var height: CGFloat = 12
     var cornerRadius: CGFloat
     @Binding var percentOfProgress: CGFloat
     

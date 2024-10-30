@@ -10,7 +10,12 @@ import SwiftUI
 struct HelperClass {
     
     static func randomColor() -> Color {
-        let colors: [Color] = [.blue, .red, .yellow, .green, .blue, .purple, .pink, .orange, .gray, .green,]
+        let colors: [Color] = [.blue, .red, .yellow, .green, .blue, .purple, .pink, .orange, .gray, .green, .clear]
+        return colors[.random(in: 0..<colors.count)]
+    }
+    
+    static func randomFontColor() -> Color {
+        let colors: [Color] = [.blue, .blue, .purple]
         return colors[.random(in: 0..<colors.count)]
     }
     
@@ -37,6 +42,15 @@ struct HelperClass {
     // Method will return a random Int between 150 - 350
     static func randomHeight() -> CGFloat {
         return CGFloat.random(in: 150...350)
+    }
+    
+    static func randomCornerRadius() -> CGFloat {
+        return CGFloat.random(in: 10...20)
+    }
+    
+    static func randomShadowBool() -> Bool {
+        let bools: [Bool] = [true, false]
+        return bools.randomElement()!
     }
     
 }

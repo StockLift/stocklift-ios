@@ -22,6 +22,8 @@ struct TopHoldingsPortfolioView: View {
     let subHeaderFont: Font
     let subHeaderFontColor: Color
     let buttonColor: Color
+    let buttonFontColor: Color
+    let buttonFont: Font
     
     @State private var showDetails: Bool = false
     @State private var showUpdateCostBasis: (Bool, String) = (false, "")
@@ -38,9 +40,9 @@ struct TopHoldingsPortfolioView: View {
                     DisclaimerImage(showDisclaimer: $showDisclaimer, headerFontColor: headerFontColor)
                         .offset(x: 18)
                 }
-                .padding(.bottom)
+                .padding(.bottom, 12)
             
-            TopHoldingsSortButton(sortViewState: $sortViewState, fontColor: headerFontColor, buttonColor: buttonColor)
+            TopHoldingsSortButton(sortViewState: $sortViewState, fontColor: buttonFontColor, buttonColor: buttonColor, buttonFont: buttonFont)
             
             ScrollView {
                 ForEach(topHoldings.prefix(10)) { holding in
@@ -51,14 +53,14 @@ struct TopHoldingsPortfolioView: View {
                                              showUpdateCostBasis: $showUpdateCostBasis)
                 }
             }
-            .frame(maxHeight: 190)
+//            .frame(maxHeight: 190)
             .setScrollBorderShading()
             
             Text("See All")
                 .font(subHeaderFont)
                 .foregroundColor(subHeaderFontColor)
-                .padding(.horizontal)
-                .padding(.vertical)
+//                .padding(.horizontal)
+                .padding(.vertical, 8)
                 .onTapGesture {
                     self.showDetails.toggle()
                 }
@@ -71,7 +73,8 @@ struct TopHoldingsPortfolioView: View {
                 hasCostBasis: hasCostBasis,
                 showUpdateCostBasis: $showUpdateCostBasis,
                 fontColor: headerFontColor,
-                buttonColor: buttonColor
+                buttonColor: buttonColor,
+                buttonFont: buttonFont
             )
         })
         //        .overlay(alignment: .center) {
