@@ -129,8 +129,8 @@ struct SectorBreakdownChart: View {
                     HStack {
                         /// PIE CHART ** SP 500 Sector
                         PieChartView(
-                            values: PortfolioChartUtils.entriesForDiversification(entries, colors: PIE_CHART_COLORS).map { $0.value },
-                            colors: PortfolioChartUtils.entriesForDiversification(entries, colors: PIE_CHART_COLORS).map { $0.color }
+                            values: ChartUtility.entriesForDiversification(entries, colors: PIE_CHART_COLORS).map { $0.value },
+                            colors: ChartUtility.entriesForDiversification(entries, colors: PIE_CHART_COLORS).map { $0.color }
                         )
                         .frame(width: screenWidth) // weird bug but it works 
                         .frame(width: screenWidth / 2)
@@ -139,7 +139,7 @@ struct SectorBreakdownChart: View {
                         /// SECTOR ** SCROLL View
                         ScrollView(.vertical, showsIndicators: false) {
                             if let entries = portfolioVM.sectorEntries {
-                                ForEach(PortfolioChartUtils.entriesForDiversification(entries, colors: PIE_CHART_COLORS)) { entry in
+                                ForEach(ChartUtility.entriesForDiversification(entries, colors: PIE_CHART_COLORS)) { entry in
                                     SectorScrollViewCell(entry)
                                 }
                             }
@@ -198,7 +198,7 @@ struct SectorBreakdownChart: View {
             Circle()
                 .foregroundColor(entry.color)
                 .frame(width: 8, height: 8)
-            Text(PortfolioChartUtils.amount(entry.value))
+            Text(ChartUtility.amount(entry.value))
                 .font(detailFont)
                 .foregroundStyle(detailFontColor)
             Text(entry.label)

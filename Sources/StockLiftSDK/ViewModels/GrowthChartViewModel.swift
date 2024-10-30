@@ -29,7 +29,7 @@ final class GrowthChartViewModel: BaseViewModel {
         do {
             let data = try await NetworkService.shared.getGrowthChart(userUuid: uuid)
             DispatchQueue.main.async {
-                self.growthChartEntries = PortfolioChartUtils.setGrowthChart(data)
+                self.growthChartEntries = ChartUtility.setGrowthChart(data)
             }
         } catch {
             print(error)

@@ -49,7 +49,7 @@ struct EditCostBasisView: View {
         }
 //        .setAnalyticsView("Edit Cost Basis View")
         .padding()
-        .makeCardLayer()
+//        .makeCardLayer()
     }
 }
 

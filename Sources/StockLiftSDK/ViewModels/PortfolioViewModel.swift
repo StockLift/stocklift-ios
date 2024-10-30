@@ -166,18 +166,18 @@ extension PortfolioViewModel {
             returnUpOrDown = true
         }
         // Sector Chart
-        sectorEntries = PortfolioChartUtils.setSectorData(portfolio.sectorTotals)
+        sectorEntries = ChartUtility.setSectorData(portfolio.sectorTotals)
         // Growth Chart
-        growthChartEntries = PortfolioChartUtils.setGrowthChart(portfolio.totalGrowthAmount)
+        growthChartEntries = ChartUtility.setGrowthChart(portfolio.totalGrowthAmount)
         // Sector Details
-        sectorDetails = PortfolioChartUtils.setSectorDetails(portfolio.totalHoldings, with: portfolio.sectorTotals)
+        sectorDetails = ChartUtility.setSectorDetails(portfolio.totalHoldings, with: portfolio.sectorTotals)
         isLoading = false
     }
     
     // SET CHART DATA - Benchmark Chart
     private func setChartData(_ res: PortfolioChartResponse) {
-        self.portfolioChartEntries = PortfolioChartUtils.setCharts(entryData: res.portfolioTimeSeries)
-        self.sp500ChartEntries = PortfolioChartUtils.setCharts(entryData: res.spTimeSeries)
+        self.portfolioChartEntries = ChartUtility.setCharts(entryData: res.portfolioTimeSeries)
+        self.sp500ChartEntries = ChartUtility.setCharts(entryData: res.spTimeSeries)
         self.percentChangeInPortfolio = res.portfolioChange ?? ""
         let portfolioChange = res.portfolioChange ?? ""
         if portfolioChange.first == "-" {

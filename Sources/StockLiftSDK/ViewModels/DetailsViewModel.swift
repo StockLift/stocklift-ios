@@ -9,7 +9,7 @@
 import SwiftUI
 
 @available(iOS 13.0, *)
-final class DetailsViewModel: BaseViewModel, AssetDetails {
+final class DetailsViewModel: BaseViewModel {
     
     let sectorDictionary: [[SectorTotals: [UserEquity]]]
     

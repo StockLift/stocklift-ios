@@ -13,8 +13,8 @@ enum ImageKeys {
     public static let warning = "exclamationmark.circle.fill"
     public static let infoCircle = "info.circle.fill"
     public static let xMark = "x.circle"
-    
-    /// CUSTOM
     public static let upArrow = "arrow.up.circle.fill"
     public static let downArrow = "arrow.down.circle.fill"
+    
+    /// CUSTOM
 }

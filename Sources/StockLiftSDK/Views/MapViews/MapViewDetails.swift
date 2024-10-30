@@ -36,10 +36,10 @@ struct MapViewDetails: View {
             }
             .padding()
             .overlay(alignment: .center) {
-                if showUpdateCostBasis.0 {
-                    EditCostBasisView(updateCostBasisAction: updateCostBasisAction,
-                                      showUpdateCostBasis: $showUpdateCostBasis)
-                }
+//                if showUpdateCostBasis.0 {
+//                    EditCostBasisView(updateCostBasisAction: updateCostBasisAction,
+//                                      showUpdateCostBasis: $showUpdateCostBasis)
+//                }
             }
         }
     }

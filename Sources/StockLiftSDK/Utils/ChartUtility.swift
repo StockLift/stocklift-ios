@@ -10,7 +10,7 @@ import Foundation
 import SwiftUI
 
 @available(iOS 13.0, *)
-public class PortfolioChartUtils {
+public class ChartUtility {
     
     // Pairing each sector with color for representation in a pie chart. Converts sector data into pie chart
     public static func entriesForDiversification(_ entries: [SectorData], colors: [Color]) -> [PieChartData] {
@@ -36,7 +36,7 @@ public class PortfolioChartUtils {
             let cleanName = name?.replacingOccurrences(of: "_", with: " ")
             let capitalName = cleanName?.localizedCapitalized
             let total = sector.percent ?? 0
-            sectorEntries.append(PortfolioChartUtils.createEntry(title: capitalName ?? "", total: total))
+            sectorEntries.append(ChartUtility.createEntry(title: capitalName ?? "", total: total))
         }
         return sectorEntries.sorted(by: {$0.value > $1.value})
     }
