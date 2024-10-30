@@ -18,7 +18,7 @@ struct DemoAllChartsView: View {
                     .frame(height: 350)
                     .padding()
                 
-                DemoTextView(text: "This is a demo of the SLCharts default configuration (colors, fonts, charts, etc.).")
+                DemoTextView(text: "This is a demo of the SLCharts DEFAULT configuration (colors, fonts, charts, etc.).")
                 
                 SLCharts([.portfolioSummary, .topHoldings],
                          projectionsChartHeader: HelperClass.randomTitle(),
@@ -28,11 +28,11 @@ struct DemoAllChartsView: View {
                          linkAccountForegroundColor: HelperClass.randomColor(),
                          linkAccountBackgroundColor: HelperClass.randomColor(),
                          linkAccountBorderColor: HelperClass.randomColor(),
-//                         linkAccountFontColor: HelperClass.randomColor(),
+                         //                         linkAccountFontColor: HelperClass.randomColor(),
                          chartForegroundColor: HelperClass.randomColor(),
                          chartForegroundBorderColor: HelperClass.randomColor(),
-//                         headerFontColor: HelperClass.randomColor(),
-//                         sectorDetailFontColor: HelperClass.randomColor(),
+                         //                         headerFontColor: HelperClass.randomColor(),
+                         //                         sectorDetailFontColor: HelperClass.randomColor(),
                          sp500Colors: [HelperClass.randomColor(), HelperClass.randomColor(), HelperClass.randomColor()],
                          portfolioColors: [HelperClass.randomColor(), HelperClass.randomColor(), HelperClass.randomColor()],
                          cardBackgroundColor: HelperClass.randomColor()
@@ -50,11 +50,11 @@ struct DemoAllChartsView: View {
                          linkAccountForegroundColor: HelperClass.randomColor(),
                          linkAccountBackgroundColor: HelperClass.randomColor(),
                          linkAccountBorderColor: HelperClass.randomColor(),
-//                         linkAccountFontColor: HelperClass.randomColor(),
+                         //                         linkAccountFontColor: HelperClass.randomColor(),
                          chartForegroundColor: HelperClass.randomColor(),
                          chartForegroundBorderColor: HelperClass.randomColor(),
-//                         headerFontColor: HelperClass.randomColor(),
-//                         sectorDetailFontColor: HelperClass.randomColor(),
+                         //                         headerFontColor: HelperClass.randomColor(),
+                         //                         sectorDetailFontColor: HelperClass.randomColor(),
                          sp500Colors: [HelperClass.randomColor(), HelperClass.randomColor(), HelperClass.randomColor()],
                          portfolioColors: [HelperClass.randomColor(), HelperClass.randomColor(), HelperClass.randomColor()],
                          cardBackgroundColor: HelperClass.randomColor()
@@ -76,24 +76,24 @@ struct DemoAllChartsView: View {
                     linkAccountBorderColor: HelperClass.randomColor(),
                     linkAccountConnectSize: HelperClass.randomHeight(),
                     linkAccountFont: HelperClass.randomSmFont(),
-//                    linkAccountFontColor: HelperClass.randomColor(),
+                    //                    linkAccountFontColor: HelperClass.randomColor(),
                     height: HelperClass.randomHeight(),
                     chartForegroundColor: HelperClass.randomColor(),
                     chartForegroundBorderColor: HelperClass.randomColor(),
                     //                    xAxisFont: HelperClass.randomSmFont(),
-//                    xAxisFontColor: HelperClass.randomColor(),
+                    //                    xAxisFontColor: HelperClass.randomColor(),
                     //                    yAxisFont: HelperClass.randomSmFont(),
-//                    yAxisFontColor: HelperClass.randomColor(),
-//                    headerFont: HelperClass.randomLgFont(),
-//                    headerFontColor: HelperClass.randomColor(),
-//                    subHeaderFont: HelperClass.randomSmFont(),
-//                    subHeaderFontColor: HelperClass.randomColor(),
+                    //                    yAxisFontColor: HelperClass.randomColor(),
+                    //                    headerFont: HelperClass.randomLgFont(),
+                    //                    headerFontColor: HelperClass.randomColor(),
+                    //                    subHeaderFont: HelperClass.randomSmFont(),
+                    //                    subHeaderFontColor: HelperClass.randomColor(),
                     //                    sectorDetailFont: HelperClass.randomSmFont(),
-//                    sectorDetailFontColor: HelperClass.randomColor(),
+                    //                    sectorDetailFontColor: HelperClass.randomColor(),
                     sp500Colors: [HelperClass.randomColor(), HelperClass.randomColor()],
                     portfolioColors: [HelperClass.randomColor(), HelperClass.randomColor()],
                     buttonColor: HelperClass.randomColor(),
-//                    buttonFontColor: HelperClass.randomColor(),
+                    //                    buttonFontColor: HelperClass.randomColor(),
                     buttonFont: HelperClass.randomSmFont(),
                     cardBackgroundColor: HelperClass.randomColor(),
                     cardCornerRadius: HelperClass.randomCornerRadius(),
@@ -106,7 +106,7 @@ struct DemoAllChartsView: View {
                 DemoTextView(text: "This is a demo of the SLCharts configured with all charts.")
             }
         }
-//        .navigationBarTitle("All Charts Demo")
+        //        .navigationBarTitle("All Charts Demo")
     }
 }
 
@@ -115,7 +115,6 @@ struct DemoTextView: View {
     var body: some View {
         Rectangle().fill(Color(UIColor.tertiaryLabel)).frame(height: 60)
             .overlay { Text(text).font(.footnote) }
-        //            .multilineTextAlignment(.center)
             .padding(6)
     }
 }
@@ -153,25 +152,14 @@ struct DemoLoginView: View {
     @State private var userUuid: String = ""
     var body: some View {
         VStack {
-//            HStack {
-//                NavigationLink {
-//                    Example1View()
-//                } label: {
-//                    Text("Example 1")
-//                }
-//                
-//                NavigationLink {
-//                    Example2View()
-//                } label: {
-//                    Text("Example 2")
-//                }
-//            }
-
             TextField("User uuid", text: $userUuid)
                 .keyboardType(.default)
                 .autocapitalization(.none)
                 .padding()
-            Divider()
+                .background(Color(UIColor.tertiaryLabel))
+                .cornerRadius(8)
+                .padding(.bottom)
+
             Text("Submit")
                 .padding(.horizontal)
                 .padding(.vertical, 8)
