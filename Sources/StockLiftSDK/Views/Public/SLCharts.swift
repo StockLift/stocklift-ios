@@ -10,6 +10,7 @@ import SwiftUI
 @available(iOS 16.0, *)
 public struct SLCharts: View {
     @StateObject private var viewModel = PortfolioViewModel()
+    @State private var selectedTab: Int = 0
     @State private var showDisclaimer: Bool = false
     
     //MARK: - PROPERTIES
@@ -36,6 +37,10 @@ public struct SLCharts: View {
     public var linkAccountConnectSize: CGFloat
     public var linkAccountFont: Font
     public var linkAccountFontColor: Color
+    public var linkAccountButtonFont: Font
+    public var linkAccountButtonColor: Color
+    public var linkAccountButtonFontColor: Color
+    public var linkAccountButtonText: String
     
     // Chart
     public var gainColor: Color
@@ -96,7 +101,10 @@ public struct SLCharts: View {
         linkAccountConnectSize: CGFloat = 38,
         linkAccountFont: Font = .caption,
         linkAccountFontColor: Color = .primary,
-        
+        linkAccountButtonColor: Color = .blue,
+        linkAccountButtonFont: Font = .caption,
+        linkAccountButtonFontColor: Color = .white,
+        linkAccountButtonText: String = "Link an Account",
         // Charts
         gainColor: Color = .blue,
         lossColor: Color = .red,
@@ -153,6 +161,10 @@ public struct SLCharts: View {
         self.linkAccountConnectSize = linkAccountConnectSize
         self.linkAccountFont = linkAccountFont
         self.linkAccountFontColor = linkAccountFontColor
+        self.linkAccountButtonColor = linkAccountButtonColor
+        self.linkAccountButtonFont = linkAccountButtonFont
+        self.linkAccountButtonFontColor = linkAccountButtonFontColor
+        self.linkAccountButtonText = linkAccountButtonText
         // Chart
         self.gainColor = gainColor
         self.lossColor = lossColor
@@ -192,55 +204,80 @@ public struct SLCharts: View {
         switch axis {
             //MARK: - Horizontal alignment
         case .horizontal:
-            TabView {
-                if showDisclaimer {
-                    DisclaimerView(
-                        isPresented: $showDisclaimer,
-                        titleFont: disclaimerTitleFont,
-                        bodyFont: disclaimerBodyFont
-                    )
-                } else {
-                    ForEach(chartViews) { view in
-                        switch view {
-                        case .projections:
-                            /// ------------ Projections Chart
-                            ProjectionsChartReference
-                                .tag(view.tag)
-                                .padding(8)
-                        case .benchmark:
-                            /// ------------ Benchmark Chart
-                            BenchmarkChartReference
-                                .tag(view.tag)
-                                .padding(8)
-                        case .sector:
-                            /// ------------ Sector Breakdown Chart
-                            SectorChartReference
-                                .tag(view.tag)
-                        case .geoDiversification:
-                            /// ------------ GeoDiversification Chart
-                            GeoDiversificationChartReference
-                                .tag(view.tag)
-                                .padding(8)
-                        case .topHoldings:
-                            /// ------------ Top Holdings Chart
-                            TopHoldingsChartReference
-                                .tag(view.tag)
-                                .padding(8)
-                        case .portfolioSummary:
-                            /// ------------ Portfolio Summary Chart
-                            SummaryChartReference
-                                .tag(view.tag)
-                                .padding(8)
+            VStack {
+                TabView(selection: $selectedTab) {
+                    if showDisclaimer {
+                        DisclaimerView(
+                            isPresented: $showDisclaimer,
+                            titleFont: disclaimerTitleFont,
+                            bodyFont: disclaimerBodyFont
+                        )
+                    } else {
+                        ForEach(chartViews) { view in
+                            switch view {
+                            case .projections:
+                                /// ------------ Projections Chart
+                                ProjectionsChartReference
+                                    .tag(view.tag)
+                                    .padding(8)
+                            case .benchmark:
+                                /// ------------ Benchmark Chart
+                                BenchmarkChartReference
+                                    .tag(view.tag)
+                                    .padding(8)
+                            case .sector:
+                                /// ------------ Sector Breakdown Chart
+                                SectorChartReference
+                                    .tag(view.tag)
+                            case .geoDiversification:
+                                /// ------------ GeoDiversification Chart
+                                GeoDiversificationChartReference
+                                    .tag(view.tag)
+                                    .padding(8)
+                            case .topHoldings:
+                                /// ------------ Top Holdings Chart
+                                TopHoldingsChartReference
+                                    .tag(view.tag)
+                                    .padding(8)
+                            case .portfolioSummary:
+                                /// ------------ Portfolio Summary Chart
+                                SummaryChartReference
+                                    .tag(view.tag)
+                                    .padding(8)
+                            }
                         }
                     }
                 }
+                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+                .frame(maxWidth: UIScreen.main.bounds.width / 1.05)
+                .onAppear { getPortfolio() }
+                
+                // TAB SELECTOR (back or next)
+                HStack {
+                    TabSelector(imageName: "arrow.left.circle",
+                                action: backTab,
+                                selectable: selectedTab != 0)
+                    Spacer()
+                    OpenLinkButton(getPortfolio: getPortfolio, errorHandler: plaidError) {
+                        Text(linkAccountButtonText)
+                            .font(linkAccountButtonFont)
+                            .foregroundColor(linkAccountButtonFontColor)
+                            .padding(.vertical, 4)
+                            .padding(.horizontal, 12)
+                            .background(linkAccountButtonColor)
+                            .clipShape(.capsule)
+                    }
+                    Spacer()
+                    TabSelector(imageName: "arrow.right.circle",
+                                action: nextTab,
+                                selectable: selectedTab != chartViews.count - 1)
+                }
+                .padding(.horizontal)
+                .padding(.bottom, 12)
             }
-            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-            .frame(maxWidth: UIScreen.main.bounds.width / 1.05)
             .background(cardBackgroundColor.opacity(0.3))
             .cornerRadius(cardCornerRadius)
             .shadow(radius: cardShadow ? 8 : 0)
-            .onAppear { getPortfolio() }
             
             //MARK: - Vertical alignment
         case .vertical:
@@ -322,6 +359,18 @@ public struct SLCharts: View {
     // GET PORTFOLIO
     private func getPortfolio() {
         viewModel.initView(types: chartViews)
+    }
+    
+    private func nextTab() {
+        if selectedTab != self.chartViews.count - 1 {
+            withAnimation(.easeInOut) {selectedTab += 1}
+        }
+    }
+    
+    private func backTab() {
+        if selectedTab != 0 {
+            withAnimation(.easeInOut) {selectedTab -= 1}
+        }
     }
     
     //MARK: - SECTOR BREAKDOWN CHART
@@ -489,6 +538,19 @@ public struct SLCharts: View {
             bodyFont: subHeaderFont,
             bodyFontColor: subHeaderFontColor
         )
+    }
+    
+    //MARK: Tab bar next and back selector
+    @ViewBuilder
+    private func TabSelector(imageName: String, action: @escaping () -> Void, selectable: Bool) -> some View {
+        Image(systemName: imageName)
+            .font(.body)
+            .foregroundColor(selectable ? Color(UIColor.tertiaryLabel) : .clear)
+            .onTapGesture {
+                if selectable {
+                    action()
+                }
+            }
     }
 }
 
