@@ -540,7 +540,7 @@ public struct SLCharts: View {
     @ViewBuilder
     private func TabSelector(imageName: String, action: @escaping () -> Void, selectable: Bool) -> some View {
         Image(systemName: imageName)
-            .font(.body)
+            .font(.title2)
             .foregroundColor(selectable ? Color(UIColor.tertiaryLabel) : .clear)
             .onTapGesture {
                 if selectable {
@@ -555,8 +555,8 @@ public struct SLCharts: View {
         Text(linkAccountButtonText)
             .font(linkAccountButtonFont)
             .foregroundColor(linkAccountButtonFontColor)
-            .padding(.vertical, 4)
-            .padding(.horizontal, 12)
+            .padding(.vertical, 3)
+            .padding(.horizontal, 16)
             .background(linkAccountButtonColor)
             .clipShape(.capsule)
     }
