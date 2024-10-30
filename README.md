@@ -4,7 +4,7 @@ To obtain an access token create an account at [stocklift.sdk.co](https://sdk-st
 
 ## Setup
 
-1. Init the StockLiftSDK config object with your access token in your App Delegate
+1. Initialize the StockLiftSDK configuration object with your access token in your App Delegate
 
 _Example_
 
@@ -35,10 +35,40 @@ StockLiftSDK.client = client
 
 3. Create a SLCharts instance and set a height
 
+There is a horizontal and vertical alignment option. The SLCharts object defaults to showing all the available charts. You can also customize it to only show the charts you want.
+
+Available Charts are:
+
+`SLChartType`
+
+- sector
+- benchmark
+- projections
+- geoDiversification
+- topHoldings
+- portfolioSummary
+
+_Example Horizontal_
+
 ```swift
- SLCharts()
+SLCharts()
     .frame(height: UIScreen.main.bounds.height * 0.40)
     .padding()
+```
+
+_Example Vertical_
+
+Height parameter is not needed but there is an optional `verticalChartHeights: CGFloat` to set the chart heights.
+
+```swift
+SLCharts(axis: .vertical)
+```
+
+_Example Custom Charts_
+
+```swift
+SLCharts([.geoDiversification, .benchmark, .sector])
+     .frame(height: 320)
 ```
 
 Majority of all the UI is customizable. Look at the docs or Package files to see what is available.
