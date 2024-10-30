@@ -211,9 +211,9 @@ public struct SLCharts: View {
             .background(cardBackgroundColor.opacity(0.3))
             .cornerRadius(cardCornerRadius)
             .shadow(radius: cardShadow ? 8 : 0)
-            .onAppear { viewModel.initView(types: chartViews) }
+            .onAppear { getPortfolio() }
             
-            //MARK: Vertical alignment
+            //MARK: - Vertical alignment
         case .vertical:
             ScrollView {
                 if showDisclaimer {
@@ -279,7 +279,7 @@ public struct SLCharts: View {
                     }
                 }
             }
-            .onAppear { viewModel.initView(types: chartViews) }
+            .onAppear { getPortfolio() }
         }
     }
     

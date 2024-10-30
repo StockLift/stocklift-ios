@@ -41,10 +41,10 @@ struct ContentView: View {
                     // Example Vertical Views
                     HStack {
                         NavigationLink { Example1View()
-                        } label: { Text("Vertical Example 1").font(.callout).tint(Color.secondary).underline() }
+                        } label: { Text("Vertical 1").font(.callout).tint(Color.secondary).underline() }
                         Spacer()
                         NavigationLink { Example2View()
-                        } label: { Text("Vertical Example 2").font(.callout).tint(Color.secondary).underline() }
+                        } label: { Text("Vertical 2").font(.callout).tint(Color.secondary).underline() }
                     }
                     .padding(.horizontal)
                     
