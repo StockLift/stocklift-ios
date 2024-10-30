@@ -158,53 +158,53 @@ public extension View {
     //MARK: - CREATE Image for Symbol (url || symbol || name prefixed)
     func AssetImageHandler(assetImageUrl: URL?, asset: UserEquity, size: CGFloat = 40, color: Color) -> some View {
         let symbol = asset.symbol?.lowercased()
-        //        return Group {
-        if symbol != "voc" {
-            if let url = assetImageUrl {
-                return KFImage(url)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: size, height: size)
-                    .background(color)
-                    .clipShape(Circle())
-                    .padding(.trailing, 8)
-            } else {
-                if asset.type == .cash {
-                    return Text("$")
-                        .font(.caption2)
-                        .shadow(radius: 2)
-                        .frame(width: size, height: size)
-                        .background(color)
-                        .clipShape(Circle())
-                        .padding(.trailing, 8)
-                } else if let image = asset.symbol, image != "" {
-                    return Text(image.prefix(4))
-                        .font(.caption2)
-                        .shadow(radius: 2)
+        return Group {
+            if symbol != "voc" {
+                if let url = assetImageUrl {
+                    KFImage(url)
+                        .resizable()
+                        .scaledToFit()
                         .frame(width: size, height: size)
                         .background(color)
                         .clipShape(Circle())
                         .padding(.trailing, 8)
                 } else {
-                    return Text("")
-                        .font(.caption2)
-                        .shadow(radius: 2)
-                        .frame(width: size, height: size)
-                        .background(color)
-                        .clipShape(Circle())
-                        .padding(.trailing, 8)
+                    if asset.type == .cash {
+                        Text("$")
+                            .font(.caption2)
+                            .shadow(radius: 2)
+                            .frame(width: size, height: size)
+                            .background(color)
+                            .clipShape(Circle())
+                            .padding(.trailing, 8)
+                    } else if let image = asset.symbol, image != "" {
+                        Text(image.prefix(4))
+                            .font(.caption2)
+                            .shadow(radius: 2)
+                            .frame(width: size, height: size)
+                            .background(color)
+                            .clipShape(Circle())
+                            .padding(.trailing, 8)
+                    } else {
+                        Text("")
+                            .font(.caption2)
+                            .shadow(radius: 2)
+                            .frame(width: size, height: size)
+                            .background(color)
+                            .clipShape(Circle())
+                            .padding(.trailing, 8)
+                    }
                 }
+            } else {
+                // HANDLER for images with weird bugs (returned from 12data not working)
+                Text(asset.symbol?.prefix(4) ?? "")
+                    .font(.footnote)
+                    .shadow(radius: 2)
+                    .frame(width: size, height: size)
+                    .background(color)
+                    .clipShape(Circle())
+                    .padding(.trailing, 8)
             }
-        } else {
-            // HANDLER for images with weird bugs (returned from 12data not working)
-            return Text(asset.symbol?.prefix(4) ?? "")
-                .font(.footnote)
-                .shadow(radius: 2)
-                .frame(width: size, height: size)
-                .background(color)
-                .clipShape(Circle())
-                .padding(.trailing, 8)
         }
-        //        }
     }
 }
