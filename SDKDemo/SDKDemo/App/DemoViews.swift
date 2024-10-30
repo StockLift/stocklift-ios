@@ -15,7 +15,7 @@ struct DemoAllChartsView: View {
         if testingType.isEmpty {
             VStack {
                 SLCharts()
-                    .frame(height: 350)
+                    .frame(height: UIScreen.main.bounds.height * 0.40)
                     .padding()
                 
                 DemoTextView(text: "This is a demo of the SLCharts DEFAULT configuration (colors, fonts, charts, etc.).")
