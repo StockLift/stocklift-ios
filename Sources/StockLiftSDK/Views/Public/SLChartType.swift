@@ -16,8 +16,7 @@ public enum SLChartType: Int, CaseIterable, Identifiable {
     case benchmarkPerformance
     case projectionsPerformance
     
-    func setTag(_ chartViews: [SLChartType]) -> Int  {
+    func tag(_ chartViews: [SLChartType]) -> Int {
         chartViews.firstIndex(of: self) ?? 0
-        
     }
 }

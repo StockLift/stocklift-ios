@@ -198,12 +198,6 @@ public struct SLCharts: View {
         self.assetDefaultColor = assetDefaultColor
         self.symbolFont = symbolFont
         self.nameFont = nameFont
-        
-        // SET First Tab for Custom Order
-//        if let tab = chartViews.first {
-//            print("TAB ---- \(tab)")
-//            self.selectedTab = tab
-//        }
     }
     
     public var body: some View {
@@ -224,37 +218,31 @@ public struct SLCharts: View {
                             case .projectionsPerformance:
                                 /// ------------ Projections Chart
                                 ProjectionsChartReference
-                                    .tag(view.setTag(chartViews))
-//                                    .tag(chartViews.firstIndex(of: .projectionsPerformance) ?? 0)
+                                    .tag(view.tag(chartViews))
                                     .padding(8)
                             case .benchmarkPerformance:
                                 /// ------------ Benchmark Chart
                                 BenchmarkChartReference
-                                    .tag(view.setTag(chartViews))
-//                                    .tag(chartViews.firstIndex(of: .benchmarkPerformance) ?? 0)
+                                    .tag(view.tag(chartViews))
                                     .padding(8)
                             case .sectorDiversification:
                                 /// ------------ Sector Breakdown Chart
                                 SectorChartReference
-                                    .tag(view.setTag(chartViews))
-//                                    .tag(chartViews.firstIndex(of: .sectorDiversification) ?? 0)
+                                    .tag(view.tag(chartViews))
                             case .geoDiversification:
                                 /// ------------ GeoDiversification Chart
                                 GeoDiversificationChartReference
-                                    .tag(view.setTag(chartViews))
-//                                    .tag(chartViews.firstIndex(of: .geoDiversification) ?? 0)
+                                    .tag(view.tag(chartViews))
                                     .padding(8)
                             case .topHoldings:
                                 /// ------------ Top Holdings Chart
                                 TopHoldingsChartReference
-                                    .tag(view.setTag(chartViews))
-//                                    .tag(chartViews.firstIndex(of: .topHoldings) ?? 0)
+                                    .tag(view.tag(chartViews))
                                     .padding(8)
                             case .portfolioSummary:
                                 /// ------------ Portfolio Summary Chart
                                 SummaryChartReference
-                                    .tag(view.setTag(chartViews))
-//                                    .tag(chartViews.firstIndex(of: .portfolioSummary) ?? 0)
+                                    .tag(view.tag(chartViews))
                                     .padding(8)
                             }
                         }
@@ -355,102 +343,11 @@ public struct SLCharts: View {
             .onAppear { getPortfolio() }
         }
     }
-    
-    // PLAID ERROR
-    private func plaidError() {
-        //TODO: -  handle error
-        // this setup will not be using this for now, the backend is handling errors differently then the app
-    }
-    
-    // GET PORTFOLIO
-    private func getPortfolio() {
-        viewModel.initView(types: chartViews)
-    }
-    
-    private func nextTab() {
-        let nextIndex = selectedTab + 1
-        print("NEXT INDEX --- \(nextIndex)")
-        if nextIndex <= chartViews.count {
-            let next = chartViews.index(after: selectedTab)
-            print("NEXT TAB --- \(next)")
-            let nextView = SLChartType(rawValue: next)
-            print("NEXT VIEW --- \(nextView)")
-            if let view = nextView {
-                self.selectedTab = view.rawValue
-                
-            }
-        }
-     
-        
-//        if selectedTab != chartViews.count - 1 {
-//            withAnimation(.easeInOut) {selectedTab += 1}
-//            HapticTap.light()
-//        }
-    }
-    
-    private func backTab() {
-        let nextIndex = selectedTab - 1
-        print("BACK INDEX --- \(nextIndex)")
-        if nextIndex <= chartViews.count {
-            let next = chartViews.index(before: selectedTab)
-            print("BACK TAB --- \(next)")
-            let nextView = SLChartType(rawValue: next)
-            print("BACK VIEW --- \(nextView)")
-            if let view = nextView {
-                self.selectedTab = view.rawValue
-                
-            }
-        }
-//        if selectedTab != 0 {
-//            withAnimation(.easeInOut) {selectedTab -= 1}
-//            HapticTap.light()
-//        }
-    }
-    
-    // set tab int for tab view based on available total chart views
-//    private func setTabViewTag(_ tab: SLChartType) {
-//        guard chartViews.count > 0 else { return  }
-//        
-////        let view = chartViews.enumerated().first(where: {tab == $0.1})
-////        SLChartType(rawValue: view)
-//  
-//       
-//        
-//        chartViews.enumerated().forEach { index, view in
-//            if view == tab {
-////                return index
-//            }
-////            view.tag = index
-//        }
-////        return nil
-//    }
-    
-//    private func setTab() {
-//        let totalTabs = chartViews.count
-//        if selectedTab.rawValue >= totalTabs {
-//            selectedTab = chartViews.first!
-//        }
-//    }
-    
-    private var lastSelectable: Bool {
-        print("----- Last Selectable -----")
-        print("LAST Tab \(selectedTab)")
-        print("LAST View \(chartViews.last?.rawValue)")
-        print("LAST SELECTABLE \(selectedTab != chartViews.last?.rawValue)")
-        print("-----  -----")
-        return selectedTab != chartViews.last?.rawValue
-    }
-    
-    private var firstSelectable: Bool {
-        print("----- First Selectable -----")
-        print("FIRST Tab \(selectedTab)")
-        print("FIRST View Int \(chartViews.first?.rawValue)")
-        print("FIRST View \(chartViews.first)")
-        print("FIRST SELECTABLE \(selectedTab != chartViews.first?.rawValue)")
-        print("-----  -----")
-        return selectedTab != chartViews.first?.rawValue
-    }
-    
+}
+
+//MARK: CHARTS UI
+@available(iOS 16.0, *)
+extension SLCharts {
     //MARK: - SECTOR BREAKDOWN CHART
     @ViewBuilder
     private var SectorChartReference: some View {
@@ -617,7 +514,11 @@ public struct SLCharts: View {
             bodyFontColor: subHeaderFontColor
         )
     }
-    
+}
+
+//MARK: TAB BAR & LINK ACCOUNT BUTTON UI
+@available(iOS 16.0, *)
+extension SLCharts {
     //MARK: Tab bar next and back selector
     @ViewBuilder
     private func TabSelector(imageName: String, action: @escaping () -> Void, selectable: Bool) -> some View {
@@ -644,4 +545,55 @@ public struct SLCharts: View {
     }
 }
 
+//MARK: NETWORK METHODS
+@available(iOS 16.0, *)
+extension SLCharts {
+    // PLAID ERROR
+    private func plaidError() {
+        //TODO: -  handle error
+        // this setup will not be using this for now, the backend is handling errors differently then the app
+    }
+    
+    // GET PORTFOLIO
+    private func getPortfolio() {
+        viewModel.initView(types: chartViews)
+    }
+}
 
+//MARK: TAB NAVIGATION METHODS
+@available(iOS 16.0, *)
+extension SLCharts {
+    // Move to Next Tab
+    private func nextTab() {
+        let nextIndex = selectedTab + 1
+        if nextIndex <= chartViews.count {
+            let next = chartViews.index(after: selectedTab)
+            let nextView = SLChartType(rawValue: next)
+            if let view = nextView {
+                self.selectedTab = view.rawValue
+            }
+        }
+    }
+    
+    // Move Back a Tab
+    private func backTab() {
+        let nextIndex = selectedTab - 1
+        if nextIndex <= chartViews.count {
+            let next = chartViews.index(before: selectedTab)
+            let nextView = SLChartType(rawValue: next)
+            if let view = nextView {
+                self.selectedTab = view.rawValue
+            }
+        }
+    }
+    
+    // Last Selectable Tab
+    private var lastSelectable: Bool {
+        selectedTab != chartViews.last?.tag(chartViews)
+    }
+    
+    // First Selectable Tab
+    private var firstSelectable: Bool {
+        selectedTab != chartViews.first?.tag(chartViews)
+    }
+}
