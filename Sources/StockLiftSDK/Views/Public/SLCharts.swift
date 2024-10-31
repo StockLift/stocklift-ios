@@ -268,7 +268,7 @@ public struct SLCharts: View {
                 HStack {
                     TabSelector(imageName: ImageKeys.arrowLeftCircle,
                                 action: backTab,
-                                selectable: selectedTab != chartViews.first?.rawValue)
+                                selectable: firstSelectable)
                     Spacer()
                     OpenLinkButton(getPortfolio: getPortfolio, errorHandler: plaidError) {
                         LinkAccountButton
@@ -276,7 +276,7 @@ public struct SLCharts: View {
                     Spacer()
                     TabSelector(imageName: ImageKeys.arrowRightCircle,
                                 action: nextTab,
-                                selectable: selectedTab != chartViews.last?.rawValue)
+                                selectable: lastSelectable)
                 }
                 .padding(.horizontal)
                 .padding(.bottom, 12)
@@ -431,6 +431,25 @@ public struct SLCharts: View {
 //            selectedTab = chartViews.first!
 //        }
 //    }
+    
+    private var lastSelectable: Bool {
+        print("----- Last Selectable -----")
+        print("LAST Tab \(selectedTab)")
+        print("LAST View \(chartViews.last?.rawValue)")
+        print("LAST SELECTABLE \(selectedTab != chartViews.last?.rawValue)")
+        print("-----  -----")
+        return selectedTab != chartViews.last?.rawValue
+    }
+    
+    private var firstSelectable: Bool {
+        print("----- First Selectable -----")
+        print("FIRST Tab \(selectedTab)")
+        print("FIRST View Int \(chartViews.first?.rawValue)")
+        print("FIRST View \(chartViews.first)")
+        print("FIRST SELECTABLE \(selectedTab != chartViews.first?.rawValue)")
+        print("-----  -----")
+        return selectedTab != chartViews.first?.rawValue
+    }
     
     //MARK: - SECTOR BREAKDOWN CHART
     @ViewBuilder
