@@ -7,14 +7,10 @@
 
 import SwiftUI
 
-public enum SLChartAxis {
-    case horizontal
-    case vertical
-}
-
 @available(iOS 16.0, *)
 public struct SLCharts: View {
     @StateObject private var viewModel = PortfolioViewModel()
+    @State private var selectedTab: Int = 0
     @State private var showDisclaimer: Bool = false
     
     //MARK: - PROPERTIES
@@ -23,7 +19,7 @@ public struct SLCharts: View {
     // Vertical or Horizontal
     public var axis: SLChartAxis
     // Vertical Alignment Chart Heights
-    public var chartHeight: CGFloat
+    public var verticalChartHeights: CGFloat
     
     // Header
     public var projectionsChartHeader: String
@@ -41,8 +37,14 @@ public struct SLCharts: View {
     public var linkAccountConnectSize: CGFloat
     public var linkAccountFont: Font
     public var linkAccountFontColor: Color
+    public var linkAccountButtonFont: Font
+    public var linkAccountButtonColor: Color
+    public var linkAccountButtonFontColor: Color
+    public var linkAccountButtonText: String
     
     // Chart
+    public var gainColor: Color
+    public let lossColor: Color
     public var height: CGFloat
     public var chartForegroundColor: Color
     public var chartForegroundBorderColor: Color
@@ -61,6 +63,13 @@ public struct SLCharts: View {
     public var buttonColor: Color
     public var buttonFontColor: Color
     public var buttonFont: Font
+    public var sectorHeaderFont: Font // Sector Details Breakdown
+    public var sectorHeaderFontColor: Color // Sector Details Breakdown
+    public var sectorSubHeaderFont: Font // Sector Details Breakdown
+    public var sectorSubHeaderFontColor: Color // Sector Details Breakdown
+    public var assetDefaultColor: Color // Sector Details Breakdown
+    public var symbolFont: Font // Sector Details Breakdown &
+    public var nameFont: Font // Sector Details Breakdown &
     
     // Card Background
     public var cardBackgroundColor: Color
@@ -75,7 +84,7 @@ public struct SLCharts: View {
     public init(
         _ views: [SLChartType] = SLChartType.allCases,
         axis: SLChartAxis = .horizontal,
-        chartHeight: CGFloat = UIScreen.main.bounds.width * 0.8,
+        verticalChartHeights: CGFloat = UIScreen.main.bounds.width * 0.8,
         // Chart Headers
         projectionsChartHeader: String = "Portfolio Growth Projections",
         benchmarkChartHeader: String = "My Portfolio vs. SP 500",
@@ -92,8 +101,13 @@ public struct SLCharts: View {
         linkAccountConnectSize: CGFloat = 38,
         linkAccountFont: Font = .caption,
         linkAccountFontColor: Color = .primary,
-        
+        linkAccountButtonColor: Color = .blue,
+        linkAccountButtonFont: Font = .caption,
+        linkAccountButtonFontColor: Color = .white,
+        linkAccountButtonText: String = "Link an Account",
         // Charts
+        gainColor: Color = .blue,
+        lossColor: Color = .red,
         height: CGFloat = 250,
         chartForegroundColor: Color = Color(UIColor.tertiaryLabel),
         chartForegroundBorderColor: Color = .blue,
@@ -112,6 +126,13 @@ public struct SLCharts: View {
         buttonColor: Color = .blue,
         buttonFontColor: Color = .white,
         buttonFont: Font = .caption,
+        sectorHeaderFont: Font = .callout,
+        sectorHeaderFontColor: Color = .primary,
+        sectorSubHeaderFont: Font = .caption2,
+        sectorSubHeaderFontColor: Color = .primary,
+        assetDefaultColor: Color = .blue,
+        symbolFont: Font = .caption,
+        nameFont: Font = .caption,
         
         // Card
         cardBackgroundColor: Color = Color(UIColor.tertiaryLabel),
@@ -125,13 +146,14 @@ public struct SLCharts: View {
     ) {
         self.chartViews = views
         self.axis = axis
-        self.chartHeight = chartHeight
+        self.verticalChartHeights = verticalChartHeights
         self.projectionsChartHeader = projectionsChartHeader
         self.benchmarkChartHeader = benchmarkChartHeader
         self.sectorChartHeader = sectorChartHeader
         self.geoDiversificationChartHeader = geoDiversificationChartHeader
         self.topHoldingsChartHeader = topHoldingsChartHeader
         self.portfolioSummaryChartHeader = portfolioSummaryChartHeader
+        // Link Account
         self.linkAccountHeader = linkAccountHeader
         self.linkAccountForegroundColor = linkAccountForegroundColor
         self.linkAccountBackgroundColor = linkAccountBackgroundColor
@@ -139,6 +161,13 @@ public struct SLCharts: View {
         self.linkAccountConnectSize = linkAccountConnectSize
         self.linkAccountFont = linkAccountFont
         self.linkAccountFontColor = linkAccountFontColor
+        self.linkAccountButtonColor = linkAccountButtonColor
+        self.linkAccountButtonFont = linkAccountButtonFont
+        self.linkAccountButtonFontColor = linkAccountButtonFontColor
+        self.linkAccountButtonText = linkAccountButtonText
+        // Chart
+        self.gainColor = gainColor
+        self.lossColor = lossColor
         self.height = height
         self.chartForegroundColor = chartForegroundColor
         self.chartForegroundBorderColor = chartForegroundBorderColor
@@ -162,14 +191,103 @@ public struct SLCharts: View {
         self.sectorDetailFontColor = sectorDetailFontColor
         self.disclaimerBodyFont = disclaimerBodyFont
         self.disclaimerTitleFont = disclaimerTitleFont
+        self.sectorHeaderFont = sectorHeaderFont
+        self.sectorHeaderFontColor = sectorHeaderFontColor
+        self.sectorSubHeaderFont = sectorSubHeaderFont
+        self.sectorSubHeaderFontColor = sectorSubHeaderFontColor
+        self.assetDefaultColor = assetDefaultColor
+        self.symbolFont = symbolFont
+        self.nameFont = nameFont
+        
+        // SET First Tab for Custom Order
+//        if let tab = chartViews.first {
+//            print("TAB ---- \(tab)")
+//            self.selectedTab = tab
+//        }
     }
     
-    //MARK: - BODY
     public var body: some View {
         switch axis {
-            //MARK: Horizontal alignment
+            //MARK: - Horizontal alignment
         case .horizontal:
-            TabView {
+            VStack {
+                TabView(selection: $selectedTab) {
+                    if showDisclaimer {
+                        DisclaimerView(
+                            isPresented: $showDisclaimer,
+                            titleFont: disclaimerTitleFont,
+                            bodyFont: disclaimerBodyFont
+                        )
+                    } else {
+                        ForEach(chartViews) { view in
+                            switch view {
+                            case .projectionsPerformance:
+                                /// ------------ Projections Chart
+                                ProjectionsChartReference
+                                    .tag(view.setTag(chartViews))
+//                                    .tag(chartViews.firstIndex(of: .projectionsPerformance) ?? 0)
+                                    .padding(8)
+                            case .benchmarkPerformance:
+                                /// ------------ Benchmark Chart
+                                BenchmarkChartReference
+                                    .tag(view.setTag(chartViews))
+//                                    .tag(chartViews.firstIndex(of: .benchmarkPerformance) ?? 0)
+                                    .padding(8)
+                            case .sectorDiversification:
+                                /// ------------ Sector Breakdown Chart
+                                SectorChartReference
+                                    .tag(view.setTag(chartViews))
+//                                    .tag(chartViews.firstIndex(of: .sectorDiversification) ?? 0)
+                            case .geoDiversification:
+                                /// ------------ GeoDiversification Chart
+                                GeoDiversificationChartReference
+                                    .tag(view.setTag(chartViews))
+//                                    .tag(chartViews.firstIndex(of: .geoDiversification) ?? 0)
+                                    .padding(8)
+                            case .topHoldings:
+                                /// ------------ Top Holdings Chart
+                                TopHoldingsChartReference
+                                    .tag(view.setTag(chartViews))
+//                                    .tag(chartViews.firstIndex(of: .topHoldings) ?? 0)
+                                    .padding(8)
+                            case .portfolioSummary:
+                                /// ------------ Portfolio Summary Chart
+                                SummaryChartReference
+                                    .tag(view.setTag(chartViews))
+//                                    .tag(chartViews.firstIndex(of: .portfolioSummary) ?? 0)
+                                    .padding(8)
+                            }
+                        }
+                    }
+                }
+                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+                .frame(maxWidth: UIScreen.main.bounds.width / 1.05)
+                .onAppear { getPortfolio() }
+                
+                // TAB SELECTOR (back or next)
+                HStack {
+                    TabSelector(imageName: ImageKeys.arrowLeftCircle,
+                                action: backTab,
+                                selectable: firstSelectable)
+                    Spacer()
+                    OpenLinkButton(getPortfolio: getPortfolio, errorHandler: plaidError) {
+                        LinkAccountButton
+                    }
+                    Spacer()
+                    TabSelector(imageName: ImageKeys.arrowRightCircle,
+                                action: nextTab,
+                                selectable: lastSelectable)
+                }
+                .padding(.horizontal)
+                .padding(.bottom, 12)
+            }
+            .background(cardBackgroundColor.opacity(0.3))
+            .cornerRadius(cardCornerRadius)
+            .shadow(radius: cardShadow ? 8 : 0)
+            
+            //MARK: - Vertical alignment
+        case .vertical:
+            ScrollView {
                 if showDisclaimer {
                     DisclaimerView(
                         isPresented: $showDisclaimer,
@@ -177,102 +295,160 @@ public struct SLCharts: View {
                         bodyFont: disclaimerBodyFont
                     )
                 } else {
-                    ForEach(chartViews) { view in
-                        switch view {
-                        case .projections:
-                            /// ------------ Projections Chart
-                            ProjectionsChartReference
-                                .tag(view.tag)
-                                .padding(8)
-                        case .benchmark:
-                            /// ------------ Benchmark Chart
-                            BenchmarkChartReference
-                                .tag(view.tag)
-                                .padding(8)
-                        case .sector:
-                            /// ------------ Sector Breakdown Chart
-                            SectorChartReference
-                                .tag(view.tag)
-                        case .geoDiversification:
-                            /// ------------ GeoDiversification Chart
-                            GeoDiversificationChartReference
-                                .tag(view.tag)
-                                .padding(8)
-                        case .topHoldings:
-                            /// ------------ Top Holdings Chart
-                            TopHoldingsChartReference
-                                .tag(view.tag)
-                                .padding(8)
-                        case .portfolioSummary:
-                            /// ------------ Portfolio Summary Chart
-                            SummaryChartReference
-                                .tag(view.tag)
-                                .padding(8)
+                    if viewModel.isLoading == false && !viewModel.hasAccountConnected {
+                        // Link Plaid flow
+                        LinkAccountView(
+                            linkAccountHeader: linkAccountHeader,
+                            plaidError: plaidError,
+                            getPortfolio: getPortfolio,
+                            foregroundColor: linkAccountForegroundColor,
+                            backgroundColor: linkAccountBackgroundColor,
+                            borderColor: linkAccountBorderColor,
+                            connectSize: linkAccountConnectSize,
+                            font: linkAccountFont,
+                            fontColor: linkAccountFontColor
+                        )
+                    } else {
+                        /// ------------ Portfolio Summary Chart
+                        SummaryChartReference
+                        SLDivider
+                        ForEach(chartViews) { view in
+                            switch view {
+                            case .portfolioSummary:
+                                /// Vertical alignment always shows summary at top
+                                EmptyView()
+                            case .projectionsPerformance:
+                                /// ------------ Projections Chart
+                                ProjectionsChartReference
+                                    .frame(height: verticalChartHeights)
+                                    .padding(8)
+                                SLDivider
+                            case .benchmarkPerformance:
+                                /// ------------ Benchmark Chart
+                                BenchmarkChartReference
+                                    .frame(height: verticalChartHeights)
+                                    .padding(8)
+                                SLDivider
+                            case .sectorDiversification:
+                                /// ------------ Sector Breakdown Chart
+                                SectorChartReference
+                                    .frame(height: verticalChartHeights)
+                                    .padding(8)
+                                SLDivider
+                            case .geoDiversification:
+                                /// ------------ GeoDiversification Chart
+                                GeoDiversificationChartReference
+                                    .frame(height: verticalChartHeights)
+                                    .padding(8)
+                                SLDivider
+                            case .topHoldings:
+                                /// ------------ Top Holdings Chart
+                                TopHoldingsChartReference
+                                    .frame(height: verticalChartHeights)
+                                    .padding(8)
+                                SLDivider
+                            }
                         }
                     }
                 }
             }
-            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-            .frame(maxWidth: UIScreen.main.bounds.width / 1.05)
-            .background(cardBackgroundColor.opacity(0.3))
-            .cornerRadius(cardCornerRadius)
-            .shadow(radius: cardShadow ? 8 : 0)
-            .onAppear { viewModel.initView(types: chartViews) }
-            
-            //MARK: Vertical alignment
-        case .vertical:
-            ScrollView {
-                ForEach(chartViews) { view in
-                    switch view {
-                    case .portfolioSummary:
-                        /// ------------ Portfolio Summary Chart
-                        SummaryChartReference
-                            .frame(height: UIScreen.main.bounds.width * 0.4)
-                            .padding(8)
-                        SLDivider
-                    case .projections:
-                        /// ------------ Projections Chart
-                        ProjectionsChartReference
-                            .frame(height: chartHeight)
-                            .padding(8)
-                        SLDivider
-                    case .benchmark:
-                        /// ------------ Benchmark Chart
-                        BenchmarkChartReference
-                            .frame(height: chartHeight)
-                            .padding(8)
-                        SLDivider
-                    case .sector:
-                        /// ------------ Sector Breakdown Chart
-                        SectorChartReference
-                            .frame(height: chartHeight)
-                            .padding(8)
-                        SLDivider
-                    case .geoDiversification:
-                        /// ------------ GeoDiversification Chart
-                        GeoDiversificationChartReference
-                            .frame(height: chartHeight)
-                            .padding(8)
-                        SLDivider
-                    case .topHoldings:
-                        /// ------------ Top Holdings Chart
-                        TopHoldingsChartReference
-                            .frame(height: chartHeight)
-                            .padding(8)
-                        SLDivider
-                    }
-                }
-            }
-            .onAppear { viewModel.initView(types: chartViews) }
+            .onAppear { getPortfolio() }
         }
     }
     
+    // PLAID ERROR
     private func plaidError() {
         //TODO: -  handle error
+        // this setup will not be using this for now, the backend is handling errors differently then the app
     }
     
+    // GET PORTFOLIO
     private func getPortfolio() {
-        //TODO: config get portfolio
+        viewModel.initView(types: chartViews)
+    }
+    
+    private func nextTab() {
+        let nextIndex = selectedTab + 1
+        print("NEXT INDEX --- \(nextIndex)")
+        if nextIndex <= chartViews.count {
+            let next = chartViews.index(after: selectedTab)
+            print("NEXT TAB --- \(next)")
+            let nextView = SLChartType(rawValue: next)
+            print("NEXT VIEW --- \(nextView)")
+            if let view = nextView {
+                self.selectedTab = view.rawValue
+                
+            }
+        }
+     
+        
+//        if selectedTab != chartViews.count - 1 {
+//            withAnimation(.easeInOut) {selectedTab += 1}
+//            HapticTap.light()
+//        }
+    }
+    
+    private func backTab() {
+        let nextIndex = selectedTab - 1
+        print("BACK INDEX --- \(nextIndex)")
+        if nextIndex <= chartViews.count {
+            let next = chartViews.index(before: selectedTab)
+            print("BACK TAB --- \(next)")
+            let nextView = SLChartType(rawValue: next)
+            print("BACK VIEW --- \(nextView)")
+            if let view = nextView {
+                self.selectedTab = view.rawValue
+                
+            }
+        }
+//        if selectedTab != 0 {
+//            withAnimation(.easeInOut) {selectedTab -= 1}
+//            HapticTap.light()
+//        }
+    }
+    
+    // set tab int for tab view based on available total chart views
+//    private func setTabViewTag(_ tab: SLChartType) {
+//        guard chartViews.count > 0 else { return  }
+//        
+////        let view = chartViews.enumerated().first(where: {tab == $0.1})
+////        SLChartType(rawValue: view)
+//  
+//       
+//        
+//        chartViews.enumerated().forEach { index, view in
+//            if view == tab {
+////                return index
+//            }
+////            view.tag = index
+//        }
+////        return nil
+//    }
+    
+//    private func setTab() {
+//        let totalTabs = chartViews.count
+//        if selectedTab.rawValue >= totalTabs {
+//            selectedTab = chartViews.first!
+//        }
+//    }
+    
+    private var lastSelectable: Bool {
+        print("----- Last Selectable -----")
+        print("LAST Tab \(selectedTab)")
+        print("LAST View \(chartViews.last?.rawValue)")
+        print("LAST SELECTABLE \(selectedTab != chartViews.last?.rawValue)")
+        print("-----  -----")
+        return selectedTab != chartViews.last?.rawValue
+    }
+    
+    private var firstSelectable: Bool {
+        print("----- First Selectable -----")
+        print("FIRST Tab \(selectedTab)")
+        print("FIRST View Int \(chartViews.first?.rawValue)")
+        print("FIRST View \(chartViews.first)")
+        print("FIRST SELECTABLE \(selectedTab != chartViews.first?.rawValue)")
+        print("-----  -----")
+        return selectedTab != chartViews.first?.rawValue
     }
     
     //MARK: - SECTOR BREAKDOWN CHART
@@ -296,7 +472,16 @@ public struct SLCharts: View {
             detailFont: sectorDetailFont,
             detailFontColor: sectorDetailFontColor,
             subHeaderFont: subHeaderFont,
-            subHeaderFontColor: subHeaderFontColor
+            subHeaderFontColor: subHeaderFontColor,
+            gainColor: gainColor,
+            lossColor: lossColor,
+            sectorHeaderFont: sectorHeaderFont,
+            sectorHeaderFontColor: sectorHeaderFontColor,
+            sectorSubHeaderFont: sectorSubHeaderFont,
+            sectorSubHeaderFontColor: sectorSubHeaderFontColor,
+            assetDefaultColor: assetDefaultColor,
+            symbolFont: symbolFont,
+            nameFont: nameFont
         )
     }
     
@@ -410,6 +595,7 @@ public struct SLCharts: View {
     private var SummaryChartReference: some View {
         PortfolioSummaryChart(
             viewModel,
+            axis: axis,
             //            showNullDataAlert: !viewModel.hasCostBasis,
             showDisclaimer: $showDisclaimer,
             chartHeader: portfolioSummaryChartHeader,
@@ -430,6 +616,31 @@ public struct SLCharts: View {
             bodyFont: subHeaderFont,
             bodyFontColor: subHeaderFontColor
         )
+    }
+    
+    //MARK: Tab bar next and back selector
+    @ViewBuilder
+    private func TabSelector(imageName: String, action: @escaping () -> Void, selectable: Bool) -> some View {
+        Image(systemName: imageName)
+            .font(.title2)
+            .foregroundColor(selectable ? Color(UIColor.tertiaryLabel) : .clear)
+            .onTapGesture {
+                if selectable {
+                    action()
+                }
+            }
+    }
+    
+    //MARK: Link Account Button
+    @ViewBuilder
+    private var LinkAccountButton: some View {
+        Text(linkAccountButtonText)
+            .font(linkAccountButtonFont)
+            .foregroundColor(linkAccountButtonFontColor)
+            .padding(.vertical, 3)
+            .padding(.horizontal, 16)
+            .background(linkAccountButtonColor)
+            .clipShape(.capsule)
     }
 }
 

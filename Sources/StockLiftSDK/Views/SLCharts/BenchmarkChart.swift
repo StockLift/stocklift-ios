@@ -90,7 +90,6 @@ struct BenchmarkChart: View {
                     .underline(color: headerFontColor)
                     .overlay(alignment: .trailing) {
                         DisclaimerImage(showDisclaimer: $showDisclaimer, headerFontColor: headerFontColor)
-                            .offset(x: 18)
                     }
                 
                 BarLineChart(

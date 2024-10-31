@@ -12,7 +12,6 @@ import SwiftUI
 struct OpenLinkButton<Content: View>: View {
     var getPortfolio: () -> Void
     var errorHandler: () -> Void
-    @Binding var plaidAccountError: PlaidError?
     @ViewBuilder var content: Content
     
     private var token: String {
@@ -54,8 +53,7 @@ struct OpenLinkButton<Content: View>: View {
                 self.exchangeToken(token: success.publicToken,
                                    name: name,
                                    id: id,
-                                   accounts: accounts,
-                                   plaidError: plaidAccountError)
+                                   accounts: accounts)
             }
         )
 
@@ -101,7 +99,7 @@ private struct PlaidLinkFlow: View {
 
 extension OpenLinkButton {
     /// 2nd - Exchange plaid token for public access token
-    func exchangeToken(token: String, name: String, id: String, accounts: [PlaidAccount], plaidError: PlaidError?) {
+    func exchangeToken(token: String, name: String, id: String, accounts: [PlaidAccount]) {
         /// - SLClient
         guard let client = StockLiftSDK.client else { fatalError(SLError.errorMessage()) }
         /// - Plaid Linked Account
@@ -119,30 +117,9 @@ extension OpenLinkButton {
             /// - Hide Show Link View (Main View)
             showLink = false
             // GET PORTFOLIO
-            //                DispatchQueue.main.async {
-            //                    if let error = plaidError {
-            //                        self.removeOldToken(err: error)
-            //                    } else {
-            //                        getPortfolio()
-            //                    }
+            DispatchQueue.main.async {
+                getPortfolio()
+            }
         }
-    }
-    
-    private func removeOldToken(err: PlaidError) {
-//        UserService.shared.removePlaidAccountWithError(id: err.instId) { result in
-//            switch result {
-//            case .success(_):
-//                DispatchQueue.main.async {
-//                    self.plaidAccountError = nil
-//                    getPortfolio()
-//                }
-//            case .failure(let err):
-//                print("⛔️ ERROR: Removing Old Token ⛔️\n\(err.rawValue)")
-//                FBAuth.sendSlackMessage(codeSheet: "OpenLinkButton+removeOldToken",
-//                                        message: "\(err.rawValue)",
-//                                        data: "UUID: \(userUuid ?? "")")
-//                
-//            }
-//        }
     }
 }

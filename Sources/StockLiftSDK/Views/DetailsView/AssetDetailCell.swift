@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-//import Kingfisher
+import Kingfisher
 
 //TODO: - setup
 @available(iOS 15.0, *)
@@ -16,6 +16,11 @@ struct AssetDetailCell: View {
     @State private var showDetails: Bool = false
     @Binding var showUpdateCostBasis: (Bool, String)
     let hasCostBasis: Bool
+    
+    // - PROPERTIES
+    let assetDefaultColor: Color
+    let symbolFont: Font
+    let nameFont: Font
     
     var amount: Float {
         assetVM.amountInvested ?? 0
@@ -42,111 +47,96 @@ struct AssetDetailCell: View {
     
     var body: some View {
         HStack(alignment: .center, spacing: 0) {
-                if !assetVM.isCrypto {
-                    if let url = url {
-//                        KFImage(url)
-////                            .loadDiskFileSynchronously()
-//                            .resizable()
-//                            .scaledToFit()
-//                            .frame(width: 40, height: 40)
-//                            .background(Color.appBlue)
-//                            .clipShape(Circle())
-//                            .padding(.trailing, 8)
+            if !assetVM.isCrypto {
+                //MARK: - ASSET IMAGE
+                if let url = url {
+                    KFImage(url)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 40, height: 40)
+                        .background(assetDefaultColor)
+                        .clipShape(Circle())
+                        .padding(.trailing, 8)
+                } else {
+                    if let image = assetVM.equity.symbol {
+                        Text(assetVM.isCash ? "$" : image.prefix(4))
+                            .font(assetVM.isCash ? .callout : .caption)
+                            .fontWeight(.semibold)
+                            .frame(width: 40, height: 40)
+                            .background(assetDefaultColor)
+                            .clipShape(Circle())
+                            .padding(.trailing, 8)
                     } else {
-                        if let image = assetVM.equity.symbol {
-                            Text(assetVM.isCash ? "$" : image.prefix(5))
-                                .appFontRegular(size: assetVM.isCash ? 14 : 12)
-                                .shadow(radius: 2)
-                                .frame(width: 40, height: 40)
-                                .background(Color.blue)
-                                .clipShape(Circle())
-                                .padding(.trailing, 8)
-                        } else {
-                            Text("")
-                                .appFontRegular(size: assetVM.isCash ? 10 : 12)
-                                .shadow(radius: 2)
-                                .frame(width: 40, height: 40)
-                                .background(Color.blue)
-                                .clipShape(Circle())
-                                .padding(.trailing, 8)
-                        }
+                        Circle()
+                            .fill(assetDefaultColor)
+                            .frame(width: 40, height: 40)
+                            .padding(.trailing, 8)
                     }
                 }
-                
-
+            }
             
+            //MARK: - ASSET DETAILS
             VStack(alignment: .trailing, spacing: 0) {
                 HStack {
+                    // SYMBOL
                     Text(assetVM.equity.symbol ?? symbol)
-                        .appFontBlack()
-                    
+                        .font(symbolFont)
+                        .fontWeight(.black)
                     Spacer()
-                    
+                    // TOTAL AMOUNT
                     TotalAmountView
                 }
-                
                 HStack {
+                    // NAME
                     Text(assetVM.equity.name ?? "")
-                        .appFontRegular(size: 12)
-                    
+                        .font(nameFont)
                     Spacer()
-                    
+                    // PERCENT CHANGE
                     if !assetVM.isCash {
                         Text("\(setSymbol(percent))%")
-                            .appFontRegular(size: 12)
+                            .font(.caption)
                     }
-                 
                 }
             }
         }
         .padding(8)
-        .background(Color.white.opacity(0.15))
+        .background(Color(UIColor.tertiaryLabel))
         .cornerRadius(10)
+        .contentShape(Rectangle())
         .overlay(alignment: .center, content: {
             if showDetails {
-                PopUpDetailView(asset: assetVM.equity, 
+                PopUpDetailView(asset: assetVM.equity,
                                 showUpdateCostBasis: $showUpdateCostBasis,
                                 hasCostBasis: hasCostBasis,
                                 hideView: $showDetails)
             }
         })
-        .contentShape(Rectangle())
         .onTapGesture {
             withAnimation(.easeInOut) {
-                showDetails.toggle()
+                //TODO: - SETUP
+                //                                showDetails.toggle()
             }
         }
     }
     
+    //MARK: TOTAL AMOUNT VIEW
     @ViewBuilder
     private var TotalAmountView: some View {
         if assetVM.isFund {
             VStack {
                 HStack(alignment: .bottom, spacing: 0) {
                     Text(amount, format: .currency(code: "USD"))
-                        .appFontBlack()
-                    
+                        .fontWeight(.black)
                     Text(" of ")
-                        .appFontRegular(size: 12)
-                    
                     Text(assetVM.equity.institutionValue ?? 0, format: .currency(code: "USD"))
-                        .appFontBlack()
+                        .fontWeight(.black)
                 }
             }
-            
+            .font(.caption)
         } else {
             Text(amount, format: .currency(code: "USD"))
-                .appFontBlack()
+                .font(.caption)
+                .fontWeight(.black)
         }
     }
 }
-
-//struct EquityDetailCard_Previews: PreviewProvider {
-//    static var previews: some View {
-//        EquityDetailCard()
-//            .previewLayout(.sizeThatFits)
-//
-//            .padding()
-//    }
-//}
-

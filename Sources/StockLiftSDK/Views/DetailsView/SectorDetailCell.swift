@@ -15,6 +15,16 @@ struct SectorDetailCell: View {
     @State var isShowing: Bool = false
     @Binding var showUpdateCostBasis: (Bool, String)
     let hasCostBasis: Bool
+    // -- Properties
+    let gainColor: Color
+    let lossColor: Color
+    let sectorHeaderFont: Font
+    let sectorHeaderFontColor: Color
+    let sectorSubHeaderFont: Font
+    let sectorSubHeaderFontColor: Color
+    let assetDefaultColor: Color
+    let symbolFont: Font
+    let nameFont: Font
     
     var percentOfInvestment: String {
         sectorVM.percentOfInvestment
@@ -50,109 +60,127 @@ struct SectorDetailCell: View {
     
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
-            
+            //MARK: SECTOR TOP HEADER
+            // SECTOR TITLE & Click to open
             HStack {
                 Text(sectorName)
-                    .appFontMedium()
+                    .font(sectorHeaderFont)
+                    .fontWeight(.semibold)
+                    .foregroundStyle(sectorHeaderFontColor)
                 Spacer()
                 Image(systemName: isShowing ? "chevron.down" : "chevron.right")
                     .resizable()
                     .scaledToFit()
-                    .foregroundColor(.white)
+                    .foregroundStyle(.primary)
                     .frame(width: 12, height: 12)
                 
             }
             .padding(.bottom)
             
             HStack {
+                //MARK: LEFT CELL
+                // 1. GAIN / LOSE Image
+                // 2. TOTAL PERCENT & TOTAL PERCENT CHANGE
                 VStack(alignment: .center, spacing: 0) {
                     HStack(alignment: .center, spacing: 10) {
-                        
                         if sectorName != "Cash" {
-                            Image(investGainLose ? ImageKeys.upArrow : ImageKeys.downArrow, bundle: .module)
+                            Image(systemName: investGainLose ? ImageKeys.upArrow : ImageKeys.downArrow)
                                 .resizable()
                                 .scaledToFit()
+                                .foregroundStyle(investGainLose ? gainColor : lossColor)
                                 .frame(width: 20, height: 20)
                         } else {
                             Image(systemName: "dollarsign.circle")
                                 .resizable()
                                 .scaledToFit()
-                                .background(Color.blue)
+                                .background(gainColor)
                                 .frame(width: 20, height: 20)
                                 .clipShape(Circle())
                         }
-
+                        
                         
                         VStack(alignment: .leading, spacing: 4) {
                             Text("\(percentOfInvestment)%")
-                                .appFontBlack(size: 16)
+                                .font(.caption)
+                                .fontWeight(.black)
                                 .padding(.vertical, sectorName == "Cash" ? 8 : 0)
-                            
                             if sectorName != "Cash" {
                                 Text("\(self.setSymbol(percentInvestChange))%")
-                                    .appFontBlack(size: 12, color: investGainLose ? Color.blue : Color.red)
+                                    .font(.caption)
+                                    .fontWeight(.black)
+                                    .foregroundStyle(investGainLose ? gainColor : lossColor)
                             }
                         }
                     }
-                    
-                   
                 }
                 .padding(.vertical, 6)
                 .frame(maxWidth: .infinity)
-                .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(Color.white.opacity(0.6), lineWidth: 1))
+                .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(Color(UIColor.label), lineWidth: 1))
                 
+                //MARK: RIGHT CELL
+                // 1. GAIN / LOSE Image
+                // 2. TOTAL VALUE & TOTAL VALUE CHANGE
                 VStack(alignment: .center, spacing: 0) {
                     HStack(alignment: .center, spacing: 10) {
                         if sectorName != "Cash" {
-                            Image(sectorVM.dollarChangeGainLose ? ImageKeys.upArrow : ImageKeys.downArrow, bundle: .module)
+                            Image(systemName: sectorVM.dollarChangeGainLose ? ImageKeys.upArrow : ImageKeys.downArrow)
                                 .resizable()
                                 .scaledToFit()
+                                .foregroundStyle(investGainLose ? gainColor : lossColor)
                                 .frame(width: 20, height: 20)
                         } else {
                             Image(systemName: "dollarsign.circle")
                                 .resizable()
                                 .scaledToFit()
-                                .background(Color.blue)
+                                .background(gainColor)
                                 .frame(width: 20, height: 20)
                                 .clipShape(Circle())
                         }
                         
                         VStack(alignment: .leading, spacing: 4) {
                             Text(amountInvested, format: .currency(code: "USD"))
-                                .appFontBlack(size: 16)
+                                .font(.caption)
+                                .fontWeight(.black)
                                 .padding(.vertical, sectorName == "Cash" ? 8 : 0)
-                            
                             if sectorName != "Cash" {
                                 Text("\(setSymbol(dollarChange.clean, insert: "$"))")
-                                    .appFontBlack(size: 12, color: sectorVM.dollarChangeGainLose ? Color.blue : Color.red)
+                                    .font(.caption)
+                                    .fontWeight(.black)
+                                    .foregroundStyle(sectorVM.dollarChangeGainLose ? gainColor : lossColor)
                             }
                         }
-                        
                     }
                 }
                 .padding(.vertical, 6)
                 .frame(maxWidth: .infinity)
-                .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(Color.white.opacity(0.6), lineWidth: 1))
+                .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(Color(UIColor.label), lineWidth: 1))
                 
             }
             
-            //MARK: List of Assets in the current selected Sector
+            //MARK: - ASSETS for SECTOR
             if isShowing {
                 VStack {
                     if determineSectorType() {
                         if !sectorVM.sectorStocks.isEmpty {
                             HStack {
                                 Text("Stocks")
-                                    .appFontRegular(size: 12)
+                                    .font(sectorSubHeaderFont)
+                                    .fontWeight(.semibold)
+                                    .foregroundStyle(sectorSubHeaderFontColor)
                                 Spacer()
                             }
                         }
                     }
                     
                     ForEach(sectorVM.sectorStocks) { stock in
-                        AssetDetailCell(assetVM: AssetViewModel(equity: stock, sector: sectorVM.sector),
-                                         showUpdateCostBasis: $showUpdateCostBasis,
-                                         hasCostBasis: hasCostBasis)
+                        AssetDetailCell(
+                            assetVM: AssetViewModel(equity: stock, sector: sectorVM.sector),
+                            showUpdateCostBasis: $showUpdateCostBasis,
+                            hasCostBasis: hasCostBasis,
+                            assetDefaultColor: assetDefaultColor,
+                            symbolFont: symbolFont,
+                            nameFont: nameFont
+                        )
                     }
                     
                     if determineSectorType() {
@@ -160,7 +188,9 @@ struct SectorDetailCell: View {
                             if !sectorVM.sectorFunds.isEmpty {
                                 HStack {
                                     Text("Funds")
-                                        .appFontRegular(size: 12)
+                                        .font(sectorSubHeaderFont)
+                                        .fontWeight(.semibold)
+                                        .foregroundStyle(sectorSubHeaderFontColor)
                                     Spacer()
                                 }
                             }
@@ -168,9 +198,14 @@ struct SectorDetailCell: View {
                     }
                     
                     ForEach(sectorVM.sectorFunds) { stock in
-                        AssetDetailCell(assetVM: AssetViewModel(equity: stock, sector: sectorVM.sector),
-                                         showUpdateCostBasis: $showUpdateCostBasis,
-                                         hasCostBasis: hasCostBasis)
+                        AssetDetailCell(
+                            assetVM: AssetViewModel(equity: stock, sector: sectorVM.sector),
+                            showUpdateCostBasis: $showUpdateCostBasis,
+                            hasCostBasis: hasCostBasis,
+                            assetDefaultColor: assetDefaultColor,
+                            symbolFont: symbolFont,
+                            nameFont: nameFont
+                        )
                     }
                 }
                 .padding(.top)
@@ -178,8 +213,8 @@ struct SectorDetailCell: View {
             
         }
         .padding()
-        .background(Color.gray.opacity(0.7))
-        .overlay(RoundedRectangle(cornerRadius: 20).strokeBorder(Color.white.opacity(0.6), lineWidth: 1))
+        .background(Color(UIColor.tertiaryLabel))
+        .overlay(RoundedRectangle(cornerRadius: 20).strokeBorder(Color(UIColor.systemBackground).opacity(0.6), lineWidth: 1))
         .clipShape(RoundedRectangle(cornerRadius: 20))
         .onTapGesture {
             withAnimation(.easeInOut) {
@@ -194,28 +229,15 @@ struct SectorDetailCell: View {
         if sectorName == "Cash" {
             status = false
         }
-        
         if sectorName == "Crypto" {
             status = false
         }
-        
         if sectorName == "Derivative" {
             status = false
         }
-        
         if sectorName == "Fixed Income" {
             status = false
         }
-        
-        
         return status
     }
 }
-
-//struct SectorDetailCard_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SectorDetailCard()
-//            .padding()
-//    }
-//}
-

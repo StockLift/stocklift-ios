@@ -10,12 +10,23 @@ import SwiftUI
 
 @available(iOS 15.0, *)
 struct PortfolioDetails: View {
-    var sectorDetailsVM: AssetDetails
-    @Binding var date: String
+    @StateObject var sectorDetailsVM: DetailsViewModel
+    
+    // - Properties
+    let date: String
     let hasCostBasis: Bool
     let selectedSector: SelectedSector
     var updateCostBasisAction: (String, Float) -> Void
-
+    let gainColor: Color
+    let lossColor: Color
+    let sectorHeaderFont: Font 
+    let sectorHeaderFontColor: Color
+    let sectorSubHeaderFont: Font
+    let sectorSubHeaderFontColor: Color
+    let assetDefaultColor: Color
+    let symbolFont: Font
+    let nameFont: Font
+    
     @State private var showUpdateCostBasis: (Bool, String) = (false, "")
     
     var queryAssets: Range<Int> {
@@ -23,38 +34,57 @@ struct PortfolioDetails: View {
     }
     
     var body: some View {
-        VStack {
-            ScrollViewReader { proxy in
-                ScrollView(.vertical, showsIndicators: false) {
-                    if !hasCostBasis {
-                        Text(PortfolioViewModel.missingCostBasisMessage(date))
-                            .appFontRegular(color: .gray)
-                            .multilineTextAlignment(.center)
+        ZStack(alignment: .bottomTrailing) {
+            Color(UIColor.systemBackground).edgesIgnoringSafeArea(.all)
+            VStack {
+                ScrollViewReader { proxy in
+                    ScrollView(.vertical, showsIndicators: false) {
+                        if !hasCostBasis {
+                            Text(PortfolioViewModel.missingCostBasisMessage(date))
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                                .multilineTextAlignment(.center)
+                        }
+                        
+                        ForEach(queryAssets, id: \.self) { index in
+                            SectorDetailCell(
+                                sectorVM: SectorViewModel(
+                                    sector: sectorDetailsVM.sectors[index],
+                                    sectorFunds: sectorDetailsVM.funds[index],
+                                    sectorStocks: sectorDetailsVM.equities[index]
+                                ),
+                                isShowing: sectorIsSelected(sectorDetailsVM.sectors[index].sector),
+                                showUpdateCostBasis: $showUpdateCostBasis,
+                                hasCostBasis: hasCostBasis,
+                                gainColor: gainColor,
+                                lossColor: lossColor,
+                                sectorHeaderFont: sectorHeaderFont,
+                                sectorHeaderFontColor: sectorHeaderFontColor,
+                                sectorSubHeaderFont: sectorSubHeaderFont,
+                                sectorSubHeaderFontColor: sectorSubHeaderFontColor,
+                                assetDefaultColor: assetDefaultColor,
+                                symbolFont: symbolFont,
+                                nameFont: nameFont
+                            )
+                            .id(sectorDetailsVM.sectors[index].sector)
+                        }
                     }
-                    
-                    ForEach(queryAssets, id: \.self) { index in
-                        SectorDetailCell(sectorVM: SectorViewModel(sector: sectorDetailsVM.sectors[index],
-                                                                   sectorFunds: sectorDetailsVM.funds[index],
-                                                                   sectorStocks: sectorDetailsVM.equities[index]),
-                                         isShowing: sectorIsSelected(sectorDetailsVM.sectors[index].sector), showUpdateCostBasis: $showUpdateCostBasis, hasCostBasis: hasCostBasis)
-                        .id(sectorDetailsVM.sectors[index].sector)
+                    .padding(.bottom)
+                    .onAppear {
+                        if selectedSector != .none {
+                            proxy.scrollTo(selectedSector.rawValue.lowercased(), anchor: .top)
+                        }
                     }
                 }
-                .padding(.bottom)
-                .onAppear {
-                    if selectedSector != .none {
-                        proxy.scrollTo(selectedSector.rawValue.lowercased(), anchor: .top)
-                    }
+                .overlay(alignment: .center) {
+                    //                if showUpdateCostBasis.0 {
+                    //                    EditCostBasisView(updateCostBasisAction: updateCostBasisAction,
+                    //                                      showUpdateCostBasis: $showUpdateCostBasis)
+                    //                }
                 }
             }
-            .overlay(alignment: .center) {
-//                if showUpdateCostBasis.0 {
-//                    EditCostBasisView(updateCostBasisAction: updateCostBasisAction, 
-//                                      showUpdateCostBasis: $showUpdateCostBasis)
-//                }
-            }
+            .padding()
         }
-        .padding()
     }
     
     private func sectorIsSelected(_ sector: String?) -> Bool {
@@ -65,6 +95,4 @@ struct PortfolioDetails: View {
         }
         return false
     }
-    
-
 }

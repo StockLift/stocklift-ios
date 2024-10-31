@@ -15,7 +15,8 @@ struct DisclaimerImage: View {
         Image(systemName: ImageKeys.infoCircle)
             .font(.caption2)
             .foregroundStyle(headerFontColor.opacity(0.4))
-            .onTapGesture { showDisclaimer.toggle() }
+            .onTapGesture { withAnimation(.easeInOut) {showDisclaimer.toggle()} }
+            .offset(x: 18)
     }
 }
 

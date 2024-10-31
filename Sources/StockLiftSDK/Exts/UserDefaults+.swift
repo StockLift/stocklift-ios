@@ -8,6 +8,16 @@
 
 import SwiftUI
 
+public enum ObjectSavableError: String, LocalizedError {
+    case unableToEncode = "Unable to encode object into data"
+    case noValue = "No data object found for the given key"
+    case unableToDecode = "Unable to decode object into given type"
+    
+    public var errorDescription: String? {
+        rawValue
+    }
+}
+
 public extension UserDefaults {
     func setObject<Object>(_ object: Object, forKey: String) throws where Object : Encodable {
         let encoder = JSONEncoder()
@@ -32,29 +42,5 @@ public extension UserDefaults {
 }
 
 
-public enum ObjectSavableError: String, LocalizedError {
-    case unableToEncode = "Unable to encode object into data"
-    case noValue = "No data object found for the given key"
-    case unableToDecode = "Unable to decode object into given type"
-    
-    public var errorDescription: String? {
-        rawValue
-    }
-}
 
 
-
-public extension UserDefaults {
-    func saveImage(_ image: UIImage, key: String) {
-        guard let data = image.jpegData(compressionQuality: 0.5) else { return }
-        let encoded = try! PropertyListEncoder().encode(data)
-        UserDefaults.standard.set(encoded, forKey: key)
-    }
-    
-    func loadImage(_ key: String) -> UIImage? {
-        guard let data = UserDefaults.standard.data(forKey: key) else { return nil }
-        let decoded = try! PropertyListDecoder().decode(Data.self, from: data)
-        let image = UIImage(data: decoded)
-        return image
-    }
-}

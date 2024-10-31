@@ -16,7 +16,7 @@ struct SectorCell: View {
                 .foregroundColor(entry.color)
                 .frame(width: 8, height: 8)
             
-            Text(PortfolioChartUtils.amount(entry.value))
+            Text(ChartUtility.amount(entry.value))
                 .appFontMedium(size: 16)
             
             Text(entry.label)

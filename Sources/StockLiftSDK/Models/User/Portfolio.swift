@@ -15,16 +15,14 @@ public struct PortfolioResponse: Codable {
     public let data: Portfolio
     public let pendingData: Bool?
     public let date: String?
-    public let plaidError: PlaidError?
     
-    public init(hasAccount: Bool, hasCostBasis: Bool?, missingData: [String]?, data: Portfolio, pendingData: Bool?, date: String?, plaidError: PlaidError? = nil) {
+    public init(hasAccount: Bool, hasCostBasis: Bool?, missingData: [String]?, data: Portfolio, pendingData: Bool?, date: String?) {
         self.hasAccount = hasAccount
         self.hasCostBasis = hasCostBasis
         self.missingData = missingData
         self.data = data
         self.pendingData = pendingData
         self.date = date
-        self.plaidError = plaidError
     }
     
     enum CodingKeys: String, CodingKey {
@@ -34,7 +32,6 @@ public struct PortfolioResponse: Codable {
         case data
         case date = "date_connected"
         case pendingData = "pending_data"
-        case plaidError = "plaid_error"
     }
 }
 

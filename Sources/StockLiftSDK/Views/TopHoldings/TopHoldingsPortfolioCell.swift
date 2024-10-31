@@ -16,6 +16,9 @@ struct TopHoldingsPortfolioCell: View {
     let hasCostBasis: Bool
     @Binding var showUpdateCostBasis: (Bool, String)
     
+    // -- PROPERTIES
+    let assetDefaultColor: Color = .blue
+    
     @State private var showDetails: Bool = false
     @State private var assetImageUrl: URL? = nil
     
@@ -46,7 +49,7 @@ struct TopHoldingsPortfolioCell: View {
         HStack {
             HStack {
                 /// IMAGE
-                AssetImageHandler(assetImageUrl: assetImageUrl, asset: asset, size: 34)
+                AssetImageHandler(assetImageUrl: assetImageUrl, asset: asset, size: 34, color: assetDefaultColor)
                 VStack(alignment: .leading, spacing: 2) {
                     HStack {
                         /// SYMBOL & RANK
