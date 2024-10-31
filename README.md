@@ -33,7 +33,7 @@ let client = SLClient(uuid: "test-123", name: "Jane Doe", email: "test@test.com"
 StockLiftSDK.client = client
 ```
 
-1. Import StockLiftSDK, create a SLCharts instance, and set a height
+3. Import StockLiftSDK, create a SLCharts instance, and set a height
 
 There is a horizontal and vertical alignment option. The SLCharts object defaults to showing all the available charts. You can also customize it to only show the charts you want.
 
