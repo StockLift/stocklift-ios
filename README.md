@@ -67,7 +67,7 @@ SLCharts(axis: .vertical)
 _Example Custom Charts_
 
 ```swift
-SLCharts([.geoDiversification, .benchmark, .sector])
+SLCharts([.geoDiversification, .benchmarkPerformance, .sectorDiversification])
      .frame(height: 320)
 ```
 
