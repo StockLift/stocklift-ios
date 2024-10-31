@@ -53,7 +53,6 @@ _Example Horizontal_
 ```swift
 SLCharts()
     .frame(height: UIScreen.main.bounds.height * 0.40)
-    .padding()
 ```
 
 _Example Vertical_
