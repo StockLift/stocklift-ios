@@ -525,6 +525,7 @@ extension SLCharts {
         Image(systemName: imageName)
             .font(.title2)
             .foregroundColor(selectable ? Color(UIColor.tertiaryLabel) : .clear)
+            .contentShape(Circle())
             .onTapGesture {
                 if selectable {
                     action()
@@ -541,6 +542,7 @@ extension SLCharts {
             .padding(.vertical, 3)
             .padding(.horizontal, 16)
             .background(linkAccountButtonColor)
+            .contentShape(.capsule)
             .clipShape(.capsule)
     }
 }
@@ -571,6 +573,7 @@ extension SLCharts {
             let nextView = SLChartType(rawValue: next)
             if let view = nextView {
                 self.selectedTab = view.rawValue
+                HapticTap.light()
             }
         }
     }
@@ -583,6 +586,7 @@ extension SLCharts {
             let nextView = SLChartType(rawValue: next)
             if let view = nextView {
                 self.selectedTab = view.rawValue
+                HapticTap.light()
             }
         }
     }
