@@ -9,12 +9,15 @@ import Foundation
 
 public enum SLChartType: Int, CaseIterable, Identifiable {
     public var id: Self { self }
-    case sector
-    case benchmark
-    case projections
+    case portfolioSummary
+    case sectorDiversification
     case geoDiversification
     case topHoldings
-    case portfolioSummary
+    case benchmarkPerformance
+    case projectionsPerformance
     
-    var tag: Int { self.rawValue }
+    func setTag(_ chartViews: [SLChartType]) -> Int  {
+        chartViews.firstIndex(of: self) ?? 0
+        
+    }
 }

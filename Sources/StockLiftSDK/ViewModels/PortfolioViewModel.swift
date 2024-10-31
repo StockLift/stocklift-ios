@@ -44,12 +44,12 @@ final class PortfolioViewModel: BaseViewModel {
             isLoading = true
         }
         if types.contains(.portfolioSummary) ||
-            types.contains(.projections) ||
-            types.contains(.sector) ||
+            types.contains(.projectionsPerformance) ||
+            types.contains(.sectorDiversification) ||
             types.contains(.topHoldings) {
             getPortfolio()
         }
-        if types.contains(.benchmark) ||
+        if types.contains(.benchmarkPerformance) ||
             types.contains(.portfolioSummary) {
             getBenchmarkChartData()
         }

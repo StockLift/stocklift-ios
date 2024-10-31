@@ -42,7 +42,7 @@ struct DemoAllChartsView: View {
                 
                 DemoTextView(text: "This is a demo of the SLCharts configured with the Portfolio Summary and Top Holdings Charts.")
                 
-                SLCharts([.benchmark, .projections, .geoDiversification],
+                SLCharts([.benchmarkPerformance, .projectionsPerformance, .geoDiversification],
                          projectionsChartHeader: HelperClass.randomTitle(),
                          benchmarkChartHeader: HelperClass.randomTitle(),
                          sectorChartHeader: HelperClass.randomTitle(),
@@ -134,7 +134,7 @@ struct Example1View: View {
             SLCharts([.topHoldings])
                 .frame(height: 320)
             
-            SLCharts([.geoDiversification, .benchmark, .sector])
+            SLCharts([.geoDiversification, .benchmarkPerformance, .sectorDiversification])
                 .frame(height: 320)
         }
     }

@@ -198,6 +198,12 @@ public struct SLCharts: View {
         self.assetDefaultColor = assetDefaultColor
         self.symbolFont = symbolFont
         self.nameFont = nameFont
+        
+        // SET First Tab for Custom Order
+//        if let tab = chartViews.first {
+//            print("TAB ---- \(tab)")
+//            self.selectedTab = tab
+//        }
     }
     
     public var body: some View {
@@ -215,34 +221,40 @@ public struct SLCharts: View {
                     } else {
                         ForEach(chartViews) { view in
                             switch view {
-                            case .projections:
+                            case .projectionsPerformance:
                                 /// ------------ Projections Chart
                                 ProjectionsChartReference
-                                    .tag(view.tag)
+                                    .tag(view.setTag(chartViews))
+//                                    .tag(chartViews.firstIndex(of: .projectionsPerformance) ?? 0)
                                     .padding(8)
-                            case .benchmark:
+                            case .benchmarkPerformance:
                                 /// ------------ Benchmark Chart
                                 BenchmarkChartReference
-                                    .tag(view.tag)
+                                    .tag(view.setTag(chartViews))
+//                                    .tag(chartViews.firstIndex(of: .benchmarkPerformance) ?? 0)
                                     .padding(8)
-                            case .sector:
+                            case .sectorDiversification:
                                 /// ------------ Sector Breakdown Chart
                                 SectorChartReference
-                                    .tag(view.tag)
+                                    .tag(view.setTag(chartViews))
+//                                    .tag(chartViews.firstIndex(of: .sectorDiversification) ?? 0)
                             case .geoDiversification:
                                 /// ------------ GeoDiversification Chart
                                 GeoDiversificationChartReference
-                                    .tag(view.tag)
+                                    .tag(view.setTag(chartViews))
+//                                    .tag(chartViews.firstIndex(of: .geoDiversification) ?? 0)
                                     .padding(8)
                             case .topHoldings:
                                 /// ------------ Top Holdings Chart
                                 TopHoldingsChartReference
-                                    .tag(view.tag)
+                                    .tag(view.setTag(chartViews))
+//                                    .tag(chartViews.firstIndex(of: .topHoldings) ?? 0)
                                     .padding(8)
                             case .portfolioSummary:
                                 /// ------------ Portfolio Summary Chart
                                 SummaryChartReference
-                                    .tag(view.tag)
+                                    .tag(view.setTag(chartViews))
+//                                    .tag(chartViews.firstIndex(of: .portfolioSummary) ?? 0)
                                     .padding(8)
                             }
                         }
@@ -256,7 +268,7 @@ public struct SLCharts: View {
                 HStack {
                     TabSelector(imageName: ImageKeys.arrowLeftCircle,
                                 action: backTab,
-                                selectable: selectedTab != 0)
+                                selectable: selectedTab != chartViews.first?.rawValue)
                     Spacer()
                     OpenLinkButton(getPortfolio: getPortfolio, errorHandler: plaidError) {
                         LinkAccountButton
@@ -264,7 +276,7 @@ public struct SLCharts: View {
                     Spacer()
                     TabSelector(imageName: ImageKeys.arrowRightCircle,
                                 action: nextTab,
-                                selectable: selectedTab != chartViews.count - 1)
+                                selectable: selectedTab != chartViews.last?.rawValue)
                 }
                 .padding(.horizontal)
                 .padding(.bottom, 12)
@@ -305,19 +317,19 @@ public struct SLCharts: View {
                             case .portfolioSummary:
                                 /// Vertical alignment always shows summary at top
                                 EmptyView()
-                            case .projections:
+                            case .projectionsPerformance:
                                 /// ------------ Projections Chart
                                 ProjectionsChartReference
                                     .frame(height: verticalChartHeights)
                                     .padding(8)
                                 SLDivider
-                            case .benchmark:
+                            case .benchmarkPerformance:
                                 /// ------------ Benchmark Chart
                                 BenchmarkChartReference
                                     .frame(height: verticalChartHeights)
                                     .padding(8)
                                 SLDivider
-                            case .sector:
+                            case .sectorDiversification:
                                 /// ------------ Sector Breakdown Chart
                                 SectorChartReference
                                     .frame(height: verticalChartHeights)
@@ -356,18 +368,69 @@ public struct SLCharts: View {
     }
     
     private func nextTab() {
-        if selectedTab != chartViews.count - 1 {
-            withAnimation(.easeInOut) {selectedTab += 1}
-            HapticTap.light()
+        let nextIndex = selectedTab + 1
+        print("NEXT INDEX --- \(nextIndex)")
+        if nextIndex <= chartViews.count {
+            let next = chartViews.index(after: selectedTab)
+            print("NEXT TAB --- \(next)")
+            let nextView = SLChartType(rawValue: next)
+            print("NEXT VIEW --- \(nextView)")
+            if let view = nextView {
+                self.selectedTab = view.rawValue
+                
+            }
         }
+     
+        
+//        if selectedTab != chartViews.count - 1 {
+//            withAnimation(.easeInOut) {selectedTab += 1}
+//            HapticTap.light()
+//        }
     }
     
     private func backTab() {
-        if selectedTab != 0 {
-            withAnimation(.easeInOut) {selectedTab -= 1}
-            HapticTap.light()
+        let nextIndex = selectedTab - 1
+        print("BACK INDEX --- \(nextIndex)")
+        if nextIndex <= chartViews.count {
+            let next = chartViews.index(before: selectedTab)
+            print("BACK TAB --- \(next)")
+            let nextView = SLChartType(rawValue: next)
+            print("BACK VIEW --- \(nextView)")
+            if let view = nextView {
+                self.selectedTab = view.rawValue
+                
+            }
         }
+//        if selectedTab != 0 {
+//            withAnimation(.easeInOut) {selectedTab -= 1}
+//            HapticTap.light()
+//        }
     }
+    
+    // set tab int for tab view based on available total chart views
+//    private func setTabViewTag(_ tab: SLChartType) {
+//        guard chartViews.count > 0 else { return  }
+//        
+////        let view = chartViews.enumerated().first(where: {tab == $0.1})
+////        SLChartType(rawValue: view)
+//  
+//       
+//        
+//        chartViews.enumerated().forEach { index, view in
+//            if view == tab {
+////                return index
+//            }
+////            view.tag = index
+//        }
+////        return nil
+//    }
+    
+//    private func setTab() {
+//        let totalTabs = chartViews.count
+//        if selectedTab.rawValue >= totalTabs {
+//            selectedTab = chartViews.first!
+//        }
+//    }
     
     //MARK: - SECTOR BREAKDOWN CHART
     @ViewBuilder
