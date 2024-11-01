@@ -7,8 +7,7 @@ let package = Package(
     name: "StockLiftSDK",
     platforms: [
       // Only add support for iOS 14 and up.
-      .iOS(.v16),
-      .macOS(.v10_14)
+      .iOS(.v16)
     ],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
