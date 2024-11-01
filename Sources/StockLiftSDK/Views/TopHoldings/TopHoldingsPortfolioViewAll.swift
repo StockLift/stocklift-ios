@@ -21,6 +21,11 @@ struct TopHoldingsPortfolioViewAll: View {
     let gainColor: Color
     let lossColor: Color
     let urls: [String: URL]
+    let symbolFont: Font = .callout // main symbol and rank
+    let symbolFontColor: Color = .primary
+    let nameFont: Font = .caption // name of asset
+    let nameFontColor: Color = .secondary
+    let totalPercentColor: Color = .yellow
     
     @State private var viewSortType: SortTopHoldingType = .weight
     
@@ -40,11 +45,15 @@ struct TopHoldingsPortfolioViewAll: View {
                                              gainColor: gainColor,
                                              lossColor: lossColor,
                                              fontColor: fontColor,
-                                             url: urls[holding.holding.symbol ?? "no_symbol"])
+                                             url: urls[holding.holding.symbol ?? "no_symbol"],
+                                             symbolFont: symbolFont,
+                                             symbolFontColor: symbolFontColor,
+                                             nameFont: nameFont,
+                                             nameFontColor: nameFontColor,
+                                             totalPercentColor: totalPercentColor)
                     SLDivider
                 }
             }
-//            .makeCardLayer()
         }
         .onChange(of: viewSortType, perform: { _ in
             toggle(viewSortType)

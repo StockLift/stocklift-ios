@@ -28,6 +28,11 @@ struct TopHoldingsPortfolioView: View {
     let gainColor: Color
     let lossColor: Color
     let urls: [String: URL]
+    let symbolFont: Font = .callout // main symbol and rank
+    let symbolFontColor: Color = .primary
+    let nameFont: Font = .caption // name of asset
+    let nameFontColor: Color = .secondary
+    let totalPercentColor: Color = .yellow
     
     @State private var showDetails: Bool = false
     @State private var showUpdateCostBasis: (Bool, String) = (false, "")
@@ -49,19 +54,26 @@ struct TopHoldingsPortfolioView: View {
             
             ScrollView {
                 ForEach(topHoldings.prefix(10)) { holding in
-                    TopHoldingsPortfolioCell(asset: holding.holding,
-                                             rank: holding.rank,
-                                             totalNetValue: totalNetValue,
-                                             hasCostBasis: hasCostBasis,
-                                             showUpdateCostBasis: $showUpdateCostBasis,
-                                             assetDefaultColor: assetDefaultColor,
-                                             gainColor: gainColor,
-                                             lossColor: lossColor,
-                                             fontColor: buttonFontColor,
-                                             url: urls[holding.holding.symbol ?? "no_symbol"])
+                    TopHoldingsPortfolioCell(
+                        asset: holding.holding,
+                        rank: holding.rank,
+                        totalNetValue: totalNetValue,
+                        hasCostBasis: hasCostBasis,
+                        showUpdateCostBasis: $showUpdateCostBasis,
+                        assetDefaultColor: assetDefaultColor,
+                        gainColor: gainColor,
+                        lossColor: lossColor,
+                        fontColor: buttonFontColor,
+                        url: urls[holding.holding.symbol ?? "no_symbol"],
+                        symbolFont: symbolFont,
+                        symbolFontColor: symbolFontColor,
+                        nameFont: nameFont,
+                        nameFontColor: nameFontColor,
+                        totalPercentColor: totalPercentColor
+                    )
                 }
             }
-//            .frame(maxHeight: 190)
+            //            .frame(maxHeight: 190)
             .setScrollBorderShading()
             
             Text("See All")

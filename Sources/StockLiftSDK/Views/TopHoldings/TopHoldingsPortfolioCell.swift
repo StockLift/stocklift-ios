@@ -22,11 +22,11 @@ struct TopHoldingsPortfolioCell: View {
     let lossColor: Color
     let fontColor: Color // Asset symbol in no image is present
     let url: URL? // asset image url
-    let symbolFont: Font = .callout // main symbol and rank
-    let symbolFontColor: Color = .primary
-    let nameFont: Font = .caption // name of asset
-    let nameFontColor: Color = .secondary
-    let totalPercentColor: Color = .yellow
+    let symbolFont: Font
+    let symbolFontColor: Color
+    let nameFont: Font
+    let nameFontColor: Color
+    let totalPercentColor: Color 
     
     @State private var showDetails: Bool = false
 //    @State private var assetImageUrl: URL? = nil
