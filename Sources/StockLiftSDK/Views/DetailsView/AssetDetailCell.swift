@@ -9,8 +9,7 @@
 import SwiftUI
 import Kingfisher
 
-//TODO: - setup
-@available(iOS 15.0, *)
+@available(iOS 16.0, *)
 struct AssetDetailCell: View {
     @StateObject var assetVM: AssetViewModel
     @State private var showDetails: Bool = false
@@ -89,7 +88,7 @@ struct AssetDetailCell: View {
                 HStack {
                     // NAME
                     Text(assetVM.equity.name ?? "")
-                        .font(nameFont)
+                        .font(nameFont.leading(.tight))
                     Spacer()
                     // PERCENT CHANGE
                     if !assetVM.isCash {
