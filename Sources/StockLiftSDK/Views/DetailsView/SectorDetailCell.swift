@@ -8,8 +8,7 @@
 
 import SwiftUI
 
-//TODO: config haptic
-@available(iOS 15.0, *)
+@available(iOS 16.0, *)
 struct SectorDetailCell: View {
     @StateObject var sectorVM: SectorViewModel
     @State var isShowing: Bool = false
@@ -101,12 +100,12 @@ struct SectorDetailCell: View {
                         
                         VStack(alignment: .leading, spacing: 4) {
                             Text("\(percentOfInvestment)%")
-                                .font(.caption)
+                                .font(.footnote)
                                 .fontWeight(.black)
                                 .padding(.vertical, sectorName == "Cash" ? 8 : 0)
                             if sectorName != "Cash" {
                                 Text("\(self.setSymbol(percentInvestChange))%")
-                                    .font(.caption)
+                                    .font(.footnote)
                                     .fontWeight(.black)
                                     .foregroundStyle(investGainLose ? gainColor : lossColor)
                             }
@@ -139,12 +138,12 @@ struct SectorDetailCell: View {
                         
                         VStack(alignment: .leading, spacing: 4) {
                             Text(amountInvested, format: .currency(code: "USD"))
-                                .font(.caption)
+                                .font(.footnote)
                                 .fontWeight(.black)
                                 .padding(.vertical, sectorName == "Cash" ? 8 : 0)
                             if sectorName != "Cash" {
                                 Text("\(setSymbol(dollarChange.clean, insert: "$"))")
-                                    .font(.caption)
+                                    .font(.footnote)
                                     .fontWeight(.black)
                                     .foregroundStyle(sectorVM.dollarChangeGainLose ? gainColor : lossColor)
                             }
