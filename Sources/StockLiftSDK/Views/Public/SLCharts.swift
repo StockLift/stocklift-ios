@@ -528,7 +528,22 @@ extension SLCharts {
     }
 }
 
-//MARK: TAB BAR & LINK ACCOUNT BUTTON
+//MARK: NETWORK METHODS
+@available(iOS 16.0, *)
+extension SLCharts {
+    // PLAID ERROR
+    private func plaidError() {
+        //TODO: -  handle error
+        // this setup will not be using this for now, the backend is handling errors differently then the app
+    }
+    
+    // GET PORTFOLIO
+    private func getPortfolio() {
+        viewModel.initView(types: chartViews)
+    }
+}
+
+//MARK: TAB BAR Item & NAVIGATION METHODS
 @available(iOS 16.0, *)
 extension SLCharts {
     //MARK: Tab bar next and back selector
@@ -545,38 +560,6 @@ extension SLCharts {
             }
     }
     
-    //MARK: Link Account Button
-//    @ViewBuilder
-//    private var LinkAccountButton: some View {
-//        Text(linkAccountButtonText)
-//            .font(linkAccountButtonFont)
-//            .foregroundColor(linkAccountButtonFontColor)
-//            .padding(.vertical, 3)
-//            .padding(.horizontal, 16)
-//            .background(linkAccountButtonColor)
-//            .contentShape(.capsule)
-//            .clipShape(.capsule)
-//    }
-}
-
-//MARK: NETWORK METHODS
-@available(iOS 16.0, *)
-extension SLCharts {
-    // PLAID ERROR
-    private func plaidError() {
-        //TODO: -  handle error
-        // this setup will not be using this for now, the backend is handling errors differently then the app
-    }
-    
-    // GET PORTFOLIO
-    private func getPortfolio() {
-        viewModel.initView(types: chartViews)
-    }
-}
-
-//MARK: TAB NAVIGATION METHODS
-@available(iOS 16.0, *)
-extension SLCharts {
     // Move to Next Tab
     private func nextTab() {
         let nextIndex = selectedTab + 1
