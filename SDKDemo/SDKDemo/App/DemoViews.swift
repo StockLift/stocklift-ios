@@ -53,13 +53,17 @@ struct DemoAllChartsView: View {
                          linkAccountButtonColor: HelperClass.randomColor(),
                          linkAccountButtonFontColor: HelperClass.randomColor(),
                          //                         linkAccountFontColor: HelperClass.randomColor(),
+                         gainColor: HelperClass.randomColor(),
+                         lossColor: HelperClass.randomColor(),
                          chartForegroundColor: HelperClass.randomColor(),
                          chartForegroundBorderColor: HelperClass.randomColor(),
                          //                         headerFontColor: HelperClass.randomColor(),
                          //                         sectorDetailFontColor: HelperClass.randomColor(),
                          sp500Colors: [HelperClass.randomColor(), HelperClass.randomColor(), HelperClass.randomColor()],
                          portfolioColors: [HelperClass.randomColor(), HelperClass.randomColor(), HelperClass.randomColor()],
+                         assetDefaultColor: HelperClass.randomColor(),
                          cardBackgroundColor: HelperClass.randomColor()
+
                 )
                 .frame(height: 420)
                 

@@ -32,6 +32,9 @@ struct TopHoldingsChart: View {
     let buttonColor: Color
     let buttonFontColor: Color
     let buttonFont: Font
+    let assetDefaultColor: Color
+    let gainColor: Color
+    let lossColor: Color
     
     init(
         _ viewModel: PortfolioViewModel,
@@ -52,7 +55,10 @@ struct TopHoldingsChart: View {
         subHeaderFontColor: Color = .primary,
         buttonColor: Color = .yellow,
         buttonFontColor: Color = .white,
-        buttonFont: Font = .caption
+        buttonFont: Font = .caption,
+        assetDefaultColor: Color = .blue,
+        gainColor: Color = .green,
+        lossColor: Color = .red
     ) {
         self.portfolioVM = viewModel
         self._showDisclaimer = showDisclaimer
@@ -73,6 +79,9 @@ struct TopHoldingsChart: View {
         self.buttonColor = buttonColor
         self.buttonFontColor = buttonFontColor
         self.buttonFont = buttonFont
+        self.assetDefaultColor = assetDefaultColor
+        self.gainColor = gainColor
+        self.lossColor = lossColor
     }
     
     var body: some View {
@@ -91,7 +100,10 @@ struct TopHoldingsChart: View {
                     subHeaderFontColor: subHeaderFontColor,
                     buttonColor: buttonColor,
                     buttonFontColor: buttonFontColor,
-                    buttonFont: buttonFont
+                    buttonFont: buttonFont,
+                    assetDefaultColor: assetDefaultColor,
+                    gainColor: gainColor,
+                    lossColor: lossColor
                 )
                 
             } else if portfolioVM.isLoading {

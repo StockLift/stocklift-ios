@@ -17,7 +17,10 @@ struct TopHoldingsPortfolioCell: View {
     @Binding var showUpdateCostBasis: (Bool, String)
     
     // -- PROPERTIES
-    let assetDefaultColor: Color = .blue
+    let assetDefaultColor: Color
+    let gainColor: Color
+    let lossColor: Color
+    let fontColor: Color 
     
     @State private var showDetails: Bool = false
     @State private var assetImageUrl: URL? = nil
@@ -49,7 +52,7 @@ struct TopHoldingsPortfolioCell: View {
         HStack {
             HStack {
                 /// IMAGE
-                AssetImageHandler(assetImageUrl: assetImageUrl, asset: asset, size: 34, color: assetDefaultColor)
+                AssetImageHandler(assetImageUrl: assetImageUrl, asset: asset, size: 34, color: assetDefaultColor, fontColor: fontColor)
                 VStack(alignment: .leading, spacing: 2) {
                     HStack {
                         /// SYMBOL & RANK
@@ -78,7 +81,7 @@ struct TopHoldingsPortfolioCell: View {
                 /// PERFORMANCE
                 Text("\(percentChange)%")
                     .font(.caption)
-                    .foregroundColor(setColor(percentChange))
+                    .foregroundColor(setColor(percentChange, gainColor: gainColor, lossColor: lossColor))
 //                    .appFontRegular(size: 10, color: showView() ? setColor(percentChange) : .appGray)
                 /// TOTAL VALUE
                 Text(currentValue, format: .currency(code: "USD"))

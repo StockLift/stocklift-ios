@@ -182,6 +182,7 @@ struct PortfolioSummaryChart: View {
             if axis == .horizontal {
                 Spacer()
             } else {
+                // Vertical config
                 OpenLinkButton(getPortfolio: getPortfolio, errorHandler: plaidError) {
                     LinkAccountButton(
                         linkAccountButtonText: linkAccountButtonText,

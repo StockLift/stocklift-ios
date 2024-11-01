@@ -488,7 +488,10 @@ extension SLCharts {
             subHeaderFontColor: subHeaderFontColor,
             buttonColor: buttonColor,
             buttonFontColor: buttonFontColor,
-            buttonFont: buttonFont
+            buttonFont: buttonFont,
+            assetDefaultColor: assetDefaultColor,
+            gainColor: gainColor,
+            lossColor: lossColor    
         )
     }
     
