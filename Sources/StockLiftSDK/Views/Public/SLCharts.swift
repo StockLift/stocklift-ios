@@ -259,7 +259,12 @@ public struct SLCharts: View {
                                 selectable: firstSelectable)
                     Spacer()
                     OpenLinkButton(getPortfolio: getPortfolio, errorHandler: plaidError) {
-                        LinkAccountButton
+                        LinkAccountButton(
+                            linkAccountButtonText: linkAccountButtonText,
+                            linkAccountButtonFont: linkAccountButtonFont,
+                            linkAccountButtonFontColor: linkAccountButtonFontColor,
+                            linkAccountButtonColor: linkAccountButtonColor
+                        )
                     }
                     Spacer()
                     TabSelector(imageName: ImageKeys.arrowRightCircle,
@@ -345,7 +350,7 @@ public struct SLCharts: View {
     }
 }
 
-//MARK: CHARTS UI
+//MARK: CHARTS
 @available(iOS 16.0, *)
 extension SLCharts {
     //MARK: - SECTOR BREAKDOWN CHART
@@ -503,6 +508,10 @@ extension SLCharts {
             linkAccountConnectSize: linkAccountConnectSize,
             linkAccountFont: linkAccountFont,
             linkAccountFontColor: linkAccountFontColor,
+            linkAccountButtonColor: linkAccountButtonColor,
+            linkAccountButtonFont: linkAccountButtonFont,
+            linkAccountButtonFontColor: linkAccountButtonFontColor,
+            linkAccountButtonText: linkAccountButtonText,
             plaidError: plaidError,
             getPortfolio: getPortfolio,
             headerFont: headerFont,
@@ -516,7 +525,7 @@ extension SLCharts {
     }
 }
 
-//MARK: TAB BAR & LINK ACCOUNT BUTTON UI
+//MARK: TAB BAR & LINK ACCOUNT BUTTON
 @available(iOS 16.0, *)
 extension SLCharts {
     //MARK: Tab bar next and back selector
@@ -534,17 +543,17 @@ extension SLCharts {
     }
     
     //MARK: Link Account Button
-    @ViewBuilder
-    private var LinkAccountButton: some View {
-        Text(linkAccountButtonText)
-            .font(linkAccountButtonFont)
-            .foregroundColor(linkAccountButtonFontColor)
-            .padding(.vertical, 3)
-            .padding(.horizontal, 16)
-            .background(linkAccountButtonColor)
-            .contentShape(.capsule)
-            .clipShape(.capsule)
-    }
+//    @ViewBuilder
+//    private var LinkAccountButton: some View {
+//        Text(linkAccountButtonText)
+//            .font(linkAccountButtonFont)
+//            .foregroundColor(linkAccountButtonFontColor)
+//            .padding(.vertical, 3)
+//            .padding(.horizontal, 16)
+//            .background(linkAccountButtonColor)
+//            .contentShape(.capsule)
+//            .clipShape(.capsule)
+//    }
 }
 
 //MARK: NETWORK METHODS

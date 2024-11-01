@@ -14,7 +14,7 @@ struct ContentView: View {
     private var toggleTitle: String { isDarkMode ? "Light Mode" : "Dark Mode" }
     
     // Current Testing View (set to empty to show default demo layout)
-    private let testingView: [SLChartType] = []
+    private let testingView: [SLChartType] = [.topHoldings]
     
     private enum ViewState {
         case login, charts
