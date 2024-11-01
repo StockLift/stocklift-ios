@@ -80,8 +80,8 @@ struct PopUpDetailView: View {
                 }
             }
         }
-//        .padding(.horizontal)
-//        .padding(.vertical, 8)
+        .padding(.horizontal)
+        .padding(.vertical, 8)
 //        .makeCardLayer(radius: 10)
 //        .onReceive(timer, perform: { _ in
 //            if counter < 5 {

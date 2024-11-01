@@ -20,10 +20,16 @@ struct TopHoldingsPortfolioCell: View {
     let assetDefaultColor: Color
     let gainColor: Color
     let lossColor: Color
-    let fontColor: Color 
+    let fontColor: Color // Asset symbol in no image is present
+    let url: URL? // asset image url
+    let symbolFont: Font = .callout // main symbol and rank
+    let symbolFontColor: Color = .primary
+    let nameFont: Font = .caption // name of asset
+    let nameFontColor: Color = .secondary
+    let totalPercentColor: Color = .yellow
     
     @State private var showDetails: Bool = false
-    @State private var assetImageUrl: URL? = nil
+//    @State private var assetImageUrl: URL? = nil
     
     private var currentValue: Float {
         asset.institutionValue ?? 0
@@ -52,25 +58,31 @@ struct TopHoldingsPortfolioCell: View {
         HStack {
             HStack {
                 /// IMAGE
-                AssetImageHandler(assetImageUrl: assetImageUrl, asset: asset, size: 34, color: assetDefaultColor, fontColor: fontColor)
+                AssetImageHandler(
+                    assetImageUrl: url,
+                    asset: asset,
+                    size: 34,
+                    color: assetDefaultColor,
+                    fontColor: fontColor
+                )
                 VStack(alignment: .leading, spacing: 2) {
                     HStack {
                         /// SYMBOL & RANK
                         Text(rankTitle)
-                            .font(.callout)
+                            .font(symbolFont)
+                            .foregroundStyle(symbolFontColor)
                             .layoutPriority(2)
                         /// WEIGHT
                         Text("\(totalPercent)%")
                             .font(.caption)
-                            .foregroundColor(.yellow)
-//                            .appFontRegular(size: 10, color: .yellow)
+                            .foregroundColor(totalPercentColor)
                     }
                     
                     if let name = asset.name, !name.isEmpty {
                         /// NAME
                         Text(name)
-                            .font(.caption)
-//                            .appFontRegular(size: 10)
+                            .font(nameFont)
+                            .foregroundStyle(nameFontColor)
                             .lineLimit(1)
                     }
                 }
@@ -81,8 +93,7 @@ struct TopHoldingsPortfolioCell: View {
                 /// PERFORMANCE
                 Text("\(percentChange)%")
                     .font(.caption)
-                    .foregroundColor(setColor(percentChange, gainColor: gainColor, lossColor: lossColor))
-//                    .appFontRegular(size: 10, color: showView() ? setColor(percentChange) : .appGray)
+                    .foregroundColor(showView() ? setColor(percentChange, gainColor: gainColor, lossColor: lossColor) : .secondary)
                 /// TOTAL VALUE
                 Text(currentValue, format: .currency(code: "USD"))
                     .font(.callout)
@@ -93,12 +104,12 @@ struct TopHoldingsPortfolioCell: View {
         .padding(.vertical, 8)
         .contentShape(Rectangle())
         .overlay(alignment: .center, content: {
-//            if showDetails {
-//                PopUpDetailView(asset: asset,
-//                                showUpdateCostBasis: $showUpdateCostBasis,
-//                                hasCostBasis: hasCostBasis,
-//                                hideView: $showDetails)
-//            }
+            if showDetails {
+                PopUpDetailView(asset: asset,
+                                showUpdateCostBasis: $showUpdateCostBasis,
+                                hasCostBasis: hasCostBasis,
+                                hideView: $showDetails)
+            }
         })
         .onTapGesture {
             withAnimation(.easeInOut) {
@@ -106,7 +117,7 @@ struct TopHoldingsPortfolioCell: View {
             }
         }
         .onAppear {
-            setImage()
+//            setImage()
         }
     }
     
@@ -138,11 +149,11 @@ struct TopHoldingsPortfolioCell: View {
     
     /// SET IMAGE
     private func setImage() {
-        if let symbol = asset.symbol {
-            AssetViewModel.getAssetImage(symbol) { url in
-                self.assetImageUrl = url
-            }
-        }
+//        if let symbol = asset.symbol {
+//            AssetViewModel.getAssetImage(symbol) { url in
+//                self.assetImageUrl = url
+//            }
+//        }
     }
 }
 

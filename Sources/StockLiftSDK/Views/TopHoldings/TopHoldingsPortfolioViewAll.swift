@@ -20,6 +20,7 @@ struct TopHoldingsPortfolioViewAll: View {
     let assetDefaultColor: Color
     let gainColor: Color
     let lossColor: Color
+    let urls: [String: URL]
     
     @State private var viewSortType: SortTopHoldingType = .weight
     
@@ -38,7 +39,8 @@ struct TopHoldingsPortfolioViewAll: View {
                                              assetDefaultColor: assetDefaultColor,
                                              gainColor: gainColor,
                                              lossColor: lossColor,
-                                             fontColor: fontColor)
+                                             fontColor: fontColor,
+                                             url: urls[holding.holding.symbol ?? "no_symbol"])
                     SLDivider
                 }
             }

@@ -27,6 +27,7 @@ struct TopHoldingsPortfolioView: View {
     let assetDefaultColor: Color
     let gainColor: Color
     let lossColor: Color
+    let urls: [String: URL]
     
     @State private var showDetails: Bool = false
     @State private var showUpdateCostBasis: (Bool, String) = (false, "")
@@ -56,7 +57,8 @@ struct TopHoldingsPortfolioView: View {
                                              assetDefaultColor: assetDefaultColor,
                                              gainColor: gainColor,
                                              lossColor: lossColor,
-                                             fontColor: buttonFontColor)
+                                             fontColor: buttonFontColor,
+                                             url: urls[holding.holding.symbol ?? "no_symbol"])
                 }
             }
 //            .frame(maxHeight: 190)
@@ -83,7 +85,8 @@ struct TopHoldingsPortfolioView: View {
                 buttonFont: buttonFont,
                 assetDefaultColor: assetDefaultColor,
                 gainColor: gainColor,
-                lossColor: lossColor
+                lossColor: lossColor,
+                urls: urls
             )
         })
         //        .overlay(alignment: .center) {

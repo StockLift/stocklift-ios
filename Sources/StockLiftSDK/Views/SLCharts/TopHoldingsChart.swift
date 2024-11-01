@@ -103,7 +103,8 @@ struct TopHoldingsChart: View {
                     buttonFont: buttonFont,
                     assetDefaultColor: assetDefaultColor,
                     gainColor: gainColor,
-                    lossColor: lossColor
+                    lossColor: lossColor,
+                    urls: portfolioVM.assetImages
                 )
                 
             } else if portfolioVM.isLoading {

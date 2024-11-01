@@ -37,6 +37,7 @@ final class PortfolioViewModel: BaseViewModel {
     @Published var geoAssets: [GeoAssetsData]? = nil
     @Published var sp500ChartEntries: [ChartData]? = nil
     @Published var portfolioChartEntries: [ChartData]? = nil
+    @Published var assetImages: [String: URL] = [:]
     
     //MARK: Init
     func initView(types: [SLChartType]) {
@@ -138,6 +139,10 @@ extension PortfolioViewModel {
             self.hasAccountConnected = hasAccount
             self.setPortfolioData(res.data)
             self.userTopHoldings = PortfolioViewModel.setTopHoldings(res.data.totalHoldings)
+            if let holdings = userTopHoldings {
+                self.setImages(holdings.map({$0.holding.symbol}))
+            }
+//            self.imageHandler(self.userTopHoldings)
             self.geoAssets = res.data.geoAssets
             if let hasCostBasis = res.hasCostBasis {
                 self.hasCostBasis = hasCostBasis
@@ -205,4 +210,43 @@ extension PortfolioViewModel {
             }
         }
     }
+}
+
+
+extension PortfolioViewModel {
+//    private func imageHandler(_ items: [TopHoldingAsset]?) {
+//        if let holdings = items {
+//            self.setImages(holdings) { items in
+//                self.assetImages = items.map({$0.holding.symbol})
+//            }
+//        }
+//      
+//    }
+    
+    private func setImages(_ symbols: [String?]) {
+        symbols.forEach { symbol in
+            if let symbol = symbol {
+                 AssetViewModel.getAssetImage(symbol) { url in
+                     self.assetImages[symbol] = url
+                    
+                }
+            }
+        }
+    }
+    
+    /// SET IMAGE
+//    private func setImages(_ items: [TopHoldingAsset], completion: @escaping ([TopHoldingAsset]) -> Void) {
+//        var itemsWithImages: [TopHoldingAsset] = items
+//        items.forEach { asset in
+//            if let symbol = asset.holding.symbol {
+//                AssetViewModel.getAssetImage(symbol) { url in
+//                    var newAsset = asset
+//                    newAsset.holding.url = url
+//                    itemsWithImages.append(asset)
+//                }
+//            }
+//        }
+//        print("ITEMS WITH IMAGES: \(itemsWithImages)")
+//        completion(itemsWithImages)
+//    }
 }
