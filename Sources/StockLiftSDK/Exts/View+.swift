@@ -167,7 +167,6 @@ public extension View {
                         .frame(width: size, height: size)
                         .background(color)
                         .clipShape(Circle())
-                        .padding(.trailing, 8)
                 } else {
                     if asset.type == .cash {
                         Text("$")
@@ -178,7 +177,6 @@ public extension View {
                             .background(color)
                             .foregroundStyle(fontColor)
                             .clipShape(Circle())
-                            .padding(.trailing, 8)
                     } else if let image = asset.symbol, image != "" {
                         Text(image.prefix(4))
                             .font(.caption2)
@@ -188,7 +186,6 @@ public extension View {
                             .background(color)
                             .foregroundStyle(fontColor)
                             .clipShape(Circle())
-                            .padding(.trailing, 8)
                     } else {
                         Text("")
                             .font(.caption2)
@@ -196,7 +193,6 @@ public extension View {
                             .frame(width: size, height: size)
                             .background(color)
                             .clipShape(Circle())
-                            .padding(.trailing, 8)
                     }
                 }
             } else {
@@ -209,7 +205,6 @@ public extension View {
                     .background(color)
                     .foregroundStyle(fontColor)
                     .clipShape(Circle())
-                    .padding(.trailing, 8)
             }
         }
     }

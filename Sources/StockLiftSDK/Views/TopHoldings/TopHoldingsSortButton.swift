@@ -10,6 +10,7 @@ import SwiftUI
 
 struct TopHoldingsSortButton: View {
     @Binding var sortViewState: SortTopHoldingType
+    
     let fontColor: Color // white
     let buttonColor: Color // blue
     let buttonFont: Font // caption
@@ -28,7 +29,6 @@ struct TopHoldingsSortButton: View {
         .contentShape(Capsule())
         .padding(.horizontal, 34)
         .padding(.bottom, 8)
-//        .padding(.vertical)
         .onTapGesture {
             switch sortViewState {
             case .weight:

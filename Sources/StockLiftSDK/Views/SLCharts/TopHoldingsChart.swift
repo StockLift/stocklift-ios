@@ -93,6 +93,7 @@ struct TopHoldingsChart: View {
                     topHoldings: holdings,
                     totalNetValue: Decimal(Double(netWorth)),
                     hasCostBasis: portfolioVM.hasCostBasis,
+                    urls: $portfolioVM.assetImages,
                     chartHeader: chartHeader,
                     headerFont: headerFont,
                     headerFontColor: headerFontColor,
@@ -103,8 +104,7 @@ struct TopHoldingsChart: View {
                     buttonFont: buttonFont,
                     assetDefaultColor: assetDefaultColor,
                     gainColor: gainColor,
-                    lossColor: lossColor,
-                    urls: portfolioVM.assetImages
+                    lossColor: lossColor
                 )
                 
             } else if portfolioVM.isLoading {

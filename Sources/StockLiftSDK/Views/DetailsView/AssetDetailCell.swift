@@ -12,7 +12,6 @@ import Kingfisher
 @available(iOS 16.0, *)
 struct AssetDetailCell: View {
     @StateObject var assetVM: AssetViewModel
-    @State private var showDetails: Bool = false
     @Binding var showUpdateCostBasis: (Bool, String)
     let hasCostBasis: Bool
     
@@ -20,21 +19,24 @@ struct AssetDetailCell: View {
     let assetDefaultColor: Color
     let symbolFont: Font
     let nameFont: Font
+    let assetDetailsHeaderFont: Font = .caption
+    let assetDetailsBodyFont: Font = .caption2
+    let assetDetailsHighlightColor: Color = Color.yellow
     
-    var amount: Float {
+    private var amount: Float {
         assetVM.amountInvested ?? 0
     }
     
-    var percent: String {
+    private var percent: String {
         let change = ((Float(assetVM.equity.institutionValue ?? 0) / Float(assetVM.equity.costBasis ?? 0)) - 1) * 100
         return change.clean
     }
     
-    var url: URL? {
+    private var url: URL? {
         assetVM.symbolImage
     }
     
-    var symbol: String {
+    private var symbol: String {
         var symbolString = ""
         if assetVM.isBond {
             symbolString = "Bond"
@@ -43,6 +45,11 @@ struct AssetDetailCell: View {
         }
         return symbolString
     }
+    
+    
+    @State private var showDetails: Bool = false
+    private let offset: CGFloat = 0
+    private let verticalPadding: CGFloat = 8
     
     var body: some View {
         HStack(alignment: .center, spacing: 0) {
@@ -104,16 +111,22 @@ struct AssetDetailCell: View {
         .contentShape(Rectangle())
         .overlay(alignment: .center, content: {
             if showDetails {
-                PopUpDetailView(asset: assetVM.equity,
-                                showUpdateCostBasis: $showUpdateCostBasis,
-                                hasCostBasis: hasCostBasis,
-                                hideView: $showDetails)
+                PopUpDetailView(
+                    asset: assetVM.equity,
+                    showUpdateCostBasis: $showUpdateCostBasis,
+                    hasCostBasis: hasCostBasis,
+                    hideView: $showDetails,
+                    offset: offset,
+                    verticalPadding: verticalPadding,
+                    headerFont: assetDetailsHeaderFont,
+                    bodyFont: assetDetailsBodyFont,
+                    highlightColor: assetDetailsHighlightColor
+                )
             }
         })
         .onTapGesture {
             withAnimation(.easeInOut) {
-                //TODO: - SETUP
-                //                                showDetails.toggle()
+                showDetails.toggle()
             }
         }
     }

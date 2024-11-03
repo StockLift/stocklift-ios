@@ -12,10 +12,11 @@ import SwiftUI
 struct TopHoldingsPortfolioView: View {
     @Binding var showDisclaimer: Bool
     @State var topHoldings: [TopHoldingAsset]
-    
     let totalNetValue: Decimal
     let hasCostBasis: Bool
+    @Binding var urls: [String: URL]
     
+    // ---- PROPERTIES
     let chartHeader: String
     let headerFont: Font
     let headerFontColor: Color
@@ -27,7 +28,6 @@ struct TopHoldingsPortfolioView: View {
     let assetDefaultColor: Color
     let gainColor: Color
     let lossColor: Color
-    let urls: [String: URL]
     let symbolFont: Font = .callout // main symbol and rank
     let symbolFontColor: Color = .primary
     let nameFont: Font = .caption // name of asset
@@ -36,7 +36,6 @@ struct TopHoldingsPortfolioView: View {
     
     @State private var showDetails: Bool = false
     @State private var showUpdateCostBasis: (Bool, String) = (false, "")
-    
     @State private var sortViewState: SortTopHoldingType = .weight
     
     var body: some View {
@@ -50,7 +49,10 @@ struct TopHoldingsPortfolioView: View {
                 }
                 .padding(.bottom, 12)
             
-            TopHoldingsSortButton(sortViewState: $sortViewState, fontColor: buttonFontColor, buttonColor: buttonColor, buttonFont: buttonFont)
+            TopHoldingsSortButton(sortViewState: $sortViewState,
+                                  fontColor: buttonFontColor,
+                                  buttonColor: buttonColor,
+                                  buttonFont: buttonFont)
             
             ScrollView {
                 ForEach(topHoldings.prefix(10)) { holding in
@@ -60,11 +62,11 @@ struct TopHoldingsPortfolioView: View {
                         totalNetValue: totalNetValue,
                         hasCostBasis: hasCostBasis,
                         showUpdateCostBasis: $showUpdateCostBasis,
+                        url: $urls[holding.holding.symbol ?? "no_symbol"],
                         assetDefaultColor: assetDefaultColor,
                         gainColor: gainColor,
                         lossColor: lossColor,
                         fontColor: buttonFontColor,
-                        url: urls[holding.holding.symbol ?? "no_symbol"],
                         symbolFont: symbolFont,
                         symbolFontColor: symbolFontColor,
                         nameFont: nameFont,
@@ -73,13 +75,11 @@ struct TopHoldingsPortfolioView: View {
                     )
                 }
             }
-            //            .frame(maxHeight: 190)
             .setScrollBorderShading()
             
             Text("See All")
                 .font(subHeaderFont)
                 .foregroundColor(subHeaderFontColor)
-//                .padding(.horizontal)
                 .padding(.vertical, 8)
                 .onTapGesture {
                     self.showDetails.toggle()
@@ -92,21 +92,21 @@ struct TopHoldingsPortfolioView: View {
                 totalNetValue: totalNetValue,
                 hasCostBasis: hasCostBasis,
                 showUpdateCostBasis: $showUpdateCostBasis,
+                urls: $urls,
                 fontColor: buttonFontColor,
                 buttonColor: buttonColor,
                 buttonFont: buttonFont,
                 assetDefaultColor: assetDefaultColor,
                 gainColor: gainColor,
-                lossColor: lossColor,
-                urls: urls
+                lossColor: lossColor
             )
         })
-        //        .overlay(alignment: .center) {
-        //            if showUpdateCostBasis.0 {
-        //                EditCostBasisView(updateCostBasisAction: updateCostBasisAction,
-        //                                  showUpdateCostBasis: $showUpdateCostBasis)
-        //            }
-        //        }
+//        .overlay(alignment: .center) {
+//            if showUpdateCostBasis.0 {
+//                EditCostBasisView(updateCostBasisAction: updateCostBasisAction,
+//                                  showUpdateCostBasis: $showUpdateCostBasis)
+//            }
+//        }
         .padding(4)
         .onChange(of: sortViewState, perform: { _ in
             toggle(sortViewState)

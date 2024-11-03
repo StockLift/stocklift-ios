@@ -15,21 +15,21 @@ struct TopHoldingsPortfolioCell: View {
     let totalNetValue: Decimal
     let hasCostBasis: Bool
     @Binding var showUpdateCostBasis: (Bool, String)
+    @Binding var url: URL? // asset image url
     
     // -- PROPERTIES
     let assetDefaultColor: Color
     let gainColor: Color
     let lossColor: Color
     let fontColor: Color // Asset symbol in no image is present
-    let url: URL? // asset image url
     let symbolFont: Font
     let symbolFontColor: Color
     let nameFont: Font
     let nameFontColor: Color
-    let totalPercentColor: Color 
-    
-    @State private var showDetails: Bool = false
-//    @State private var assetImageUrl: URL? = nil
+    let totalPercentColor: Color
+    let assetDetailsHeaderFont: Font = .caption
+    let assetDetailsBodyFont: Font = .caption2
+    let assetDetailsHighlightColor: Color = Color.yellow
     
     private var currentValue: Float {
         asset.institutionValue ?? 0
@@ -45,7 +45,7 @@ struct TopHoldingsPortfolioCell: View {
         return String(format: "%.2f", Double(truncating: value as NSNumber))
     }
     
-    var rankTitle: String {
+    private  var rankTitle: String {
         if let symbol = asset.symbol {
             return "\(rank). \(symbol)"
         } else {
@@ -53,62 +53,77 @@ struct TopHoldingsPortfolioCell: View {
         }
     }
     
+    @State private var showDetails: Bool = false
+    private let offset: CGFloat = -10
+    private let verticalPadding: CGFloat = 2
+    //    @State private var assetImageUrl: URL? = nil
     
     var body: some View {
-        HStack {
+        VStack {
             HStack {
-                /// IMAGE
-                AssetImageHandler(
-                    assetImageUrl: url,
-                    asset: asset,
-                    size: 34,
-                    color: assetDefaultColor,
-                    fontColor: fontColor
-                )
-                VStack(alignment: .leading, spacing: 2) {
-                    HStack {
-                        /// SYMBOL & RANK
-                        Text(rankTitle)
-                            .font(symbolFont)
-                            .foregroundStyle(symbolFontColor)
-                            .layoutPriority(2)
-                        /// WEIGHT
-                        Text("\(totalPercent)%")
-                            .font(.caption)
-                            .foregroundColor(totalPercentColor)
+                HStack {
+                    /// IMAGE
+                    AssetImageHandler(
+                        assetImageUrl: url,
+                        asset: asset,
+                        size: 34,
+                        color: assetDefaultColor,
+                        fontColor: fontColor
+                    )
+                    .padding(.trailing, 4)
+                    VStack(alignment: .leading, spacing: 2) {
+                        HStack {
+                            /// SYMBOL & RANK
+                            Text(rankTitle)
+                                .font(symbolFont)
+                                .foregroundStyle(symbolFontColor)
+                                .layoutPriority(2)
+                            /// WEIGHT
+                            Text("\(totalPercent)%")
+                                .font(.caption)
+                                .foregroundColor(totalPercentColor)
+                        }
+                        
+                        if let name = asset.name, !name.isEmpty {
+                            /// NAME
+                            Text(name)
+                                .font(nameFont)
+                                .foregroundStyle(nameFontColor)
+                                .lineLimit(1)
+                        }
                     }
-                    
-                    if let name = asset.name, !name.isEmpty {
-                        /// NAME
-                        Text(name)
-                            .font(nameFont)
-                            .foregroundStyle(nameFontColor)
-                            .lineLimit(1)
-                    }
+                    Spacer()
                 }
-                Spacer()
+                
+                VStack(alignment: .trailing) {
+                    /// PERFORMANCE
+                    Text("\(percentChange)%")
+                        .font(.caption)
+                        .foregroundColor(showView() ? setColor(percentChange, gainColor: gainColor, lossColor: lossColor) : .secondary)
+                    /// TOTAL VALUE
+                    Text(currentValue, format: .currency(code: "USD"))
+                        .font(.callout)
+                }
+                .layoutPriority(1)
             }
-            
-            VStack(alignment: .trailing) {
-                /// PERFORMANCE
-                Text("\(percentChange)%")
-                    .font(.caption)
-                    .foregroundColor(showView() ? setColor(percentChange, gainColor: gainColor, lossColor: lossColor) : .secondary)
-                /// TOTAL VALUE
-                Text(currentValue, format: .currency(code: "USD"))
-                    .font(.callout)
-            }
-            .layoutPriority(1)
+            SLDivider
         }
         .padding(.horizontal, 8)
-        .padding(.vertical, 8)
+        .padding(.vertical, 6)
         .contentShape(Rectangle())
         .overlay(alignment: .center, content: {
             if showDetails {
-                PopUpDetailView(asset: asset,
-                                showUpdateCostBasis: $showUpdateCostBasis,
-                                hasCostBasis: hasCostBasis,
-                                hideView: $showDetails)
+                PopUpDetailView(
+                    asset: asset,
+                    showUpdateCostBasis: $showUpdateCostBasis,
+                    hasCostBasis: hasCostBasis,
+                    hideView: $showDetails,
+                    offset: offset,
+                    verticalPadding: verticalPadding,
+                    headerFont: assetDetailsHeaderFont,
+                    bodyFont: assetDetailsBodyFont,
+                    highlightColor: assetDetailsHighlightColor
+                )
             }
         })
         .onTapGesture {

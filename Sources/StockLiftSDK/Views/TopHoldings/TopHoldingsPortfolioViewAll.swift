@@ -14,13 +14,14 @@ struct TopHoldingsPortfolioViewAll: View {
     let totalNetValue: Decimal
     let hasCostBasis: Bool
     @Binding var showUpdateCostBasis: (Bool, String)
+    @Binding var urls: [String: URL]
+    
     let fontColor: Color
     let buttonColor: Color
     let buttonFont: Font
     let assetDefaultColor: Color
     let gainColor: Color
     let lossColor: Color
-    let urls: [String: URL]
     let symbolFont: Font = .callout // main symbol and rank
     let symbolFontColor: Color = .primary
     let nameFont: Font = .caption // name of asset
@@ -41,17 +42,16 @@ struct TopHoldingsPortfolioViewAll: View {
                                              totalNetValue: totalNetValue,
                                              hasCostBasis: hasCostBasis,
                                              showUpdateCostBasis: $showUpdateCostBasis,
+                                             url: $urls[holding.holding.symbol ?? "no_symbol"],
                                              assetDefaultColor: assetDefaultColor,
                                              gainColor: gainColor,
                                              lossColor: lossColor,
                                              fontColor: fontColor,
-                                             url: urls[holding.holding.symbol ?? "no_symbol"],
                                              symbolFont: symbolFont,
                                              symbolFontColor: symbolFontColor,
                                              nameFont: nameFont,
                                              nameFontColor: nameFontColor,
                                              totalPercentColor: totalPercentColor)
-                    SLDivider
                 }
             }
         }
