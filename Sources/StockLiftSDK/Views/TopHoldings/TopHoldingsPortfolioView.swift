@@ -28,7 +28,7 @@ struct TopHoldingsPortfolioView: View {
     let assetDefaultColor: Color
     let gainColor: Color
     let lossColor: Color
-    let symbolFont: Font = .callout // main symbol and rank
+    let symbolFont: Font = .callout // main symbol and rank //TODO: set properties
     let symbolFontColor: Color = .primary
     let nameFont: Font = .caption // name of asset
     let nameFontColor: Color = .secondary

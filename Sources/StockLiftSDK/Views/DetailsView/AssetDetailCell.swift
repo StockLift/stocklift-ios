@@ -21,7 +21,7 @@ struct AssetDetailCell: View {
     let nameFont: Font
     let assetDetailsHeaderFont: Font
     let assetDetailsBodyFont: Font
-    let assetDetailsHighlightColor: Color 
+    let assetDetailsHighlightColor: Color
     
     private var amount: Float {
         assetVM.amountInvested ?? 0
@@ -52,7 +52,7 @@ struct AssetDetailCell: View {
     private let verticalPadding: CGFloat = 8
     
     var body: some View {
-        HStack(alignment: .center, spacing: 0) {
+        HStack(alignment: .top, spacing: 0) {
             if !assetVM.isCrypto {
                 //MARK: - ASSET IMAGE
                 if let url = url {
