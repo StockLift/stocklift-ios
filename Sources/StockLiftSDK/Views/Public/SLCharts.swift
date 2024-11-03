@@ -68,8 +68,10 @@ public struct SLCharts: View {
     public var sectorSubHeaderFont: Font // Sector Details Breakdown
     public var sectorSubHeaderFontColor: Color // Sector Details Breakdown
     public var assetDefaultColor: Color // Sector Details Breakdown
-    public var symbolFont: Font // Sector Details Breakdown &
-    public var nameFont: Font // Sector Details Breakdown &
+    public var symbolFont: Font // Asset Details Pop up
+    public var symbolFontColor: Color // Asset Details Pop up
+    public var nameFont: Font // Asset Details Pop up
+    public var nameFontColor: Color // Asset Details Pop up
     
     // Card Background
     public var cardBackgroundColor: Color
@@ -81,9 +83,10 @@ public struct SLCharts: View {
     public var disclaimerBodyFont: Font
     
     // Pop up Asset Details
-    let assetDetailsHeaderFont: Font
-    let assetDetailsBodyFont: Font
-    let assetDetailsHighlightColor: Color
+    public var assetDetailsHeaderFont: Font
+    public var assetDetailsBodyFont: Font
+    public var assetDetailsHighlightColor: Color
+    public var assetDetailsTotalPercentColor: Color 
     
     //MARK: - INIT
     public init(
@@ -137,7 +140,9 @@ public struct SLCharts: View {
         sectorSubHeaderFontColor: Color = .primary,
         assetDefaultColor: Color = .blue,
         symbolFont: Font = .caption,
+        symbolFontColor: Color = .primary,
         nameFont: Font = .caption,
+        nameFontColor: Color = .secondary,
         
         // Card
         cardBackgroundColor: Color = Color(UIColor.tertiaryLabel),
@@ -149,8 +154,8 @@ public struct SLCharts: View {
         disclaimerBodyFont: Font = .caption,
         assetDetailsHeaderFont: Font = .caption,
         assetDetailsBodyFont: Font = .caption2,
-        assetDetailsHighlightColor: Color = .yellow
-        
+        assetDetailsHighlightColor: Color = .yellow,
+        assetDetailsTotalPercentColor: Color = .yellow
     ) {
         self.chartViews = views
         self.axis = axis
@@ -205,10 +210,13 @@ public struct SLCharts: View {
         self.sectorSubHeaderFontColor = sectorSubHeaderFontColor
         self.assetDefaultColor = assetDefaultColor
         self.symbolFont = symbolFont
+        self.symbolFontColor = symbolFontColor
         self.nameFont = nameFont
+        self.nameFontColor = nameFontColor
         self.assetDetailsHeaderFont = assetDetailsHeaderFont
         self.assetDetailsBodyFont = assetDetailsBodyFont
         self.assetDetailsHighlightColor = assetDetailsHighlightColor
+        self.assetDetailsTotalPercentColor = assetDetailsTotalPercentColor
     }
     
     public var body: some View {
@@ -505,7 +513,15 @@ extension SLCharts {
             buttonFont: buttonFont,
             assetDefaultColor: assetDefaultColor,
             gainColor: gainColor,
-            lossColor: lossColor    
+            lossColor: lossColor,
+            symbolFont: symbolFont,
+            symbolFontColor: symbolFontColor,
+            nameFont: nameFont,
+            nameFontColor: nameFontColor,
+            totalPercentColor: assetDetailsTotalPercentColor,
+            assetDetailsHeaderFont: assetDetailsHeaderFont,
+            assetDetailsBodyFont: assetDetailsBodyFont,
+            assetDetailsHighlightColor: assetDetailsHighlightColor
         )
     }
     

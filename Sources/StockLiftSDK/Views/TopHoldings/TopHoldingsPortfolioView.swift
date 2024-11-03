@@ -28,14 +28,14 @@ struct TopHoldingsPortfolioView: View {
     let assetDefaultColor: Color
     let gainColor: Color
     let lossColor: Color
-    let symbolFont: Font = .callout // main symbol and rank //TODO: set properties
-    let symbolFontColor: Color = .primary
-    let nameFont: Font = .caption // name of asset
-    let nameFontColor: Color = .secondary
-    let totalPercentColor: Color = .yellow
-    let assetDetailsHeaderFont: Font = .caption
-    let assetDetailsBodyFont: Font = .caption2
-    let assetDetailsHighlightColor: Color = Color.yellow
+    let symbolFont: Font  // main symbol and rank //TODO: set properties
+    let symbolFontColor: Color
+    let nameFont: Font  // name of asset
+    let nameFontColor: Color
+    let totalPercentColor: Color 
+    let assetDetailsHeaderFont: Font
+    let assetDetailsBodyFont: Font
+    let assetDetailsHighlightColor: Color 
     
     @State private var showDetails: Bool = false
     @State private var showUpdateCostBasis: (Bool, String) = (false, "")

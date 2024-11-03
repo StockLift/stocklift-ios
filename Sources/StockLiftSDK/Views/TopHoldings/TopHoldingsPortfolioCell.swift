@@ -56,7 +56,6 @@ struct TopHoldingsPortfolioCell: View {
     @State private var showDetails: Bool = false
     private let offset: CGFloat = -10
     private let verticalPadding: CGFloat = 2
-    //    @State private var assetImageUrl: URL? = nil
     
     var body: some View {
         VStack {
@@ -77,6 +76,7 @@ struct TopHoldingsPortfolioCell: View {
                             Text(rankTitle)
                                 .font(symbolFont)
                                 .foregroundStyle(symbolFontColor)
+                                .fontWeight(.semibold)
                                 .layoutPriority(2)
                             /// WEIGHT
                             Text("\(totalPercent)%")
@@ -102,7 +102,8 @@ struct TopHoldingsPortfolioCell: View {
                         .foregroundColor(showView() ? setColor(percentChange, gainColor: gainColor, lossColor: lossColor) : .secondary)
                     /// TOTAL VALUE
                     Text(currentValue, format: .currency(code: "USD"))
-                        .font(.callout)
+                        .font(.caption)
+                        .fontWeight(.semibold)
                 }
                 .layoutPriority(1)
             }
@@ -131,9 +132,6 @@ struct TopHoldingsPortfolioCell: View {
                 showDetails.toggle()
             }
         }
-        .onAppear {
-//            setImage()
-        }
     }
     
     /// SHOW or HIDE VIEW
@@ -160,15 +158,6 @@ struct TopHoldingsPortfolioCell: View {
         default:
             return false
         }
-    }
-    
-    /// SET IMAGE
-    private func setImage() {
-//        if let symbol = asset.symbol {
-//            AssetViewModel.getAssetImage(symbol) { url in
-//                self.assetImageUrl = url
-//            }
-//        }
     }
 }
 

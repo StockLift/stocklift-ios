@@ -36,29 +36,46 @@ struct TopHoldingsChart: View {
     let gainColor: Color
     let lossColor: Color
     
+    let symbolFont: Font
+    let symbolFontColor: Color
+    let nameFont: Font
+    let nameFontColor: Color
+    let totalPercentColor: Color
+    let assetDetailsHeaderFont: Font
+    let assetDetailsBodyFont: Font
+    let assetDetailsHighlightColor: Color
+    
     init(
         _ viewModel: PortfolioViewModel,
         showDisclaimer: Binding<Bool>,
-        chartHeader: String = "Top Holdings",
-        linkAccountHeader: String = "Add a brokerage account to get a free detailed breakdown of your investments",
-        linkAccountForegroundColor: Color = .white,
-        linkAccountBackgroundColor: Color = .black,
-        linkAccountBorderColor: Color = .white,
-        linkAccountConnectSize: CGFloat = 38,
-        linkAccountFont: Font = .caption,
-        linkAccountFontColor: Color = .white,
+        chartHeader: String,
+        linkAccountHeader: String,
+        linkAccountForegroundColor: Color,
+        linkAccountBackgroundColor: Color,
+        linkAccountBorderColor: Color,
+        linkAccountConnectSize: CGFloat,
+        linkAccountFont: Font,
+        linkAccountFontColor: Color,
         plaidError: @escaping () -> Void,
         getPortfolio: @escaping () -> Void,
-        headerFont: Font = .subheadline,
-        headerFontColor: Color = .primary,
-        subHeaderFont: Font = .caption,
-        subHeaderFontColor: Color = .primary,
-        buttonColor: Color = .yellow,
-        buttonFontColor: Color = .white,
-        buttonFont: Font = .caption,
-        assetDefaultColor: Color = .blue,
-        gainColor: Color = .green,
-        lossColor: Color = .red
+        headerFont: Font,
+        headerFontColor: Color,
+        subHeaderFont: Font,
+        subHeaderFontColor: Color,
+        buttonColor: Color,
+        buttonFontColor: Color,
+        buttonFont: Font,
+        assetDefaultColor: Color,
+        gainColor: Color,
+        lossColor: Color,
+        symbolFont: Font, // main symbol and rank
+        symbolFontColor: Color,
+        nameFont: Font, // name of asset
+        nameFontColor: Color,
+        totalPercentColor: Color,
+        assetDetailsHeaderFont: Font,
+        assetDetailsBodyFont: Font,
+        assetDetailsHighlightColor: Color
     ) {
         self.portfolioVM = viewModel
         self._showDisclaimer = showDisclaimer
@@ -82,6 +99,14 @@ struct TopHoldingsChart: View {
         self.assetDefaultColor = assetDefaultColor
         self.gainColor = gainColor
         self.lossColor = lossColor
+        self.symbolFont = symbolFont
+        self.symbolFontColor = symbolFontColor
+        self.nameFont = nameFont
+        self.nameFontColor = nameFontColor
+        self.totalPercentColor = totalPercentColor
+        self.assetDetailsHeaderFont = assetDetailsHeaderFont
+        self.assetDetailsBodyFont = assetDetailsBodyFont
+        self.assetDetailsHighlightColor = assetDetailsHighlightColor
     }
     
     var body: some View {
@@ -104,7 +129,15 @@ struct TopHoldingsChart: View {
                     buttonFont: buttonFont,
                     assetDefaultColor: assetDefaultColor,
                     gainColor: gainColor,
-                    lossColor: lossColor
+                    lossColor: lossColor,
+                    symbolFont: symbolFont,
+                    symbolFontColor: symbolFontColor,
+                    nameFont: nameFont,
+                    nameFontColor: nameFontColor,
+                    totalPercentColor: totalPercentColor,
+                    assetDetailsHeaderFont: assetDetailsHeaderFont,
+                    assetDetailsBodyFont: assetDetailsBodyFont,
+                    assetDetailsHighlightColor: assetDetailsHighlightColor
                 )
                 
             } else if portfolioVM.isLoading {

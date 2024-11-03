@@ -170,42 +170,38 @@ public extension View {
                 } else {
                     if asset.type == .cash {
                         Text("$")
-                            .font(.caption2)
-                            .fontWeight(.semibold)
-//                            .shadow(radius: 2)
-                            .frame(width: size, height: size)
-                            .background(color)
-                            .foregroundStyle(fontColor)
-                            .clipShape(Circle())
+                            .font(.caption)
+                            .imageBubble(size: size, color: color, fontColor: fontColor)
                     } else if let image = asset.symbol, image != "" {
                         Text(image.prefix(4))
                             .font(.caption2)
-                            .fontWeight(.semibold)
-//                            .shadow(radius: 2)
-                            .frame(width: size, height: size)
-                            .background(color)
-                            .foregroundStyle(fontColor)
-                            .clipShape(Circle())
+                            .imageBubble(size: size, color: color, fontColor: fontColor)
                     } else {
                         Text("")
                             .font(.caption2)
-//                            .shadow(radius: 2)
-                            .frame(width: size, height: size)
-                            .background(color)
-                            .clipShape(Circle())
+                            .imageBubble(size: size, color: color, fontColor: fontColor)
                     }
                 }
             } else {
                 // HANDLER for images with weird bugs (returned from 12data not working)
                 Text(asset.symbol?.prefix(4) ?? "")
                     .font(.caption2)
-                    .fontWeight(.semibold)
-//                    .shadow(radius: 2)
-                    .frame(width: size, height: size)
-                    .background(color)
-                    .foregroundStyle(fontColor)
-                    .clipShape(Circle())
+                    .imageBubble(size: size, color: color, fontColor: fontColor)
             }
         }
+    }
+    
+
+}
+
+
+fileprivate extension Text {
+     func imageBubble(size: CGFloat = 40, color: Color, fontColor: Color) -> some View {
+        self
+            .fontWeight(.semibold)
+            .frame(width: size, height: size)
+            .background(color)
+            .foregroundStyle(fontColor)
+            .clipShape(Circle())
     }
 }
