@@ -80,6 +80,11 @@ public struct SLCharts: View {
     public var disclaimerTitleFont: Font
     public var disclaimerBodyFont: Font
     
+    // Pop up Asset Details
+    let assetDetailsHeaderFont: Font
+    let assetDetailsBodyFont: Font
+    let assetDetailsHighlightColor: Color
+    
     //MARK: - INIT
     public init(
         _ views: [SLChartType] = SLChartType.allCases,
@@ -141,7 +146,10 @@ public struct SLCharts: View {
         
         // Disclaimer Font
         disclaimerTitleFont: Font = .body,
-        disclaimerBodyFont: Font = .caption
+        disclaimerBodyFont: Font = .caption,
+        assetDetailsHeaderFont: Font = .caption,
+        assetDetailsBodyFont: Font = .caption2,
+        assetDetailsHighlightColor: Color = .yellow
         
     ) {
         self.chartViews = views
@@ -198,6 +206,9 @@ public struct SLCharts: View {
         self.assetDefaultColor = assetDefaultColor
         self.symbolFont = symbolFont
         self.nameFont = nameFont
+        self.assetDetailsHeaderFont = assetDetailsHeaderFont
+        self.assetDetailsBodyFont = assetDetailsBodyFont
+        self.assetDetailsHighlightColor = assetDetailsHighlightColor
     }
     
     public var body: some View {
@@ -383,7 +394,10 @@ extension SLCharts {
             sectorSubHeaderFontColor: sectorSubHeaderFontColor,
             assetDefaultColor: assetDefaultColor,
             symbolFont: symbolFont,
-            nameFont: nameFont
+            nameFont: nameFont,
+            assetDetailsHeaderFont: assetDetailsHeaderFont,
+            assetDetailsBodyFont: assetDetailsBodyFont,
+            assetDetailsHighlightColor: assetDetailsHighlightColor
         )
     }
     

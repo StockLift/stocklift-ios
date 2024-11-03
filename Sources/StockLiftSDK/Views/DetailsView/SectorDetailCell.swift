@@ -24,6 +24,9 @@ struct SectorDetailCell: View {
     let assetDefaultColor: Color
     let symbolFont: Font
     let nameFont: Font
+    let assetDetailsHeaderFont: Font
+    let assetDetailsBodyFont: Font
+    let assetDetailsHighlightColor: Color 
     
     var percentOfInvestment: String {
         sectorVM.percentOfInvestment
@@ -72,7 +75,6 @@ struct SectorDetailCell: View {
                     .scaledToFit()
                     .foregroundStyle(.primary)
                     .frame(width: 12, height: 12)
-                
             }
             .padding(.bottom)
             
@@ -96,7 +98,6 @@ struct SectorDetailCell: View {
                                 .frame(width: 20, height: 20)
                                 .clipShape(Circle())
                         }
-                        
                         
                         VStack(alignment: .leading, spacing: 4) {
                             Text("\(percentOfInvestment)%")
@@ -153,7 +154,6 @@ struct SectorDetailCell: View {
                 .padding(.vertical, 6)
                 .frame(maxWidth: .infinity)
                 .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(Color(UIColor.label), lineWidth: 1))
-                
             }
             
             //MARK: - ASSETS for SECTOR
@@ -178,7 +178,10 @@ struct SectorDetailCell: View {
                             hasCostBasis: hasCostBasis,
                             assetDefaultColor: assetDefaultColor,
                             symbolFont: symbolFont,
-                            nameFont: nameFont
+                            nameFont: nameFont,
+                            assetDetailsHeaderFont: assetDetailsHeaderFont,
+                            assetDetailsBodyFont: assetDetailsBodyFont,
+                            assetDetailsHighlightColor: assetDetailsHighlightColor
                         )
                     }
                     
@@ -203,7 +206,10 @@ struct SectorDetailCell: View {
                             hasCostBasis: hasCostBasis,
                             assetDefaultColor: assetDefaultColor,
                             symbolFont: symbolFont,
-                            nameFont: nameFont
+                            nameFont: nameFont,
+                            assetDetailsHeaderFont: assetDetailsHeaderFont,
+                            assetDetailsBodyFont: assetDetailsBodyFont,
+                            assetDetailsHighlightColor: assetDetailsHighlightColor
                         )
                     }
                 }
@@ -238,5 +244,12 @@ struct SectorDetailCell: View {
             status = false
         }
         return status
+    }
+}
+
+
+struct SectorDetailsScrollView: View {
+    var body: some View {
+        Text("SectorDetailsScrollView")
     }
 }

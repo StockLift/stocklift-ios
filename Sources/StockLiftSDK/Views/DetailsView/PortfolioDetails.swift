@@ -26,6 +26,9 @@ struct PortfolioDetails: View {
     let assetDefaultColor: Color
     let symbolFont: Font
     let nameFont: Font
+    let assetDetailsHeaderFont: Font
+    let assetDetailsBodyFont: Font
+    let assetDetailsHighlightColor: Color
     
     @State private var showUpdateCostBasis: (Bool, String) = (false, "")
     
@@ -64,7 +67,10 @@ struct PortfolioDetails: View {
                                 sectorSubHeaderFontColor: sectorSubHeaderFontColor,
                                 assetDefaultColor: assetDefaultColor,
                                 symbolFont: symbolFont,
-                                nameFont: nameFont
+                                nameFont: nameFont,
+                                assetDetailsHeaderFont: assetDetailsHeaderFont,
+                                assetDetailsBodyFont: assetDetailsBodyFont,
+                                assetDetailsHighlightColor: assetDetailsHighlightColor
                             )
                             .id(sectorDetailsVM.sectors[index].sector)
                         }

@@ -19,9 +19,9 @@ struct AssetDetailCell: View {
     let assetDefaultColor: Color
     let symbolFont: Font
     let nameFont: Font
-    let assetDetailsHeaderFont: Font = .caption
-    let assetDetailsBodyFont: Font = .caption2
-    let assetDetailsHighlightColor: Color = Color.yellow
+    let assetDetailsHeaderFont: Font
+    let assetDetailsBodyFont: Font
+    let assetDetailsHighlightColor: Color 
     
     private var amount: Float {
         assetVM.amountInvested ?? 0

@@ -53,6 +53,11 @@ struct SectorBreakdownChart: View {
     let symbolFont: Font
     let nameFont: Font
     
+    // Pop up details view
+    let assetDetailsHeaderFont: Font
+    let assetDetailsBodyFont: Font
+    let assetDetailsHighlightColor: Color
+    
     init(
         _ viewModel: PortfolioViewModel,
         showDisclaimer: Binding<Bool>,
@@ -80,7 +85,11 @@ struct SectorBreakdownChart: View {
         sectorSubHeaderFontColor: Color = .primary,
         assetDefaultColor: Color = .blue,
         symbolFont: Font = .caption,
-        nameFont: Font = .caption
+        nameFont: Font = .caption,
+        assetDetailsHeaderFont: Font,
+        assetDetailsBodyFont: Font,
+        assetDetailsHighlightColor: Color
+        
     ) {
         self.portfolioVM = viewModel
         self._showDisclaimer = showDisclaimer
@@ -109,6 +118,9 @@ struct SectorBreakdownChart: View {
         self.assetDefaultColor = assetDefaultColor
         self.symbolFont = symbolFont
         self.nameFont = nameFont
+        self.assetDetailsHeaderFont = assetDetailsHeaderFont
+        self.assetDetailsBodyFont = assetDetailsBodyFont
+        self.assetDetailsHighlightColor = assetDetailsHighlightColor
     }
     
     //  Body
@@ -170,7 +182,10 @@ struct SectorBreakdownChart: View {
                         sectorSubHeaderFontColor: sectorSubHeaderFontColor,
                         assetDefaultColor: assetDefaultColor,
                         symbolFont: symbolFont,
-                        nameFont: nameFont
+                        nameFont: nameFont,
+                        assetDetailsHeaderFont: assetDetailsHeaderFont,
+                        assetDetailsBodyFont: assetDetailsBodyFont,
+                        assetDetailsHighlightColor: assetDetailsHighlightColor
                     )
                 }
             } else if portfolioVM.isLoading == false  {
