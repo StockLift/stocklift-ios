@@ -33,6 +33,9 @@ struct TopHoldingsPortfolioView: View {
     let nameFont: Font = .caption // name of asset
     let nameFontColor: Color = .secondary
     let totalPercentColor: Color = .yellow
+    let assetDetailsHeaderFont: Font = .caption
+    let assetDetailsBodyFont: Font = .caption2
+    let assetDetailsHighlightColor: Color = Color.yellow
     
     @State private var showDetails: Bool = false
     @State private var showUpdateCostBasis: (Bool, String) = (false, "")
@@ -71,7 +74,10 @@ struct TopHoldingsPortfolioView: View {
                         symbolFontColor: symbolFontColor,
                         nameFont: nameFont,
                         nameFontColor: nameFontColor,
-                        totalPercentColor: totalPercentColor
+                        totalPercentColor: totalPercentColor,
+                        assetDetailsHeaderFont: assetDetailsHeaderFont,
+                        assetDetailsBodyFont: assetDetailsBodyFont,
+                        assetDetailsHighlightColor: assetDetailsHighlightColor
                     )
                 }
             }
@@ -98,7 +104,15 @@ struct TopHoldingsPortfolioView: View {
                 buttonFont: buttonFont,
                 assetDefaultColor: assetDefaultColor,
                 gainColor: gainColor,
-                lossColor: lossColor
+                lossColor: lossColor,
+                symbolFont: symbolFont,
+                symbolFontColor: symbolFontColor,
+                nameFont: nameFont,
+                nameFontColor: nameFontColor,
+                totalPercentColor: totalPercentColor,
+                assetDetailsHeaderFont: assetDetailsHeaderFont,
+                assetDetailsBodyFont: assetDetailsBodyFont,
+                assetDetailsHighlightColor: assetDetailsHighlightColor
             )
         })
 //        .overlay(alignment: .center) {

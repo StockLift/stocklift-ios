@@ -22,11 +22,14 @@ struct TopHoldingsPortfolioViewAll: View {
     let assetDefaultColor: Color
     let gainColor: Color
     let lossColor: Color
-    let symbolFont: Font = .callout // main symbol and rank
-    let symbolFontColor: Color = .primary
-    let nameFont: Font = .caption // name of asset
-    let nameFontColor: Color = .secondary
-    let totalPercentColor: Color = .yellow
+    let symbolFont: Font
+    let symbolFontColor: Color
+    let nameFont: Font
+    let nameFontColor: Color 
+    let totalPercentColor: Color
+    let assetDetailsHeaderFont: Font
+    let assetDetailsBodyFont: Font
+    let assetDetailsHighlightColor: Color 
     
     @State private var viewSortType: SortTopHoldingType = .weight
     
@@ -37,21 +40,26 @@ struct TopHoldingsPortfolioViewAll: View {
             
             VStack(spacing: 0) {
                 ForEach(topHoldings) { holding in
-                    TopHoldingsPortfolioCell(asset: holding.holding,
-                                             rank: holding.rank,
-                                             totalNetValue: totalNetValue,
-                                             hasCostBasis: hasCostBasis,
-                                             showUpdateCostBasis: $showUpdateCostBasis,
-                                             url: $urls[holding.holding.symbol ?? "no_symbol"],
-                                             assetDefaultColor: assetDefaultColor,
-                                             gainColor: gainColor,
-                                             lossColor: lossColor,
-                                             fontColor: fontColor,
-                                             symbolFont: symbolFont,
-                                             symbolFontColor: symbolFontColor,
-                                             nameFont: nameFont,
-                                             nameFontColor: nameFontColor,
-                                             totalPercentColor: totalPercentColor)
+                    TopHoldingsPortfolioCell(
+                        asset: holding.holding,
+                        rank: holding.rank,
+                        totalNetValue: totalNetValue,
+                        hasCostBasis: hasCostBasis,
+                        showUpdateCostBasis: $showUpdateCostBasis,
+                        url: $urls[holding.holding.symbol ?? "no_symbol"],
+                        assetDefaultColor: assetDefaultColor,
+                        gainColor: gainColor,
+                        lossColor: lossColor,
+                        fontColor: fontColor,
+                        symbolFont: symbolFont,
+                        symbolFontColor: symbolFontColor,
+                        nameFont: nameFont,
+                        nameFontColor: nameFontColor,
+                        totalPercentColor: totalPercentColor,
+                        assetDetailsHeaderFont: assetDetailsHeaderFont,
+                        assetDetailsBodyFont: assetDetailsBodyFont,
+                        assetDetailsHighlightColor: assetDetailsHighlightColor
+                    )
                 }
             }
         }

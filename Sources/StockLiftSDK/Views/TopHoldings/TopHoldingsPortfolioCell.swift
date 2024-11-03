@@ -27,9 +27,9 @@ struct TopHoldingsPortfolioCell: View {
     let nameFont: Font
     let nameFontColor: Color
     let totalPercentColor: Color
-    let assetDetailsHeaderFont: Font = .caption
-    let assetDetailsBodyFont: Font = .caption2
-    let assetDetailsHighlightColor: Color = Color.yellow
+    let assetDetailsHeaderFont: Font
+    let assetDetailsBodyFont: Font
+    let assetDetailsHighlightColor: Color 
     
     private var currentValue: Float {
         asset.institutionValue ?? 0
