@@ -14,8 +14,15 @@ struct ContinentDetailCell: View {
     @State var isShowing: Bool = false
     @Binding var showUpdateCostBasis: (Bool, String)
     @Binding var hasCostBasis: Bool
-    let gainColor: Color = .blue
-    let lossColor: Color = .red
+    
+    let gainColor: Color
+    let lossColor: Color
+    let assetDefaultColor: Color
+    let symbolFont: Font
+    let nameFont: Font
+    let assetDetailsHeaderFont: Font
+    let assetDetailsBodyFont: Font
+    let assetDetailsHighlightColor: Color
     
     var continentName: String {
         assetDetails.continent
@@ -46,7 +53,7 @@ struct ContinentDetailCell: View {
         VStack(alignment: .center, spacing: 0) {
             HStack {
                 Text(continentName)
-                    .appFontMedium()
+//                    .appFontMedium()
                 Spacer()
                 Image(systemName: isShowing ? "chevron.down" : "chevron.right")
                     .resizable()
@@ -61,7 +68,7 @@ struct ContinentDetailCell: View {
                 VStack(alignment: .center, spacing: 0) {
                     HStack(alignment: .center, spacing: 10) {
                         if continentName != "Uncategorized" {
-                            Image(self.setColor(continentGain, gainColor: gainColor, lossColor: lossColor) == Color.green ? ImageKeys.upArrow : ImageKeys.downArrow, bundle: .module)
+                            Image(systemName: self.setColor(continentGain, gainColor: gainColor, lossColor: lossColor) == Color.green ? ImageKeys.upArrow : ImageKeys.downArrow)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 20, height: 20)
@@ -76,7 +83,7 @@ struct ContinentDetailCell: View {
                         
                         VStack(alignment: .leading, spacing: 4) {
                             Text("\(continentWeight)%")
-                                .appFontBlack(size: 16)
+//                                .appFontBlack(size: 16)
                                 .padding(.vertical, 0)
                             
 //                            if continentName != "Uncategorized" {
@@ -93,7 +100,7 @@ struct ContinentDetailCell: View {
                 VStack(alignment: .center, spacing: 0) {
                     HStack(alignment: .center, spacing: 10) {
                         if continentName != "Uncategorized" {
-                            Image(self.setColor(dollarGain, gainColor: gainColor, lossColor: lossColor) == Color.green ? ImageKeys.upArrow : ImageKeys.downArrow, bundle: .module)
+                            Image(systemName: self.setColor(dollarGain, gainColor: gainColor, lossColor: lossColor) == Color.green ? ImageKeys.upArrow : ImageKeys.downArrow)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 20, height: 20)
@@ -132,6 +139,17 @@ struct ContinentDetailCell: View {
                         Spacer()
                     }
                     ForEach(assetDetails.continentAssets) { stock in
+                        AssetDetailCell(
+                            assetVM: AssetViewModel(equity: stock),
+                            showUpdateCostBasis: $showUpdateCostBasis,
+                            hasCostBasis: hasCostBasis,
+                            assetDefaultColor: assetDefaultColor,
+                            symbolFont: symbolFont,
+                            nameFont: nameFont,
+                            assetDetailsHeaderFont: assetDetailsHeaderFont,
+                            assetDetailsBodyFont: assetDetailsBodyFont,
+                            assetDetailsHighlightColor: assetDetailsHighlightColor
+                        )
 //                        AssetDetailCell(assetVM: AssetViewModel(equity: stock),
 //                                        showUpdateCostBasis: $showUpdateCostBasis,
 //                                        hasCostBasis: hasCostBasis)

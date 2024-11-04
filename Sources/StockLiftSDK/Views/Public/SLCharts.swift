@@ -484,7 +484,15 @@ extension SLCharts {
             headerFont: headerFont,
             headerFontColor: headerFontColor,
             subHeaderFont: subHeaderFont,
-            subHeaderFontColor: subHeaderFontColor
+            subHeaderFontColor: subHeaderFontColor,
+            gainColor: gainColor,
+            lossColor: lossColor,
+            assetDefaultColor: assetDefaultColor,
+            symbolFont: symbolFont,
+            nameFont: nameFont,
+            assetDetailsHeaderFont: assetDetailsHeaderFont,
+            assetDetailsBodyFont: assetDetailsBodyFont,
+            assetDetailsHighlightColor: assetDetailsHighlightColor
         )
     }
     

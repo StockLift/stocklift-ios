@@ -22,6 +22,14 @@ struct AssetMapView: View {
     let headerFontColor: Color
     let subHeaderFont: Font
     let subHeaderFontColor: Color
+    let gainColor: Color
+    let lossColor: Color
+    let assetDefaultColor: Color
+    let symbolFont: Font
+    let nameFont: Font
+    let assetDetailsHeaderFont: Font
+    let assetDetailsBodyFont: Font
+    let assetDetailsHighlightColor: Color
     
     @State private var showDetails: Bool = false
     
@@ -66,8 +74,7 @@ struct AssetMapView: View {
                     }
                 }
             }
-//            .frame(width: self.rect.width * 0.8, height: 300)
-            .padding(8)
+            .padding(6)
             
             Text("View by Region")
                 .font(subHeaderFont)
@@ -80,15 +87,25 @@ struct AssetMapView: View {
             
         }
         .popover(isPresented: $showDetails) {
-            MapViewDetails(geoVM: GeoAssetViewModel(usersAssets: usersAssets),
-                           date: $date,
-                           hasCostBasis: $hasCostBasis,
-                           updateCostBasisAction: updateCostBasisAction)
+            MapViewDetails(
+                geoVM: GeoAssetViewModel(usersAssets: usersAssets),
+                date: $date,
+                hasCostBasis: $hasCostBasis,
+                updateCostBasisAction: updateCostBasisAction,
+                gainColor: gainColor,
+                lossColor: lossColor,
+                assetDefaultColor: assetDefaultColor,
+                symbolFont: symbolFont,
+                nameFont: nameFont,
+                assetDetailsHeaderFont: assetDetailsHeaderFont,
+                assetDetailsBodyFont: assetDetailsBodyFont,
+                assetDetailsHighlightColor: assetDetailsHighlightColor
+            )
         }
     }
     
     private func updateCostBasisAction(_ symbol: String, value: Float) {
-        DetailsViewModel.updateCostBasis(symbol: symbol, value: value)
+//        DetailsViewModel.updateCostBasis(symbol: symbol, value: value)
     }
 }
 

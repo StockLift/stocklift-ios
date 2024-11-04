@@ -22,30 +22,47 @@ struct GeoDiversificationChart: View {
     let linkAccountFontColor: Color
     let plaidError: () -> Void
     let getPortfolio: () -> Void
+    
     // Chart
     let chartHeader: String
     let headerFont: Font
     let headerFontColor: Color
     let subHeaderFont: Font
     let subHeaderFontColor: Color
+    let gainColor: Color
+    let lossColor: Color
+    let assetDefaultColor: Color
+    let symbolFont: Font
+    let nameFont: Font
+    let assetDetailsHeaderFont: Font
+    let assetDetailsBodyFont: Font
+    let assetDetailsHighlightColor: Color
     
     init(
         _ viewModel: PortfolioViewModel,
         showDisclaimer: Binding<Bool>,
-        chartHeader: String = "Geo Diversification",
-        linkAccountHeader: String = "Add a brokerage account to get a free detailed breakdown of your investments",
-        linkAccountForegroundColor: Color = .white,
-        linkAccountBackgroundColor: Color = .black,
-        linkAccountBorderColor: Color = .white,
-        linkAccountConnectSize: CGFloat = 38,
-        linkAccountFont: Font = .caption,
-        linkAccountFontColor: Color = .white,
+        chartHeader: String,
+        linkAccountHeader: String,
+        linkAccountForegroundColor: Color,
+        linkAccountBackgroundColor: Color,
+        linkAccountBorderColor: Color,
+        linkAccountConnectSize: CGFloat,
+        linkAccountFont: Font,
+        linkAccountFontColor: Color,
         plaidError: @escaping () -> Void,
         getPortfolio: @escaping () -> Void,
-        headerFont: Font = .subheadline,
-        headerFontColor: Color = .primary,
-        subHeaderFont: Font = .caption,
-        subHeaderFontColor: Color = .primary
+        headerFont: Font,
+        headerFontColor: Color,
+        subHeaderFont: Font,
+        subHeaderFontColor: Color,
+        gainColor: Color,
+        lossColor: Color,
+        assetDefaultColor: Color,
+        symbolFont: Font,
+        nameFont: Font,
+        assetDetailsHeaderFont: Font,
+        assetDetailsBodyFont: Font,
+        assetDetailsHighlightColor: Color
     ) {
         self.portfolioVM = viewModel
         self._showDisclaimer = showDisclaimer
@@ -63,6 +80,14 @@ struct GeoDiversificationChart: View {
         self.headerFontColor = headerFontColor
         self.subHeaderFont = subHeaderFont
         self.subHeaderFontColor = subHeaderFontColor
+        self.gainColor = gainColor
+        self.lossColor = lossColor
+        self.assetDefaultColor = assetDefaultColor
+        self.symbolFont = symbolFont
+        self.nameFont = nameFont
+        self.assetDetailsHeaderFont = assetDetailsHeaderFont
+        self.assetDetailsBodyFont = assetDetailsBodyFont
+        self.assetDetailsHighlightColor = assetDetailsHighlightColor
     }
     
     var body: some View {
@@ -79,7 +104,15 @@ struct GeoDiversificationChart: View {
                     headerFont: headerFont,
                     headerFontColor: headerFontColor,
                     subHeaderFont: subHeaderFont,
-                    subHeaderFontColor: subHeaderFontColor
+                    subHeaderFontColor: subHeaderFontColor,
+                    gainColor: gainColor,
+                    lossColor: lossColor,
+                    assetDefaultColor: assetDefaultColor,
+                    symbolFont: symbolFont,
+                    nameFont: nameFont,
+                    assetDetailsHeaderFont: assetDetailsHeaderFont,
+                    assetDetailsBodyFont: assetDetailsBodyFont,
+                    assetDetailsHighlightColor: assetDetailsHighlightColor
                 )
             } else if portfolioVM.isLoading {
                 ProgressView()
