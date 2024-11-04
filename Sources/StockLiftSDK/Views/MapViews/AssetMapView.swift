@@ -12,6 +12,7 @@ import MapKit
 @available(iOS 15.0, *)
 struct AssetMapView: View {
     @Binding var showDisclaimer: Bool
+    @Binding var assetImages: [String: URL]
     let annotations: [AssetCoordinates]
     let usersAssets: [GeoAssetsData]
     let chartHeader: String
@@ -22,6 +23,19 @@ struct AssetMapView: View {
     let headerFontColor: Color
     let subHeaderFont: Font
     let subHeaderFontColor: Color
+    let gainColor: Color
+    let lossColor: Color
+    let assetDefaultColor: Color
+    let symbolFont: Font
+    let fontColor: Color
+    let nameFont: Font
+    let assetDetailsHeaderFont: Font
+    let assetDetailsBodyFont: Font
+    let assetDetailsHighlightColor: Color
+    let sectorHeaderFont: Font
+    let sectorHeaderFontColor: Color
+    let sectorSubHeaderFont: Font
+    let sectorSubHeaderFontColor: Color
     
     @State private var showDetails: Bool = false
     
@@ -62,12 +76,12 @@ struct AssetMapView: View {
                             .fill(Color.blue)
                             .frame(width: 22)
                         Text(item.symbol ?? "n/a")
-                            .appFontMedium(size: 8, color: .white)
+                            .font(.system(size: 8))
+                            .foregroundStyle(Color.white)
                     }
                 }
             }
-//            .frame(width: self.rect.width * 0.8, height: 300)
-            .padding(8)
+            .padding(6)
             
             Text("View by Region")
                 .font(subHeaderFont)
@@ -80,15 +94,31 @@ struct AssetMapView: View {
             
         }
         .popover(isPresented: $showDetails) {
-            MapViewDetails(geoVM: GeoAssetViewModel(usersAssets: usersAssets),
-                           date: $date,
-                           hasCostBasis: $hasCostBasis,
-                           updateCostBasisAction: updateCostBasisAction)
+            MapViewDetails(
+                geoVM: GeoAssetViewModel(usersAssets: usersAssets),
+                date: $date,
+                hasCostBasis: $hasCostBasis,
+                assetImages: $assetImages,
+                updateCostBasisAction: updateCostBasisAction,
+                gainColor: gainColor,
+                lossColor: lossColor,
+                assetDefaultColor: assetDefaultColor,
+                symbolFont: symbolFont,
+                fontColor: fontColor,
+                nameFont: nameFont,
+                assetDetailsHeaderFont: assetDetailsHeaderFont,
+                assetDetailsBodyFont: assetDetailsBodyFont,
+                assetDetailsHighlightColor: assetDetailsHighlightColor,
+                sectorHeaderFont: sectorHeaderFont,
+                sectorHeaderFontColor: sectorHeaderFontColor,
+                sectorSubHeaderFont: sectorSubHeaderFont,
+                sectorSubHeaderFontColor: sectorSubHeaderFontColor
+            )
         }
     }
     
     private func updateCostBasisAction(_ symbol: String, value: Float) {
-        DetailsViewModel.updateCostBasis(symbol: symbol, value: value)
+//        DetailsViewModel.updateCostBasis(symbol: symbol, value: value)
     }
 }
 

@@ -13,6 +13,7 @@ struct SectorDetailCell: View {
     @StateObject var sectorVM: SectorViewModel
     @State var isShowing: Bool = false
     @Binding var showUpdateCostBasis: (Bool, String)
+    @Binding var assetImages: [String: URL]
     let hasCostBasis: Bool
     // -- Properties
     let gainColor: Color
@@ -23,6 +24,7 @@ struct SectorDetailCell: View {
     let sectorSubHeaderFontColor: Color
     let assetDefaultColor: Color
     let symbolFont: Font
+    let fontColor: Color
     let nameFont: Font
     let assetDetailsHeaderFont: Font
     let assetDetailsBodyFont: Font
@@ -71,8 +73,7 @@ struct SectorDetailCell: View {
                     .foregroundStyle(sectorHeaderFontColor)
                 Spacer()
                 Image(systemName: isShowing ? "chevron.down" : "chevron.right")
-                    .resizable()
-                    .scaledToFit()
+                    .imageHandler()
                     .foregroundStyle(.primary)
                     .frame(width: 12, height: 12)
             }
@@ -86,14 +87,12 @@ struct SectorDetailCell: View {
                     HStack(alignment: .center, spacing: 10) {
                         if sectorName != "Cash" {
                             Image(systemName: investGainLose ? ImageKeys.upArrow : ImageKeys.downArrow)
-                                .resizable()
-                                .scaledToFit()
+                                .imageHandler()
                                 .foregroundStyle(investGainLose ? gainColor : lossColor)
                                 .frame(width: 20, height: 20)
                         } else {
                             Image(systemName: "dollarsign.circle")
-                                .resizable()
-                                .scaledToFit()
+                                .imageHandler()
                                 .background(gainColor)
                                 .frame(width: 20, height: 20)
                                 .clipShape(Circle())
@@ -124,14 +123,12 @@ struct SectorDetailCell: View {
                     HStack(alignment: .center, spacing: 10) {
                         if sectorName != "Cash" {
                             Image(systemName: sectorVM.dollarChangeGainLose ? ImageKeys.upArrow : ImageKeys.downArrow)
-                                .resizable()
-                                .scaledToFit()
+                                .imageHandler()
                                 .foregroundStyle(investGainLose ? gainColor : lossColor)
                                 .frame(width: 20, height: 20)
                         } else {
                             Image(systemName: "dollarsign.circle")
-                                .resizable()
-                                .scaledToFit()
+                                .imageHandler()
                                 .background(gainColor)
                                 .frame(width: 20, height: 20)
                                 .clipShape(Circle())
@@ -175,9 +172,11 @@ struct SectorDetailCell: View {
                         AssetDetailCell(
                             assetVM: AssetViewModel(equity: stock, sector: sectorVM.sector),
                             showUpdateCostBasis: $showUpdateCostBasis,
+                            imageUrl: $assetImages[stock.symbol ?? "no_symbol"],
                             hasCostBasis: hasCostBasis,
                             assetDefaultColor: assetDefaultColor,
                             symbolFont: symbolFont,
+                            fontColor: fontColor,
                             nameFont: nameFont,
                             assetDetailsHeaderFont: assetDetailsHeaderFont,
                             assetDetailsBodyFont: assetDetailsBodyFont,
@@ -203,9 +202,11 @@ struct SectorDetailCell: View {
                         AssetDetailCell(
                             assetVM: AssetViewModel(equity: stock, sector: sectorVM.sector),
                             showUpdateCostBasis: $showUpdateCostBasis,
+                            imageUrl: $assetImages[stock.symbol ?? "no_symbol"],
                             hasCostBasis: hasCostBasis,
                             assetDefaultColor: assetDefaultColor,
                             symbolFont: symbolFont,
+                            fontColor: fontColor,
                             nameFont: nameFont,
                             assetDetailsHeaderFont: assetDetailsHeaderFont,
                             assetDetailsBodyFont: assetDetailsBodyFont,
@@ -244,12 +245,5 @@ struct SectorDetailCell: View {
             status = false
         }
         return status
-    }
-}
-
-
-struct SectorDetailsScrollView: View {
-    var body: some View {
-        Text("SectorDetailsScrollView")
     }
 }

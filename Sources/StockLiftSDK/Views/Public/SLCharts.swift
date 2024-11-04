@@ -21,7 +21,7 @@ public struct SLCharts: View {
     // Vertical Alignment Chart Heights
     public var verticalChartHeights: CGFloat
     
-    // Header
+    // Header Text
     public var projectionsChartHeader: String
     public var benchmarkChartHeader: String
     public var sectorChartHeader: String
@@ -29,7 +29,7 @@ public struct SLCharts: View {
     public var topHoldingsChartHeader: String
     public var portfolioSummaryChartHeader: String
     
-    // Link Account
+    // Link Account Details
     public var linkAccountHeader: String
     public var linkAccountForegroundColor: Color
     public var linkAccountBackgroundColor: Color
@@ -42,7 +42,7 @@ public struct SLCharts: View {
     public var linkAccountButtonFontColor: Color
     public var linkAccountButtonText: String
     
-    // Chart
+    // Chart Details
     public var gainColor: Color
     public let lossColor: Color
     public var height: CGFloat
@@ -63,15 +63,23 @@ public struct SLCharts: View {
     public var buttonColor: Color
     public var buttonFontColor: Color
     public var buttonFont: Font
-    public var sectorHeaderFont: Font // Sector Details Breakdown
-    public var sectorHeaderFontColor: Color // Sector Details Breakdown
-    public var sectorSubHeaderFont: Font // Sector Details Breakdown
-    public var sectorSubHeaderFontColor: Color // Sector Details Breakdown
-    public var assetDefaultColor: Color // Sector Details Breakdown
-    public var symbolFont: Font // Asset Details Pop up
-    public var symbolFontColor: Color // Asset Details Pop up
-    public var nameFont: Font // Asset Details Pop up
-    public var nameFontColor: Color // Asset Details Pop up
+    
+    // Asset Details
+    public var sectorHeaderFont: Font // Asset Details //TODO: - rename
+    public var sectorHeaderFontColor: Color // Asset Details //TODO: - rename
+    public var sectorSubHeaderFont: Font // Asset Details //TODO: - rename
+    public var sectorSubHeaderFontColor: Color // Asset Details //TODO: - rename
+    public var assetDefaultColor: Color // Asset Details //TODO: - rename
+    public var symbolFont: Font // Asset Details Pop up //TODO: - rename
+    public var symbolFontColor: Color // Asset Details Pop up //TODO: - rename
+    public var nameFont: Font // Asset Details Pop up //TODO: - rename
+    public var nameFontColor: Color // Asset Details Pop up //TODO: - rename
+    
+    // Pop up Asset Details
+    public var assetDetailsHeaderFont: Font
+    public var assetDetailsBodyFont: Font
+    public var assetDetailsHighlightColor: Color
+    public var assetDetailsTotalPercentColor: Color
     
     // Card Background
     public var cardBackgroundColor: Color
@@ -81,12 +89,6 @@ public struct SLCharts: View {
     // Disclaimer Font
     public var disclaimerTitleFont: Font
     public var disclaimerBodyFont: Font
-    
-    // Pop up Asset Details
-    public var assetDetailsHeaderFont: Font
-    public var assetDetailsBodyFont: Font
-    public var assetDetailsHighlightColor: Color
-    public var assetDetailsTotalPercentColor: Color 
     
     //MARK: - INIT
     public init(
@@ -322,13 +324,12 @@ public struct SLCharts: View {
                         )
                     } else {
                         /// ------------ Portfolio Summary Chart
-                        SummaryChartReference
-                        SLDivider
                         ForEach(chartViews) { view in
                             switch view {
                             case .portfolioSummary:
                                 /// Vertical alignment always shows summary at top
-                                EmptyView()
+                                SummaryChartReference
+                                SLDivider
                             case .projectionsPerformance:
                                 /// ------------ Projections Chart
                                 ProjectionsChartReference
@@ -484,7 +485,20 @@ extension SLCharts {
             headerFont: headerFont,
             headerFontColor: headerFontColor,
             subHeaderFont: subHeaderFont,
-            subHeaderFontColor: subHeaderFontColor
+            subHeaderFontColor: subHeaderFontColor,
+            gainColor: gainColor,
+            lossColor: lossColor,
+            assetDefaultColor: assetDefaultColor,
+            symbolFont: symbolFont,
+            symbolFontColor: symbolFontColor,
+            nameFont: nameFont,
+            assetDetailsHeaderFont: assetDetailsHeaderFont,
+            assetDetailsBodyFont: assetDetailsBodyFont,
+            assetDetailsHighlightColor: assetDetailsHighlightColor,
+            sectorHeaderFont: sectorHeaderFont,
+            sectorHeaderFontColor: sectorHeaderFontColor,
+            sectorSubHeaderFont: sectorSubHeaderFont,
+            sectorSubHeaderFontColor: sectorSubHeaderFontColor
         )
     }
     
@@ -563,8 +577,8 @@ extension SLCharts {
 extension SLCharts {
     // PLAID ERROR
     private func plaidError() {
-        //TODO: -  handle error
-        // this setup will not be using this for now, the backend is handling errors differently then the app
+        //TODO: -  remove
+        // this setup will not be using this for now, the backend is handling errors differently then the stocklift app
     }
     
     // GET PORTFOLIO

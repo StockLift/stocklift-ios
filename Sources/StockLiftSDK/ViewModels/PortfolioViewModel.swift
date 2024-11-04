@@ -15,10 +15,10 @@ final class PortfolioViewModel: BaseViewModel {
     @Published var hasCostBasis: Bool = true
     @Published var dateConnected: String = ""
     @Published var hasAccountConnected = false
-//    @Published var missingData = [String]()
-//    @Published var plaidError: PlaidError? = nil
-//    @Published var showPlaidError: Bool = true
-
+    //    @Published var missingData = [String]()
+    //    @Published var plaidError: PlaidError? = nil
+    //    @Published var showPlaidError: Bool = true
+    
     
     @Published var userEquityAccounts: [UserEquity]? = nil
     @Published var sectorDetails: [[SectorTotals: [UserEquity]]] = []
@@ -47,7 +47,8 @@ final class PortfolioViewModel: BaseViewModel {
         if types.contains(.portfolioSummary) ||
             types.contains(.projectionsPerformance) ||
             types.contains(.sectorDiversification) ||
-            types.contains(.topHoldings) {
+            types.contains(.topHoldings) ||
+            types.contains(.geoDiversification) {
             getPortfolio()
         }
         if types.contains(.benchmarkPerformance) ||
@@ -65,7 +66,7 @@ final class PortfolioViewModel: BaseViewModel {
         let message = "Returns for investments without cost basis are calculated from the date asset was detected on \(formattedDate)"
         return message
     }
-
+    
     //MARK: - GET PORTFOLIO
     private func getPortfolio() {
         guard let client = StockLiftSDK.client else {
@@ -96,9 +97,13 @@ final class PortfolioViewModel: BaseViewModel {
             case .success(let res):
                 DispatchQueue.main.async {
                     self.setChartData(res)
+                    self.isLoading = false
                 }
             case .failure(let err):
-                print(err)
+                DispatchQueue.main.async {
+                    print(err)
+                    self.isLoading = false
+                }
             }
         }
     }
@@ -114,12 +119,19 @@ final class PortfolioViewModel: BaseViewModel {
             case .success(let res):
                 DispatchQueue.main.async {
                     self.assetCoordinates = res.data.map { AssetCoordinates(name: $0.city ?? "",
-                                                                           coordinate: .init(latitude: $0.lat ?? 0, longitude: $0.lng ?? 0),
-                                                                           url: $0.url,
-                                                                           symbol: $0.symbol) }
+                                                                            coordinate: .init(
+                                                                                latitude: $0.lat ?? 0,
+                                                                                longitude: $0.lng ?? 0
+                                                                            ),
+                                                                            url: $0.url,
+                                                                            symbol: $0.symbol) }
+                    self.isLoading = false
                 }
             case .failure(let err):
-                print(err)
+                DispatchQueue.main.async {
+                    print(err)
+                    self.isLoading = false
+                }
             }
         }
     }
@@ -132,9 +144,9 @@ extension PortfolioViewModel {
     // SET MAIN Portfolio Response
     private func handleChartData(_ res: PortfolioResponse) {
         let hasAccount = res.hasAccount
-//        if let error = res.plaidError {
-//            self.plaidError = error
-//        }
+        //        if let error = res.plaidError {
+        //            self.plaidError = error
+        //        }
         if hasAccount {
             self.hasAccountConnected = hasAccount
             self.setPortfolioData(res.data)
@@ -142,14 +154,14 @@ extension PortfolioViewModel {
             if let holdings = userTopHoldings {
                 self.setImages(holdings.map({$0.holding.symbol}))
             }
-//            self.imageHandler(self.userTopHoldings)
+            //            self.imageHandler(self.userTopHoldings)
             self.geoAssets = res.data.geoAssets
             if let hasCostBasis = res.hasCostBasis {
                 self.hasCostBasis = hasCostBasis
             }
             if let missingData = res.missingData {
-//                self.missingData.removeAll()
-//                self.missingData = missingData
+                //                self.missingData.removeAll()
+                //                self.missingData = missingData
                 self.dateConnected = res.date ?? ""
             }
         } else {
@@ -210,43 +222,16 @@ extension PortfolioViewModel {
             }
         }
     }
-}
-
-
-extension PortfolioViewModel {
-//    private func imageHandler(_ items: [TopHoldingAsset]?) {
-//        if let holdings = items {
-//            self.setImages(holdings) { items in
-//                self.assetImages = items.map({$0.holding.symbol})
-//            }
-//        }
-//      
-//    }
     
+    //MARK: GET ASSET IMAGES
     private func setImages(_ symbols: [String?]) {
         symbols.forEach { symbol in
             if let symbol = symbol {
-                 AssetViewModel.getAssetImage(symbol) { url in
-                     self.assetImages[symbol] = url
+                AssetViewModel.getAssetImage(symbol) { url in
+                    self.assetImages[symbol] = url
                     
                 }
             }
         }
     }
-    
-    /// SET IMAGE
-//    private func setImages(_ items: [TopHoldingAsset], completion: @escaping ([TopHoldingAsset]) -> Void) {
-//        var itemsWithImages: [TopHoldingAsset] = items
-//        items.forEach { asset in
-//            if let symbol = asset.holding.symbol {
-//                AssetViewModel.getAssetImage(symbol) { url in
-//                    var newAsset = asset
-//                    newAsset.holding.url = url
-//                    itemsWithImages.append(asset)
-//                }
-//            }
-//        }
-//        print("ITEMS WITH IMAGES: \(itemsWithImages)")
-//        completion(itemsWithImages)
-//    }
 }

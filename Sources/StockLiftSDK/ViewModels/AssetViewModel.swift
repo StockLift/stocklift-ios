@@ -15,7 +15,6 @@ final class AssetViewModel: BaseViewModel {
     let equity: UserEquity
     let sector: SectorTotals?
     @Published var amountInvested: Float? = nil
-    @Published var symbolImage: URL? = nil
     @Published var isFund = false
     @Published var isCrypto = false
     @Published var isCash = false
@@ -25,11 +24,7 @@ final class AssetViewModel: BaseViewModel {
         self.equity = equity
         self.sector = sector
         super.init()
-        if let symbol = equity.symbol, symbol != "" {
-            AssetViewModel.getAssetImage(symbol) { url in
-                self.symbolImage = url
-            }
-        }
+
         self.setSectorPercent()
         if sector != nil {
             self.isFund = self.checkIsFund(equity)

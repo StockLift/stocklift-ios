@@ -7,7 +7,8 @@
 
 import Foundation
 
-public struct GeoAssetsData: Codable {
+public struct GeoAssetsData: Codable, Identifiable {
+    public var id: String { continent }
     public let continent: String
     public let continentWeight: Decimal
     public let continentGain: Decimal
