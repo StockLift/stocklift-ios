@@ -96,6 +96,7 @@ struct GeoDiversificationChart: View {
             if let annotations = self.portfolioVM.assetCoordinates, let geoAssets = portfolioVM.geoAssets {
                 AssetMapView(
                     showDisclaimer: $showDisclaimer,
+                    assetImages: $portfolioVM.assetImages,
                     annotations: annotations,
                     usersAssets: geoAssets,
                     chartHeader: chartHeader,

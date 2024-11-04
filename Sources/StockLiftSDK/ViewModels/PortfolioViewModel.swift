@@ -125,7 +125,6 @@ final class PortfolioViewModel: BaseViewModel {
                                                                             ),
                                                                             url: $0.url,
                                                                             symbol: $0.symbol) }
-                    print(self.assetCoordinates)
                     self.isLoading = false
                 }
             case .failure(let err):

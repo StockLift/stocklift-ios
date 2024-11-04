@@ -13,6 +13,7 @@ struct MapViewDetails: View {
     @StateObject var geoVM: GeoAssetViewModel
     @Binding var date: String
     @Binding var hasCostBasis: Bool
+    @Binding var assetImages: [String: URL]
     var updateCostBasisAction: (String, Float) -> Void
     
     let gainColor: Color
@@ -28,7 +29,7 @@ struct MapViewDetails: View {
     
     var body: some View {
         ZStack {
-//            Color.appBackground.edgesIgnoringSafeArea(.all)
+            Color(UIColor.systemBackground).edgesIgnoringSafeArea(.all)
             VStack {
                 ScrollView {
 //                    if !hasCostBasis {
@@ -36,10 +37,11 @@ struct MapViewDetails: View {
 //                            .appFontRegular(color: .gray)
 //                            .multilineTextAlignment(.center)
                     //                    }
-                    ForEach(geoVM.usersAssets, id: \.continent) { asset in
+                    ForEach(geoVM.usersAssets) { asset in
                         ContinentDetailCell(
                             assetDetails: asset,
                             showUpdateCostBasis: $showUpdateCostBasis,
+                            assetImages: $assetImages,
                             hasCostBasis: $hasCostBasis,
                             gainColor: gainColor,
                             lossColor: lossColor,

@@ -13,6 +13,7 @@ struct SectorDetailCell: View {
     @StateObject var sectorVM: SectorViewModel
     @State var isShowing: Bool = false
     @Binding var showUpdateCostBasis: (Bool, String)
+    @Binding var assetImages: [String: URL]
     let hasCostBasis: Bool
     // -- Properties
     let gainColor: Color
@@ -175,6 +176,7 @@ struct SectorDetailCell: View {
                         AssetDetailCell(
                             assetVM: AssetViewModel(equity: stock, sector: sectorVM.sector),
                             showUpdateCostBasis: $showUpdateCostBasis,
+                            imageUrl: $assetImages[stock.symbol ?? "no_symbol"],
                             hasCostBasis: hasCostBasis,
                             assetDefaultColor: assetDefaultColor,
                             symbolFont: symbolFont,
@@ -203,6 +205,7 @@ struct SectorDetailCell: View {
                         AssetDetailCell(
                             assetVM: AssetViewModel(equity: stock, sector: sectorVM.sector),
                             showUpdateCostBasis: $showUpdateCostBasis,
+                            imageUrl: $assetImages[stock.symbol ?? "no_symbol"],
                             hasCostBasis: hasCostBasis,
                             assetDefaultColor: assetDefaultColor,
                             symbolFont: symbolFont,
@@ -244,12 +247,5 @@ struct SectorDetailCell: View {
             status = false
         }
         return status
-    }
-}
-
-
-struct SectorDetailsScrollView: View {
-    var body: some View {
-        Text("SectorDetailsScrollView")
     }
 }

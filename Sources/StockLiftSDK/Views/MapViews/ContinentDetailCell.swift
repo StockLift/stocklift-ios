@@ -13,6 +13,7 @@ struct ContinentDetailCell: View {
     let assetDetails: GeoAssetsData
     @State var isShowing: Bool = false
     @Binding var showUpdateCostBasis: (Bool, String)
+    @Binding var assetImages: [String: URL]
     @Binding var hasCostBasis: Bool
     
     let gainColor: Color
@@ -88,7 +89,7 @@ struct ContinentDetailCell: View {
                             
 //                            if continentName != "Uncategorized" {
                                 Text("\(setSymbol(continentGain))%")
-                                    .appFontBlack(size: 12, color: self.setColor(continentGain, gainColor: gainColor, lossColor: lossColor))
+//                                    .appFontBlack(size: 12, color: self.setColor(continentGain, gainColor: gainColor, lossColor: lossColor))
 //                            }
                         }
                     }
@@ -115,12 +116,12 @@ struct ContinentDetailCell: View {
                         
                         VStack(alignment: .leading, spacing: 4) {
                             Text(totalAmountInvested)
-                                .appFontBlack(size: 16)
+//                                .appFontBlack(size: 16)
                                 .padding(.vertical, 0)
                             
 //                            if continentName != "Uncategorized" {
                                 Text("\(setSymbol(dollarGain))")
-                                    .appFontBlack(size: 12, color: self.setColor(dollarGain, gainColor: gainColor, lossColor: lossColor))
+//                                    .appFontBlack(size: 12, color: self.setColor(dollarGain, gainColor: gainColor, lossColor: lossColor))
 //                            }
                         }
                     }
@@ -135,13 +136,14 @@ struct ContinentDetailCell: View {
                 VStack {
                     HStack {
                         Text("Holdings")
-                            .appFontRegular(size: 12)
+//                            .appFontRegular(size: 12)
                         Spacer()
                     }
                     ForEach(assetDetails.continentAssets) { stock in
                         AssetDetailCell(
                             assetVM: AssetViewModel(equity: stock),
                             showUpdateCostBasis: $showUpdateCostBasis,
+                            imageUrl: $assetImages[stock.symbol ?? "no_symbol"],
                             hasCostBasis: hasCostBasis,
                             assetDefaultColor: assetDefaultColor,
                             symbolFont: symbolFont,
@@ -150,17 +152,14 @@ struct ContinentDetailCell: View {
                             assetDetailsBodyFont: assetDetailsBodyFont,
                             assetDetailsHighlightColor: assetDetailsHighlightColor
                         )
-//                        AssetDetailCell(assetVM: AssetViewModel(equity: stock),
-//                                        showUpdateCostBasis: $showUpdateCostBasis,
-//                                        hasCostBasis: hasCostBasis)
                     }
                 }
                 .padding(.top)
             }
         }
         .padding()
-//        .background(Color.appSectorCards)
-        .overlay(RoundedRectangle(cornerRadius: 20).strokeBorder(Color.white.opacity(0.6), lineWidth: 1))
+        .background(Color(UIColor.tertiaryLabel))
+        .overlay(RoundedRectangle(cornerRadius: 20).strokeBorder(Color(UIColor.label), lineWidth: 1))
         .clipShape(RoundedRectangle(cornerRadius: 20))
         .onTapGesture {
             withAnimation(.easeInOut) {

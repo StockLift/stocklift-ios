@@ -13,6 +13,7 @@ import Kingfisher
 struct AssetDetailCell: View {
     @StateObject var assetVM: AssetViewModel
     @Binding var showUpdateCostBasis: (Bool, String)
+    @Binding var imageUrl: URL?
     let hasCostBasis: Bool
     
     // - PROPERTIES
@@ -30,10 +31,6 @@ struct AssetDetailCell: View {
     private var percent: String {
         let change = ((Float(assetVM.equity.institutionValue ?? 0) / Float(assetVM.equity.costBasis ?? 0)) - 1) * 100
         return change.clean
-    }
-    
-    private var url: URL? {
-        assetVM.symbolImage
     }
     
     private var symbol: String {
@@ -55,7 +52,7 @@ struct AssetDetailCell: View {
         HStack(alignment: .top, spacing: 0) {
             if !assetVM.isCrypto {
                 //MARK: - ASSET IMAGE
-                if let url = url {
+                if let url = imageUrl {
                     KFImage(url)
                         .resizable()
                         .scaledToFit()

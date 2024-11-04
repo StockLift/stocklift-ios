@@ -12,6 +12,7 @@ import MapKit
 @available(iOS 15.0, *)
 struct AssetMapView: View {
     @Binding var showDisclaimer: Bool
+    @Binding var assetImages: [String: URL]
     let annotations: [AssetCoordinates]
     let usersAssets: [GeoAssetsData]
     let chartHeader: String
@@ -91,6 +92,7 @@ struct AssetMapView: View {
                 geoVM: GeoAssetViewModel(usersAssets: usersAssets),
                 date: $date,
                 hasCostBasis: $hasCostBasis,
+                assetImages: $assetImages,
                 updateCostBasisAction: updateCostBasisAction,
                 gainColor: gainColor,
                 lossColor: lossColor,
