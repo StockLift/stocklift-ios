@@ -33,6 +33,7 @@ struct GeoDiversificationChart: View {
     let lossColor: Color
     let assetDefaultColor: Color
     let symbolFont: Font
+    let symbolFontColor: Color
     let nameFont: Font
     let assetDetailsHeaderFont: Font
     let assetDetailsBodyFont: Font
@@ -59,6 +60,7 @@ struct GeoDiversificationChart: View {
         lossColor: Color,
         assetDefaultColor: Color,
         symbolFont: Font,
+        symbolFontColor: Color,
         nameFont: Font,
         assetDetailsHeaderFont: Font,
         assetDetailsBodyFont: Font,
@@ -84,6 +86,7 @@ struct GeoDiversificationChart: View {
         self.lossColor = lossColor
         self.assetDefaultColor = assetDefaultColor
         self.symbolFont = symbolFont
+        self.symbolFontColor = symbolFontColor
         self.nameFont = nameFont
         self.assetDetailsHeaderFont = assetDetailsHeaderFont
         self.assetDetailsBodyFont = assetDetailsBodyFont
@@ -110,6 +113,7 @@ struct GeoDiversificationChart: View {
                     lossColor: lossColor,
                     assetDefaultColor: assetDefaultColor,
                     symbolFont: symbolFont,
+                    fontColor: symbolFontColor,
                     nameFont: nameFont,
                     assetDetailsHeaderFont: assetDetailsHeaderFont,
                     assetDetailsBodyFont: assetDetailsBodyFont,

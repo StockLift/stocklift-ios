@@ -489,6 +489,7 @@ extension SLCharts {
             lossColor: lossColor,
             assetDefaultColor: assetDefaultColor,
             symbolFont: symbolFont,
+            symbolFontColor: symbolFontColor,
             nameFont: nameFont,
             assetDetailsHeaderFont: assetDetailsHeaderFont,
             assetDetailsBodyFont: assetDetailsBodyFont,

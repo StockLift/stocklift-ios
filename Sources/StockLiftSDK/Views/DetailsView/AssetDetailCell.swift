@@ -19,6 +19,7 @@ struct AssetDetailCell: View {
     // - PROPERTIES
     let assetDefaultColor: Color
     let symbolFont: Font
+    let fontColor: Color 
     let nameFont: Font
     let assetDetailsHeaderFont: Font
     let assetDetailsBodyFont: Font
@@ -50,33 +51,13 @@ struct AssetDetailCell: View {
     
     var body: some View {
         HStack(alignment: .top, spacing: 0) {
-            if !assetVM.isCrypto {
-                //MARK: - ASSET IMAGE
-                if let url = imageUrl {
-                    KFImage(url)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 40, height: 40)
-                        .background(assetDefaultColor)
-                        .clipShape(Circle())
-                        .padding(.trailing, 8)
-                } else {
-                    if let image = assetVM.equity.symbol {
-                        Text(assetVM.isCash ? "$" : image.prefix(4))
-                            .font(assetVM.isCash ? .callout : .caption)
-                            .fontWeight(.semibold)
-                            .frame(width: 40, height: 40)
-                            .background(assetDefaultColor)
-                            .clipShape(Circle())
-                            .padding(.trailing, 8)
-                    } else {
-                        Circle()
-                            .fill(assetDefaultColor)
-                            .frame(width: 40, height: 40)
-                            .padding(.trailing, 8)
-                    }
-                }
-            }
+            //MARK: - ASSET IMAGE
+            AssetImageHandler(assetImageUrl: imageUrl,
+                              asset: assetVM.equity,
+                              size: 34,
+                              color: assetDefaultColor,
+                              fontColor: fontColor)
+            .padding(.trailing, 8)
             
             //MARK: - ASSET DETAILS
             VStack(alignment: .trailing, spacing: 0) {

@@ -24,6 +24,7 @@ struct SectorDetailCell: View {
     let sectorSubHeaderFontColor: Color
     let assetDefaultColor: Color
     let symbolFont: Font
+    let fontColor: Color
     let nameFont: Font
     let assetDetailsHeaderFont: Font
     let assetDetailsBodyFont: Font
@@ -180,6 +181,7 @@ struct SectorDetailCell: View {
                             hasCostBasis: hasCostBasis,
                             assetDefaultColor: assetDefaultColor,
                             symbolFont: symbolFont,
+                            fontColor: fontColor,
                             nameFont: nameFont,
                             assetDetailsHeaderFont: assetDetailsHeaderFont,
                             assetDetailsBodyFont: assetDetailsBodyFont,
@@ -209,6 +211,7 @@ struct SectorDetailCell: View {
                             hasCostBasis: hasCostBasis,
                             assetDefaultColor: assetDefaultColor,
                             symbolFont: symbolFont,
+                            fontColor: fontColor,
                             nameFont: nameFont,
                             assetDetailsHeaderFont: assetDetailsHeaderFont,
                             assetDetailsBodyFont: assetDetailsBodyFont,

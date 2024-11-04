@@ -26,6 +26,7 @@ struct PortfolioDetails: View {
     let sectorSubHeaderFontColor: Color
     let assetDefaultColor: Color
     let symbolFont: Font
+    let fontColor: Color
     let nameFont: Font
     let assetDetailsHeaderFont: Font
     let assetDetailsBodyFont: Font
@@ -69,6 +70,7 @@ struct PortfolioDetails: View {
                                 sectorSubHeaderFontColor: sectorSubHeaderFontColor,
                                 assetDefaultColor: assetDefaultColor,
                                 symbolFont: symbolFont,
+                                fontColor: fontColor,
                                 nameFont: nameFont,
                                 assetDetailsHeaderFont: assetDetailsHeaderFont,
                                 assetDetailsBodyFont: assetDetailsBodyFont,

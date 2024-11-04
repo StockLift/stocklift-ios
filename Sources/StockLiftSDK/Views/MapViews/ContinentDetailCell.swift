@@ -11,7 +11,7 @@ import SwiftUI
 @available(iOS 15.0, *)
 struct ContinentDetailCell: View {
     let assetDetails: GeoAssetsData
-    @State var isShowing: Bool = false
+    
     @Binding var showUpdateCostBasis: (Bool, String)
     @Binding var assetImages: [String: URL]
     @Binding var hasCostBasis: Bool
@@ -20,6 +20,7 @@ struct ContinentDetailCell: View {
     let lossColor: Color
     let assetDefaultColor: Color
     let symbolFont: Font
+    let fontColor: Color
     let nameFont: Font
     let assetDetailsHeaderFont: Font
     let assetDetailsBodyFont: Font
@@ -49,6 +50,8 @@ struct ContinentDetailCell: View {
         let value = assetDetails.continentDollarGain
         return value.formatted(.currency(code: "USD"))
     }
+    
+    @State private var isShowing: Bool = false
     
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
@@ -147,6 +150,7 @@ struct ContinentDetailCell: View {
                             hasCostBasis: hasCostBasis,
                             assetDefaultColor: assetDefaultColor,
                             symbolFont: symbolFont,
+                            fontColor: fontColor,
                             nameFont: nameFont,
                             assetDetailsHeaderFont: assetDetailsHeaderFont,
                             assetDetailsBodyFont: assetDetailsBodyFont,

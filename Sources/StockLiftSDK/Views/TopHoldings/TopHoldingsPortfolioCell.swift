@@ -21,7 +21,7 @@ struct TopHoldingsPortfolioCell: View {
     let assetDefaultColor: Color
     let gainColor: Color
     let lossColor: Color
-    let fontColor: Color // Asset symbol in no image is present
+    let fontColor: Color // Asset symbol if no image is present
     let symbolFont: Font
     let symbolFontColor: Color
     let nameFont: Font
@@ -70,6 +70,7 @@ struct TopHoldingsPortfolioCell: View {
                         fontColor: fontColor
                     )
                     .padding(.trailing, 4)
+                    
                     VStack(alignment: .leading, spacing: 2) {
                         HStack {
                             /// SYMBOL & RANK

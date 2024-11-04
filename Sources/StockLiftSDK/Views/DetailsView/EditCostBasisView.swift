@@ -21,20 +21,20 @@ struct EditCostBasisView: View {
             HStack {
                 Spacer()
                 Text("x")
-                    .appFontMedium()
+//                    .appFontMedium()
                     .onTapGesture { showUpdateCostBasis.0.toggle() }
             }
             VStack(spacing: 4) {
                 Text("Update Cost Basis")
-                    .appFontMedium()
+//                    .appFontMedium()
                 Text("\(showUpdateCostBasis.1)")
-                    .appFontMedium(size: 16)
+//                    .appFontMedium(size: 16)
             }
 //            CustomTextField(text: $enteredCostBasis, placeholder: "", keyboardType: .numberPad)
 //                .padding(.vertical)
             
             Text("Please wait 24hrs for all data to update")
-                .appFontRegular(size: 10, color: .gray)
+//                .appFontRegular(size: 10, color: .gray)
                 .padding(.vertical, 8)
             
 //            SLButton("Submit")

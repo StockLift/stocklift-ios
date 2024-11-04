@@ -27,6 +27,7 @@ struct AssetMapView: View {
     let lossColor: Color
     let assetDefaultColor: Color
     let symbolFont: Font
+    let fontColor: Color
     let nameFont: Font
     let assetDetailsHeaderFont: Font
     let assetDetailsBodyFont: Font
@@ -71,7 +72,8 @@ struct AssetMapView: View {
                             .fill(Color.blue)
                             .frame(width: 22)
                         Text(item.symbol ?? "n/a")
-                            .appFontMedium(size: 8, color: .white)
+                            .font(.system(size: 8))
+                            .foregroundStyle(Color.white)
                     }
                 }
             }
@@ -98,6 +100,7 @@ struct AssetMapView: View {
                 lossColor: lossColor,
                 assetDefaultColor: assetDefaultColor,
                 symbolFont: symbolFont,
+                fontColor: fontColor,
                 nameFont: nameFont,
                 assetDetailsHeaderFont: assetDetailsHeaderFont,
                 assetDetailsBodyFont: assetDetailsBodyFont,

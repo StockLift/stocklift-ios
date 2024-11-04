@@ -51,6 +51,7 @@ struct SectorBreakdownChart: View {
     let sectorSubHeaderFontColor: Color
     let assetDefaultColor: Color
     let symbolFont: Font
+    let fontColor: Color
     let nameFont: Font
     
     // Pop up details view
@@ -85,6 +86,7 @@ struct SectorBreakdownChart: View {
         sectorSubHeaderFontColor: Color = .primary,
         assetDefaultColor: Color = .blue,
         symbolFont: Font = .caption,
+        fontColor: Color = .white,
         nameFont: Font = .caption,
         assetDetailsHeaderFont: Font,
         assetDetailsBodyFont: Font,
@@ -117,6 +119,7 @@ struct SectorBreakdownChart: View {
         self.sectorSubHeaderFontColor = sectorSubHeaderFontColor
         self.assetDefaultColor = assetDefaultColor
         self.symbolFont = symbolFont
+        self.fontColor = fontColor
         self.nameFont = nameFont
         self.assetDetailsHeaderFont = assetDetailsHeaderFont
         self.assetDetailsBodyFont = assetDetailsBodyFont
@@ -183,6 +186,7 @@ struct SectorBreakdownChart: View {
                         sectorSubHeaderFontColor: sectorSubHeaderFontColor,
                         assetDefaultColor: assetDefaultColor,
                         symbolFont: symbolFont,
+                        fontColor: fontColor,
                         nameFont: nameFont,
                         assetDetailsHeaderFont: assetDetailsHeaderFont,
                         assetDetailsBodyFont: assetDetailsBodyFont,
