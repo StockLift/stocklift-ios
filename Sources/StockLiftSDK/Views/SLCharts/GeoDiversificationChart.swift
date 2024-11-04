@@ -38,6 +38,10 @@ struct GeoDiversificationChart: View {
     let assetDetailsHeaderFont: Font
     let assetDetailsBodyFont: Font
     let assetDetailsHighlightColor: Color
+    let sectorHeaderFont: Font
+    let sectorHeaderFontColor: Color
+    let sectorSubHeaderFont: Font
+    let sectorSubHeaderFontColor: Color
     
     init(
         _ viewModel: PortfolioViewModel,
@@ -64,7 +68,11 @@ struct GeoDiversificationChart: View {
         nameFont: Font,
         assetDetailsHeaderFont: Font,
         assetDetailsBodyFont: Font,
-        assetDetailsHighlightColor: Color
+        assetDetailsHighlightColor: Color,
+        sectorHeaderFont: Font = .callout,
+        sectorHeaderFontColor: Color = .primary,
+        sectorSubHeaderFont: Font = .caption2,
+        sectorSubHeaderFontColor: Color = .primary
     ) {
         self.portfolioVM = viewModel
         self._showDisclaimer = showDisclaimer
@@ -91,6 +99,10 @@ struct GeoDiversificationChart: View {
         self.assetDetailsHeaderFont = assetDetailsHeaderFont
         self.assetDetailsBodyFont = assetDetailsBodyFont
         self.assetDetailsHighlightColor = assetDetailsHighlightColor
+        self.sectorHeaderFont = sectorHeaderFont
+        self.sectorHeaderFontColor = sectorHeaderFontColor
+        self.sectorSubHeaderFont = sectorSubHeaderFont
+        self.sectorSubHeaderFontColor = sectorSubHeaderFontColor
     }
     
     var body: some View {
@@ -117,7 +129,11 @@ struct GeoDiversificationChart: View {
                     nameFont: nameFont,
                     assetDetailsHeaderFont: assetDetailsHeaderFont,
                     assetDetailsBodyFont: assetDetailsBodyFont,
-                    assetDetailsHighlightColor: assetDetailsHighlightColor
+                    assetDetailsHighlightColor: assetDetailsHighlightColor,
+                    sectorHeaderFont: sectorHeaderFont,
+                    sectorHeaderFontColor: sectorHeaderFontColor,
+                    sectorSubHeaderFont: sectorSubHeaderFont,
+                    sectorSubHeaderFontColor: sectorSubHeaderFontColor
                 )
             } else if portfolioVM.isLoading {
                 ProgressView()

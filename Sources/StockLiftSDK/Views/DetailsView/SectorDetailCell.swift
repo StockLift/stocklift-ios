@@ -73,8 +73,7 @@ struct SectorDetailCell: View {
                     .foregroundStyle(sectorHeaderFontColor)
                 Spacer()
                 Image(systemName: isShowing ? "chevron.down" : "chevron.right")
-                    .resizable()
-                    .scaledToFit()
+                    .imageHandler()
                     .foregroundStyle(.primary)
                     .frame(width: 12, height: 12)
             }
@@ -88,14 +87,12 @@ struct SectorDetailCell: View {
                     HStack(alignment: .center, spacing: 10) {
                         if sectorName != "Cash" {
                             Image(systemName: investGainLose ? ImageKeys.upArrow : ImageKeys.downArrow)
-                                .resizable()
-                                .scaledToFit()
+                                .imageHandler()
                                 .foregroundStyle(investGainLose ? gainColor : lossColor)
                                 .frame(width: 20, height: 20)
                         } else {
                             Image(systemName: "dollarsign.circle")
-                                .resizable()
-                                .scaledToFit()
+                                .imageHandler()
                                 .background(gainColor)
                                 .frame(width: 20, height: 20)
                                 .clipShape(Circle())
@@ -126,14 +123,12 @@ struct SectorDetailCell: View {
                     HStack(alignment: .center, spacing: 10) {
                         if sectorName != "Cash" {
                             Image(systemName: sectorVM.dollarChangeGainLose ? ImageKeys.upArrow : ImageKeys.downArrow)
-                                .resizable()
-                                .scaledToFit()
+                                .imageHandler()
                                 .foregroundStyle(investGainLose ? gainColor : lossColor)
                                 .frame(width: 20, height: 20)
                         } else {
                             Image(systemName: "dollarsign.circle")
-                                .resizable()
-                                .scaledToFit()
+                                .imageHandler()
                                 .background(gainColor)
                                 .frame(width: 20, height: 20)
                                 .clipShape(Circle())

@@ -25,6 +25,10 @@ struct ContinentDetailCell: View {
     let assetDetailsHeaderFont: Font
     let assetDetailsBodyFont: Font
     let assetDetailsHighlightColor: Color
+    let sectorHeaderFont: Font
+    let sectorHeaderFontColor: Color
+    let sectorSubHeaderFont: Font
+    let sectorSubHeaderFontColor: Color
     
     var continentName: String {
         assetDetails.continent
@@ -55,83 +59,91 @@ struct ContinentDetailCell: View {
     
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
+            //MARK: CONTINENT HEADER
+            // Continent Name & Click to open
             HStack {
                 Text(continentName)
-//                    .appFontMedium()
+                    .font(sectorHeaderFont)
+                    .fontWeight(.semibold)
+                    .foregroundStyle(sectorHeaderFontColor)
                 Spacer()
                 Image(systemName: isShowing ? "chevron.down" : "chevron.right")
-                    .resizable()
-                    .scaledToFit()
+                    .imageHandler()
                     .foregroundColor(.white)
                     .frame(width: 12, height: 12)
-                
             }
             .padding(.bottom)
             
             HStack {
+                //MARK: LEFT CELL
+                // 1. GAIN / LOSE Image
+                // 2. CONTINENT WEIGHT & CHANGE
                 VStack(alignment: .center, spacing: 0) {
                     HStack(alignment: .center, spacing: 10) {
                         if continentName != "Uncategorized" {
-                            Image(systemName: self.setColor(continentGain, gainColor: gainColor, lossColor: lossColor) == Color.green ? ImageKeys.upArrow : ImageKeys.downArrow)
-                                .resizable()
-                                .scaledToFit()
+                            Image(systemName: self.setColor(continentGain, gainColor: gainColor, lossColor: lossColor) == gainColor ? ImageKeys.upArrow : ImageKeys.downArrow)
+                                .imageHandler()
+                                .foregroundStyle(self.setColor(continentGain, gainColor: gainColor, lossColor: lossColor))
                                 .frame(width: 20, height: 20)
                         } else {
                             Image(systemName: "dollarsign.circle")
-                                .resizable()
-                                .scaledToFit()
-                                .background(Color.blue)
+                                .imageHandler()
+                                .background(gainColor)
                                 .frame(width: 20, height: 20)
                                 .clipShape(Circle())
                         }
                         
                         VStack(alignment: .leading, spacing: 4) {
                             Text("\(continentWeight)%")
-//                                .appFontBlack(size: 16)
+                                .font(.footnote)
+                                .fontWeight(.black)
                                 .padding(.vertical, 0)
                             
-//                            if continentName != "Uncategorized" {
-                                Text("\(setSymbol(continentGain))%")
-//                                    .appFontBlack(size: 12, color: self.setColor(continentGain, gainColor: gainColor, lossColor: lossColor))
-//                            }
+                            Text("\(setSymbol(continentGain))%")
+                                .font(.footnote)
+                                .fontWeight(.black)
+                                .foregroundStyle(self.setColor(continentGain, gainColor: gainColor, lossColor: lossColor))
                         }
                     }
                 }
                 .padding(.vertical, 6)
                 .frame(maxWidth: .infinity)
-                .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(Color.white.opacity(0.6), lineWidth: 1))
+                .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(Color(UIColor.label), lineWidth: 1))
                 
+                //MARK: RIGHT CELL
+                // 1. GAIN / LOSE Image
+                // 2. TOTAL VALUE & TOTAL VALUE CHANGE
                 VStack(alignment: .center, spacing: 0) {
                     HStack(alignment: .center, spacing: 10) {
                         if continentName != "Uncategorized" {
-                            Image(systemName: self.setColor(dollarGain, gainColor: gainColor, lossColor: lossColor) == Color.green ? ImageKeys.upArrow : ImageKeys.downArrow)
-                                .resizable()
-                                .scaledToFit()
+                            Image(systemName: self.setColor(dollarGain, gainColor: gainColor, lossColor: lossColor) == gainColor ? ImageKeys.upArrow : ImageKeys.downArrow)
+                                .imageHandler()
+                                .foregroundStyle(self.setColor(continentGain, gainColor: gainColor, lossColor: lossColor))
                                 .frame(width: 20, height: 20)
                         } else {
                             Image(systemName: "dollarsign.circle")
-                                .resizable()
-                                .scaledToFit()
-                                .background(Color.blue)
+                                .imageHandler()
+                                .background(gainColor)
                                 .frame(width: 20, height: 20)
                                 .clipShape(Circle())
                         }
                         
                         VStack(alignment: .leading, spacing: 4) {
                             Text(totalAmountInvested)
-//                                .appFontBlack(size: 16)
+                                .font(.footnote)
+                                .fontWeight(.black)
                                 .padding(.vertical, 0)
                             
-//                            if continentName != "Uncategorized" {
-                                Text("\(setSymbol(dollarGain))")
-//                                    .appFontBlack(size: 12, color: self.setColor(dollarGain, gainColor: gainColor, lossColor: lossColor))
-//                            }
+                            Text("\(setSymbol(dollarGain))")
+                                .font(.footnote)
+                                .fontWeight(.black)
+                                .foregroundStyle(self.setColor(dollarGain, gainColor: gainColor, lossColor: lossColor))
                         }
                     }
                 }
                 .padding(.vertical, 6)
                 .frame(maxWidth: .infinity)
-                .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(Color.white.opacity(0.6), lineWidth: 1))
+                .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(Color(UIColor.label), lineWidth: 1))
             }
             
             //MARK: List of Assets in the current selected Sector
@@ -139,7 +151,9 @@ struct ContinentDetailCell: View {
                 VStack {
                     HStack {
                         Text("Holdings")
-//                            .appFontRegular(size: 12)
+                            .font(sectorSubHeaderFont)
+                            .fontWeight(.semibold)
+                            .foregroundStyle(sectorSubHeaderFontColor)
                         Spacer()
                     }
                     ForEach(assetDetails.continentAssets) { stock in

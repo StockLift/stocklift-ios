@@ -32,6 +32,10 @@ struct AssetMapView: View {
     let assetDetailsHeaderFont: Font
     let assetDetailsBodyFont: Font
     let assetDetailsHighlightColor: Color
+    let sectorHeaderFont: Font
+    let sectorHeaderFontColor: Color
+    let sectorSubHeaderFont: Font
+    let sectorSubHeaderFontColor: Color
     
     @State private var showDetails: Bool = false
     
@@ -104,7 +108,11 @@ struct AssetMapView: View {
                 nameFont: nameFont,
                 assetDetailsHeaderFont: assetDetailsHeaderFont,
                 assetDetailsBodyFont: assetDetailsBodyFont,
-                assetDetailsHighlightColor: assetDetailsHighlightColor
+                assetDetailsHighlightColor: assetDetailsHighlightColor,
+                sectorHeaderFont: sectorHeaderFont,
+                sectorHeaderFontColor: sectorHeaderFontColor,
+                sectorSubHeaderFont: sectorSubHeaderFont,
+                sectorSubHeaderFontColor: sectorSubHeaderFontColor
             )
         }
     }
