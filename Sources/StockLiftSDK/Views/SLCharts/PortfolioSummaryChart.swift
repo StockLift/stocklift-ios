@@ -29,6 +29,10 @@ struct PortfolioSummaryChart: View {
     let linkAccountConnectSize: CGFloat
     let linkAccountFont: Font
     let linkAccountFontColor: Color
+    let linkAccountButtonFont: Font
+    let linkAccountButtonColor: Color
+    let linkAccountButtonFontColor: Color
+    let linkAccountButtonText: String
     let plaidError: () -> Void
     let getPortfolio: () -> Void
     
@@ -92,6 +96,10 @@ struct PortfolioSummaryChart: View {
         linkAccountConnectSize: CGFloat = 38,
         linkAccountFont: Font = .caption,
         linkAccountFontColor: Color = .primary,
+        linkAccountButtonColor: Color = .blue,
+        linkAccountButtonFont: Font = .caption,
+        linkAccountButtonFontColor: Color = .white,
+        linkAccountButtonText: String = "Link an Account",
         plaidError: @escaping () -> Void,
         getPortfolio: @escaping () -> Void,
         headerFont: Font = .subheadline,
@@ -114,6 +122,10 @@ struct PortfolioSummaryChart: View {
         self.linkAccountConnectSize = linkAccountConnectSize
         self.linkAccountFont = linkAccountFont
         self.linkAccountFontColor = linkAccountFontColor
+        self.linkAccountButtonColor = linkAccountButtonColor
+        self.linkAccountButtonFont = linkAccountButtonFont
+        self.linkAccountButtonFontColor = linkAccountButtonFontColor
+        self.linkAccountButtonText = linkAccountButtonText
         self.plaidError = plaidError
         self.getPortfolio = getPortfolio
         self._showDisclaimer = showDisclaimer
@@ -169,6 +181,16 @@ struct PortfolioSummaryChart: View {
             
             if axis == .horizontal {
                 Spacer()
+            } else {
+                // Vertical config
+                OpenLinkButton(getPortfolio: getPortfolio, errorHandler: plaidError) {
+                    LinkAccountButton(
+                        linkAccountButtonText: linkAccountButtonText,
+                        linkAccountButtonFont: linkAccountButtonFont,
+                        linkAccountButtonFontColor: linkAccountButtonFontColor,
+                        linkAccountButtonColor: linkAccountButtonColor
+                    )
+                }
             }
             
             HStack {

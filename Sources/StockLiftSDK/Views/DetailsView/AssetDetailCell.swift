@@ -9,11 +9,9 @@
 import SwiftUI
 import Kingfisher
 
-//TODO: - setup
-@available(iOS 15.0, *)
+@available(iOS 16.0, *)
 struct AssetDetailCell: View {
     @StateObject var assetVM: AssetViewModel
-    @State private var showDetails: Bool = false
     @Binding var showUpdateCostBasis: (Bool, String)
     let hasCostBasis: Bool
     
@@ -21,21 +19,24 @@ struct AssetDetailCell: View {
     let assetDefaultColor: Color
     let symbolFont: Font
     let nameFont: Font
+    let assetDetailsHeaderFont: Font
+    let assetDetailsBodyFont: Font
+    let assetDetailsHighlightColor: Color
     
-    var amount: Float {
+    private var amount: Float {
         assetVM.amountInvested ?? 0
     }
     
-    var percent: String {
+    private var percent: String {
         let change = ((Float(assetVM.equity.institutionValue ?? 0) / Float(assetVM.equity.costBasis ?? 0)) - 1) * 100
         return change.clean
     }
     
-    var url: URL? {
+    private var url: URL? {
         assetVM.symbolImage
     }
     
-    var symbol: String {
+    private var symbol: String {
         var symbolString = ""
         if assetVM.isBond {
             symbolString = "Bond"
@@ -45,8 +46,13 @@ struct AssetDetailCell: View {
         return symbolString
     }
     
+    
+    @State private var showDetails: Bool = false
+    private let offset: CGFloat = 0
+    private let verticalPadding: CGFloat = 8
+    
     var body: some View {
-        HStack(alignment: .center, spacing: 0) {
+        HStack(alignment: .top, spacing: 0) {
             if !assetVM.isCrypto {
                 //MARK: - ASSET IMAGE
                 if let url = url {
@@ -89,7 +95,7 @@ struct AssetDetailCell: View {
                 HStack {
                     // NAME
                     Text(assetVM.equity.name ?? "")
-                        .font(nameFont)
+                        .font(nameFont.leading(.tight))
                     Spacer()
                     // PERCENT CHANGE
                     if !assetVM.isCash {
@@ -105,16 +111,22 @@ struct AssetDetailCell: View {
         .contentShape(Rectangle())
         .overlay(alignment: .center, content: {
             if showDetails {
-                PopUpDetailView(asset: assetVM.equity,
-                                showUpdateCostBasis: $showUpdateCostBasis,
-                                hasCostBasis: hasCostBasis,
-                                hideView: $showDetails)
+                PopUpDetailView(
+                    asset: assetVM.equity,
+                    showUpdateCostBasis: $showUpdateCostBasis,
+                    hasCostBasis: hasCostBasis,
+                    hideView: $showDetails,
+                    offset: offset,
+                    verticalPadding: verticalPadding,
+                    headerFont: assetDetailsHeaderFont,
+                    bodyFont: assetDetailsBodyFont,
+                    highlightColor: assetDetailsHighlightColor
+                )
             }
         })
         .onTapGesture {
             withAnimation(.easeInOut) {
-                //TODO: - SETUP
-                //                                showDetails.toggle()
+                showDetails.toggle()
             }
         }
     }

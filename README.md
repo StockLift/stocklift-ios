@@ -53,7 +53,6 @@ _Example Horizontal_
 ```swift
 SLCharts()
     .frame(height: UIScreen.main.bounds.height * 0.40)
-    .padding()
 ```
 
 _Example Vertical_
@@ -67,7 +66,7 @@ SLCharts(axis: .vertical)
 _Example Custom Charts_
 
 ```swift
-SLCharts([.geoDiversification, .benchmark, .sector])
+SLCharts([.geoDiversification, .benchmarkPerformance, .sectorDiversification])
      .frame(height: 320)
 ```
 

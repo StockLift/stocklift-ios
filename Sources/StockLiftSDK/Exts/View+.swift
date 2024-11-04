@@ -147,16 +147,16 @@ extension View {
 @available(iOS 15.0, *)
 public extension View {
     //MARK: - SET COLOR for percentage change
-    func setColor(_ value: String, upColor: Color = .green) -> Color {
+    func setColor(_ value: String, gainColor: Color, lossColor: Color) -> Color {
         if value.contains("-") {
-            return .red
+            return lossColor
         } else {
-            return upColor
+            return gainColor
         }
     }
     
     //MARK: - CREATE Image for Symbol (url || symbol || name prefixed)
-    func AssetImageHandler(assetImageUrl: URL?, asset: UserEquity, size: CGFloat = 40, color: Color) -> some View {
+    func AssetImageHandler(assetImageUrl: URL?, asset: UserEquity, size: CGFloat = 40, color: Color, fontColor: Color) -> some View {
         let symbol = asset.symbol?.lowercased()
         return Group {
             if symbol != "voc" {
@@ -167,44 +167,41 @@ public extension View {
                         .frame(width: size, height: size)
                         .background(color)
                         .clipShape(Circle())
-                        .padding(.trailing, 8)
                 } else {
                     if asset.type == .cash {
                         Text("$")
-                            .font(.caption2)
-                            .shadow(radius: 2)
-                            .frame(width: size, height: size)
-                            .background(color)
-                            .clipShape(Circle())
-                            .padding(.trailing, 8)
+                            .font(.caption)
+                            .imageBubble(size: size, color: color, fontColor: fontColor)
                     } else if let image = asset.symbol, image != "" {
                         Text(image.prefix(4))
                             .font(.caption2)
-                            .shadow(radius: 2)
-                            .frame(width: size, height: size)
-                            .background(color)
-                            .clipShape(Circle())
-                            .padding(.trailing, 8)
+                            .imageBubble(size: size, color: color, fontColor: fontColor)
                     } else {
                         Text("")
                             .font(.caption2)
-                            .shadow(radius: 2)
-                            .frame(width: size, height: size)
-                            .background(color)
-                            .clipShape(Circle())
-                            .padding(.trailing, 8)
+                            .imageBubble(size: size, color: color, fontColor: fontColor)
                     }
                 }
             } else {
                 // HANDLER for images with weird bugs (returned from 12data not working)
                 Text(asset.symbol?.prefix(4) ?? "")
-                    .font(.footnote)
-                    .shadow(radius: 2)
-                    .frame(width: size, height: size)
-                    .background(color)
-                    .clipShape(Circle())
-                    .padding(.trailing, 8)
+                    .font(.caption2)
+                    .imageBubble(size: size, color: color, fontColor: fontColor)
             }
         }
+    }
+    
+
+}
+
+
+fileprivate extension Text {
+     func imageBubble(size: CGFloat = 40, color: Color, fontColor: Color) -> some View {
+        self
+            .fontWeight(.semibold)
+            .frame(width: size, height: size)
+            .background(color)
+            .foregroundStyle(fontColor)
+            .clipShape(Circle())
     }
 }

@@ -9,7 +9,7 @@ import Foundation
 
 public struct TopHoldingAsset: Identifiable {
     public var id: String { holding.id }
-    public let holding: UserEquity
+    public var holding: UserEquity
     public let rank: Int
     
     public init(holding: UserEquity, rank: Int) {

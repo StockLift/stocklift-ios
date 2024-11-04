@@ -78,8 +78,9 @@ public struct UserEquity: Codable, Identifiable {
     public let type: EquityType?
     public let percentChange: Decimal?
     public let country: String?
+    public var url: URL?
     
-    public init(id: String, name: String?, symbol: String?, institutionValue: Float?, costBasis: Float? = nil, closePrice: Float?, quantity: Decimal?, sectors: [Sector]?, type: EquityType?, percentChange: Decimal?, country: String?) {
+    public init(id: String, name: String?, symbol: String?, institutionValue: Float?, costBasis: Float? = nil, closePrice: Float?, quantity: Decimal?, sectors: [Sector]?, type: EquityType?, percentChange: Decimal?, country: String?, url: URL? = nil) {
         self.id = id
         self.name = name
         self.symbol = symbol
@@ -91,6 +92,7 @@ public struct UserEquity: Codable, Identifiable {
         self.type = type
         self.percentChange = percentChange
         self.country = country
+        self.url = url
     }
     
     enum CodingKeys: String, CodingKey {

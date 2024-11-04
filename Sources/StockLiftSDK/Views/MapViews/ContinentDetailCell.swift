@@ -14,6 +14,8 @@ struct ContinentDetailCell: View {
     @State var isShowing: Bool = false
     @Binding var showUpdateCostBasis: (Bool, String)
     @Binding var hasCostBasis: Bool
+    let gainColor: Color = .blue
+    let lossColor: Color = .red
     
     var continentName: String {
         assetDetails.continent
@@ -59,7 +61,7 @@ struct ContinentDetailCell: View {
                 VStack(alignment: .center, spacing: 0) {
                     HStack(alignment: .center, spacing: 10) {
                         if continentName != "Uncategorized" {
-                            Image(self.setColor(continentGain) == Color.green ? ImageKeys.upArrow : ImageKeys.downArrow, bundle: .module)
+                            Image(self.setColor(continentGain, gainColor: gainColor, lossColor: lossColor) == Color.green ? ImageKeys.upArrow : ImageKeys.downArrow, bundle: .module)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 20, height: 20)
@@ -79,7 +81,7 @@ struct ContinentDetailCell: View {
                             
 //                            if continentName != "Uncategorized" {
                                 Text("\(setSymbol(continentGain))%")
-                                    .appFontBlack(size: 12, color: self.setColor(continentGain, upColor: .blue))
+                                    .appFontBlack(size: 12, color: self.setColor(continentGain, gainColor: gainColor, lossColor: lossColor))
 //                            }
                         }
                     }
@@ -91,7 +93,7 @@ struct ContinentDetailCell: View {
                 VStack(alignment: .center, spacing: 0) {
                     HStack(alignment: .center, spacing: 10) {
                         if continentName != "Uncategorized" {
-                            Image(self.setColor(dollarGain) == Color.green ? ImageKeys.upArrow : ImageKeys.downArrow, bundle: .module)
+                            Image(self.setColor(dollarGain, gainColor: gainColor, lossColor: lossColor) == Color.green ? ImageKeys.upArrow : ImageKeys.downArrow, bundle: .module)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 20, height: 20)
@@ -111,7 +113,7 @@ struct ContinentDetailCell: View {
                             
 //                            if continentName != "Uncategorized" {
                                 Text("\(setSymbol(dollarGain))")
-                                    .appFontBlack(size: 12, color: self.setColor(dollarGain, upColor: .blue))
+                                    .appFontBlack(size: 12, color: self.setColor(dollarGain, gainColor: gainColor, lossColor: lossColor))
 //                            }
                         }
                     }

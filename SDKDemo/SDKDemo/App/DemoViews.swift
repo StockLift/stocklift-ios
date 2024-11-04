@@ -15,7 +15,7 @@ struct DemoAllChartsView: View {
         if testingType.isEmpty {
             VStack {
                 SLCharts()
-                    .frame(height: UIScreen.main.bounds.height * 0.40)
+                    .frame(height: UIScreen.main.bounds.height * 0.43)
                     .padding()
                 
                 DemoTextView(text: "This is a demo of the SLCharts DEFAULT configuration (colors, fonts, charts, etc.).")
@@ -53,13 +53,17 @@ struct DemoAllChartsView: View {
                          linkAccountButtonColor: HelperClass.randomColor(),
                          linkAccountButtonFontColor: HelperClass.randomColor(),
                          //                         linkAccountFontColor: HelperClass.randomColor(),
+                         gainColor: HelperClass.randomColor(),
+                         lossColor: HelperClass.randomColor(),
                          chartForegroundColor: HelperClass.randomColor(),
                          chartForegroundBorderColor: HelperClass.randomColor(),
                          //                         headerFontColor: HelperClass.randomColor(),
                          //                         sectorDetailFontColor: HelperClass.randomColor(),
                          sp500Colors: [HelperClass.randomColor(), HelperClass.randomColor(), HelperClass.randomColor()],
                          portfolioColors: [HelperClass.randomColor(), HelperClass.randomColor(), HelperClass.randomColor()],
+                         assetDefaultColor: HelperClass.randomColor(),
                          cardBackgroundColor: HelperClass.randomColor()
+
                 )
                 .frame(height: 420)
                 

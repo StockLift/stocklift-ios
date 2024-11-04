@@ -8,8 +8,7 @@
 
 import SwiftUI
 
-//TODO: config haptic
-@available(iOS 15.0, *)
+@available(iOS 16.0, *)
 struct SectorDetailCell: View {
     @StateObject var sectorVM: SectorViewModel
     @State var isShowing: Bool = false
@@ -25,6 +24,9 @@ struct SectorDetailCell: View {
     let assetDefaultColor: Color
     let symbolFont: Font
     let nameFont: Font
+    let assetDetailsHeaderFont: Font
+    let assetDetailsBodyFont: Font
+    let assetDetailsHighlightColor: Color 
     
     var percentOfInvestment: String {
         sectorVM.percentOfInvestment
@@ -73,7 +75,6 @@ struct SectorDetailCell: View {
                     .scaledToFit()
                     .foregroundStyle(.primary)
                     .frame(width: 12, height: 12)
-                
             }
             .padding(.bottom)
             
@@ -98,15 +99,14 @@ struct SectorDetailCell: View {
                                 .clipShape(Circle())
                         }
                         
-                        
                         VStack(alignment: .leading, spacing: 4) {
                             Text("\(percentOfInvestment)%")
-                                .font(.caption)
+                                .font(.footnote)
                                 .fontWeight(.black)
                                 .padding(.vertical, sectorName == "Cash" ? 8 : 0)
                             if sectorName != "Cash" {
                                 Text("\(self.setSymbol(percentInvestChange))%")
-                                    .font(.caption)
+                                    .font(.footnote)
                                     .fontWeight(.black)
                                     .foregroundStyle(investGainLose ? gainColor : lossColor)
                             }
@@ -139,12 +139,12 @@ struct SectorDetailCell: View {
                         
                         VStack(alignment: .leading, spacing: 4) {
                             Text(amountInvested, format: .currency(code: "USD"))
-                                .font(.caption)
+                                .font(.footnote)
                                 .fontWeight(.black)
                                 .padding(.vertical, sectorName == "Cash" ? 8 : 0)
                             if sectorName != "Cash" {
                                 Text("\(setSymbol(dollarChange.clean, insert: "$"))")
-                                    .font(.caption)
+                                    .font(.footnote)
                                     .fontWeight(.black)
                                     .foregroundStyle(sectorVM.dollarChangeGainLose ? gainColor : lossColor)
                             }
@@ -154,7 +154,6 @@ struct SectorDetailCell: View {
                 .padding(.vertical, 6)
                 .frame(maxWidth: .infinity)
                 .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(Color(UIColor.label), lineWidth: 1))
-                
             }
             
             //MARK: - ASSETS for SECTOR
@@ -179,7 +178,10 @@ struct SectorDetailCell: View {
                             hasCostBasis: hasCostBasis,
                             assetDefaultColor: assetDefaultColor,
                             symbolFont: symbolFont,
-                            nameFont: nameFont
+                            nameFont: nameFont,
+                            assetDetailsHeaderFont: assetDetailsHeaderFont,
+                            assetDetailsBodyFont: assetDetailsBodyFont,
+                            assetDetailsHighlightColor: assetDetailsHighlightColor
                         )
                     }
                     
@@ -204,7 +206,10 @@ struct SectorDetailCell: View {
                             hasCostBasis: hasCostBasis,
                             assetDefaultColor: assetDefaultColor,
                             symbolFont: symbolFont,
-                            nameFont: nameFont
+                            nameFont: nameFont,
+                            assetDetailsHeaderFont: assetDetailsHeaderFont,
+                            assetDetailsBodyFont: assetDetailsBodyFont,
+                            assetDetailsHighlightColor: assetDetailsHighlightColor
                         )
                     }
                 }
@@ -239,5 +244,12 @@ struct SectorDetailCell: View {
             status = false
         }
         return status
+    }
+}
+
+
+struct SectorDetailsScrollView: View {
+    var body: some View {
+        Text("SectorDetailsScrollView")
     }
 }
