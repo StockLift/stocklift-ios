@@ -6,23 +6,14 @@
 //
 //
 
-import Foundation
 import UIKit
-import os
 
-//TODO: - finish setup
 @available(iOS 13.0, *)
 public final class NetworkService: StockLiftSDK {
     
-    private override init() {
-        super.init()
-    }
-    
     public static let shared = NetworkService()
-    
     private let defaults = UserDefaults.standard
-    public static let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
-    public static let buildVersion = Bundle.main.infoDictionary?["CFBundleVersion"] as? String
+    
     var deviceId: String {
         UIDevice.current.identifierForVendor?.uuidString ?? "NO_DEVICE_ID"
     }
@@ -33,8 +24,8 @@ public final class NetworkService: StockLiftSDK {
             "Accept": "application/json",
             "Content-Type": "application/json",
             "Authorization": "Bearer \(Self.accessToken!)",
-//            "id": "\(defaults.string(forKey: UserKeys.userUuid) ?? "NO_UID")",
-            "Device-ID": "\(deviceId)",
+            "x-client-id": "\(Self.client?.uuid)",
+            "x-device-id": "\(deviceId)",
         ]
     }
     
@@ -46,52 +37,6 @@ public final class NetworkService: StockLiftSDK {
         case patch = "PATCH"
         case delete = "DELETE"
     }
-    
-    /// LOGGER
-//    public static let logger = Logger (
-//        subsystem: Bundle.main.bundleIdentifier!,
-//        category: String(describing: NetworkService.self)
-//    )
-    
-    /// SET SIGNED IN USER IN USER DEFAULTS
-//    public func setUserObject(_ user: SLUser?) {
-//        do {
-//            try self.defaults.setObject(user, forKey: UserKeys.userObj)
-//        } catch {
-//            print(error.localizedDescription)
-//        }
-//    }
-//    
-//    /// GET SIGNED IN USER IN USER DEFAULTS
-//    public func getUserObject() -> SLUser? {
-//        do {
-//            let user = try defaults.getObject(forKey: UserKeys.userObj, castTo: SLUser.self)
-//            return user
-//        } catch {
-//            print(error.localizedDescription)
-//        }
-//        return nil
-//    }
-//    
-//    /// SET SIGNED IN USER CREDENTIALS IN USER DEFAULTS
-//    public func setCredentialObject(_ credential: Credentials) {
-//        do {
-//            try self.defaults.setObject(credential, forKey: UserKeys.credentials)
-//        } catch {
-//            print(error.localizedDescription)
-//        }
-//    }
-//    
-//    /// GET SIGNED IN USER CREDENTIALS IN USER DEFAULTS
-//    public func getCredentialObject() -> Credentials? {
-//        do {
-//            let credential = try defaults.getObject(forKey: UserKeys.credentials, castTo: Credentials.self)
-//            return credential
-//        } catch {
-//            print(error.localizedDescription)
-//        }
-//        return nil
-//    }
 }
 
 

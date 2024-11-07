@@ -35,7 +35,7 @@ struct ContentView: View {
                 .onTapGesture { withAnimation(.easeInOut) {toggleView()} }
             switch viewState {
             case .login:
-                    DemoLoginView(login: login)
+                DemoLoginView(login: login)
             case .charts:
                 VStack {
                     // Example Vertical Views
@@ -52,7 +52,7 @@ struct ContentView: View {
                     Toggle(toggleTitle, isOn: $isDarkMode)
                         .padding(.horizontal)
                         .tint(.secondary)
-              
+                    
                     // VIEW
                     ScrollView {
                         DemoAllChartsView(testingType: testingView)
