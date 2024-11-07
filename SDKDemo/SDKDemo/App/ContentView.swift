@@ -14,7 +14,7 @@ struct ContentView: View {
     private var toggleTitle: String { isDarkMode ? "Light Mode" : "Dark Mode" }
     
     // Current Testing View (set to empty to show default demo layout)
-    private let testingView: [SLChartType] = [.geoDiversification, .sectorDiversification, .topHoldings]
+    private let testingView: [SLChartType] = []
     
     private enum ViewState {
         case login, charts
@@ -35,7 +35,7 @@ struct ContentView: View {
                 .onTapGesture { withAnimation(.easeInOut) {toggleView()} }
             switch viewState {
             case .login:
-                    DemoLoginView(login: login)
+                DemoLoginView(login: login)
             case .charts:
                 VStack {
                     // Example Vertical Views
@@ -52,7 +52,7 @@ struct ContentView: View {
                     Toggle(toggleTitle, isOn: $isDarkMode)
                         .padding(.horizontal)
                         .tint(.secondary)
-              
+                    
                     // VIEW
                     ScrollView {
                         DemoAllChartsView(testingType: testingView)
