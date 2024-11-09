@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum SLError: String, Error {
+enum SLError: String, Error {
     case unableToComplete = "We were un-able to complete your request. Please check your internet connection."
     case invalidResponse = "Well thats weird...invalid response from server, please try again."
     case invalidData = "The data received from the server was invalid .... were working on it."

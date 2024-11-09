@@ -9,9 +9,9 @@
 import UIKit
 
 @available(iOS 13.0, *)
-public final class NetworkService: StockLiftSDK {
+final class NetworkService: StockLiftSDK {
     
-    public static let shared = NetworkService()
+    static let shared = NetworkService()
     private let defaults = UserDefaults.standard
     
     var deviceId: String {
@@ -30,7 +30,7 @@ public final class NetworkService: StockLiftSDK {
     }
     
     /// HTTP Methods
-    public enum Methods: String {
+   enum Methods: String {
         case get = "GET"
         case post = "POST"
         case put = "PUT"

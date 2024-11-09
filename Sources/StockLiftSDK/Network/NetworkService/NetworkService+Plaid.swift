@@ -8,7 +8,7 @@
 import Foundation
 
 @available(iOS 13.0, *)
-public extension NetworkService {
+extension NetworkService {
     /// GET LINK TOKEN
     func getPlaidLinkToken(_ session: URLSession = .shared, complete: @escaping (Result<PlaidTokenResponse, SLError>) -> Void) {
         session.request(.plaidLinkToken, method: .get, body: nil) { data, response, error in

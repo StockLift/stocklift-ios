@@ -7,7 +7,7 @@
 
 import Foundation
 
-public extension Endpoint {
+extension Endpoint {
     // MARK: - PLAID
     /// - LINK TOKEN
     static var plaidLinkToken: Endpoint {

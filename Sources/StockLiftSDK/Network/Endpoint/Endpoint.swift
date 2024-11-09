@@ -22,11 +22,11 @@ fileprivate enum AppEnv {
     }
 }
 
-public struct Endpoint {
-    public var path: String
-    public var queryItems: [URLQueryItem]
+struct Endpoint {
+    var path: String
+    var queryItems: [URLQueryItem]
     
-    public init(path: String, queryItems: [URLQueryItem] = []) {
+    init(path: String, queryItems: [URLQueryItem] = []) {
         self.path = path
         self.queryItems = queryItems
     }

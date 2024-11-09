@@ -8,7 +8,7 @@
 import Foundation
 
 @available(iOS 13.0, *)
-public extension NetworkService {
+extension NetworkService {
     
     // GET PORTFOLIO Data
    func getPortfolio(clientId: String, with session: URLSession = .shared, complete: @escaping (Result<PortfolioResponse, SLError>) -> Void) {
