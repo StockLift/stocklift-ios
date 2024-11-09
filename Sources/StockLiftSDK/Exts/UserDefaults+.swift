@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-public enum ObjectSavableError: String, LocalizedError {
+enum ObjectSavableError: String, LocalizedError {
     case unableToEncode = "Unable to encode object into data"
     case noValue = "No data object found for the given key"
     case unableToDecode = "Unable to decode object into given type"
@@ -18,7 +18,7 @@ public enum ObjectSavableError: String, LocalizedError {
     }
 }
 
-public extension UserDefaults {
+extension UserDefaults {
     func setObject<Object>(_ object: Object, forKey: String) throws where Object : Encodable {
         let encoder = JSONEncoder()
         do {
