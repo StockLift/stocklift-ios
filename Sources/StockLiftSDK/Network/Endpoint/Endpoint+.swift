@@ -10,8 +10,11 @@ import Foundation
 extension Endpoint {
     // MARK: - PLAID
     /// - LINK TOKEN
-    static var plaidLinkToken: Endpoint {
-        Endpoint(path: APIPath.v1.plaidLinkToken)
+    static func plaidLinkToken(companyName: String? = nil) -> Self {
+        let queryItems: [URLQueryItem] = [
+            .init(name: "companyName", value: companyName)
+        ]
+        return Endpoint(path: APIPath.v1.plaidLinkToken, queryItems: queryItems)
     }
     
     /// - ASSET IMAGE URL

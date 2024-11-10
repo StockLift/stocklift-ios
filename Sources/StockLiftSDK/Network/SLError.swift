@@ -18,6 +18,7 @@ enum SLError: String, Error {
     // SDK
     case clientDetailsNotSet = "Please set the client details before connecting accounts."
     case accessTokenNotSet = "You must set your API Key in the StockLiftSDK.accessToken variable."
+    case companyNameNotSet = "You must set your Company Name in the StockLiftSDK.companyName variable."
     
     static func errorMessage(_ message: SLError = .clientDetailsNotSet) -> String {
         return """

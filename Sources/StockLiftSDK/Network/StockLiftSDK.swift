@@ -15,6 +15,11 @@ public class StockLiftSDK {
     static public var accessToken: String? = nil
     
     /**
+     --- Set your Company Name here ---
+     */
+    static public var companyName: String? = nil
+    
+    /**
      --- Set your Clients Details here ---
      */
     static public var client: SLClient? = nil
@@ -23,6 +28,9 @@ public class StockLiftSDK {
     public init() {
         guard let token = Self.accessToken, !token.isEmpty else {
             fatalError(SLError.errorMessage(.accessTokenNotSet))
+        }
+        guard let companyName = Self.companyName, !companyName.isEmpty else {
+            fatalError(SLError.errorMessage(.companyNameNotSet))
         }
     }
 }
