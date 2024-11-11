@@ -309,19 +309,26 @@ public struct SLCharts: View {
                         bodyFont: disclaimerBodyFont
                     )
                 } else {
-                    if viewModel.isLoading == false && !viewModel.hasAccountConnected {
+                    if !viewModel.hasAccountConnected {
                         // Link Plaid flow
-                        LinkAccountView(
-                            linkAccountHeader: linkAccountHeader,
-                            plaidError: plaidError,
-                            getPortfolio: getPortfolio,
-                            foregroundColor: linkAccountForegroundColor,
-                            backgroundColor: linkAccountBackgroundColor,
-                            borderColor: linkAccountBorderColor,
-                            connectSize: linkAccountConnectSize,
-                            font: linkAccountFont,
-                            fontColor: linkAccountFontColor
-                        )
+                        if viewModel.isLoadingBenchmarkData ||
+                            viewModel.isLoadingPortfolioData ||
+                            viewModel.isLoadingGeoDiversificationData {
+                            ProgressView()
+                                .padding()
+                        }  else {
+                            LinkAccountView(
+                                linkAccountHeader: linkAccountHeader,
+                                plaidError: plaidError,
+                                getPortfolio: getPortfolio,
+                                foregroundColor: linkAccountForegroundColor,
+                                backgroundColor: linkAccountBackgroundColor,
+                                borderColor: linkAccountBorderColor,
+                                connectSize: linkAccountConnectSize,
+                                font: linkAccountFont,
+                                fontColor: linkAccountFontColor
+                            )
+                        }
                     } else {
                         /// ------------ Portfolio Summary Chart
                         ForEach(chartViews) { view in

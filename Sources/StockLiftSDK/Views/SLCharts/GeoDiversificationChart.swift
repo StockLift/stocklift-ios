@@ -135,7 +135,7 @@ struct GeoDiversificationChart: View {
                     sectorSubHeaderFont: sectorSubHeaderFont,
                     sectorSubHeaderFontColor: sectorSubHeaderFontColor
                 )
-            } else if portfolioVM.isLoading {
+            } else if portfolioVM.isLoadingGeoDiversificationData || portfolioVM.isLoadingPortfolioData {
                 ProgressView()
             } else {
                 // Link Plaid flow
