@@ -8,7 +8,7 @@
 import SwiftUI
 
 @available(iOS 13.0, *)
-public extension Color {
+extension Color {
     // CHART COLORS
     static let chartOne: Color = Color("chart-1", bundle: .module)
     static let chartTwo: Color = Color("chart-2", bundle: .module)

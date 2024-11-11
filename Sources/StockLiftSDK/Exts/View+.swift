@@ -98,7 +98,7 @@ extension View {
 
 
 @available(iOS 15.0, *)
-public extension View {
+extension View {
     //MARK: - SET COLOR for percentage change
     func setColor(_ value: String, gainColor: Color, lossColor: Color) -> Color {
         if value.contains("-") {

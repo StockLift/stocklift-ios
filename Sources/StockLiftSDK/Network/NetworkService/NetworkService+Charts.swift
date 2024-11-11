@@ -10,7 +10,7 @@ import Foundation
 //MARK:  -------------------- COMING SOON ------------------------
 
 @available(iOS 13.0, *)
-public extension NetworkService {
+extension NetworkService {
     //MARK: ***************************************************************** GROWTH CHART **************************************************
     /// GROWTH CHART - async/await
     func getGrowthChart(userUuid: String) async throws -> [GrowthTimeline] {

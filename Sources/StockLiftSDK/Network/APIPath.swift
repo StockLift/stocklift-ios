@@ -7,13 +7,13 @@
 
 import Foundation
 
-public enum APIPath {
-    public enum v1 {
+enum APIPath {
+    enum v1 {
         // PLAID
-        public static let plaidLinkToken = "v1/plaid/token"
+        static let plaidLinkToken = "v1/plaid/token"
         
         // PORTFOLIO
-        public static let portfolio = "v1/portfolio"
+        static let portfolio = "v1/portfolio"
         
     }
 }

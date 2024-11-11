@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 @available(iOS 13.0, *)
-public extension URLSession {
+extension URLSession {
     
     typealias Handler = (Data?, URLResponse?, Error?) -> Void
 

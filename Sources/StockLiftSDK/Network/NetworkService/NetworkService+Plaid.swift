@@ -8,10 +8,11 @@
 import Foundation
 
 @available(iOS 13.0, *)
-public extension NetworkService {
+extension NetworkService {
     /// GET LINK TOKEN
     func getPlaidLinkToken(_ session: URLSession = .shared, complete: @escaping (Result<PlaidTokenResponse, SLError>) -> Void) {
-        session.request(.plaidLinkToken, method: .get, body: nil) { data, response, error in
+        guard let companyName = StockLiftSDK.companyName else { fatalError(SLError.errorMessage(.companyNameNotSet))}
+        session.request(.plaidLinkToken(companyName: companyName), method: .get, body: nil) { data, response, error in
             if let _ = error {
                 complete(.failure(.unableToComplete))
                 return
@@ -42,7 +43,7 @@ public extension NetworkService {
     /// EXCHANGE TOKEN
     func exchangePlaidToken(request: PlaidExchangeRequest, _ session: URLSession = .shared, complete: @escaping (Result<(), SLError>) -> Void) {
         print(request)
-        session.request(.plaidLinkToken, method: .post, body: request.encode()) { data, response, error in
+        session.request(.plaidLinkToken(), method: .post, body: request.encode()) { data, response, error in
             if let _ = error {
                 complete(.failure(.unableToComplete))
                 return
