@@ -11,7 +11,11 @@ import SwiftUI
 @available(iOS 13.0, *)
 final class PortfolioViewModel: BaseViewModel {
     
-    @Published var isLoading: Bool = true
+    // IS LOADING
+    @Published var isLoadingPortfolioData: Bool = true
+    @Published var isLoadingBenchmarkData: Bool = true
+    @Published var isLoadingGeoDiversificationData: Bool = true
+    
     @Published var hasCostBasis: Bool = true
     @Published var dateConnected: String = ""
     @Published var hasAccountConnected = false
@@ -41,9 +45,6 @@ final class PortfolioViewModel: BaseViewModel {
     
     //MARK: Init
     func initView(types: [SLChartType]) {
-        if !types.isEmpty {
-            isLoading = true
-        }
         if types.contains(.portfolioSummary) ||
             types.contains(.projectionsPerformance) ||
             types.contains(.sectorDiversification) ||
@@ -72,15 +73,17 @@ final class PortfolioViewModel: BaseViewModel {
         guard let client = StockLiftSDK.client else {
             fatalError(SLError.errorMessage(.clientDetailsNotSet))
         }
+        self.isLoadingPortfolioData = true
         NetworkService.shared.getPortfolio(clientId: client.uuid) { result in
             switch result {
             case .success(let res):
                 DispatchQueue.main.async {
                     self.handleChartData(res)
+                    self.isLoadingPortfolioData = false
                 }
             case .failure(let err):
                 DispatchQueue.main.async {
-                    self.isLoading = false
+                    self.isLoadingPortfolioData = false
                     print(err)
                 }
             }
@@ -92,17 +95,18 @@ final class PortfolioViewModel: BaseViewModel {
         guard let client = StockLiftSDK.client else {
             fatalError(SLError.errorMessage(.clientDetailsNotSet))
         }
+        self.isLoadingBenchmarkData = true
         NetworkService.shared.getBenchmarkChart(clientId: client.uuid) { result in
             switch result {
             case .success(let res):
                 DispatchQueue.main.async {
                     self.setChartData(res)
-                    self.isLoading = false
+                    self.isLoadingBenchmarkData = false
                 }
             case .failure(let err):
                 DispatchQueue.main.async {
                     print(err)
-                    self.isLoading = false
+                    self.isLoadingBenchmarkData = false
                 }
             }
         }
@@ -114,6 +118,7 @@ final class PortfolioViewModel: BaseViewModel {
         guard let client = StockLiftSDK.client else {
             fatalError(SLError.errorMessage(.clientDetailsNotSet))
         }
+        self.isLoadingGeoDiversificationData = true
         NetworkService.shared.getGeoDiversificationChart(clientId: client.uuid) { result in
             switch result {
             case .success(let res):
@@ -125,12 +130,12 @@ final class PortfolioViewModel: BaseViewModel {
                                                                             ),
                                                                             url: $0.url,
                                                                             symbol: $0.symbol) }
-                    self.isLoading = false
+                    self.isLoadingGeoDiversificationData = false
                 }
             case .failure(let err):
                 DispatchQueue.main.async {
                     print(err)
-                    self.isLoading = false
+                    self.isLoadingGeoDiversificationData = false
                 }
             }
         }
@@ -166,7 +171,6 @@ extension PortfolioViewModel {
             }
         } else {
             self.userEquityAccounts = nil
-            self.isLoading = false
         }
     }
     
@@ -188,7 +192,6 @@ extension PortfolioViewModel {
         growthChartEntries = ChartUtility.setGrowthChart(portfolio.totalGrowthAmount)
         // Sector Details
         sectorDetails = ChartUtility.setSectorDetails(portfolio.totalHoldings, with: portfolio.sectorTotals)
-        isLoading = false
     }
     
     // SET CHART DATA - Benchmark Chart

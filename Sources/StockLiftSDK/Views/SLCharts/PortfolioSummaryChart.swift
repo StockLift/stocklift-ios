@@ -142,7 +142,9 @@ struct PortfolioSummaryChart: View {
     var body: some View {
         if let netWorth = portfolioVM.netWorth, let score = diversificationScore {
             MainView(netWorth: netWorth, score: score)
-        } else if portfolioVM.isLoading == false {
+        } else if portfolioVM.isLoadingPortfolioData {
+            ProgressView()
+        } else {
             // --- NO ACCOUNT DATA view
             // Link Plaid flow
             LinkAccountView(
@@ -156,8 +158,6 @@ struct PortfolioSummaryChart: View {
                 font: linkAccountFont,
                 fontColor: linkAccountFontColor
             )
-        } else {
-            ProgressView()
         }
     }
     

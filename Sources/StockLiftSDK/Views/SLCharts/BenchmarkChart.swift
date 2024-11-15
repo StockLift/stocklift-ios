@@ -103,12 +103,14 @@ struct BenchmarkChart: View {
                     yAxisFont: yAxisFont,
                     yAxisFontColor: yAxisFontColor
                 )
-                //                .frame(height: height)
                 
                 LegendFooter(sp500Color: sp500Colors[0], portfolioColor: portfolioColors[0])
                     .padding(.vertical, 6)
                 
-            } else if portfolioVM.isLoading == false {
+            } else if portfolioVM.isLoadingBenchmarkData || portfolioVM.isLoadingPortfolioData {
+                ProgressView()
+            } else {
+
                 // --- NO ACCOUNT DATA view
                 // Link Plaid flow
                 LinkAccountView(
@@ -122,8 +124,6 @@ struct BenchmarkChart: View {
                     font: linkAccountFont,
                     fontColor: linkAccountFontColor
                 )
-            } else {
-                ProgressView()
             }
         }
     }

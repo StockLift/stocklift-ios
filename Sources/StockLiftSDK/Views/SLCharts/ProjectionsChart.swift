@@ -87,16 +87,15 @@ struct ProjectionsChart: View {
             if let chartData = portfolioVM.growthChartEntries {
                 // --- HAS ACCOUNT CONNECTED Chart View
                 /// Chart Header
-                    Text(chartHeader)
-                        .font(headerFont)
-                        .foregroundColor(headerFontColor)
-                        .underline(color: headerFontColor)
-                        .overlay(alignment: .trailing) {
-                            DisclaimerImage(showDisclaimer: $showDisclaimer, headerFontColor: headerFontColor)
-                        }
+                Text(chartHeader)
+                    .font(headerFont)
+                    .foregroundColor(headerFontColor)
+                    .underline(color: headerFontColor)
+                    .overlay(alignment: .trailing) {
+                        DisclaimerImage(showDisclaimer: $showDisclaimer, headerFontColor: headerFontColor)
+                    }
                 
                 Spacer()
-                
                 LineChart(
                     chartData: chartData,
                     foregroundColor: chartForegroundColor,
@@ -106,9 +105,10 @@ struct ProjectionsChart: View {
                     yAxisFont: yAxisFont,
                     yAxisFontColor: yAxisFontColor
                 )
-                //                .frame(height: height)
                 
-            } else if portfolioVM.isLoading == false  {
+            } else if portfolioVM.isLoadingPortfolioData {
+                ProgressView()
+            } else {
                 // --- NO ACCOUNT DATA view
                 // Link Plaid flow
                 LinkAccountView(
@@ -122,8 +122,6 @@ struct ProjectionsChart: View {
                     font: linkAccountFont,
                     fontColor: linkAccountFontColor
                 )
-            } else {
-                ProgressView()
             }
         }
     }

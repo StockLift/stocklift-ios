@@ -140,7 +140,7 @@ struct TopHoldingsChart: View {
                     assetDetailsHighlightColor: assetDetailsHighlightColor
                 )
                 
-            } else if portfolioVM.isLoading {
+            } else if portfolioVM.isLoadingPortfolioData {
                 ProgressView()
             } else {
                 // Link Plaid flow

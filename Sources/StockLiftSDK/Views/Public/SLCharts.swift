@@ -97,9 +97,9 @@ public struct SLCharts: View {
         verticalChartHeights: CGFloat = UIScreen.main.bounds.width * 0.8,
         // Chart Headers
         projectionsChartHeader: String = "Portfolio Growth Projections",
-        benchmarkChartHeader: String = "My Portfolio vs. SP 500",
-        sectorChartHeader: String = "Diversification by Sector",
-        geoDiversificationChartHeader: String = "Geo Diversification",
+        benchmarkChartHeader: String = "My Portfolio vs. S&P 500",
+        sectorChartHeader: String = "Sector Diversification",
+        geoDiversificationChartHeader: String = "Geography Diversification",
         topHoldingsChartHeader: String = "Top Holdings",
         portfolioSummaryChartHeader: String = "Portfolio Summary",
         
@@ -223,85 +223,25 @@ public struct SLCharts: View {
     
     public var body: some View {
         switch axis {
-            //MARK: - Horizontal alignment
+            //MARK: Horizontal alignment
         case .horizontal:
-            VStack {
-                TabView(selection: $selectedTab) {
-                    if showDisclaimer {
-                        DisclaimerView(
-                            isPresented: $showDisclaimer,
-                            titleFont: disclaimerTitleFont,
-                            bodyFont: disclaimerBodyFont
-                        )
-                    } else {
-                        ForEach(chartViews) { view in
-                            switch view {
-                            case .projectionsPerformance:
-                                /// ------------ Projections Chart
-                                ProjectionsChartReference
-                                    .tag(view.tag(chartViews))
-                                    .padding(8)
-                            case .benchmarkPerformance:
-                                /// ------------ Benchmark Chart
-                                BenchmarkChartReference
-                                    .tag(view.tag(chartViews))
-                                    .padding(8)
-                            case .sectorDiversification:
-                                /// ------------ Sector Breakdown Chart
-                                SectorChartReference
-                                    .tag(view.tag(chartViews))
-                            case .geoDiversification:
-                                /// ------------ GeoDiversification Chart
-                                GeoDiversificationChartReference
-                                    .tag(view.tag(chartViews))
-                                    .padding(8)
-                            case .topHoldings:
-                                /// ------------ Top Holdings Chart
-                                TopHoldingsChartReference
-                                    .tag(view.tag(chartViews))
-                                    .padding(8)
-                            case .portfolioSummary:
-                                /// ------------ Portfolio Summary Chart
-                                SummaryChartReference
-                                    .tag(view.tag(chartViews))
-                                    .padding(8)
-                            }
-                        }
-                    }
-                }
-                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-                .frame(maxWidth: UIScreen.main.bounds.width / 1.05)
-                .onAppear { getPortfolio() }
-                
-                // TAB SELECTOR (back or next)
-                HStack {
-                    TabSelector(imageName: ImageKeys.arrowLeftCircle,
-                                action: backTab,
-                                selectable: firstSelectable)
-                    Spacer()
-                    OpenLinkButton(getPortfolio: getPortfolio, errorHandler: plaidError) {
-                        LinkAccountButton(
-                            linkAccountButtonText: linkAccountButtonText,
-                            linkAccountButtonFont: linkAccountButtonFont,
-                            linkAccountButtonFontColor: linkAccountButtonFontColor,
-                            linkAccountButtonColor: linkAccountButtonColor
-                        )
-                    }
-                    Spacer()
-                    TabSelector(imageName: ImageKeys.arrowRightCircle,
-                                action: nextTab,
-                                selectable: lastSelectable)
-                }
-                .padding(.horizontal)
-                .padding(.bottom, 12)
-            }
-            .background(cardBackgroundColor.opacity(0.3))
-            .cornerRadius(cardCornerRadius)
-            .shadow(radius: cardShadow ? 8 : 0)
-            
-            //MARK: - Vertical alignment
+            HorizontalViewReference
+            //MARK: Vertical alignment
         case .vertical:
-            ScrollView {
+            VerticalViewReference
+        }
+    }
+}
+
+//MARK: AXIS VIEWS
+@available(iOS 16.0, *)
+extension SLCharts {
+    
+    //MARK: ** HORIZONTAL VIEW REFERENCE **
+    @ViewBuilder
+    private var HorizontalViewReference: some View {
+        VStack {
+            TabView(selection: $selectedTab) {
                 if showDisclaimer {
                     DisclaimerView(
                         isPresented: $showDisclaimer,
@@ -309,8 +249,91 @@ public struct SLCharts: View {
                         bodyFont: disclaimerBodyFont
                     )
                 } else {
-                    if viewModel.isLoading == false && !viewModel.hasAccountConnected {
-                        // Link Plaid flow
+                    ForEach(chartViews) { view in
+                        switch view {
+                        case .projectionsPerformance:
+                            /// ------------ Projections Chart
+                            ProjectionsChartReference
+                                .tag(view.tag(chartViews))
+                                .padding(8)
+                        case .benchmarkPerformance:
+                            /// ------------ Benchmark Chart
+                            BenchmarkChartReference
+                                .tag(view.tag(chartViews))
+                                .padding(8)
+                        case .sectorDiversification:
+                            /// ------------ Sector Breakdown Chart
+                            SectorChartReference
+                                .tag(view.tag(chartViews))
+                        case .geoDiversification:
+                            /// ------------ GeoDiversification Chart
+                            GeoDiversificationChartReference
+                                .tag(view.tag(chartViews))
+                                .padding(8)
+                        case .topHoldings:
+                            /// ------------ Top Holdings Chart
+                            TopHoldingsChartReference
+                                .tag(view.tag(chartViews))
+                                .padding(8)
+                        case .portfolioSummary:
+                            /// ------------ Portfolio Summary Chart
+                            SummaryChartReference
+                                .tag(view.tag(chartViews))
+                                .padding(8)
+                        }
+                    }
+                }
+            }
+            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+            .frame(maxWidth: UIScreen.main.bounds.width / 1.05)
+
+            // TAB SELECTOR (back or next)
+            HStack {
+                TabSelector(imageName: ImageKeys.arrowLeftCircle,
+                            action: backTab,
+                            selectable: firstSelectable)
+                Spacer()
+                OpenLinkButton(getPortfolio: getPortfolio, errorHandler: plaidError) {
+                    LinkAccountButton(
+                        linkAccountButtonText: linkAccountButtonText,
+                        linkAccountButtonFont: linkAccountButtonFont,
+                        linkAccountButtonFontColor: linkAccountButtonFontColor,
+                        linkAccountButtonColor: linkAccountButtonColor
+                    )
+                }
+                Spacer()
+                TabSelector(imageName: ImageKeys.arrowRightCircle,
+                            action: nextTab,
+                            selectable: lastSelectable)
+            }
+            .padding(.horizontal)
+            .padding(.bottom, 12)
+        }
+        .background(cardBackgroundColor.opacity(0.3))
+        .cornerRadius(cardCornerRadius)
+        .shadow(radius: cardShadow ? 8 : 0)
+        .onAppear { getPortfolio() }
+    }
+    
+    //MARK: ** VERTICAL VIEW REFERENCE **
+    @ViewBuilder
+    private var VerticalViewReference: some View {
+        ScrollView {
+            if showDisclaimer {
+                DisclaimerView(
+                    isPresented: $showDisclaimer,
+                    titleFont: disclaimerTitleFont,
+                    bodyFont: disclaimerBodyFont
+                )
+            } else {
+                if !viewModel.hasAccountConnected {
+                    // Link Plaid flow
+                    if viewModel.isLoadingBenchmarkData ||
+                        viewModel.isLoadingPortfolioData ||
+                        viewModel.isLoadingGeoDiversificationData {
+                        ProgressView()
+                            .padding()
+                    }  else {
                         LinkAccountView(
                             linkAccountHeader: linkAccountHeader,
                             plaidError: plaidError,
@@ -322,51 +345,51 @@ public struct SLCharts: View {
                             font: linkAccountFont,
                             fontColor: linkAccountFontColor
                         )
-                    } else {
-                        /// ------------ Portfolio Summary Chart
-                        ForEach(chartViews) { view in
-                            switch view {
-                            case .portfolioSummary:
-                                /// Vertical alignment always shows summary at top
-                                SummaryChartReference
-                                SLDivider
-                            case .projectionsPerformance:
-                                /// ------------ Projections Chart
-                                ProjectionsChartReference
-                                    .frame(height: verticalChartHeights)
-                                    .padding(8)
-                                SLDivider
-                            case .benchmarkPerformance:
-                                /// ------------ Benchmark Chart
-                                BenchmarkChartReference
-                                    .frame(height: verticalChartHeights)
-                                    .padding(8)
-                                SLDivider
-                            case .sectorDiversification:
-                                /// ------------ Sector Breakdown Chart
-                                SectorChartReference
-                                    .frame(height: verticalChartHeights)
-                                    .padding(8)
-                                SLDivider
-                            case .geoDiversification:
-                                /// ------------ GeoDiversification Chart
-                                GeoDiversificationChartReference
-                                    .frame(height: verticalChartHeights)
-                                    .padding(8)
-                                SLDivider
-                            case .topHoldings:
-                                /// ------------ Top Holdings Chart
-                                TopHoldingsChartReference
-                                    .frame(height: verticalChartHeights)
-                                    .padding(8)
-                                SLDivider
-                            }
+                    }
+                } else {
+                    /// ------------ Portfolio Summary Chart
+                    ForEach(chartViews) { view in
+                        switch view {
+                        case .portfolioSummary:
+                            /// Vertical alignment always shows summary at top
+                            SummaryChartReference
+                            SLDivider
+                        case .projectionsPerformance:
+                            /// ------------ Projections Chart
+                            ProjectionsChartReference
+                                .frame(height: verticalChartHeights)
+                                .padding(8)
+                            SLDivider
+                        case .benchmarkPerformance:
+                            /// ------------ Benchmark Chart
+                            BenchmarkChartReference
+                                .frame(height: verticalChartHeights)
+                                .padding(8)
+                            SLDivider
+                        case .sectorDiversification:
+                            /// ------------ Sector Breakdown Chart
+                            SectorChartReference
+                                .frame(height: verticalChartHeights)
+                                .padding(8)
+                            SLDivider
+                        case .geoDiversification:
+                            /// ------------ GeoDiversification Chart
+                            GeoDiversificationChartReference
+                                .frame(height: verticalChartHeights)
+                                .padding(8)
+                            SLDivider
+                        case .topHoldings:
+                            /// ------------ Top Holdings Chart
+                            TopHoldingsChartReference
+                                .frame(height: verticalChartHeights)
+                                .padding(8)
+                            SLDivider
                         }
                     }
                 }
             }
-            .onAppear { getPortfolio() }
         }
+        .onAppear { getPortfolio() }
     }
 }
 

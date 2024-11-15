@@ -147,7 +147,7 @@ struct SectorBreakdownChart: View {
                             values: ChartUtility.entriesForDiversification(entries, colors: PIE_CHART_COLORS).map { $0.value },
                             colors: ChartUtility.entriesForDiversification(entries, colors: PIE_CHART_COLORS).map { $0.color }
                         )
-                        .frame(width: screenWidth) // weird bug but it works 
+                        .frame(width: screenWidth) // weird bug but it works
                         .frame(width: screenWidth / 2)
                         .padding(.leading, 4)
                         
@@ -193,7 +193,9 @@ struct SectorBreakdownChart: View {
                         assetDetailsHighlightColor: assetDetailsHighlightColor
                     )
                 }
-            } else if portfolioVM.isLoading == false  {
+            } else if portfolioVM.isLoadingPortfolioData {
+                ProgressView()
+            } else {
                 // --- NO ACCOUNT DATA view
                 // Link Plaid flow
                 LinkAccountView(
@@ -207,8 +209,6 @@ struct SectorBreakdownChart: View {
                     font: linkAccountFont,
                     fontColor: linkAccountFontColor
                 )
-            } else {
-                ProgressView()
             }
         }
     }
@@ -236,7 +236,7 @@ struct SectorBreakdownChart: View {
     
     private func updateCostBasisAction(_ symbol: String, value: Float) {
         //TODO: - setup
-//        DetailsViewModel.updateCostBasis(symbol: symbol, value: value)
+        //        DetailsViewModel.updateCostBasis(symbol: symbol, value: value)
     }
     
     private func showBreakdownView() {
