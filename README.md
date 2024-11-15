@@ -4,7 +4,7 @@ To obtain an access token create an account at [stocklift.sdk.co](https://sdk-st
 
 ## Setup
 
-1. Initialize the StockLiftSDK configuration object with your access token in your App Delegate
+1. Initialize the StockLiftSDK configuration object with your access token & company name in your App Delegate
 
 _Example_
 
@@ -14,9 +14,8 @@ public final class AppDelegate: NSObject, UIApplicationDelegate {
     public func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
 
-        /// SET YOUR SDK ACCESS TOKEN
-        ///  https://sdk-stocklift.co/docs/
-
+        /// SET YOUR SDK ACCESS TOKEN & COMPANY NAME
+        StockLiftSDK.companyName = "My Company"
         StockLiftSDK.accessToken = <token>
 
         return true
