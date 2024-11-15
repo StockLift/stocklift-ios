@@ -64,6 +64,10 @@ public struct SLCharts: View {
     public var buttonFontColor: Color
     public var buttonFont: Font
     
+    // Legend
+    let legendFont: Font
+    let legendTextColor: Color
+
     // Asset Details
     public var sectorHeaderFont: Font // Asset Details //TODO: - rename
     public var sectorHeaderFontColor: Color // Asset Details //TODO: - rename
@@ -157,7 +161,9 @@ public struct SLCharts: View {
         assetDetailsHeaderFont: Font = .caption,
         assetDetailsBodyFont: Font = .caption2,
         assetDetailsHighlightColor: Color = .yellow,
-        assetDetailsTotalPercentColor: Color = .yellow
+        assetDetailsTotalPercentColor: Color = .yellow,
+        legendFont: Font = .caption2, // caption2
+        legendTextColor: Color = .primary // primary
     ) {
         self.chartViews = views
         self.axis = axis
@@ -219,6 +225,8 @@ public struct SLCharts: View {
         self.assetDetailsBodyFont = assetDetailsBodyFont
         self.assetDetailsHighlightColor = assetDetailsHighlightColor
         self.assetDetailsTotalPercentColor = assetDetailsTotalPercentColor
+        self.legendFont = legendFont
+        self.legendTextColor = legendTextColor
     }
     
     public var body: some View {
@@ -485,7 +493,9 @@ extension SLCharts {
             yAxisFont: yAxisFont,
             yAxisFontColor: yAxisFontColor,
             headerFont: headerFont,
-            headerFontColor: headerFontColor
+            headerFontColor: headerFontColor,
+            legendFont: legendFont,
+            legendTextColor: legendTextColor
         )
     }
     
