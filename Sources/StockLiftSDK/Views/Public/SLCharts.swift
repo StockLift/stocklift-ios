@@ -97,9 +97,9 @@ public struct SLCharts: View {
         verticalChartHeights: CGFloat = UIScreen.main.bounds.width * 0.8,
         // Chart Headers
         projectionsChartHeader: String = "Portfolio Growth Projections",
-        benchmarkChartHeader: String = "My Portfolio vs. SP 500",
-        sectorChartHeader: String = "Diversification by Sector",
-        geoDiversificationChartHeader: String = "Geo Diversification",
+        benchmarkChartHeader: String = "My Portfolio vs. S&P 500",
+        sectorChartHeader: String = "Sector Diversification",
+        geoDiversificationChartHeader: String = "Geography Diversification",
         topHoldingsChartHeader: String = "Top Holdings",
         portfolioSummaryChartHeader: String = "Portfolio Summary",
         
