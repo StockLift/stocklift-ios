@@ -69,11 +69,11 @@ struct LinkAccountView: View {
                     }
             }
         }
-        .onAppear { handPlaid() }
+        .onAppear { getPlaidLinkUrl() }
     }
     
-    private func handPlaid () {
-        PlaidViewModel.getPlaidLinkToken {  isLoading in
+    private func getPlaidLinkUrl () {
+        PlaidViewModel.getPlaidLinkToken { isLoading in
             DispatchQueue.main.async {
                 self.isLoading = isLoading
             }
