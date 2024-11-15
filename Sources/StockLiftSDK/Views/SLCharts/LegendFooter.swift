@@ -12,11 +12,12 @@ import SwiftUI
 struct LegendFooter: View {
     let sp500Color: Color
     let portfolioColor: Color
+    let legendFont: Font
+    let legendTextColor: Color
     var body: some View {
         HStack(alignment: .center, spacing: 14) {
             LegendCell(color: portfolioColor, title: "My Portfolio")
-            
-            LegendCell(color: sp500Color, title: "S & P 500")
+            LegendCell(color: sp500Color, title: "S&P 500")
         }
     }
     
@@ -26,8 +27,8 @@ struct LegendFooter: View {
             Circle().fill(color)
                 .frame(width: 8, height: 8)
             Text(title)
-                .font(.caption2)
-                .foregroundColor(Color.primary)
+                .font(legendFont)
+                .foregroundColor(legendTextColor)
         }
         .padding(.vertical, 4)
         .padding(.horizontal)

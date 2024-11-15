@@ -33,6 +33,9 @@ struct BenchmarkChart: View {
     let yAxisFontColor: Color
     let headerFont: Font
     let headerFontColor: Color
+    // Legend
+    let legendFont: Font
+    let legendTextColor: Color
     
     init (
         _ viewModel: PortfolioViewModel,
@@ -55,7 +58,9 @@ struct BenchmarkChart: View {
         yAxisFont: Font = .caption2,
         yAxisFontColor: Color = .primary,
         headerFont: Font = .subheadline,
-        headerFontColor: Color = .primary
+        headerFontColor: Color = .primary,
+        legendFont: Font, // caption2
+        legendTextColor: Color // primary
     ) {
         self.portfolioVM = viewModel
         self._showDisclaimer = showDisclaimer
@@ -78,6 +83,8 @@ struct BenchmarkChart: View {
         self.yAxisFontColor = yAxisFontColor
         self.headerFont = headerFont
         self.headerFontColor = headerFontColor
+        self.legendFont = legendFont
+        self.legendTextColor = legendTextColor
     }
     
     
@@ -104,8 +111,13 @@ struct BenchmarkChart: View {
                     yAxisFontColor: yAxisFontColor
                 )
                 
-                LegendFooter(sp500Color: sp500Colors[0], portfolioColor: portfolioColors[0])
-                    .padding(.vertical, 6)
+                LegendFooter(
+                    sp500Color: sp500Colors[0],
+                    portfolioColor: portfolioColors[0],
+                    legendFont: legendFont,
+                    legendTextColor: legendTextColor
+                )
+                .padding(.vertical, 6)
                 
             } else if portfolioVM.isLoadingBenchmarkData || portfolioVM.isLoadingPortfolioData {
                 ProgressView()
