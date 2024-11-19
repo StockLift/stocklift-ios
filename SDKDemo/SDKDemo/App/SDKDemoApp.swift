@@ -17,7 +17,7 @@ fileprivate class ContentViewModel: ObservableObject {
             name: "John Doe",
             email: "test@test.com",
             age: 26,
-            country: "US",
+            country: .unitedStates,
             state: "New York"
         )
         StockLiftSDK.client = client
