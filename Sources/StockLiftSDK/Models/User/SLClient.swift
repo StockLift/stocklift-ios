@@ -12,10 +12,10 @@ public struct SLClient: Codable {
     let name: String
     let email: String
     var age: Int?
-    var country: ClientCountry?
+    var country: SLClientCountry?
     var state: String?
     
-    public init(uuid: String, name: String, email: String, age: Int? = nil, country: ClientCountry? = .unitedStates, state: String? = nil) {
+    public init(uuid: String, name: String, email: String, age: Int? = nil, country: SLClientCountry? = .unitedStates, state: String? = nil) {
         self.uuid = uuid
         self.name = name
         self.email = email
