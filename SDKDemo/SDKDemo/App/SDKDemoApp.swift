@@ -12,8 +12,15 @@ import StockLiftSDK
 /// VIEW MODEL
 fileprivate class ContentViewModel: ObservableObject {
     init() {
-        let clientHasAccount = SLClient(uuid: "test-123", name: "John Doe", email: "test@test.com")
-        StockLiftSDK.client = clientHasAccount
+        let client = SLClient(
+            uuid: "test-123",
+            name: "John Doe",
+            email: "test@test.com",
+            age: 26,
+            country: "US",
+            state: "New York"
+        )
+        StockLiftSDK.client = client
     }
 }
 
