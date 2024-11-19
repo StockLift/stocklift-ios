@@ -8,15 +8,15 @@
 
 import Foundation
 
-public struct PortfolioResponse: Codable {
-    public let hasAccount: Bool
-    public let hasCostBasis: Bool?
-    public let missingData: [String]?
-    public let data: Portfolio
-    public let pendingData: Bool?
-    public let date: String?
+struct PortfolioResponse: Codable {
+    let hasAccount: Bool
+    let hasCostBasis: Bool?
+    let missingData: [String]?
+    let data: Portfolio
+    let pendingData: Bool?
+    let date: String?
     
-    public init(hasAccount: Bool, hasCostBasis: Bool?, missingData: [String]?, data: Portfolio, pendingData: Bool?, date: String?) {
+    init(hasAccount: Bool, hasCostBasis: Bool?, missingData: [String]?, data: Portfolio, pendingData: Bool?, date: String?) {
         self.hasAccount = hasAccount
         self.hasCostBasis = hasCostBasis
         self.missingData = missingData
@@ -35,16 +35,16 @@ public struct PortfolioResponse: Codable {
     }
 }
 
-public struct Portfolio: Codable {
-    public let currentNetWorth: Float?
-    public let totalHoldings: [UserEquity]
-    public let sectorTotals: [SectorTotals]
-    public let returnOnInvestment: String?
-    public let diversificationScore: Float?
-    public let totalGrowthAmount: [GrowthTimeline]
-    public let geoAssets: [GeoAssetsData]
+struct Portfolio: Codable {
+    let currentNetWorth: Float?
+    let totalHoldings: [UserEquity]
+    let sectorTotals: [SectorTotals]
+    let returnOnInvestment: String?
+    let diversificationScore: Float?
+    let totalGrowthAmount: [GrowthTimeline]
+    let geoAssets: [GeoAssetsData]
     
-    public init(currentNetWorth: Float?, totalHoldings: [UserEquity], sectorTotals: [SectorTotals], returnOnInvestment: String?, diversificationScore: Float?, totalGrowthAmount: [GrowthTimeline], geoAssets: [GeoAssetsData]) {
+    init(currentNetWorth: Float?, totalHoldings: [UserEquity], sectorTotals: [SectorTotals], returnOnInvestment: String?, diversificationScore: Float?, totalGrowthAmount: [GrowthTimeline], geoAssets: [GeoAssetsData]) {
         self.currentNetWorth = currentNetWorth
         self.totalHoldings = totalHoldings
         self.sectorTotals = sectorTotals
@@ -66,21 +66,21 @@ public struct Portfolio: Codable {
     }
 }
 
-public struct UserEquity: Codable, Identifiable {
-    public let id: String
-    public let name: String?
-    public let symbol: String?
-    public let institutionValue: Float?
-    public var costBasis: Float?
-    public let closePrice: Float?
-    public let quantity: Decimal?
-    public let sectors: [Sector]?
-    public let type: EquityType?
-    public let percentChange: Decimal?
-    public let country: String?
-    public var url: URL?
+struct UserEquity: Codable, Identifiable {
+    let id: String
+    let name: String?
+    let symbol: String?
+    let institutionValue: Float?
+    var costBasis: Float?
+    let closePrice: Float?
+    let quantity: Decimal?
+    let sectors: [Sector]?
+    let type: EquityType?
+    let percentChange: Decimal?
+    let country: String?
+    var url: URL?
     
-    public init(id: String, name: String?, symbol: String?, institutionValue: Float?, costBasis: Float? = nil, closePrice: Float?, quantity: Decimal?, sectors: [Sector]?, type: EquityType?, percentChange: Decimal?, country: String?, url: URL? = nil) {
+    init(id: String, name: String?, symbol: String?, institutionValue: Float?, costBasis: Float? = nil, closePrice: Float?, quantity: Decimal?, sectors: [Sector]?, type: EquityType?, percentChange: Decimal?, country: String?, url: URL? = nil) {
         self.id = id
         self.name = name
         self.symbol = symbol
@@ -109,13 +109,13 @@ public struct UserEquity: Codable, Identifiable {
 }
 
 
-public struct Sector: Codable, Identifiable, Hashable {
-    public var id: String { sector ?? UUID().uuidString }
-    public let sector: String?
-    public let assetPercent: String?
-    public let amountInvested: Float?
+struct Sector: Codable, Identifiable, Hashable {
+    var id: String { sector ?? UUID().uuidString }
+    let sector: String?
+    let assetPercent: String?
+    let amountInvested: Float?
     
-    public init(sector: String?, assetPercent: String?, amountInvested: Float?) {
+    init(sector: String?, assetPercent: String?, amountInvested: Float?) {
         self.sector = sector
         self.assetPercent = assetPercent
         self.amountInvested = amountInvested
@@ -129,15 +129,15 @@ public struct Sector: Codable, Identifiable, Hashable {
 }
 
 
-public struct SectorTotals: Codable, Hashable, Identifiable {
-    public var id: String { sector ?? UUID().uuidString }
-    public let sector: String?
-    public let amount: Float?
-    public let percent: Float?
-    public let percentChange: String?
-    public let dollarChange: Float?
+struct SectorTotals: Codable, Hashable, Identifiable {
+    var id: String { sector ?? UUID().uuidString }
+    let sector: String?
+    let amount: Float?
+    let percent: Float?
+    let percentChange: String?
+    let dollarChange: Float?
     
-    public init(sector: String?, amount: Float?, percent: Float?, percentChange: String?, dollarChange: Float?) {
+    init(sector: String?, amount: Float?, percent: Float?, percentChange: String?, dollarChange: Float?) {
         self.sector = sector
         self.amount = amount
         self.percent = percent
@@ -153,11 +153,11 @@ public struct SectorTotals: Codable, Hashable, Identifiable {
 }
 
 
-public struct GrowthTimeline: Codable {
-    public let amount: Float?
-    public let year: String?
+struct GrowthTimeline: Codable {
+    let amount: Float?
+    let year: String?
     
-    public init(amount: Float?, year: String?) {
+    init(amount: Float?, year: String?) {
         self.amount = amount
         self.year = year
     }
