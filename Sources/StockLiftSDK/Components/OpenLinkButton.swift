@@ -10,39 +10,64 @@ import LinkKit
 import SwiftUI
 
 struct OpenLinkButton<Content: View>: View {
+    var showLoader: Bool = false
     var getPortfolio: () -> Void
     var errorHandler: () -> Void
     @ViewBuilder var content: Content
     
-    private var token: String {
-        UserDefaults.standard.string(forKey: UserKeys.linkToken) ?? "error_could_not_get_link_token"
-    }
-
+    @State private var linkToken: String?
+    
     @State private var showLink = false
-
+    @State private var isLoading: PlaidLoadState = .loading
+    
     var body: some View {
         Button(action: {
             showLink = true
         }) {
             /// - VIEW CONTENT
-           content
+            Group {
+                if showLoader {
+                    switch isLoading {
+                    case .loading:
+                        ProgressView()
+                    case .loaded:
+                        content
+                    case .failed:
+                        EmptyView()
+                            .onAppear {print("Error in getting Plaid Link Token. Did you configure your access token?")}
+                    }
+                } else {
+                    content
+                }
+            }
+            .onAppear { getPlaidLinkUrl() }
         }
         .sheet(isPresented: $showLink,
-            onDismiss: {
-                showLink = false
-            }, content: {
+               onDismiss: {
+            showLink = false
+        }, content: {
+            if let linkToken = linkToken {
                 PlaidLinkFlow(
-                    linkTokenConfiguration: createLinkTokenConfiguration(),
+                    linkTokenConfiguration: createLinkTokenConfiguration(token: linkToken),
                     showLink: $showLink
                 )
             }
-        )
+        })
     }
-
+    
+    private func getPlaidLinkUrl () {
+        PlaidViewModel.getPlaidLinkToken { (isLoading, linkToken) in
+            DispatchQueue.main.async {
+                self.isLoading = isLoading
+                self.linkToken = linkToken
+            }
+        }
+    }
+    
     /// 1st - User Links account and gets plaid access token
-    private func createLinkTokenConfiguration() -> LinkTokenConfiguration {
+    private func createLinkTokenConfiguration(token: String) -> LinkTokenConfiguration {
         var configuration = LinkTokenConfiguration(
-            token: self.token,
+            token: token,
             onSuccess: { success in
                 let name = success.metadata.institution.name
                 let id = success.metadata.institution.id
@@ -56,11 +81,11 @@ struct OpenLinkButton<Content: View>: View {
                                    accounts: accounts)
             }
         )
-
+        
         configuration.onEvent = { event in
-         //   print("🆔 Link Event: \(event)")
+            //   print("🆔 Link Event: \(event)")
         }
-
+        
         configuration.onExit = { exit in
             if let error = exit.error {
                 print("⛔️ exit with \(error)\n\(exit.metadata)")
@@ -70,7 +95,7 @@ struct OpenLinkButton<Content: View>: View {
             
             DispatchQueue.main.async { showLink = false }
         }
-
+        
         return configuration
     }
 }

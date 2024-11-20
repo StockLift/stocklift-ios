@@ -69,14 +69,14 @@ struct LinkAccountView: View {
                     }
             }
         }
-        .onAppear { getPlaidLinkUrl() }
+//        .onAppear { getPlaidLinkUrl() }
     }
     
-    private func getPlaidLinkUrl () {
-        PlaidViewModel.getPlaidLinkToken { isLoading in
-            DispatchQueue.main.async {
-                self.isLoading = isLoading
-            }
-        }
-    }
+//    private func getPlaidLinkUrl () {
+//        PlaidViewModel.getPlaidLinkToken { isLoading in
+//            DispatchQueue.main.async {
+//                self.isLoading = isLoading
+//            }
+//        }
+//    }
 }
