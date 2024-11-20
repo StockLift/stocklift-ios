@@ -15,86 +15,86 @@ public struct SLCharts<LinkAccountButtonContent: View>: View {
     
     //MARK: - PROPERTIES
     /// CHARTS to show
-    public var chartViews: [SLChartType]
+    private var chartViews: [SLChartType]
     // Vertical or Horizontal
-    public var axis: SLChartAxis
+    private var axis: SLChartAxis
     // Vertical Alignment Chart Heights
-    public var verticalChartHeights: CGFloat
+    private var verticalChartHeights: CGFloat
     
     // Header Text
-    public var projectionsChartHeader: String
-    public var benchmarkChartHeader: String
-    public var sectorChartHeader: String
-    public var geoDiversificationChartHeader: String
-    public var topHoldingsChartHeader: String
-    public var portfolioSummaryChartHeader: String
+    private var projectionsChartHeader: String
+    private var benchmarkChartHeader: String
+    private var sectorChartHeader: String
+    private var geoDiversificationChartHeader: String
+    private var topHoldingsChartHeader: String
+    private var portfolioSummaryChartHeader: String
     
     // Link Account Details
-    public var linkAccountHeader: String
-    public var linkAccountForegroundColor: Color
-    public var linkAccountBackgroundColor: Color
-    public var linkAccountBorderColor: Color
-    public var linkAccountConnectSize: CGFloat
-    public var linkAccountFont: Font
-    public var linkAccountFontColor: Color
-    public var linkAccountButtonFont: Font
-    public var linkAccountButtonColor: Color
-    public var linkAccountButtonFontColor: Color
-    public var linkAccountButtonText: String
+    private var linkAccountHeader: String
+    private var linkAccountForegroundColor: Color
+    private var linkAccountBackgroundColor: Color
+    private var linkAccountBorderColor: Color
+    private var linkAccountConnectSize: CGFloat
+    private var linkAccountFont: Font
+    private var linkAccountFontColor: Color
+    private var linkAccountButtonFont: Font
+    private var linkAccountButtonColor: Color
+    private var linkAccountButtonFontColor: Color
+    private var linkAccountButtonText: String
     
     // Chart Details
-    public var gainColor: Color
-    public let lossColor: Color
-    public var height: CGFloat
-    public var chartForegroundColor: Color
-    public var chartForegroundBorderColor: Color
-    public var xAxisFont: Font
-    public var xAxisFontColor: Color
-    public var yAxisFont: Font
-    public var yAxisFontColor: Color
-    public var headerFont: Font
-    public var headerFontColor: Color
-    public var subHeaderFont: Font
-    public var subHeaderFontColor: Color
-    public var sectorDetailFont: Font
-    public var sectorDetailFontColor: Color
-    public var sp500Colors: [Color] // Benchmark Chart
-    public var portfolioColors: [Color] // Benchmark Chart
-    public var buttonColor: Color
-    public var buttonFontColor: Color
-    public var buttonFont: Font
+    private var gainColor: Color
+    private let lossColor: Color
+    private var height: CGFloat
+    private var chartForegroundColor: Color
+    private var chartForegroundBorderColor: Color
+    private var xAxisFont: Font
+    private var xAxisFontColor: Color
+    private var yAxisFont: Font
+    private var yAxisFontColor: Color
+    private var headerFont: Font
+    private var headerFontColor: Color
+    private var subHeaderFont: Font
+    private var subHeaderFontColor: Color
+    private var sectorDetailFont: Font
+    private var sectorDetailFontColor: Color
+    private var sp500Colors: [Color] // Benchmark Chart
+    private var portfolioColors: [Color] // Benchmark Chart
+    private var buttonColor: Color
+    private var buttonFontColor: Color
+    private var buttonFont: Font
     
     // Legend
-    let legendFont: Font
-    let legendTextColor: Color
+    private var legendFont: Font
+    private var legendTextColor: Color
 
     // Asset Details
-    public var sectorHeaderFont: Font // Asset Details //TODO: - rename
-    public var sectorHeaderFontColor: Color // Asset Details //TODO: - rename
-    public var sectorSubHeaderFont: Font // Asset Details //TODO: - rename
-    public var sectorSubHeaderFontColor: Color // Asset Details //TODO: - rename
-    public var assetDefaultColor: Color // Asset Details //TODO: - rename
-    public var symbolFont: Font // Asset Details Pop up //TODO: - rename
-    public var symbolFontColor: Color // Asset Details Pop up //TODO: - rename
-    public var nameFont: Font // Asset Details Pop up //TODO: - rename
-    public var nameFontColor: Color // Asset Details Pop up //TODO: - rename
+    private var sectorHeaderFont: Font // Asset Details //TODO: - rename
+    private var sectorHeaderFontColor: Color // Asset Details //TODO: - rename
+    private var sectorSubHeaderFont: Font // Asset Details //TODO: - rename
+    private var sectorSubHeaderFontColor: Color // Asset Details //TODO: - rename
+    private var assetDefaultColor: Color // Asset Details //TODO: - rename
+    private var symbolFont: Font // Asset Details Pop up //TODO: - rename
+    private var symbolFontColor: Color // Asset Details Pop up //TODO: - rename
+    private var nameFont: Font // Asset Details Pop up //TODO: - rename
+    private var nameFontColor: Color // Asset Details Pop up //TODO: - rename
     
     // Pop up Asset Details
-    public var assetDetailsHeaderFont: Font
-    public var assetDetailsBodyFont: Font
-    public var assetDetailsHighlightColor: Color
-    public var assetDetailsTotalPercentColor: Color
+    private var assetDetailsHeaderFont: Font
+    private var assetDetailsBodyFont: Font
+    private var assetDetailsHighlightColor: Color
+    private var assetDetailsTotalPercentColor: Color
     
     // Card Background
-    public var cardBackgroundColor: Color
-    public var cardCornerRadius: CGFloat
-    public var cardShadow: Bool
+    private var cardBackgroundColor: Color
+    private var cardCornerRadius: CGFloat
+    private var cardShadow: Bool
     
     // Disclaimer Font
-    public var disclaimerTitleFont: Font
-    public var disclaimerBodyFont: Font
+    private var disclaimerTitleFont: Font
+    private var disclaimerBodyFont: Font
     
-    public var linkViewButton: LinkAccountButtonContent
+    private var linkViewButton: LinkAccountButtonContent
     
     //MARK: - INIT
     public init(
