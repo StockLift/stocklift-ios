@@ -15,8 +15,7 @@ struct OpenLinkButton<Content: View>: View {
     var errorHandler: () -> Void
     @ViewBuilder var content: Content
     
-    @State private var linkToken: String?
-    
+    @State private var linkToken: String? = UserDefaults.standard.string(forKey: UserKeys.linkToken)
     @State private var showLink = false
     @State private var isLoading: PlaidLoadState = .loading
     
@@ -56,10 +55,15 @@ struct OpenLinkButton<Content: View>: View {
     }
     
     private func getPlaidLinkUrl () {
+        guard linkToken == nil else {
+            self.isLoading = .loaded
+            return
+        }
         PlaidViewModel.getPlaidLinkToken { (isLoading, linkToken) in
             DispatchQueue.main.async {
                 self.isLoading = isLoading
                 self.linkToken = linkToken
+                UserDefaults.standard.set(linkToken, forKey: UserKeys.linkToken)
             }
         }
     }
