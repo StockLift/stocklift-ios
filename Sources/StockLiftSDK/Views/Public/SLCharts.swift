@@ -398,6 +398,9 @@ extension SLCharts {
             }
         }
         .onAppear { getPortfolio() }
+        .onDisappear {
+            UserDefaults.standard.removeObject(forKey: UserKeys.linkToken)
+        }
     }
 }
 
@@ -618,6 +621,9 @@ extension SLCharts {
     // GET PORTFOLIO
     private func getPortfolio() {
         viewModel.initView(types: chartViews)
+        if let value = getViewState()?.rawValue {
+            self.selectedTab = value
+        }
     }
 }
 
@@ -645,6 +651,7 @@ extension SLCharts {
             let next = chartViews.index(after: selectedTab)
             let nextView = SLChartType(rawValue: next)
             if let view = nextView {
+                self.setViewState(view)
                 self.selectedTab = view.rawValue
                 HapticTap.light()
             }
@@ -658,10 +665,25 @@ extension SLCharts {
             let next = chartViews.index(before: selectedTab)
             let nextView = SLChartType(rawValue: next)
             if let view = nextView {
+                self.setViewState(view)
                 self.selectedTab = view.rawValue
                 HapticTap.light()
             }
         }
+    }
+    
+    // Set selected view state
+    private func setViewState(_ view: SLChartType) {
+        UserDefaults.standard.set(view.rawValue, forKey: UserKeys.viewState)
+    }
+    
+    // Get last selected view state
+    private func getViewState() -> SLChartType? {
+        let value = UserDefaults.standard.value(forKey: UserKeys.viewState) as? Int
+        if let value = value {
+            return SLChartType(rawValue: value)
+        }
+        return nil
     }
     
     // Last Selectable Tab

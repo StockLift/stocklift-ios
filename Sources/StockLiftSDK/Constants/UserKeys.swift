@@ -11,11 +11,8 @@ import Foundation
 //TODO: - finish setup
 enum UserKeys: Identifiable, CaseIterable {
     public var id: String { "\(self)" }
-    
-    public static let linkToken = "co.stocklift_linkToken"
-//    public static let userUuid = "co.sdk.stocklift_useruid"
-//    public static let userObj = "co.sdk.stocklift_stock_lift_user"
-//    public static let plaidAccounts = "co.stocklift_plaid_accounts"
+    static let linkToken = "co.stocklift_sdk_linkToken"
+    static let viewState = "co.stocklift_sdk_viewState"
 }
 
 
