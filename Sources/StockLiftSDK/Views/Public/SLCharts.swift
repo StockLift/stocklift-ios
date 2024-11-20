@@ -248,7 +248,7 @@ public struct SLCharts<LinkAccountButtonContent: View>: View {
 
 //MARK: AXIS VIEWS
 @available(iOS 16.0, *)
-extension SLCharts {
+fileprivate extension SLCharts {
     
     //MARK: ** HORIZONTAL VIEW REFERENCE **
     @ViewBuilder
@@ -406,7 +406,7 @@ extension SLCharts {
 
 //MARK: CHARTS
 @available(iOS 16.0, *)
-extension SLCharts {
+fileprivate extension SLCharts {
     //MARK: - SECTOR BREAKDOWN CHART
     @ViewBuilder
     private var SectorChartReference: some View {
@@ -611,7 +611,7 @@ extension SLCharts {
 
 //MARK: NETWORK METHODS
 @available(iOS 16.0, *)
-extension SLCharts {
+fileprivate extension SLCharts {
     // PLAID ERROR
     private func plaidError() {
         //TODO: -  remove
@@ -629,7 +629,7 @@ extension SLCharts {
 
 //MARK: TAB BAR Item & NAVIGATION METHODS
 @available(iOS 16.0, *)
-extension SLCharts {
+fileprivate extension SLCharts {
     //MARK: Tab bar next and back selector
     @ViewBuilder
     private func TabSelector(imageName: String, action: @escaping () -> Void, selectable: Bool) -> some View {
