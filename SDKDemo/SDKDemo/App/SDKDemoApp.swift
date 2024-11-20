@@ -12,7 +12,7 @@ import StockLiftSDK
 /// VIEW MODEL
 fileprivate class ContentViewModel: ObservableObject {
     init() {
-        let client = SLClient(
+        let client = HelperClass.getSLClientFromUserDefaults() ?? SLClient(
             uuid: "test-123",
             name: "John Doe",
             email: "test@test.com",

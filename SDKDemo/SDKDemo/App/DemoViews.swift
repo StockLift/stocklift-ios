@@ -154,13 +154,75 @@ struct Example2View: View {
     }
 }
 
+/*
+ let uuid: String
+ let name: String
+ let email: String
+ var age: Int?
+ var country: SLClientCountry?
+ var state: String?
+ */
+
 //MARK: - LOGIN VIEW
 struct DemoLoginView: View {
-    let login: (String) -> Void
-    @State private var userUuid: String = ""
+    let login: (SLClient) -> Void
+    
+    @State private var uuid: String = ""
+    @State private var name: String = ""
+    @State private var email: String = ""
+    @State private var age: String = ""
+    @State private var country: String = ""
+    @State private var state: String = ""
+    
     var body: some View {
         VStack {
-            TextField("User uuid", text: $userUuid)
+            // uuid
+            TextField(uuid, text: $uuid)
+                .keyboardType(.default)
+                .autocapitalization(.none)
+                .padding()
+                .background(Color(UIColor.tertiaryLabel))
+                .cornerRadius(8)
+                .padding(.bottom)
+                .padding(.horizontal)
+            // name
+            TextField(name, text: $name)
+                .keyboardType(.default)
+                .autocapitalization(.none)
+                .padding()
+                .background(Color(UIColor.tertiaryLabel))
+                .cornerRadius(8)
+                .padding(.bottom)
+                .padding(.horizontal)
+            // email
+            TextField(email, text: $email)
+                .keyboardType(.default)
+                .autocapitalization(.none)
+                .padding()
+                .background(Color(UIColor.tertiaryLabel))
+                .cornerRadius(8)
+                .padding(.bottom)
+                .padding(.horizontal)
+            // age
+            TextField(age, text: $age)
+                .keyboardType(.default)
+                .autocapitalization(.none)
+                .padding()
+                .background(Color(UIColor.tertiaryLabel))
+                .cornerRadius(8)
+                .padding(.bottom)
+                .padding(.horizontal)
+            // country
+            TextField(country, text: $country)
+                .keyboardType(.default)
+                .autocapitalization(.none)
+                .padding()
+                .background(Color(UIColor.tertiaryLabel))
+                .cornerRadius(8)
+                .padding(.bottom)
+                .padding(.horizontal)
+            // state
+            TextField(state, text: $state)
                 .keyboardType(.default)
                 .autocapitalization(.none)
                 .padding()
@@ -176,9 +238,38 @@ struct DemoLoginView: View {
                 .background(Color.purple)
                 .cornerRadius(10)
                 .onTapGesture {
-                    login(userUuid)
+                    // construct SLClient
+                    let client = SLClient(
+                        uuid: uuid,
+                        name: name,
+                        email: email,
+                        age: Int(age),
+                        country: SLClientCountry(rawValue: country) ?? .unitedStates,
+                        state: state
+                    )
+                    handleLogin(client)
                 }
             Spacer()
         }
+        .onAppear {
+            getSLClientFromUserDefaults()
+        }
+    }
+    
+    private func handleLogin(_ client: SLClient) {
+        print("Logged in: \(client)")
+        login(client)
+        HelperClass.saveSLClientToUserDefaults(client)
+    }
+    
+    private func getSLClientFromUserDefaults()  {
+        let client = HelperClass.getSLClientFromUserDefaults()
+        // set values to self
+        uuid = client?.uuid ?? "User uuid"
+        name = client?.name ?? "User name"
+        email = client?.email ?? "User email"
+        age = client?.age?.description ?? "User age"
+        country = client?.country?.description ?? "User country"
+        state = client?.state ?? "User state"
     }
 }
