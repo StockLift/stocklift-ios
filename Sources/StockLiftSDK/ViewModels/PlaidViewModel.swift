@@ -14,18 +14,17 @@ import SwiftUI
 final class PlaidViewModel: BaseViewModel {
 
     /// Get Plaid Link Token
-    static func getPlaidLinkToken(isLoading: @escaping (PlaidLoadState) -> Void) {
+    static func getPlaidLinkToken(isLoading: @escaping (PlaidLoadState, String?) -> Void) {
         guard let _ = StockLiftSDK.client else { fatalError(SLError.errorMessage(.clientDetailsNotSet)) }
         NetworkService.shared.getPlaidLinkToken { result in
             switch result {
             case .success(let res):
                 DispatchQueue.main.sync {
-                    UserDefaults.standard.set(res.linkToken, forKey: UserKeys.linkToken)
-                    isLoading(.loaded)
+                    isLoading(.loaded, res.linkToken)
                 }
             case .failure(let err):
                 print(err)
-                isLoading(.failed)
+                isLoading(.failed, nil)
             }
         }
     }

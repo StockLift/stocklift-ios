@@ -8,7 +8,7 @@
 import SwiftUI
 
 @available(iOS 16.0, *)
-public struct SLCharts: View {
+public struct SLCharts<LinkAccountButtonContent: View>: View {
     @StateObject private var viewModel = PortfolioViewModel()
     @State private var selectedTab: Int = 0
     @State private var showDisclaimer: Bool = false
@@ -94,6 +94,8 @@ public struct SLCharts: View {
     public var disclaimerTitleFont: Font
     public var disclaimerBodyFont: Font
     
+    public var linkViewButton: LinkAccountButtonContent
+    
     //MARK: - INIT
     public init(
         _ views: [SLChartType] = SLChartType.allCases,
@@ -163,7 +165,8 @@ public struct SLCharts: View {
         assetDetailsHighlightColor: Color = .yellow,
         assetDetailsTotalPercentColor: Color = .yellow,
         legendFont: Font = .caption2, // caption2
-        legendTextColor: Color = .primary // primary
+        legendTextColor: Color = .primary, // primary
+        @ViewBuilder linkViewButton: @escaping () -> LinkAccountButtonContent = { LinkAccountButton() }
     ) {
         self.chartViews = views
         self.axis = axis
@@ -227,6 +230,7 @@ public struct SLCharts: View {
         self.assetDetailsTotalPercentColor = assetDetailsTotalPercentColor
         self.legendFont = legendFont
         self.legendTextColor = legendTextColor
+        self.linkViewButton = linkViewButton()
     }
     
     public var body: some View {
@@ -240,6 +244,7 @@ public struct SLCharts: View {
         }
     }
 }
+
 
 //MARK: AXIS VIEWS
 @available(iOS 16.0, *)
@@ -302,12 +307,7 @@ extension SLCharts {
                             selectable: firstSelectable)
                 Spacer()
                 OpenLinkButton(getPortfolio: getPortfolio, errorHandler: plaidError) {
-                    LinkAccountButton(
-                        linkAccountButtonText: linkAccountButtonText,
-                        linkAccountButtonFont: linkAccountButtonFont,
-                        linkAccountButtonFontColor: linkAccountButtonFontColor,
-                        linkAccountButtonColor: linkAccountButtonColor
-                    )
+                    linkViewButton
                 }
                 Spacer()
                 TabSelector(imageName: ImageKeys.arrowRightCircle,
@@ -600,7 +600,8 @@ extension SLCharts {
             scoreButtonFontColor: buttonFontColor,
             scoreButtonFont: buttonFont,
             bodyFont: subHeaderFont,
-            bodyFontColor: subHeaderFontColor
+            bodyFontColor: subHeaderFontColor,
+            linkViewButton: {linkViewButton}
         )
     }
 }

@@ -13,7 +13,7 @@ enum PortfolioPercentChange {
 }
 
 @available(iOS 15.0, *)
-struct PortfolioSummaryChart: View {
+struct PortfolioSummaryChart<LinkAccountButtonContent: View>: View {
     @ObservedObject var portfolioVM: PortfolioViewModel
     @Binding var showDisclaimer: Bool
     
@@ -44,6 +44,8 @@ struct PortfolioSummaryChart: View {
     let scoreButtonFont: Font
     let bodyFont: Font
     let bodyFontColor: Color
+    
+    var linkViewButton: LinkAccountButtonContent
     
     @State private var progressPercent: CGFloat = 0
     @State private var showScore: Bool = false
@@ -108,7 +110,8 @@ struct PortfolioSummaryChart: View {
         scoreButtonFontColor: Color = .primary,
         scoreButtonFont: Font = .caption,
         bodyFont: Font = .caption,
-        bodyFontColor: Color = .primary
+        bodyFontColor: Color = .primary,
+        @ViewBuilder linkViewButton: @escaping () -> LinkAccountButtonContent
     )
     {
         self.portfolioVM = vm
@@ -136,6 +139,7 @@ struct PortfolioSummaryChart: View {
         self.scoreButtonFont = scoreButtonFont
         self.bodyFont = bodyFont
         self.bodyFontColor = bodyFontColor
+        self.linkViewButton = linkViewButton()
     }
     
     //MARK: - BODY
@@ -184,12 +188,7 @@ struct PortfolioSummaryChart: View {
             } else {
                 // Vertical config
                 OpenLinkButton(getPortfolio: getPortfolio, errorHandler: plaidError) {
-                    LinkAccountButton(
-                        linkAccountButtonText: linkAccountButtonText,
-                        linkAccountButtonFont: linkAccountButtonFont,
-                        linkAccountButtonFontColor: linkAccountButtonFontColor,
-                        linkAccountButtonColor: linkAccountButtonColor
-                    )
+                    linkViewButton
                 }
             }
             
