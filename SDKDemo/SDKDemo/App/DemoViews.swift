@@ -42,32 +42,38 @@ struct DemoAllChartsView: View {
 //                
 //                DemoTextView(text: "This is a demo of the SLCharts configured with the Portfolio Summary and Top Holdings Charts.")
                 
-                SLCharts([.benchmarkPerformance, .projectionsPerformance, .geoDiversification],
-//                         projectionsChartHeader: HelperClass.randomTitle(),
-//                         benchmarkChartHeader: HelperClass.randomTitle(),
-//                         sectorChartHeader: HelperClass.randomTitle(),
-                         linkAccountHeader: HelperClass.randomConnectAccountTitle(),
-                         linkAccountForegroundColor: HelperClass.randomColor(),
-                         linkAccountBackgroundColor: HelperClass.randomColor(),
-                         linkAccountBorderColor: HelperClass.randomColor(),
-                         linkAccountButtonColor: HelperClass.randomColor(),
-                         linkAccountButtonFontColor: HelperClass.randomColor(),
-                         //                         linkAccountFontColor: HelperClass.randomColor(),
-                         gainColor: HelperClass.randomColor(),
-                         lossColor: HelperClass.randomColor(),
-                         chartForegroundColor: HelperClass.randomColor(),
-                         chartForegroundBorderColor: HelperClass.randomColor(),
-                         //                         headerFontColor: HelperClass.randomColor(),
-                         //                         sectorDetailFontColor: HelperClass.randomColor(),
-                         sp500Colors: [HelperClass.randomColor(), HelperClass.randomColor(), HelperClass.randomColor()],
-                         portfolioColors: [HelperClass.randomColor(), HelperClass.randomColor(), HelperClass.randomColor()],
-                         assetDefaultColor: HelperClass.randomColor(),
-                         cardBackgroundColor: HelperClass.randomColor()
-
-                )
-                .frame(height: 420)
-                
-                DemoTextView(text: "This is a demo of the SLCharts configured with the Benchmark, Projections, and Geo Diversification Charts.")
+//                SLCharts([.benchmarkPerformance, .projectionsPerformance, .geoDiversification],
+////                         projectionsChartHeader: HelperClass.randomTitle(),
+////                         benchmarkChartHeader: HelperClass.randomTitle(),
+////                         sectorChartHeader: HelperClass.randomTitle(),
+//                         linkAccountHeader: HelperClass.randomConnectAccountTitle(),
+//                         linkAccountForegroundColor: HelperClass.randomColor(),
+//                         linkAccountBackgroundColor: HelperClass.randomColor(),
+//                         linkAccountBorderColor: HelperClass.randomColor(),
+//                         linkAccountButtonColor: HelperClass.randomColor(),
+//                         linkAccountButtonFontColor: HelperClass.randomColor(),
+//                         //                         linkAccountFontColor: HelperClass.randomColor(),
+//                         gainColor: HelperClass.randomColor(),
+//                         lossColor: HelperClass.randomColor(),
+//                         chartForegroundColor: HelperClass.randomColor(),
+//                         chartForegroundBorderColor: HelperClass.randomColor(),
+//                         //                         headerFontColor: HelperClass.randomColor(),
+//                         //                         sectorDetailFontColor: HelperClass.randomColor(),
+//                         sp500Colors: [HelperClass.randomColor(), HelperClass.randomColor(), HelperClass.randomColor()],
+//                         portfolioColors: [HelperClass.randomColor(), HelperClass.randomColor(), HelperClass.randomColor()],
+//                         assetDefaultColor: HelperClass.randomColor(),
+//                         cardBackgroundColor: HelperClass.randomColor(),
+//                         linkViewButton: {
+//                    VStack {
+//                        Text("Link View")
+//                        Circle().fill(Color.blue)
+//                    }
+//                }
+//
+//                )
+//                .frame(height: 420)
+//                
+//                DemoTextView(text: "This is a demo of the SLCharts configured with the Benchmark, Projections, and Geo Diversification Charts.")
                 
 //                SLCharts(
 ////                    projectionsChartHeader: HelperClass.randomTitle(),
@@ -149,7 +155,9 @@ struct Example2View: View {
         VStack {
             Text("Example if a user initializes using the new vertical alignment.")
                 .font(.footnote).foregroundStyle(Color.secondary)
-            SLCharts(axis: .vertical)
+            SLCharts(axis: .vertical) {
+                Text("+")
+            }
         }
     }
 }
