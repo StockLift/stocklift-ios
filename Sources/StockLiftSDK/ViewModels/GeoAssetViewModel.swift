@@ -8,10 +8,10 @@
 
 import Foundation
 
-public final class GeoAssetViewModel: BaseViewModel {
+final class GeoAssetViewModel: BaseViewModel {
     let usersAssets: [GeoAssetsData]
     
-    public init(usersAssets: [GeoAssetsData]) {
+    init(usersAssets: [GeoAssetsData]) {
         self.usersAssets = usersAssets
     }
 }

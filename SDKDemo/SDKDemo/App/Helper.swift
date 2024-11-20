@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import StockLiftSDK
 
 struct HelperClass {
     
@@ -53,6 +54,28 @@ struct HelperClass {
         return bools.randomElement()!
     }
     
+    static func saveSLClientToUserDefaults(_ client: SLClient) {
+        let defaults = UserDefaults.standard
+        do {
+            try defaults.setObject(client, forKey: "sdk_client")
+        } catch {
+            print(error)
+        }
+    }
+    
+    static func getSLClientFromUserDefaults() -> SLClient? {
+        let defaults = UserDefaults.standard
+        
+        do {
+            let client =  try defaults.getObject(forKey: "sdk_client", castTo: SLClient.self)
+            return client
+        } catch {
+            print(error)
+        }
+
+        return nil
+    }
+    
 }
 
 
@@ -81,3 +104,42 @@ struct TemplateDemoView<T:View>: View {
         }
     }
 }
+
+
+
+
+extension UserDefaults {
+    func setObject<Object>(_ object: Object, forKey: String) throws where Object : Encodable {
+        let encoder = JSONEncoder()
+        do {
+            let data = try encoder.encode(object)
+            set(data, forKey: forKey)
+        } catch {
+            throw ObjectSavableError.unableToEncode
+        }
+    }
+    
+    func getObject<Object>(forKey: String, castTo type: Object.Type) throws -> Object where Object : Decodable {
+        guard let data = data(forKey: forKey) else { throw ObjectSavableError.noValue }
+        let decoder = JSONDecoder()
+        do {
+            let object = try decoder.decode(type, from: data)
+            return object
+        } catch {
+            throw ObjectSavableError.unableToDecode
+        }
+    }
+}
+
+
+enum ObjectSavableError: String, LocalizedError {
+    case unableToEncode = "Unable to encode object into data"
+    case noValue = "No data object found for the given key"
+    case unableToDecode = "Unable to decode object into given type"
+    
+    var errorDescription: String? {
+        rawValue
+    }
+}
+
+

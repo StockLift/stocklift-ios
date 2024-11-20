@@ -7,16 +7,16 @@
 
 import Foundation
 
-public struct GeoAssetsData: Codable, Identifiable {
-    public var id: String { continent }
-    public let continent: String
-    public let continentWeight: Decimal
-    public let continentGain: Decimal
-    public let continentTotalValue: Decimal
-    public let continentDollarGain: Decimal
-    public let continentAssets: [UserEquity]
+struct GeoAssetsData: Codable, Identifiable {
+    var id: String { continent }
+    let continent: String
+    let continentWeight: Decimal
+    let continentGain: Decimal
+    let continentTotalValue: Decimal
+    let continentDollarGain: Decimal
+    let continentAssets: [UserEquity]
     
-    public init(continent: String, continentWeight: Decimal, continentGain: Decimal, continentTotalValue: Decimal, continentDollarGain: Decimal, continentAssets: [UserEquity]) {
+    init(continent: String, continentWeight: Decimal, continentGain: Decimal, continentTotalValue: Decimal, continentDollarGain: Decimal, continentAssets: [UserEquity]) {
         self.continent = continent
         self.continentWeight = continentWeight
         self.continentGain = continentGain

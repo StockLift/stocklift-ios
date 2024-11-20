@@ -10,10 +10,10 @@ import Foundation
 import SwiftUI
 
 @available(iOS 13.0, *)
-public class ChartUtility {
+class ChartUtility {
     
     // Pairing each sector with color for representation in a pie chart. Converts sector data into pie chart
-    public static func entriesForDiversification(_ entries: [SectorData], colors: [Color]) -> [PieChartData] {
+    static func entriesForDiversification(_ entries: [SectorData], colors: [Color]) -> [PieChartData] {
         let combined = zip(entries, colors)
         let final = combined.map { (totals: SectorData, color: Color)  in
             PieChartData(value: totals.value, label: totals.label, color: color)
@@ -23,13 +23,13 @@ public class ChartUtility {
     }
     
     // Create Pie Chart Entry for Sectors
-    public static func createEntry(title: String, total: Float) -> SectorData {
+    static func createEntry(title: String, total: Float) -> SectorData {
         let entry = SectorData(value: Double(total), label: title)
         return entry
     }
     
     // Convert sector data into an array of SectorData objects
-    public static func setSectorData(_ sectors: [SectorTotals]) -> [SectorData] {
+    static func setSectorData(_ sectors: [SectorTotals]) -> [SectorData] {
         var sectorEntries: [SectorData] = []
         sectors.forEach { sector in
             let name = sector.sector
@@ -41,7 +41,7 @@ public class ChartUtility {
         return sectorEntries.sorted(by: {$0.value > $1.value})
     }
     
-    public static func setGrowthChart(_ data: [GrowthTimeline]) -> [ChartData] {
+    static func setGrowthChart(_ data: [GrowthTimeline]) -> [ChartData] {
         return data.map { entry in
             let date: Date = entry.year?.toDate(format: "yyyy") ?? Date()
             var dateString = date.getFormattedDate(format: "yyyy")
@@ -53,7 +53,7 @@ public class ChartUtility {
         }
     }
     
-    public static func setSectorDetails(_ holdings: [UserEquity], with sectorTotals: [SectorTotals]) -> [[SectorTotals: [UserEquity]]] {
+    static func setSectorDetails(_ holdings: [UserEquity], with sectorTotals: [SectorTotals]) -> [[SectorTotals: [UserEquity]]] {
         var assetDict = [String: [UserEquity]]()
         var userDict = [[SectorTotals: [UserEquity]]]()
         
@@ -121,7 +121,7 @@ public class ChartUtility {
     }
     
     // Convert an array of UserEquity objects into dict: keys - stock symbols, values - tuples with closing price and total value
-    public static func makeDict(_ assets: [UserEquity]) -> [String: (close: Float, value: Float)] {
+    static func makeDict(_ assets: [UserEquity]) -> [String: (close: Float, value: Float)] {
         var dict: [String: (close: Float, value: Float)] = [:]
         assets.forEach { equity in
             if equity.type != .cash {
@@ -135,7 +135,7 @@ public class ChartUtility {
     }
     
     // Checks if the only sector is "Cash"
-    public static func onlyCash(_ entries: [SectorData]) -> Bool {
+    static func onlyCash(_ entries: [SectorData]) -> Bool {
         let count = entries.count
         let hasCash = entries.contains(where: { $0.label == "Cash" || $0.label == "cash" })
         if count == 1 && hasCash {
@@ -146,14 +146,14 @@ public class ChartUtility {
     }
     
     // Formats amount to String
-    public static func amount(_ entryValue: Double) -> String {
+    static func amount(_ entryValue: Double) -> String {
         var string = String(format: "%.2f", entryValue)
         string.append("%")
         return string
     }
     
     // Returns last 7 sorted, processed chart data points
-    public static func setCharts(entryData: [UserTimeSeries]) -> [ChartData] {
+    static func setCharts(entryData: [UserTimeSeries]) -> [ChartData] {
         let revEntries = entryData.reversed()
         var entries: [ChartData] = []
         
@@ -171,5 +171,5 @@ public class ChartUtility {
         limitedEntries.sort(by: { $0.date < $1.date })
         return limitedEntries
     }
-
+    
 }

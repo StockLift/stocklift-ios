@@ -8,10 +8,10 @@
 import Foundation
 
 
-public struct GrowthChartResponse: Codable {
-    public let data: [GrowthTimeline]
+struct GrowthChartResponse: Codable {
+    let data: [GrowthTimeline]
     
-    public init(data: [GrowthTimeline]) {
+    init(data: [GrowthTimeline]) {
         self.data = data
     }
 }

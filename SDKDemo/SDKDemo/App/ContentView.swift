@@ -64,8 +64,8 @@ struct ContentView: View {
     }
     
     // LOGIN - (create a new test client from uuid)
-    private func login(_ id: String) {
-        let client: SLClient = .init(uuid: id, name: "TEST-\(id)", email: "test-\(id)@test.com")
+    private func login(_ client: SLClient) {
+//        let client: SLClient = .init(uuid: id, name: "TEST-\(id)", email: "test-\(id)@test.com")
         StockLiftSDK.client = client
         toggleView()
     }

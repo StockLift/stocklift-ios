@@ -100,7 +100,7 @@ public struct SLCharts: View {
         axis: SLChartAxis = .horizontal,
         verticalChartHeights: CGFloat = UIScreen.main.bounds.width * 0.8,
         // Chart Headers
-        projectionsChartHeader: String = "Portfolio Growth Projections",
+        projectionsChartHeader: String = "Growth Projections",
         benchmarkChartHeader: String = "My Portfolio vs. S&P 500",
         sectorChartHeader: String = "Sector Diversification",
         geoDiversificationChartHeader: String = "Geography Diversification",
