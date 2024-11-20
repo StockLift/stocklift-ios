@@ -187,7 +187,7 @@ struct PortfolioSummaryChart<LinkAccountButtonContent: View>: View {
                 Spacer()
             } else {
                 // Vertical config
-                OpenLinkButton(getPortfolio: getPortfolio, errorHandler: plaidError) {
+                OpenLinkButton(showLoader: true, getPortfolio: getPortfolio, errorHandler: plaidError) {
                     linkViewButton
                 }
             }

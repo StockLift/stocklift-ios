@@ -38,7 +38,7 @@ struct LinkAccountView: View {
     
     var body: some View {
         // Plaid Link flow
-        OpenLinkButton(getPortfolio: getPortfolio, errorHandler: plaidError) {
+        OpenLinkButton(showLoader: true, getPortfolio: getPortfolio, errorHandler: plaidError) {
             VStack(alignment: .center, spacing: 24) {
                 VStack(spacing: 16) {
                     HeaderView
